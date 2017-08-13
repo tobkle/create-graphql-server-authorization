@@ -15,7 +15,7 @@ import protectFields from './lib/protectFields';
 import queryForRoles from './lib/queryForRoles';
 import userRoleAuthorized from './lib/userRoleAuthorized';
 
-export default {
+module.exports = {
   getLogFilename, 
   logger, 
   authlog, 
