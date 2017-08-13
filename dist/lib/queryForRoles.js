@@ -8,7 +8,7 @@ var _loggedIn = require("./loggedIn");
 
 var _loggedIn2 = _interopRequireDefault(_loggedIn);
 
-var _dummyUserContext = require("../../test/dummyUserContext");
+var _dummyUserContext = require("./dummyUserContext");
 
 var _dummyUserContext2 = _interopRequireDefault(_dummyUserContext);
 
@@ -21,7 +21,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var defaultLogger = (0, _authlog2.default)();
-var User = _dummyUserContext2.default;
 
 /*
  * Prepare a query object for mongodb operations with authorization queries

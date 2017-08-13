@@ -1,5 +1,11 @@
 "use strict";
 
+var _dummyUserContext = require("./dummyUserContext");
+
+var _dummyUserContext2 = _interopRequireDefault(_dummyUserContext);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /*
  * Protects a field based on authorizations
  * @param {object} me
@@ -14,8 +20,9 @@ function protectFields() {
   var authorizedUserRoles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   var protectedFields = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
   var inputObject = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-  var _ref = arguments[4];
-  var User = _ref.User;
+
+  var _ref = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : { User: _dummyUserContext2.default },
+      User = _ref.User;
 
   // pure function
   var result = Object.assign({}, inputObject);

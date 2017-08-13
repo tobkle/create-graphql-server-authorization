@@ -1,5 +1,5 @@
 import userRoleAuthorized from "../dist/lib/userRoleAuthorized";
-import dummyUserContext from "./dummyUserContext";
+import dummyUserContext from "../dist/lib/dummyUserContext";
 import authlog from "../dist/lib/authlog";
 
 const expect = require('chai').expect;

@@ -1,71 +1,5 @@
 window.esdocSearchIndex = [
   [
-    "create-graphql-server-authorization/src/lib/authlog.js~authlog",
-    "function/index.html#static-function-authlog",
-    "<span>authlog</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/authlog.js</span>",
-    "function"
-  ],
-  [
-    "create-graphql-server-authorization/src/lib/checkauthdoc.js~checkauthdoc",
-    "function/index.html#static-function-checkAuthDoc",
-    "<span>checkAuthDoc</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/checkAuthDoc.js</span>",
-    "function"
-  ],
-  [
-    "create-graphql-server-authorization/src/lib/fieldcontainsuserid.js~fieldcontainsuserid",
-    "function/index.html#static-function-fieldContainsUserId",
-    "<span>fieldContainsUserId</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/fieldContainsUserId.js</span>",
-    "function"
-  ],
-  [
-    "create-graphql-server-authorization/src/lib/findbyids.js~findbyids",
-    "function/index.html#static-function-findByIds",
-    "<span>findByIds</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/findByIds.js</span>",
-    "function"
-  ],
-  [
-    "create-graphql-server-authorization/src/lib/getlogfilename.js~getlogfilename",
-    "function/index.html#static-function-getLogFilename",
-    "<span>getLogFilename</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/getLogFilename.js</span>",
-    "function"
-  ],
-  [
-    "create-graphql-server-authorization/src/lib/loggedin.js~loggedin",
-    "function/index.html#static-function-loggedIn",
-    "<span>loggedIn</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/loggedIn.js</span>",
-    "function"
-  ],
-  [
-    "create-graphql-server-authorization/src/lib/logger.js~logger",
-    "function/index.html#static-function-logger",
-    "<span>logger</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/logger.js</span>",
-    "function"
-  ],
-  [
-    "create-graphql-server-authorization/src/lib/protectfields.js~protectfields",
-    "function/index.html#static-function-protectFields",
-    "<span>protectFields</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/protectFields.js</span>",
-    "function"
-  ],
-  [
-    "create-graphql-server-authorization/src/lib/queryforroles.js~queryforroles",
-    "function/index.html#static-function-queryForRoles",
-    "<span>queryForRoles</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/queryForRoles.js</span>",
-    "function"
-  ],
-  [
-    "create-graphql-server-authorization/src/lib/logger.js~stream",
-    "variable/index.html#static-variable-stream",
-    "<span>stream</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/logger.js</span>",
-    "variable"
-  ],
-  [
-    "create-graphql-server-authorization/src/lib/userroleauthorized.js~userroleauthorized",
-    "function/index.html#static-function-userRoleAuthorized",
-    "<span>userRoleAuthorized</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/userRoleAuthorized.js</span>",
-    "function"
-  ],
-  [
     "src/.external-ecmascript.js~array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
     "src/.external-ecmascript.js~Array",
@@ -363,6 +297,12 @@ window.esdocSearchIndex = [
     "src/lib/checkauthdoc.js",
     "file/src/lib/checkAuthDoc.js.html",
     "src/lib/checkAuthDoc.js",
+    "file"
+  ],
+  [
+    "src/lib/dummyusercontext.js",
+    "file/src/lib/dummyUserContext.js.html",
+    "src/lib/dummyUserContext.js",
     "file"
   ],
   [

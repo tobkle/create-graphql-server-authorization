@@ -1,6 +1,6 @@
 "use strict";
 
-var _dummyUserContext = require("../../test/dummyUserContext");
+var _dummyUserContext = require("./dummyUserContext");
 
 var _dummyUserContext2 = _interopRequireDefault(_dummyUserContext);
 
@@ -11,7 +11,6 @@ var _authlog2 = _interopRequireDefault(_authlog);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var defaultLogger = (0, _authlog2.default)();
-var User = _dummyUserContext2.default;
 
 /*
  * Is a user's role authorized for a document

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">src/lib/authlog.js | create-graphql-server-authorization</title>
+  <title data-ice="title">src/lib/dummyUserContext.js | create-graphql-server-authorization</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -33,46 +33,16 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/lib/authlog.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import logger from &quot;./logger&quot;;
-import getLogFilename from &quot;./getLogFilename&quot;;
+<div class="content" data-ice="content"><h1 data-ice="title">src/lib/dummyUserContext.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// mocking User authRole, as it is not existing in this library
+// for usage in the test cases, where we don&apos;t have an original User model context
+const dummyUserContext = {
+  authRole(user) {
+    return user &amp;&amp; user.role ? user.role : null;
+  }
+};
 
-const expect = require(&quot;chai&quot;).expect;
-
-/*
- * Central logger for authorization checks
- * @param {string} resolver
- * @param {string} mode
- * @param {object} me
- * @return {
- *    debug {function},
- *    error {function} 
- * }
- */
-function authlog(resolver = &quot;&quot;, mode = &quot;&quot;, me = {}) {
-  const logFilename = getLogFilename();
-  const log = logger(logFilename);
-
-  const makeMessage = message =&gt;
-    `Authorize ${mode} &quot;${resolver}&quot; with user &quot;${me.username
-      ? me.username
-      : &quot;&lt;no-user&gt;&quot;}&quot; ${message}`;
-
-  return {
-    debug: message =&gt; {
-      const resultMessage = makeMessage(message);
-      log.debug(resultMessage);
-      return resultMessage;
-    },
-    error: message =&gt; {
-      const resultMessage = makeMessage(message);
-      log.error(resultMessage);
-      throw new Error(makeMessage(message));
-    }
-  };
-}
-
-module.exports = authlog;
+module.exports = dummyUserContext;
 </code></pre>
 
 </div>

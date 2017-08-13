@@ -1,5 +1,5 @@
 import protectFields from "../dist/lib/protectFields";
-import dummyUserContext from "./dummyUserContext";
+import dummyUserContext from "../dist/lib/dummyUserContext";
 
 const expect = require('chai').expect;
 const assert = require('chai').assert;

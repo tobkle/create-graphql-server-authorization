@@ -5,7 +5,7 @@ import ObjectId from 'bson-objectid';
 import findByIds from "../dist/lib/findByIds";
 import authlog from "../dist/lib/authlog";
 import queryForRoles from "../dist/lib/queryForRoles";
-import dummyUserContext from "./dummyUserContext";
+import dummyUserContext from "../dist/lib/dummyUserContext";
 
 const expect = require('chai').expect;
 const assert = require('chai').assert;

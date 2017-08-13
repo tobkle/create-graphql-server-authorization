@@ -1,11 +1,10 @@
 import userRoleAuthorized from "./userRoleAuthorized";
 import loggedIn from "./loggedIn";
 
-import dummyUserContext from "../../test/dummyUserContext";
+import dummyUserContext from "./dummyUserContext";
 import authlog from "./authlog";
 
 const defaultLogger = authlog();
-let User = dummyUserContext;
 
 /*
  * Prepare a query object for mongodb operations with authorization queries

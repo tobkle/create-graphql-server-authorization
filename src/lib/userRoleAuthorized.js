@@ -1,8 +1,7 @@
-import dummyUserContext from "../../test/dummyUserContext";
+import dummyUserContext from "./dummyUserContext";
 import authlog from "./authlog";
 
 const defaultLogger = authlog();
-let User = dummyUserContext;
 
 /*
  * Is a user's role authorized for a document

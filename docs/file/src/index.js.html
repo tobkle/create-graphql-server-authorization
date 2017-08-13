@@ -29,18 +29,7 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib">lib</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-authlog">authlog</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-checkAuthDoc">checkAuthDoc</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fieldContainsUserId">fieldContainsUserId</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findByIds">findByIds</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLogFilename">getLogFilename</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loggedIn">loggedIn</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logger">logger</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-protectFields">protectFields</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-queryForRoles">queryForRoles</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-userRoleAuthorized">userRoleAuthorized</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-stream">stream</a></span></span></li>
-</ul>
+  </ul>
 </div>
 </nav>
 
@@ -50,17 +39,22 @@
  * create graphql server 
  * authorization functions
  */
+var authorization = {};
 
-export { getLogFilename } from &apos;./lib/getLogFilename&apos;;
-export { logger } from &quot;./lib/logger&quot;;
-export { authlog } from &quot;./lib/authlog&quot;;
-export { checkAuthDoc } from &quot;./lib/checkAuthDoc&quot;;
-export { fieldContainsUserId } from &quot;./lib/fieldContainsUserId&quot;;
-export { findByIds } from &quot;./lib/findByIds&quot;;
-export { loggedIn } from &quot;./lib/loggedIn&quot;;
-export { protectFields } from &quot;./lib/protectFields&quot;;
-export { queryForRoles } from &quot;./lib/queryForRoles&quot;;
-export { userRoleAuthorized } from &quot;./lib/userRoleAuthorized&quot;;
+authorization.version = require(&apos;../package.json&apos;).version;
+authorization.getLogFilename = require(&apos;./lib/getLogFilename.js&apos;); 
+authorization.dummyUserContext = require(&apos;./lib/dummyUserContext.js&quot;;&apos;); 
+authorization.logger = require(&apos;./lib/logger.js&apos;); 
+authorization.authlog = require(&apos;./lib/authlog.js&apos;); 
+authorization.checkAuthDoc = require(&apos;./lib/checkAuthDoc.js&apos;); 
+authorization.fieldContainsUserId = require(&apos;./lib/fieldContainsUserId.js&apos;); 
+authorization.findByIds = require(&apos;./lib/findByIds.js&apos;); 
+authorization.loggedIn = require(&apos;./lib/loggedIn.js&apos;); 
+authorization.protectFields = require(&apos;./lib/protectFields.js&apos;); 
+authorization.queryForRoles = require(&apos;./lib/queryForRoles.js&apos;); 
+authorization.userRoleAuthorized = require(&apos;./lib/userRoleAuthorized.js&apos;);
+
+module.exports = authorization;
 </code></pre>
 
 </div>

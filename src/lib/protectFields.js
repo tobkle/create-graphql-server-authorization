@@ -1,3 +1,5 @@
+import dummyUserContext from "./dummyUserContext";
+
 /*
  * Protects a field based on authorizations
  * @param {object} me
@@ -12,7 +14,7 @@ function protectFields(
   authorizedUserRoles = [],
   protectedFields = [],
   inputObject = {},
-  { User }
+  { User } = { User: dummyUserContext }
 ) {
   // pure function
   const result = Object.assign({}, inputObject);
