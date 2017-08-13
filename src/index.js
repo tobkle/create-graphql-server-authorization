@@ -7,7 +7,7 @@ var authorization = {};
 
 authorization.version = require('../package.json').version;
 authorization.getLogFilename = require('./lib/getLogFilename.js'); 
-authorization.dummyUserContext = require('./lib/dummyUserContext.js";'); 
+authorization.dummyUserContext = require('./lib/dummyUserContext.js'); 
 authorization.logger = require('./lib/logger.js'); 
 authorization.authlog = require('./lib/authlog.js'); 
 authorization.checkAuthDoc = require('./lib/checkAuthDoc.js'); 
