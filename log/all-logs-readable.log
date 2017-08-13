@@ -1,19 +1,19 @@
-2017-08-13 17:55:56  Authorize testMode "authlog" with user "<no-user>" hello log.debug
-2017-08-13 17:55:56  Authorize testMode "authlog" with user "tobkle" hello log.debug
-2017-08-13 17:55:56  ERROR Authorize testMode "authlog" with user "<no-user>" test-error
-2017-08-13 17:55:56  ERROR Authorize testMode "checkAuth" with user "<no-user>" and role: "null" is not authorized.
-2017-08-13 17:55:56  ERROR Authorize testMode "checkAuth" with user "<no-user>" and role: "null" is not authorized.
-2017-08-13 17:55:56  ERROR Authorize testMode "checkAuth" with user "<no-user>" and role: "null" is not authorized.
-2017-08-13 17:55:56  ERROR Authorize testMode "checkAuth" with user "tobkle" and role: "null" is not authorized.
-2017-08-13 17:55:56  ERROR Authorize testMode "checkAuth" with user "tobkle" and role: "admin" is not authorized.
-2017-08-13 17:55:56  ERROR Authorize testMode "checkAuth" with user "tobkle" and role: "admin" is not authorized.
-2017-08-13 17:55:56  Authorize testMode "checkAuth" with user "tobkle" and role "admin" is authorized
-2017-08-13 17:55:56  Authorize testMode "checkAuth" with user "tobkle" and role: "admin" is authorized by userRole.
-2017-08-13 17:55:56  ERROR Authorize testMode "checkAuth" with user "tobkle" and role: "admin" is not authorized.
-2017-08-13 17:55:56  ERROR Authorize testMode "checkAuth" with user "tobkle" and role: "admin" is not authorized.
-2017-08-13 17:55:56  ERROR Authorize testMode "checkAuth" with user "tobkle" and role: "admin" is not authorized.
-2017-08-13 17:55:56  Authorize testMode "checkAuth" with user "tobkle" and role: "admin" is authorized by docRole.
-2017-08-13 17:55:56  Authorize testMode "findByIds" with user "lacker" and role: "<no-role>" with 
+2017-08-13 18:38:33  Authorize testMode "authlog" with user "<no-user>" hello log.debug
+2017-08-13 18:38:33  Authorize testMode "authlog" with user "tobkle" hello log.debug
+2017-08-13 18:38:33  ERROR Authorize testMode "authlog" with user "<no-user>" test-error
+2017-08-13 18:38:33  ERROR Authorize testMode "checkAuth" with user "<no-user>" and role: "null" is not authorized.
+2017-08-13 18:38:33  ERROR Authorize testMode "checkAuth" with user "<no-user>" and role: "null" is not authorized.
+2017-08-13 18:38:33  ERROR Authorize testMode "checkAuth" with user "<no-user>" and role: "null" is not authorized.
+2017-08-13 18:38:33  ERROR Authorize testMode "checkAuth" with user "tobkle" and role: "null" is not authorized.
+2017-08-13 18:38:33  ERROR Authorize testMode "checkAuth" with user "tobkle" and role: "admin" is not authorized.
+2017-08-13 18:38:33  ERROR Authorize testMode "checkAuth" with user "tobkle" and role: "admin" is not authorized.
+2017-08-13 18:38:33  Authorize testMode "checkAuth" with user "tobkle" and role "admin" is authorized
+2017-08-13 18:38:33  Authorize testMode "checkAuth" with user "tobkle" and role: "admin" is authorized by userRole.
+2017-08-13 18:38:33  ERROR Authorize testMode "checkAuth" with user "tobkle" and role: "admin" is not authorized.
+2017-08-13 18:38:33  ERROR Authorize testMode "checkAuth" with user "tobkle" and role: "admin" is not authorized.
+2017-08-13 18:38:33  ERROR Authorize testMode "checkAuth" with user "tobkle" and role: "admin" is not authorized.
+2017-08-13 18:38:33  Authorize testMode "checkAuth" with user "tobkle" and role: "admin" is authorized by docRole.
+2017-08-13 18:38:33  Authorize testMode "findByIds" with user "lacker" and role: "<no-role>" with 
         authQuery: {
   "$or": [
     {
@@ -21,13 +21,13 @@
     }
   ]
 }
-2017-08-13 17:55:56  ERROR Authorize testMode "queryForRoles-01" with user "<no-user>" and role: "null" is not authorized.
-2017-08-13 17:55:56  ERROR Authorize testMode "queryForRoles-02" with user "<no-user>" and role: "null" is not authorized.
-2017-08-13 17:55:56  ERROR Authorize testMode "queryForRoles-03" with user "<no-user>" and role: "null" is not authorized.
-2017-08-13 17:55:56  ERROR Authorize testMode "queryForRoles-04" with user "tobkle" and role: "other" is not authorized.
-2017-08-13 17:55:56  Authorize testMode "queryForRoles-05" with user "tobkle" and role "admin" is authorized
-2017-08-13 17:55:56  Authorize testMode "queryForRoles-06" with user "tobkle" and role "admin" is authorized
-2017-08-13 17:55:56  Authorize testMode "queryForRoles-07" with user "tobkle" and role: "admin" with 
+2017-08-13 18:38:33  ERROR Authorize testMode "queryForRoles-01" with user "<no-user>" and role: "null" is not authorized.
+2017-08-13 18:38:33  ERROR Authorize testMode "queryForRoles-02" with user "<no-user>" and role: "null" is not authorized.
+2017-08-13 18:38:33  ERROR Authorize testMode "queryForRoles-03" with user "<no-user>" and role: "null" is not authorized.
+2017-08-13 18:38:33  ERROR Authorize testMode "queryForRoles-04" with user "tobkle" and role: "other" is not authorized.
+2017-08-13 18:38:33  Authorize testMode "queryForRoles-05" with user "tobkle" and role "admin" is authorized
+2017-08-13 18:38:33  Authorize testMode "queryForRoles-06" with user "tobkle" and role "admin" is authorized
+2017-08-13 18:38:33  Authorize testMode "queryForRoles-07" with user "tobkle" and role: "admin" with 
         authQuery: {
   "$or": [
     {
@@ -37,7 +37,7 @@
     }
   ]
 }
-2017-08-13 17:55:56  Authorize testMode "queryForRoles-08" with user "tobkle" and role: "admin" with 
+2017-08-13 18:38:33  Authorize testMode "queryForRoles-08" with user "tobkle" and role: "admin" with 
         authQuery: {
   "$or": [
     {
@@ -52,7 +52,7 @@
     }
   ]
 }
-2017-08-13 17:55:56  Authorize testMode "queryForRoles-09" with user "tobkle" and role "admin" is authorized
-2017-08-13 17:55:56  Authorize testMode "queryForRoles-10" with user "tobkle" and role "admin" is authorized
-2017-08-13 17:55:56  Authorize testMode "userRoleAuthorized" with user "tmeasday" and role "admin" is authorized
-2017-08-13 17:55:56  Authorize testMode "userRoleAuthorized" with user "tmeasday" and role "admin" is authorized
+2017-08-13 18:38:33  Authorize testMode "queryForRoles-09" with user "tobkle" and role "admin" is authorized
+2017-08-13 18:38:33  Authorize testMode "queryForRoles-10" with user "tobkle" and role "admin" is authorized
+2017-08-13 18:38:33  Authorize testMode "userRoleAuthorized" with user "tmeasday" and role "admin" is authorized
+2017-08-13 18:38:33  Authorize testMode "userRoleAuthorized" with user "tmeasday" and role "admin" is authorized

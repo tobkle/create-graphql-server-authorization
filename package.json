@@ -1,6 +1,6 @@
 {
   "name": "create-graphql-server-authorization",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Authorization package for create-graphql-server",
   "main": "dist/index.js",
   "nyc": {
@@ -21,7 +21,8 @@
     "esdoc": "node_modules/.bin/esdoc -c esdoc.json",
     "clean": "rm -rf dist/*",
     "build": "npm run clean && babel src -D --out-dir dist/",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "publish": "git add . && git commit -m 'patched' && npm version patch -m 'Version %s' && git push && git push --tags && npm publish"
   },
   "config": {
     "logfile": "log/all-logs-readable.log"
