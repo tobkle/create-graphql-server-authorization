@@ -1,6 +1,6 @@
 {
   "name": "create-graphql-server-authorization",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Authorization package for create-graphql-server",
   "main": "dist/index.js",
   "nyc": {
