@@ -3,27 +3,18 @@
  * create graphql server 
  * authorization functions
  */
+var authorization = {};
 
-import getLogFilename from './lib/getLogFilename';
-import logger from './lib/logger';
-import authlog from "./lib/authlog";
-import checkAuthDoc from './lib/checkAuthDoc';
-import fieldContainsUserId from './lib/fieldContainsUserId';
-import findByIds from './lib/findByIds';
-import loggedIn from './lib/loggedIn';
-import protectFields from './lib/protectFields';
-import queryForRoles from './lib/queryForRoles';
-import userRoleAuthorized from './lib/userRoleAuthorized';
+authorization.version = require('../package.json').version;
+authorization.getLogFilename = require('./lib/getLogFilename.js'); 
+authorization.logger = require('./lib/logger.js'); 
+authorization.authlog = require('./lib/authlog.js'); 
+authorization.checkAuthDoc = require('./lib/checkAuthDoc.js'); 
+authorization.fieldContainsUserId = require('./lib/fieldContainsUserId.js'); 
+authorization.findByIds = require('./lib/findByIds.js'); 
+authorization.loggedIn = require('./lib/loggedIn.js'); 
+authorization.protectFields = require('./lib/protectFields.js'); 
+authorization.queryForRoles = require('./lib/queryForRoles.js'); 
+authorization.userRoleAuthorized = require('./lib/userRoleAuthorized.js');
 
-module.exports = {
-  getLogFilename, 
-  logger, 
-  authlog, 
-  checkAuthDoc, 
-  fieldContainsUserId, 
-  findByIds, 
-  loggedIn, 
-  protectFields, 
-  queryForRoles, 
-  userRoleAuthorized, 
-};
+module.exports = authorization;

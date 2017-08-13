@@ -1,10 +1,5 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = authlog;
-
 var _logger = require("./logger");
 
 var _logger2 = _interopRequireDefault(_logger);
@@ -52,3 +47,5 @@ function authlog() {
     }
   };
 }
+
+module.exports = authlog;

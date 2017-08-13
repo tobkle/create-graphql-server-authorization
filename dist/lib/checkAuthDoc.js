@@ -1,10 +1,5 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = checkAuthDoc;
-
 var _userRoleAuthorized = require("./userRoleAuthorized");
 
 var _userRoleAuthorized2 = _interopRequireDefault(_userRoleAuthorized);
@@ -67,3 +62,5 @@ function checkAuthDoc() {
   // Not Authorized, throw exception in logger.error
   logger.error("and role: \"" + role + "\" is not authorized.");
 }
+
+module.exports = checkAuthDoc;

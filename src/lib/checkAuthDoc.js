@@ -15,7 +15,7 @@ const defaultLogger = authlog();
  * @return {object} doc
  */
 
-export default function checkAuthDoc(
+function checkAuthDoc(
   doc = {},
   me = {},
   userRoles = [],
@@ -53,3 +53,5 @@ export default function checkAuthDoc(
   // Not Authorized, throw exception in logger.error
   logger.error(`and role: "${role}" is not authorized.`);
 }
+
+module.exports = checkAuthDoc;

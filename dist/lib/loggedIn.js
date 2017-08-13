@@ -1,9 +1,5 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = loggedIn;
 /*
  * Checks if an user is logged in
  * @param {object} me
@@ -16,3 +12,5 @@ function loggedIn(me) {
   }
   return false;
 }
+
+module.exports = loggedIn;

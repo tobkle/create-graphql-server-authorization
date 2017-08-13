@@ -1,10 +1,5 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.stream = undefined;
-
 var _winston = require("winston");
 
 var _winston2 = _interopRequireDefault(_winston);
@@ -55,12 +50,13 @@ var logger = function logger(filename) {
   });
 };
 
-exports.default = logger;
-
 // define an output stream
-
-var stream = exports.stream = {
+var stream = {
   write: function write(message, encoding) {
     logger.debug(message);
   }
 };
+
+logger.stream = stream;
+
+module.exports = logger;

@@ -13,7 +13,7 @@ const expect = require("chai").expect;
  *    error {function} 
  * }
  */
-export default function authlog(resolver = "", mode = "", me = {}) {
+function authlog(resolver = "", mode = "", me = {}) {
   const logFilename = getLogFilename();
   const log = logger(logFilename);
 
@@ -35,3 +35,5 @@ export default function authlog(resolver = "", mode = "", me = {}) {
     }
   };
 }
+
+module.exports = authlog;

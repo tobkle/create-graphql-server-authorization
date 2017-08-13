@@ -1,9 +1,5 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = protectFields;
 /*
  * Protects a field based on authorizations
  * @param {object} me
@@ -13,7 +9,6 @@ exports.default = protectFields;
  * @param {object} User
  * @return {object} result
  */
-
 function protectFields() {
   var me = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var authorizedUserRoles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
@@ -37,3 +32,5 @@ function protectFields() {
 
   return result;
 }
+
+module.exports = protectFields;

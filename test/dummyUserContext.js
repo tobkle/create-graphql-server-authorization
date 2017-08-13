@@ -7,4 +7,4 @@ const dummyUserContext = {
   }
 }
 
-export default dummyUserContext;
+module.exports = dummyUserContext;

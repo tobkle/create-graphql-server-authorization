@@ -6,8 +6,7 @@
  * @param {object} userId
  * @return {boolean} foundUserId
  */
-
-export default function findByIds(collection, ids = [], authQuery) {
+function findByIds(collection, ids = [], authQuery) {
   const baseQuery = { _id: { $in: ids } };
   const finalQuery = { ...baseQuery, ...authQuery };
   return collection.find(finalQuery).toArray().then(docs => {
@@ -18,3 +17,5 @@ export default function findByIds(collection, ids = [], authQuery) {
     return ids.map(id => idMap[id]);
   });
 }
+
+module.exports = findByIds;

@@ -1,22 +1,10 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = fieldContainsUserId;
-
 var _lodash = require("lodash");
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/*
- * checks, if a field contains a user's id
- * @param {string, object, array} docRoleField
- * @param {string, object} userId
- * @return {boolean} foundUserId
- */
 
 function extractUserId(userIdObject) {
   var newUserId = "";
@@ -30,7 +18,13 @@ function extractUserId(userIdObject) {
   return newUserId;
 }
 
-// returns true, if a field of type array/object/string contains the userId
+/*
+ * checks, if a field contains a user's id
+ * returns true, if a field of type array/object/string contains the userId
+ * @param {string, object, array} docRoleField
+ * @param {string, object} userId
+ * @return {boolean} foundUserId
+ */
 function fieldContainsUserId(docRoleField, compressedUserId) {
   var found = false;
 
@@ -76,3 +70,5 @@ function fieldContainsUserId(docRoleField, compressedUserId) {
 
   return false;
 }
+
+module.exports = fieldContainsUserId;

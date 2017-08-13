@@ -57,11 +57,13 @@ const logger = function(filename) {
   });
 };
 
-export default logger;
-
 // define an output stream
-export const stream = {
+const stream = {
   write: function(message, encoding) {
     logger.debug(message);
   }
 };
+
+logger.stream = stream;
+
+module.exports = logger;

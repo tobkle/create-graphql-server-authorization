@@ -4,9 +4,11 @@
  * @return {boolean} loggedIn
  */
 
-export default function loggedIn(me) {
+function loggedIn(me) {
   if (me && me._id && me._id.toString() !== "") {
     return true;
   }
   return false;
 }
+
+module.exports = loggedIn;

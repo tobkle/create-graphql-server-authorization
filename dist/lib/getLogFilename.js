@@ -1,10 +1,5 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = getLogFilename;
-
 var _path = require("path");
 
 var _path2 = _interopRequireDefault(_path);
@@ -25,3 +20,5 @@ function getLogFilename() {
   expect(logFilename).be.a("string");
   return logFilename;
 }
+
+module.exports = getLogFilename;

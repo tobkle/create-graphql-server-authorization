@@ -14,7 +14,7 @@ let User = dummyUserContext;
  */
 
 // returns true, if the user's role is authorized for a document
-export default function userRoleAuthorized(
+function userRoleAuthorized(
   me = {},
   userRoles = [],
   { User } = { User: dummyUserContext },
@@ -42,3 +42,5 @@ export default function userRoleAuthorized(
   // => not authorized
   return false;
 }
+
+module.exports = userRoleAuthorized;

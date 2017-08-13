@@ -1,10 +1,5 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = userRoleAuthorized;
-
 var _dummyUserContext = require("../../test/dummyUserContext");
 
 var _dummyUserContext2 = _interopRequireDefault(_dummyUserContext);
@@ -58,3 +53,5 @@ function userRoleAuthorized() {
   // => not authorized
   return false;
 }
+
+module.exports = userRoleAuthorized;

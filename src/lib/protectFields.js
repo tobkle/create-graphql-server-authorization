@@ -7,8 +7,7 @@
  * @param {object} User
  * @return {object} result
  */
-
-export default function protectFields(
+function protectFields(
   me = {},
   authorizedUserRoles = [],
   protectedFields = [],
@@ -30,3 +29,5 @@ export default function protectFields(
 
   return result;
 }
+
+module.exports = protectFields;

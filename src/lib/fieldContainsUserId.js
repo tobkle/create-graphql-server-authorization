@@ -1,12 +1,5 @@
 import _ from "lodash";
 
-/*
- * checks, if a field contains a user's id
- * @param {string, object, array} docRoleField
- * @param {string, object} userId
- * @return {boolean} foundUserId
- */
-
 function extractUserId(userIdObject) {
   let newUserId = "";
   if (_.isObject(userIdObject)) {
@@ -19,8 +12,14 @@ function extractUserId(userIdObject) {
   return newUserId;
 }
 
-// returns true, if a field of type array/object/string contains the userId
-export default function fieldContainsUserId(docRoleField, compressedUserId) {
+/*
+ * checks, if a field contains a user's id
+ * returns true, if a field of type array/object/string contains the userId
+ * @param {string, object, array} docRoleField
+ * @param {string, object} userId
+ * @return {boolean} foundUserId
+ */
+function fieldContainsUserId(docRoleField, compressedUserId) {
   let found = false;
 
   // empty docRoleField is not a valid docRoleField
@@ -74,3 +73,5 @@ export default function fieldContainsUserId(docRoleField, compressedUserId) {
 
   return false;
 }
+
+module.exports = fieldContainsUserId;

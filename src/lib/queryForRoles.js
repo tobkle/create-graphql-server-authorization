@@ -20,8 +20,7 @@ let User = dummyUserContext;
  *
  * @example: const authQuery = queryForRoles(me, userRoles, docRoles, { User }, authlog(resolver, mode, me ) ); 
  */
-
-export default function queryForRoles(
+function queryForRoles(
   me = {},
   userRoles = [],
   docRoles = [],
@@ -70,3 +69,5 @@ export default function queryForRoles(
   const message = `and role: "${role}" is not authorized.`;
   logger.error(message);
 }
+
+module.exports = queryForRoles;

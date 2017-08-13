@@ -1,10 +1,5 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = queryForRoles;
-
 var _userRoleAuthorized = require("./userRoleAuthorized");
 
 var _userRoleAuthorized2 = _interopRequireDefault(_userRoleAuthorized);
@@ -41,7 +36,6 @@ var User = _dummyUserContext2.default;
  *
  * @example: const authQuery = queryForRoles(me, userRoles, docRoles, { User }, authlog(resolver, mode, me ) ); 
  */
-
 function queryForRoles() {
   var me = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var userRoles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
@@ -92,3 +86,5 @@ function queryForRoles() {
   var message = "and role: \"" + role + "\" is not authorized.";
   logger.error(message);
 }
+
+module.exports = queryForRoles;

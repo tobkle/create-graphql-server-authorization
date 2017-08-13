@@ -8,9 +8,11 @@ const expect = require("chai").expect;
  * and should have a section "config" with a "logfile" name
  * @return (string) logFilename
  */
-export default function getLogFilename() {
+function getLogFilename() {
   const packageJSON = require(`${process.cwd()}/package.json`);
   const logFilename = path.normalize(packageJSON.config.logfile);
   expect(logFilename).be.a("string");
   return logFilename;
 }
+
+module.exports = getLogFilename;
