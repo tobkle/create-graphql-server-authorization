@@ -17,7 +17,7 @@
     "prettier": "node_modules/.bin/prettier src/**/*.js --write",
     "pretest": "npm run build",
     "test": "cross-env NODE_ENV=test nyc --require babel-register --require babel-polyfill mocha",
-    "coverage": "cross-env NODE_ENV=test nyc --require babel-register --require babel-polyfill report --reporter=text-lcov | coveralls",
+    "coverage": "cross-env NODE_ENV=test nyc --require babel-register --require babel-polyfill mocha && nyc report --reporter=text-lcov | coveralls",
     "esdoc": "node_modules/.bin/esdoc -c esdoc.json",
     "clean": "rm -rf dist/*",
     "build": "npm run clean && babel src -D --out-dir dist/",
