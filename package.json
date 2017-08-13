@@ -22,7 +22,7 @@
     "clean": "rm -rf dist/*",
     "build": "npm run clean && babel src -D --out-dir dist/",
     "prepublish": "npm run build",
-    "publish": "git add . && git commit -m 'patched' && npm version patch -m 'Version %s' && git push && git push --tags && npm publish"
+    "publisher": "git add . && git commit -m 'patched' && npm version patch -m 'Version %s' && git push && git push --tags && npm publish"
   },
   "config": {
     "logfile": "log/all-logs-readable.log"
