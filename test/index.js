@@ -1,15 +1,21 @@
-'use strict';
+import fs from 'fs';
+import path from 'path';
+import chai from 'chai';
 
-var expect = require('chai').expect;
-import authlog from "../src/lib/authlog";
+const expect = require('chai').expect;
+const indexFile = 'dist/index.js';
+chai.use(require('chai-fs'));
 
-describe('authlog', function() {
-  it('should return an object with "error" and "debug"', function() {
-    var resolver = '';
-    var mode = '';
-    var me = {};
-    var result = authlog(resolver, mode, me);
-    expect(result).to.have.property('error');
-    expect(result).to.have.property('debug');
+describe('index', function() {
+  it('should return an object with with all functions', function() {
+    const ls = fs.readdirSync(`${process.cwd()}/dist/lib`);
+    ls.forEach((filename, index) => {
+      const file = path.parse(filename);
+      if (file.ext === '.js'){
+        let objectName = file.name;
+        let objectNameRegEx = new RegExp(`${objectName}`, "g");
+        expect(indexFile).to.have.content.that.match(objectNameRegEx, `${objectName} must be in dist/index.js file`);
+      }
+    });
   });
 });

@@ -1,15 +1,26 @@
-'use strict';
+// import { ObjectId } from 'mongodb';
+import ObjectId from 'bson-objectid';
+
+import loggedIn from "../dist/lib/loggedIn";
 
 var expect = require('chai').expect;
-import authlog from "../src/lib/authlog";
+var assert = require('chai').assert;
 
-describe('authlog', function() {
-  it('should return an object with "error" and "debug"', function() {
-    var resolver = '';
-    var mode = '';
+describe('loggedIn', function() {
+
+  it('should return false, if not logged in', function() {
     var me = {};
-    var result = authlog(resolver, mode, me);
-    expect(result).to.have.property('error');
-    expect(result).to.have.property('debug');
+    var result = loggedIn(me);
+    assert.isFalse(result);
   });
+
+  it('should return true, if logged in', function() {
+    var me = {
+      "_id": ObjectId("583291a1638566b3c5a92ca0"),
+      "username" : "tmeasday",
+    };
+    var result = loggedIn(me);
+    assert.isTrue(result);
+  });
+
 });

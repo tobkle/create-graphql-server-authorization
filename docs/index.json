@@ -1,0 +1,1449 @@
+[
+  {
+    "__docId__": 1,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Infinity",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 2,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~NaN",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 3,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~undefined",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 4,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~null",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 5,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 6,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 7,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 8,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 9,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 10,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 11,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Symbol",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 12,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Error",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 13,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~EvalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 14,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~InternalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 15,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RangeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 16,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ReferenceError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 17,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~SyntaxError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 18,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~TypeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 19,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~URIError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 20,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 21,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 22,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Date",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 23,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~String",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 24,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~string",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 25,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RegExp",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 26,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 27,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 28,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 29,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8ClampedArray",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 30,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 31,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 32,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 33,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 34,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 35,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float64Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 36,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Map",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 37,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Set",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 38,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakMap",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 39,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakSet",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 40,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ArrayBuffer",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 41,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~DataView",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 42,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~JSON",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 43,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Promise",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 44,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Generator",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 45,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~GeneratorFunction",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 46,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Reflect",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 47,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Proxy",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 48,
+    "kind": "file",
+    "name": "src/index.js",
+    "content": "/*\n * Provides access to all public \n * create graphql server \n * authorization functions\n */\n\nexport { getLogFilename } from './lib/getLogFilename';\nexport { logger } from \"./lib/logger\";\nexport { authlog } from \"./lib/authlog\";\nexport { checkAuthDoc } from \"./lib/checkAuthDoc\";\nexport { fieldContainsUserId } from \"./lib/fieldContainsUserId\";\nexport { findByIds } from \"./lib/findByIds\";\nexport { loggedIn } from \"./lib/loggedIn\";\nexport { protectFields } from \"./lib/protectFields\";\nexport { queryForRoles } from \"./lib/queryForRoles\";\nexport { userRoleAuthorized } from \"./lib/userRoleAuthorized\";\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 49,
+    "kind": "file",
+    "name": "src/lib/authlog.js",
+    "content": "import logger from \"./logger\";\nimport getLogFilename from \"./getLogFilename\";\n\nconst expect = require(\"chai\").expect;\n\n/*\n * Central logger for authorization checks\n * @param {string} resolver\n * @param {string} mode\n * @param {object} me\n * @return {\n *    debug {function},\n *    error {function} \n * }\n */\nexport default function authlog(resolver = \"\", mode = \"\", me = {}) {\n  const logFilename = getLogFilename();\n  const log = logger(logFilename);\n\n  const makeMessage = message =>\n    `Authorize ${mode} \"${resolver}\" with user \"${me.username\n      ? me.username\n      : \"<no-user>\"}\" ${message}`;\n\n  return {\n    debug: message => {\n      const resultMessage = makeMessage(message);\n      log.debug(resultMessage);\n      return resultMessage;\n    },\n    error: message => {\n      const resultMessage = makeMessage(message);\n      log.error(resultMessage);\n      throw new Error(makeMessage(message));\n    }\n  };\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/authlog.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 50,
+    "kind": "variable",
+    "name": "expect",
+    "memberof": "src/lib/authlog.js",
+    "static": true,
+    "longname": "src/lib/authlog.js~expect",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/lib/authlog.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 51,
+    "kind": "function",
+    "name": "authlog",
+    "memberof": "src/lib/authlog.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/authlog.js~authlog",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/authlog.js",
+    "importStyle": "authlog",
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "params": [
+      {
+        "name": "resolver",
+        "optional": true,
+        "types": [
+          "string"
+        ],
+        "defaultRaw": "",
+        "defaultValue": ""
+      },
+      {
+        "name": "mode",
+        "optional": true,
+        "types": [
+          "string"
+        ],
+        "defaultRaw": "",
+        "defaultValue": ""
+      },
+      {
+        "name": "me",
+        "optional": true,
+        "types": [
+          "{}"
+        ],
+        "defaultRaw": {},
+        "defaultValue": "{}"
+      }
+    ],
+    "return": {
+      "types": [
+        "{\"debug\": *, \"error\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 52,
+    "kind": "file",
+    "name": "src/lib/checkAuthDoc.js",
+    "content": "import userRoleAuthorized from \"./userRoleAuthorized\";\nimport fieldContainsUserId from \"./fieldContainsUserId\";\nimport authlog from \"./authlog\";\n\nconst defaultLogger = authlog();\n\n/*\n * Returns an authorized document\n * @param {object} doc\n * @param {object} me\n * @param {array} userRoles\n * @param {array} docRoles\n * @param {object} User\n * @param {function} logger\n * @return {object} doc\n */\n\nexport default function checkAuthDoc(\n  doc = {},\n  me = {},\n  userRoles = [],\n  docRoles = [],\n  { User },\n  logger = defaultLogger\n) {\n  let resultDoc = Object.assign({}, doc);\n\n  // get the User's role\n  const role = User.authRole(me);\n\n  // check if userRole entitles current user for this action\n  if (userRoleAuthorized(me, userRoles, { User }, logger)) {\n    logger.debug(`and role: \"${role}\" is authorized by userRole.`);\n    return resultDoc;\n  }\n\n  // check if docRole entitles current user for this document and action\n  let authorized = false;\n  docRoles.every(field => {\n    if (\n      resultDoc[field] &&\n      me._id &&\n      fieldContainsUserId(resultDoc[field], me._id)\n    ) {\n      authorized = true;\n    }\n  });\n  if (authorized) {\n    logger.debug(`and role: \"${role}\" is authorized by docRole.`);\n    return resultDoc;\n  }\n\n  // Not Authorized, throw exception in logger.error\n  logger.error(`and role: \"${role}\" is not authorized.`);\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/checkAuthDoc.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 53,
+    "kind": "variable",
+    "name": "defaultLogger",
+    "memberof": "src/lib/checkAuthDoc.js",
+    "static": true,
+    "longname": "src/lib/checkAuthDoc.js~defaultLogger",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/lib/checkAuthDoc.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 54,
+    "kind": "function",
+    "name": "checkAuthDoc",
+    "memberof": "src/lib/checkAuthDoc.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/checkAuthDoc.js~checkAuthDoc",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/checkAuthDoc.js",
+    "importStyle": "checkAuthDoc",
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "params": [
+      {
+        "name": "doc",
+        "optional": true,
+        "types": [
+          "{}"
+        ],
+        "defaultRaw": {},
+        "defaultValue": "{}"
+      },
+      {
+        "name": "me",
+        "optional": true,
+        "types": [
+          "{}"
+        ],
+        "defaultRaw": {},
+        "defaultValue": "{}"
+      },
+      {
+        "name": "userRoles",
+        "optional": true,
+        "types": [
+          "*[]"
+        ],
+        "defaultRaw": [],
+        "defaultValue": "[]"
+      },
+      {
+        "name": "docRoles",
+        "optional": true,
+        "types": [
+          "*[]"
+        ],
+        "defaultRaw": [],
+        "defaultValue": "[]"
+      },
+      {
+        "name": "objectPattern4",
+        "types": [
+          "{\"User\": *}"
+        ],
+        "defaultRaw": {
+          "User": null
+        },
+        "defaultValue": "{\"User\":null}"
+      },
+      {
+        "name": "logger",
+        "optional": true,
+        "types": [
+          "*"
+        ],
+        "defaultRaw": "defaultLogger",
+        "defaultValue": "defaultLogger"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 55,
+    "kind": "file",
+    "name": "src/lib/fieldContainsUserId.js",
+    "content": "import _ from \"lodash\";\n\n/*\n * checks, if a field contains a user's id\n * @param {string, object, array} docRoleField\n * @param {string, object} userId\n * @return {boolean} foundUserId\n */\n\nfunction extractUserId(userIdObject) {\n  let newUserId = \"\";\n  if (_.isObject(userIdObject)) {\n    Object.keys(userIdObject).forEach(field => {\n      newUserId = userIdObject[field];\n    });\n  } else {\n    newUserId = userIdObject;\n  }\n  return newUserId;\n}\n\n// returns true, if a field of type array/object/string contains the userId\nexport default function fieldContainsUserId(docRoleField, compressedUserId) {\n  let found = false;\n\n  // empty docRoleField is not a valid docRoleField\n  if (!docRoleField || docRoleField === \"\" || docRoleField.length === 0)\n    return false;\n\n  // empty (compressed) userId is not a valid userId\n  if (\n    !compressedUserId ||\n    compressedUserId === \"\" ||\n    compressedUserId.toString() === \"\"\n  )\n    return false;\n\n  // extract userId, if it is a mongoID field\n  const userId = extractUserId(compressedUserId);\n\n  // empty (uncompressed) userId is not a valid userId\n  if (!userId || userId === \"\") return false;\n\n  // docRoleField of type Array\n  if (_.isArray(docRoleField)) {\n    docRoleField.forEach(field => {\n      if (fieldContainsUserId(field, userId)) {\n        found = true;\n      }\n    });\n    if (found) return true;\n    return false;\n  }\n\n  // docRoleField of type Object\n  if (_.isObject(docRoleField)) {\n    // For each field in the object\n    Object.keys(docRoleField).forEach(field => {\n      if (\n        fieldContainsUserId(docRoleField[field], userId) ||\n        fieldContainsUserId(field, userId)\n      ) {\n        found = true;\n      }\n    });\n    if (found) return true;\n    return false;\n  }\n\n  // docRoleField of type field\n  if (docRoleField.toString() === userId.toString()) {\n    return true;\n  }\n\n  return false;\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/fieldContainsUserId.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 56,
+    "kind": "function",
+    "name": "extractUserId",
+    "memberof": "src/lib/fieldContainsUserId.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/fieldContainsUserId.js~extractUserId",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/lib/fieldContainsUserId.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "params": [
+      {
+        "name": "userIdObject",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 57,
+    "kind": "function",
+    "name": "fieldContainsUserId",
+    "memberof": "src/lib/fieldContainsUserId.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/fieldContainsUserId.js~fieldContainsUserId",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/fieldContainsUserId.js",
+    "importStyle": "fieldContainsUserId",
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true,
+    "params": [
+      {
+        "name": "docRoleField",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compressedUserId",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 58,
+    "kind": "file",
+    "name": "src/lib/findByIds.js",
+    "content": "/*\n * find a record by id (cached with dataloader)\n * returns the record, cached if already read, checks authorization if set\n * enhancement of tmeasday'findByIds\n * @param {string, array} docRoleField\n * @param {object} userId\n * @return {boolean} foundUserId\n */\n\nexport default function findByIds(collection, ids = [], authQuery) {\n  const baseQuery = { _id: { $in: ids } };\n  const finalQuery = { ...baseQuery, ...authQuery };\n  return collection.find(finalQuery).toArray().then(docs => {\n    const idMap = {};\n    docs.forEach(d => {\n      idMap[d._id] = d;\n    });\n    return ids.map(id => idMap[id]);\n  });\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/findByIds.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 59,
+    "kind": "function",
+    "name": "findByIds",
+    "memberof": "src/lib/findByIds.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/findByIds.js~findByIds",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/findByIds.js",
+    "importStyle": "findByIds",
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "params": [
+      {
+        "name": "collection",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "ids",
+        "optional": true,
+        "types": [
+          "*[]"
+        ],
+        "defaultRaw": [],
+        "defaultValue": "[]"
+      },
+      {
+        "name": "authQuery",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 60,
+    "kind": "file",
+    "name": "src/lib/getLogFilename.js",
+    "content": "import path from \"path\";\n\nconst expect = require(\"chai\").expect;\n\n/*\n * Get log filename\n * package.json should be existing in current working directory\n * and should have a section \"config\" with a \"logfile\" name\n * @return (string) logFilename\n */\nexport default function getLogFilename() {\n  const packageJSON = require(`${process.cwd()}/package.json`);\n  const logFilename = path.normalize(packageJSON.config.logfile);\n  expect(logFilename).be.a(\"string\");\n  return logFilename;\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/getLogFilename.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 61,
+    "kind": "variable",
+    "name": "expect",
+    "memberof": "src/lib/getLogFilename.js",
+    "static": true,
+    "longname": "src/lib/getLogFilename.js~expect",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/lib/getLogFilename.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 62,
+    "kind": "function",
+    "name": "getLogFilename",
+    "memberof": "src/lib/getLogFilename.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/getLogFilename.js~getLogFilename",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/getLogFilename.js",
+    "importStyle": "getLogFilename",
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 63,
+    "kind": "file",
+    "name": "src/lib/loggedIn.js",
+    "content": "/*\n * Checks if an user is logged in\n * @param {object} me\n * @return {boolean} loggedIn\n */\n\nexport default function loggedIn(me) {\n  if (me && me._id && me._id.toString() !== \"\") {\n    return true;\n  }\n  return false;\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/loggedIn.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 64,
+    "kind": "function",
+    "name": "loggedIn",
+    "memberof": "src/lib/loggedIn.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/loggedIn.js~loggedIn",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/loggedIn.js",
+    "importStyle": "loggedIn",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "params": [
+      {
+        "name": "me",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 65,
+    "kind": "file",
+    "name": "src/lib/logger.js",
+    "content": "import winston from \"winston\";\n\n/*\n * Creates a logger based on winston\n * @param {object} me\n * @return {boolean} logger\n */\n\nwinston.emitErrs = true;\n\n// create timestamps in local format\nconst timestamp = function() {\n  return new Date(Date.now()).toLocaleString();\n};\n\n// format the output messages\nconst formatter = function(options) {\n  return (\n    options.timestamp() +\n    \" \" +\n    (options.level === \"error\" ? \" \" + options.level.toUpperCase() : \"\") +\n    \" \" +\n    (options.message ? options.message : \"\") +\n    (options.meta && Object.keys(options.meta).length\n      ? \"\\n\\t\" + JSON.stringify(options.meta)\n      : \"\")\n  );\n};\n\n// creates the logger, which outputs messages to file and to console\nconst logger = function(filename) {\n  return new winston.Logger({\n    transports: [\n      new winston.transports.File({\n        level: \"debug\",\n        filename: filename,\n        handleExceptions: true,\n        json: false,\n        maxsize: 5 * 1024 * 1024, //5MB\n        maxFiles: 5,\n        colorize: false,\n        timestamp: timestamp,\n        formatter: formatter\n      }),\n\n      new winston.transports.Console({\n        level: \"debug\",\n        handleExceptions: true,\n        json: false,\n        colorize: true,\n        timestamp: timestamp,\n        formatter: formatter\n      })\n    ],\n\n    exitOnError: false\n  });\n};\n\nexport default logger;\n\n// define an output stream\nexport const stream = {\n  write: function(message, encoding) {\n    logger.debug(message);\n  }\n};\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/logger.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 66,
+    "kind": "function",
+    "name": "timestamp",
+    "memberof": "src/lib/logger.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/logger.js~timestamp",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/lib/logger.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 67,
+    "kind": "function",
+    "name": "formatter",
+    "memberof": "src/lib/logger.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/logger.js~formatter",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/lib/logger.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true,
+    "params": [
+      {
+        "name": "options",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 68,
+    "kind": "variable",
+    "name": "stream",
+    "memberof": "src/lib/logger.js",
+    "static": true,
+    "longname": "src/lib/logger.js~stream",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/logger.js",
+    "importStyle": "{stream}",
+    "description": null,
+    "lineNumber": 63,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"write\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 69,
+    "kind": "function",
+    "name": "logger",
+    "memberof": "src/lib/logger.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/logger.js~logger",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/logger.js",
+    "importStyle": "logger",
+    "description": null,
+    "lineNumber": 31,
+    "undocument": true,
+    "params": [
+      {
+        "name": "filename",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 70,
+    "kind": "file",
+    "name": "src/lib/protectFields.js",
+    "content": "/*\n * Protects a field based on authorizations\n * @param {object} me\n * @param {array} authorizedUserRoles\n * @param {array} protectedFields\n * @param {object} inputObject\n * @param {object} User\n * @return {object} result\n */\n\nexport default function protectFields(\n  me = {},\n  authorizedUserRoles = [],\n  protectedFields = [],\n  inputObject = {},\n  { User }\n) {\n  // pure function\n  const result = Object.assign({}, inputObject);\n\n  // getting role of current User\n  const role = User.authRole(me);\n\n  // if user is not allowed to access specific fields, remove field from object...\n  if (!authorizedUserRoles.includes(role)) {\n    protectedFields.forEach(protectedField => {\n      if (result[protectedField]) delete result[protectedField];\n    });\n  }\n\n  return result;\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/protectFields.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 71,
+    "kind": "function",
+    "name": "protectFields",
+    "memberof": "src/lib/protectFields.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/protectFields.js~protectFields",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/protectFields.js",
+    "importStyle": "protectFields",
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "params": [
+      {
+        "name": "me",
+        "optional": true,
+        "types": [
+          "{}"
+        ],
+        "defaultRaw": {},
+        "defaultValue": "{}"
+      },
+      {
+        "name": "authorizedUserRoles",
+        "optional": true,
+        "types": [
+          "*[]"
+        ],
+        "defaultRaw": [],
+        "defaultValue": "[]"
+      },
+      {
+        "name": "protectedFields",
+        "optional": true,
+        "types": [
+          "*[]"
+        ],
+        "defaultRaw": [],
+        "defaultValue": "[]"
+      },
+      {
+        "name": "inputObject",
+        "optional": true,
+        "types": [
+          "{}"
+        ],
+        "defaultRaw": {},
+        "defaultValue": "{}"
+      },
+      {
+        "name": "objectPattern4",
+        "types": [
+          "{\"User\": *}"
+        ],
+        "defaultRaw": {
+          "User": null
+        },
+        "defaultValue": "{\"User\":null}"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 72,
+    "kind": "file",
+    "name": "src/lib/queryForRoles.js",
+    "content": "import userRoleAuthorized from \"./userRoleAuthorized\";\nimport loggedIn from \"./loggedIn\";\n\nimport dummyUserContext from \"../../test/dummyUserContext\";\nimport authlog from \"./authlog\";\n\nconst defaultLogger = authlog();\nlet User = dummyUserContext;\n\n/*\n * Prepare a query object for mongodb operations with authorization queries\n * creates an authQuery object with additional query arguments, to implement authorization restrictions for mongodb access\n * @param {object} me\n * @param {array} userRoles\n * @param {array} docRoles\n * @param {object} inputObject\n * @param {object} User\n * @param {object} logger\n * @return {object, exception} queryObject\n *\n * @example: const authQuery = queryForRoles(me, userRoles, docRoles, { User }, authlog(resolver, mode, me ) ); \n */\n\nexport default function queryForRoles(\n  me = {},\n  userRoles = [],\n  docRoles = [],\n  { User } = { User: dummyUserContext },\n  logger = defaultLogger\n) {\n  // on insufficient authorization data, it cannot be authorized, throws exception\n  if (!User || !User.authRole || !me || (!userRoles && !docRoles))\n    logger.error(` is not authorized, due to authorization data.`);\n\n  // get current User's role\n  const role = User.authRole(me);\n\n  // Build query for the case: The logged in user's role is authorized\n  if (userRoleAuthorized(me, userRoles, { User }, logger)) {\n    return {}; // empty authQuery means, do operation with no access restrictions\n  }\n\n  // Build query for the case: The user is listed in any document field\n  const query = { $or: [] };\n  // makes only sense, if user is logged in - otherwise no userId\n  if (loggedIn(me)) {\n    // prepare selection criterias as \"authQuery\" object\n    // for later mongodb \"find(...baseQuery,  ...authQuery)\"\n    //                               ...  AND ...{ field1 OR field2}\n    // which will be also considered during the database access\n    // as an \"$or: [ { field1: userId}, { field2: userId} ]\"\n    // with all document roles as fields for the later selection.\n    // At least one of those fields must match the userId,\n    // otherwise, whether no data found or not authorized to access data\n    docRoles.forEach(docRole => query.$or.push({ [docRole]: me._id }));\n    // return this authQuery only, if there was at least 1 field added\n    // otherwise it will result in an unlimited access\n    if (query.$or.length > 0) {\n      // for easier debugging write into the authorzation logs\n      logger.debug(\n        `and role: \"${role ? role : \"<no-role>\"}\" with \n        authQuery: ${JSON.stringify(query, null, 2)}`\n      );\n      // return the query as authQuery for later selection\n      return query;\n    }\n  }\n\n  // Not Authorized - throw exception in logger.error\n  const message = `and role: \"${role}\" is not authorized.`;\n  logger.error(message);\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/queryForRoles.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 73,
+    "kind": "variable",
+    "name": "defaultLogger",
+    "memberof": "src/lib/queryForRoles.js",
+    "static": true,
+    "longname": "src/lib/queryForRoles.js~defaultLogger",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/lib/queryForRoles.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 74,
+    "kind": "variable",
+    "name": "User",
+    "memberof": "src/lib/queryForRoles.js",
+    "static": true,
+    "longname": "src/lib/queryForRoles.js~User",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/lib/queryForRoles.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 75,
+    "kind": "function",
+    "name": "queryForRoles",
+    "memberof": "src/lib/queryForRoles.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/queryForRoles.js~queryForRoles",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/queryForRoles.js",
+    "importStyle": "queryForRoles",
+    "description": null,
+    "lineNumber": 24,
+    "undocument": true,
+    "params": [
+      {
+        "name": "me",
+        "optional": true,
+        "types": [
+          "{}"
+        ],
+        "defaultRaw": {},
+        "defaultValue": "{}"
+      },
+      {
+        "name": "userRoles",
+        "optional": true,
+        "types": [
+          "*[]"
+        ],
+        "defaultRaw": [],
+        "defaultValue": "[]"
+      },
+      {
+        "name": "docRoles",
+        "optional": true,
+        "types": [
+          "*[]"
+        ],
+        "defaultRaw": [],
+        "defaultValue": "[]"
+      },
+      {
+        "name": "objectPattern3",
+        "optional": true,
+        "types": [
+          "{\"User\": undefined}"
+        ],
+        "defaultRaw": {},
+        "defaultValue": "{}"
+      },
+      {
+        "name": "logger",
+        "optional": true,
+        "types": [
+          "*"
+        ],
+        "defaultRaw": "defaultLogger",
+        "defaultValue": "defaultLogger"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 76,
+    "kind": "file",
+    "name": "src/lib/userRoleAuthorized.js",
+    "content": "import dummyUserContext from \"../../test/dummyUserContext\";\nimport authlog from \"./authlog\";\n\nconst defaultLogger = authlog();\nlet User = dummyUserContext;\n\n/*\n * Is a user's role authorized for a document\n * @param {object} me\n * @param {array} userRoles\n * @param {object} User\n * @param {object} logger\n * @return {boolean} authorized\n */\n\n// returns true, if the user's role is authorized for a document\nexport default function userRoleAuthorized(\n  me = {},\n  userRoles = [],\n  { User } = { User: dummyUserContext },\n  logger = defaultLogger\n) {\n  // on insufficient authorization data, it cannot be authorized\n  if (!User || !User.authRole || !me || !userRoles) return false;\n\n  // get current User's role\n  const role = User.authRole(me);\n\n  // determine, if the given userRoles authorize the current User by its role\n  if (\n    // userRole: \"world\" should authorize everyone - known and unknown users\n    userRoles.includes(\"world\") ||\n    // or there must be a userRole given, and current user must have a role\n    // and the current user's role must be in the given userRoles\n    (role && role !== \"\" && userRoles.length > 0 && userRoles.includes(role))\n  ) {\n    // => authorized\n    logger.debug(`and role \"${role ? role : \"<no-role>\"}\" is authorized`);\n    return true;\n  }\n\n  // => not authorized\n  return false;\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/userRoleAuthorized.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 77,
+    "kind": "variable",
+    "name": "defaultLogger",
+    "memberof": "src/lib/userRoleAuthorized.js",
+    "static": true,
+    "longname": "src/lib/userRoleAuthorized.js~defaultLogger",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/lib/userRoleAuthorized.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 78,
+    "kind": "variable",
+    "name": "User",
+    "memberof": "src/lib/userRoleAuthorized.js",
+    "static": true,
+    "longname": "src/lib/userRoleAuthorized.js~User",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/lib/userRoleAuthorized.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 79,
+    "kind": "function",
+    "name": "userRoleAuthorized",
+    "memberof": "src/lib/userRoleAuthorized.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/userRoleAuthorized.js~userRoleAuthorized",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/userRoleAuthorized.js",
+    "importStyle": "userRoleAuthorized",
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true,
+    "params": [
+      {
+        "name": "me",
+        "optional": true,
+        "types": [
+          "{}"
+        ],
+        "defaultRaw": {},
+        "defaultValue": "{}"
+      },
+      {
+        "name": "userRoles",
+        "optional": true,
+        "types": [
+          "*[]"
+        ],
+        "defaultRaw": [],
+        "defaultValue": "[]"
+      },
+      {
+        "name": "objectPattern2",
+        "optional": true,
+        "types": [
+          "{\"User\": undefined}"
+        ],
+        "defaultRaw": {},
+        "defaultValue": "{}"
+      },
+      {
+        "name": "logger",
+        "optional": true,
+        "types": [
+          "*"
+        ],
+        "defaultRaw": "defaultLogger",
+        "defaultValue": "defaultLogger"
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "kind": "index",
+    "content": "# create-graphql-server-authorization\n\n[![Build Status](https://travis-ci.org/tobkle/create-graphql-server-authorization.svg?branch=master)](https://travis-ci.org/tobkle/create-graphql-server-authorization) [![Coverage Status](https://coveralls.io/repos/github/tobkle/create-graphql-server-authorization/badge.svg?branch=master)](https://coveralls.io/github/tobkle/create-graphql-server-authorization?branch=master)\n\nAuthorization for create-graphql-server with Command Line Interface and API.\n\nIf you are using create-grapqhl-server, you come to a point, when you need some kind of authorization on types and fields in your GraphQL schema. This package provides a library to do authorization checks.\n\n## Installation\n```bash\nnpm install create-graphql-server-authorization\n```\n\nIt provides Authorization checks for\n* document type authorization\n* field authorization\n\nIt relays on the Api of the create-graphql-server type system e.g.:\n```javascript\ntype User\n@authorize(\n  admin: [\"create\", \"read\", \"update\", \"delete\"],\n  this: [\"readOne\", \"update\", \"delete\"]\n)\n{\n  username: String!\n  role: String! \n  bio: String!\n}\n```\n\n## Usage\n\n\n## Tests\n```bash\nyarn test\n```\n\n## Contributing\nIn lieu of a formal style guide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code.\n\n",
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/README.md",
+    "name": "./README.md",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "packageJSON",
+    "content": "{\n  \"name\": \"create-graphql-server-authorization\",\n  \"version\": \"0.0.3\",\n  \"description\": \"Authorization package for create-graphql-server\",\n  \"main\": \"dist/index.js\",\n  \"scripts\": {\n    \"dev\": \"babel-node src/index.js\",\n    \"start\": \"node dist/index.js\",\n    \"eslint\": \"node_modules/.bin/eslint src\",\n    \"prettier\": \"node_modules/.bin/prettier src/**/*.js --write\",\n    \"pretest\": \"npm run build\",\n    \"test\": \"mocha --compilers js:babel-core/register --require babel-polyfill --colors --reporter spec test/*\",\n    \"cover\": \"node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register --require babel-polyfill --colors --reporter spec test/*\",\n    \"esdoc\": \"node_modules/.bin/esdoc -c esdoc.json\",\n    \"clean\": \"rm -rf dist/*\",\n    \"build\": \"npm run clean && babel src -D --out-dir dist/\",\n    \"prepublish\": \"npm run build\"\n  },\n  \"config\": {\n    \"logfile\": \"log/all-logs-readable.log\"\n  },\n  \"engines\": {\n    \"node\": \">=7.0.0\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/tobkle/create-graphql-server-authorization.git\"\n  },\n  \"keywords\": [\n    \"create-graphql-server\",\n    \"authorization\"\n  ],\n  \"author\": \"Tobias Klemmer <tobias@klemmer.info> (https://www.klemmer.info)\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/tobkle/create-graphql-server-authorization/issues\"\n  },\n  \"homepage\": \"https://github.com/tobkle/create-graphql-server-authorization#readme\",\n  \"devDependencies\": {\n    \"babel-cli\": \"6.16.0\",\n    \"babel-core\": \"^6.25.0\",\n    \"babel-eslint\": \"^7.2.3\",\n    \"babel-loader\": \"^7.1.1\",\n    \"babel-plugin-transform-regenerator\": \"^6.24.1\",\n    \"babel-polyfill\": \"^6.23.0\",\n    \"babel-preset-env\": \"^1.6.0\",\n    \"babel-preset-es2015\": \"^6.24.1\",\n    \"babel-preset-react\": \"6.16.0\",\n    \"babel-preset-stage-0\": \"^6.24.1\",\n    \"babel-preset-stage-2\": \"6.17.0\",\n    \"babel-register\": \"6.16.3\",\n    \"bson-objectid\": \"^1.1.5\",\n    \"chai\": \"^4.0.1\",\n    \"chai-fs\": \"^1.0.0\",\n    \"dataloader\": \"^1.3.0\",\n    \"esdoc\": \"^1.0.1\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"3.8.1\",\n    \"eslint-config-prettier\": \"^2.3.0\",\n    \"eslint-config-react-app\": \"^2.0.0\",\n    \"eslint-plugin-babel\": \"3.3.0\",\n    \"eslint-plugin-flowtype\": \"2.21.0\",\n    \"eslint-plugin-import\": \"2.0.1\",\n    \"eslint-plugin-jsx-a11y\": \"2.2.3\",\n    \"eslint-plugin-prettier\": \"^2.1.2\",\n    \"eslint-plugin-react\": \"6.4.1\",\n    \"istanbul\": \"^0.4.5\",\n    \"mocha\": \"^3.4.2\",\n    \"mongo-mock\": \"^2.4.1\",\n    \"prettier\": \"^1.5.3\"\n  },\n  \"dependencies\": {\n    \"lodash\": \"4.16.4\",\n    \"mongodb\": \"^2.2.31\",\n    \"winston\": \"^2.3.1\"\n  }\n}\n",
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/package.json",
+    "name": "package.json",
+    "static": true,
+    "access": "public"
+  }
+]

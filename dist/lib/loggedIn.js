@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = loggedIn;
-/**
+/*
  * Checks if an user is logged in
  * @param {object} me
  * @return {boolean} loggedIn

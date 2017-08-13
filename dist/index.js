@@ -4,6 +4,24 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _getLogFilename = require("./lib/getLogFilename");
+
+Object.defineProperty(exports, "getLogFilename", {
+  enumerable: true,
+  get: function get() {
+    return _getLogFilename.getLogFilename;
+  }
+});
+
+var _logger = require("./lib/logger");
+
+Object.defineProperty(exports, "logger", {
+  enumerable: true,
+  get: function get() {
+    return _logger.logger;
+  }
+});
+
 var _authlog = require("./lib/authlog");
 
 Object.defineProperty(exports, "authlog", {
@@ -46,15 +64,6 @@ Object.defineProperty(exports, "loggedIn", {
   enumerable: true,
   get: function get() {
     return _loggedIn.loggedIn;
-  }
-});
-
-var _logger = require("./lib/logger");
-
-Object.defineProperty(exports, "logger", {
-  enumerable: true,
-  get: function get() {
-    return _logger.logger;
   }
 });
 

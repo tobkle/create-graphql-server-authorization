@@ -1,4 +1,4 @@
-/**
+/*
  * find a record by id (cached with dataloader)
  * returns the record, cached if already read, checks authorization if set
  * enhancement of tmeasday'findByIds

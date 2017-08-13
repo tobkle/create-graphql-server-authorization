@@ -1,6 +1,6 @@
 import winston from "winston";
 
-/**
+/*
  * Creates a logger based on winston
  * @param {object} me
  * @return {boolean} logger
@@ -8,10 +8,12 @@ import winston from "winston";
 
 winston.emitErrs = true;
 
+// create timestamps in local format
 const timestamp = function() {
   return new Date(Date.now()).toLocaleString();
 };
 
+// format the output messages
 const formatter = function(options) {
   return (
     options.timestamp() +
@@ -25,37 +27,41 @@ const formatter = function(options) {
   );
 };
 
-const logger = new winston.Logger({
-  transports: [
-    new winston.transports.File({
-      level: "debug",
-      filename: "./server/logs/all-logs-readable.log",
-      handleExceptions: true,
-      json: false,
-      maxsize: 5242880, //5MB
-      maxFiles: 5,
-      colorize: false,
-      timestamp: timestamp,
-      formatter: formatter
-    }),
+// creates the logger, which outputs messages to file and to console
+const logger = function(filename) {
+  return new winston.Logger({
+    transports: [
+      new winston.transports.File({
+        level: "debug",
+        filename: filename,
+        handleExceptions: true,
+        json: false,
+        maxsize: 5 * 1024 * 1024, //5MB
+        maxFiles: 5,
+        colorize: false,
+        timestamp: timestamp,
+        formatter: formatter
+      }),
 
-    new winston.transports.Console({
-      level: "debug",
-      handleExceptions: true,
-      json: false,
-      colorize: true,
-      timestamp: timestamp,
-      formatter: formatter
-    })
-  ],
+      new winston.transports.Console({
+        level: "debug",
+        handleExceptions: true,
+        json: false,
+        colorize: true,
+        timestamp: timestamp,
+        formatter: formatter
+      })
+    ],
 
-  exitOnError: false
-});
+    exitOnError: false
+  });
+};
 
 export default logger;
 
+// define an output stream
 export const stream = {
   write: function(message, encoding) {
-    // logger.debug(message);
+    logger.debug(message);
   }
 };

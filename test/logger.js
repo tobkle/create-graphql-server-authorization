@@ -1,15 +1,25 @@
-'use strict';
+import fs from 'fs';
+import path from 'path';
+
+import getLogFilename from "../dist/lib/getLogFilename";
+import logger from "../dist/lib/logger";
 
 var expect = require('chai').expect;
-import authlog from "../src/lib/authlog";
 
-describe('authlog', function() {
-  it('should return an object with "error" and "debug"', function() {
-    var resolver = '';
-    var mode = '';
-    var me = {};
-    var result = authlog(resolver, mode, me);
-    expect(result).to.have.property('error');
-    expect(result).to.have.property('debug');
+let logFilename;
+
+describe('logger', function() {
+
+  before(function(){
+    logFilename = getLogFilename();
+    expect(logFilename).be.a("string");
   });
+
+  it('should return a function with "log"', function() {
+    var result = logger(logFilename);
+    expect(result).to.have.property('log');
+  });
+
+  // This is tested more in depth in test/authlog.js
+
 });

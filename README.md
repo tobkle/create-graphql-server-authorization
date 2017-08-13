@@ -1,9 +1,6 @@
-# under construction 
 # create-graphql-server-authorization
 
 [![Build Status](https://travis-ci.org/tobkle/create-graphql-server-authorization.svg?branch=master)](https://travis-ci.org/tobkle/create-graphql-server-authorization) [![Coverage Status](https://coveralls.io/repos/github/tobkle/create-graphql-server-authorization/badge.svg?branch=master)](https://coveralls.io/github/tobkle/create-graphql-server-authorization?branch=master)
-
---UNDER CONSTRUCTION--
 
 Authorization for create-graphql-server with Command Line Interface and API.
 
@@ -27,31 +24,17 @@ type User
 )
 {
   username: String!
-  role: String! @authorize(this: ["readOne", "update", "delete"], admin: ["create", "read", "update", "delete"])
+  role: String! 
   bio: String!
 }
 ```
 
 ## Usage
 
-### Command Line Interface:
-It provides a parser to read type files.
-It provides a generator to create authorization code files.
-```bash
-cgs-auth --parse /path/to/type-file.graphql --generate /path/to/authorization-check-type.js
-```
-
-### Application Programming Interface (API)
-It provides an API, which you can call in your create-graphql-server projects to do authorization checks.
-
-```javascript
-const checkAuthorization = require('create-graphql-server-authorization');
-checkAuthorization('User', require('./path/to/authorization-check-type'));
-```
 
 ## Tests
 ```bash
-npm test
+yarn test
 ```
 
 ## Contributing

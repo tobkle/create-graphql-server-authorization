@@ -1,69 +1,76 @@
 import _ from "lodash";
 
-/**
+/*
  * checks, if a field contains a user's id
- * @param {string, array} docRoleField
- * @param {object} userId
+ * @param {string, object, array} docRoleField
+ * @param {string, object} userId
  * @return {boolean} foundUserId
  */
 
+function extractUserId(userIdObject) {
+  let newUserId = "";
+  if (_.isObject(userIdObject)) {
+    Object.keys(userIdObject).forEach(field => {
+      newUserId = userIdObject[field];
+    });
+  } else {
+    newUserId = userIdObject;
+  }
+  return newUserId;
+}
+
 // returns true, if a field of type array/object/string contains the userId
-export default function fieldContainsUserId(docRoleField, userId) {
+export default function fieldContainsUserId(docRoleField, compressedUserId) {
   let found = false;
 
-  // empty userId is not a valid userId
-  if (userId.toString() === "") return false;
+  // empty docRoleField is not a valid docRoleField
+  if (!docRoleField || docRoleField === "" || docRoleField.length === 0)
+    return false;
 
-  // handle a simple id field
+  // empty (compressed) userId is not a valid userId
+  if (
+    !compressedUserId ||
+    compressedUserId === "" ||
+    compressedUserId.toString() === ""
+  )
+    return false;
+
+  // extract userId, if it is a mongoID field
+  const userId = extractUserId(compressedUserId);
+
+  // empty (uncompressed) userId is not a valid userId
+  if (!userId || userId === "") return false;
+
+  // docRoleField of type Array
+  if (_.isArray(docRoleField)) {
+    docRoleField.forEach(field => {
+      if (fieldContainsUserId(field, userId)) {
+        found = true;
+      }
+    });
+    if (found) return true;
+    return false;
+  }
+
+  // docRoleField of type Object
+  if (_.isObject(docRoleField)) {
+    // For each field in the object
+    Object.keys(docRoleField).forEach(field => {
+      if (
+        fieldContainsUserId(docRoleField[field], userId) ||
+        fieldContainsUserId(field, userId)
+      ) {
+        found = true;
+      }
+    });
+    if (found) return true;
+    return false;
+  }
+
+  // docRoleField of type field
   if (docRoleField.toString() === userId.toString()) {
     return true;
   }
 
-  // handle an array
-  if (_.isArray(docRoleField)) {
-    docRoleField.every(field => {
-      if (fieldContainsUserId(field, userId)) {
-        found = true;
-        return true;
-      }
-    });
-    if (found) return true;
-  }
-
-  // handle an object
-  if (_.isObject(docRoleField)) {
-    Object.keys(docRoleField).every(field => {
-      // handle a field
-      if (
-        docRoleField[field] &&
-        docRoleField[field].toString() === userId.toString()
-      ) {
-        found = true;
-        return true;
-      }
-
-      // handle an array
-      if (_.isArray(docRoleField[field])) {
-        docRoleField[field].every(innerField => {
-          if (fieldContainsUserId(innerField, userId)) {
-            found = true;
-            return true;
-          }
-        });
-        if (found) return true;
-      }
-
-      // handle an object
-      if (_.isObject(docRoleField[field])) {
-        Object.keys(docRoleField[field]).every(innerField => {
-          if (fieldContainsUserId(docRoleField[field][innerField], userId)) {
-            found = true;
-            return true;
-          }
-        });
-        if (found) return true;
-      }
-    });
-  }
-  return found;
+  return false;
 }
