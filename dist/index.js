@@ -1,9 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var _getLogFilename = require('./lib/getLogFilename');
 
 var _getLogFilename2 = _interopRequireDefault(_getLogFilename);
@@ -52,7 +48,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * authorization functions
  */
 
-exports.default = {
+module.exports = {
   getLogFilename: _getLogFilename2.default,
   logger: _logger2.default,
   authlog: _authlog2.default,
