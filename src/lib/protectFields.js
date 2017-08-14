@@ -1,4 +1,4 @@
-import dummyUserContext from "./dummyUserContext";
+import { dummyUserContext } from './dummyUserContext';
 
 /*
  * Protects a field based on authorizations
@@ -9,7 +9,7 @@ import dummyUserContext from "./dummyUserContext";
  * @param {object} User
  * @return {object} result
  */
-function protectFields(
+export function protectFields(
   me = {},
   authorizedUserRoles = [],
   protectedFields = [],
@@ -22,14 +22,15 @@ function protectFields(
   // getting role of current User
   const role = User.authRole(me);
 
-  // if user is not allowed to access specific fields, remove field from object...
+  // if user is not allowed to access specific fields,
+  // remove field from object...
   if (!authorizedUserRoles.includes(role)) {
     protectedFields.forEach(protectedField => {
-      if (result[protectedField]) delete result[protectedField];
+      if (result[protectedField]) {
+        delete result[protectedField];
+      }
     });
   }
 
   return result;
 }
-
-module.exports = protectFields;

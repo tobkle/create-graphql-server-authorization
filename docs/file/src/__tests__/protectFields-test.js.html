@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/__tests__/protectFields-test.js | create-graphql-server-authorization</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Authorization package for create-graphql-server"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="create-graphql-server-authorization"><meta property="twitter:description" content="Authorization package for create-graphql-server"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/tobkle/create-graphql-server-authorization"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib">lib</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-authlog">authlog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-checkAuthDoc">checkAuthDoc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fieldContainsUserId">fieldContainsUserId</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findByIds">findByIds</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLogFilename">getLogFilename</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loggedIn">loggedIn</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logger">logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-protectFields">protectFields</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-queryForRoles">queryForRoles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-userRoleAuthorized">userRoleAuthorized</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dummyUserContext">dummyUserContext</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/__tests__/protectFields-test.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/* eslint-disable max-len */
+import { protectFields } from &apos;../lib/protectFields&apos;;
+import { dummyUserContext } from &apos;../lib/dummyUserContext&apos;;
+
+const assert = require(&apos;chai&apos;).assert;
+
+// mocking User authRole, as it is not existing in this library
+const User = dummyUserContext;
+
+const inputObject = {
+  _id: { $oid: &apos;583676d3618530145474e350&apos; },
+  authorId: { $oid: &apos;583291a1638566b3c5a92ca0&apos; },
+  coauthorsIds: [
+    { $oid: &apos;583291a1638566b3c5a92ca1&apos; },
+    { $oid: &apos;583291a1638566b3c5a92ca2&apos; }
+  ],
+  body:
+    &apos;A #graphql-first development workflow based on real world lessons, from @danimman \u0026 @stubailo:&apos;,
+  createdAt: 1.479964340853e12,
+  updatedAt: 1.479964340853e12,
+  createdById: { $oid: &apos;583291a1638566b3c5a92ca1&apos; },
+  updatedById: { $oid: &apos;583291a1638566b3c5a92ca1&apos; },
+  secret: &apos;password&apos;
+};
+
+describe(&apos;protectFields&apos;, function() {
+  it(&apos;on no proctectedFields, inputObject should be equal to resultObject&apos;, function() {
+    const me = {};
+    const authorizedUserRoles = [];
+    const protectedFields = [];
+
+    const result = protectFields(
+      me,
+      authorizedUserRoles,
+      protectedFields,
+      inputObject,
+      { User }
+    );
+
+    assert.isObject(result);
+    assert.deepEqual(inputObject, result);
+  });
+
+  it(&apos;on proctectedFields: [&quot;secret&quot;], outputObject (without &quot;secret&quot;) should be equal to resultObject&apos;, function() {
+    const me = {};
+    const authorizedUserRoles = [];
+    const protectedFields = [&apos;secret&apos;];
+    const outputObject = {
+      _id: { $oid: &apos;583676d3618530145474e350&apos; },
+      authorId: { $oid: &apos;583291a1638566b3c5a92ca0&apos; },
+      coauthorsIds: [
+        { $oid: &apos;583291a1638566b3c5a92ca1&apos; },
+        { $oid: &apos;583291a1638566b3c5a92ca2&apos; }
+      ],
+      body:
+        &apos;A #graphql-first development workflow based on real world lessons, from @danimman \u0026 @stubailo:&apos;,
+      createdAt: 1.479964340853e12,
+      updatedAt: 1.479964340853e12,
+      createdById: { $oid: &apos;583291a1638566b3c5a92ca1&apos; },
+      updatedById: { $oid: &apos;583291a1638566b3c5a92ca1&apos; }
+    };
+
+    const result = protectFields(
+      me,
+      authorizedUserRoles,
+      protectedFields,
+      inputObject,
+      { User }
+    );
+
+    assert.isObject(result);
+    assert.deepEqual(outputObject, result);
+  });
+
+  it(&apos;on proctectedFields: [&quot;secret&quot;, &quot;authorId&quot;], outputObject (without &quot;secret&quot;, &quot;authorId&quot;) should be equal to resultObject&apos;, function() {
+    const me = {};
+    const authorizedUserRoles = [];
+    const protectedFields = [&apos;secret&apos;, &apos;authorId&apos;];
+    const outputObject = {
+      _id: { $oid: &apos;583676d3618530145474e350&apos; },
+      coauthorsIds: [
+        { $oid: &apos;583291a1638566b3c5a92ca1&apos; },
+        { $oid: &apos;583291a1638566b3c5a92ca2&apos; }
+      ],
+      body:
+        &apos;A #graphql-first development workflow based on real world lessons, from @danimman \u0026 @stubailo:&apos;,
+      createdAt: 1.479964340853e12,
+      updatedAt: 1.479964340853e12,
+      createdById: { $oid: &apos;583291a1638566b3c5a92ca1&apos; },
+      updatedById: { $oid: &apos;583291a1638566b3c5a92ca1&apos; }
+    };
+
+    const result = protectFields(
+      me,
+      authorizedUserRoles,
+      protectedFields,
+      inputObject,
+      { User }
+    );
+
+    assert.isObject(result);
+    assert.deepEqual(outputObject, result);
+  });
+
+  it(&apos;if all fields are proctectedFields, empty object {} should be equal to resultObject&apos;, function() {
+    const me = {};
+    const authorizedUserRoles = [];
+    const protectedFields = [
+      &apos;_id&apos;,
+      &apos;authorId&apos;,
+      &apos;coauthorsIds&apos;,
+      &apos;body&apos;,
+      &apos;createdAt&apos;,
+      &apos;updatedAt&apos;,
+      &apos;createdById&apos;,
+      &apos;updatedById&apos;,
+      &apos;secret&apos;
+    ];
+    const outputObject = {};
+
+    const result = protectFields(
+      me,
+      authorizedUserRoles,
+      protectedFields,
+      inputObject,
+      { User }
+    );
+
+    assert.isObject(result);
+    assert.deepEqual(outputObject, result);
+  });
+
+  it(&apos;on proctectedFields: [&quot;secret&quot;] and authorized User, resultObject should include field &quot;secret&quot;&apos;, function() {
+    const me = {
+      _id: { $oid: &apos;583291a1638566b3c5a92ca1&apos; },
+      username: &apos;tmeasday&apos;,
+      role: &apos;admin&apos;
+    };
+    const authorizedUserRoles = [&apos;admin&apos;];
+    const protectedFields = [&apos;secret&apos;];
+    const outputObject = {
+      _id: { $oid: &apos;583676d3618530145474e350&apos; },
+      authorId: { $oid: &apos;583291a1638566b3c5a92ca0&apos; },
+      coauthorsIds: [
+        { $oid: &apos;583291a1638566b3c5a92ca1&apos; },
+        { $oid: &apos;583291a1638566b3c5a92ca2&apos; }
+      ],
+      body:
+        &apos;A #graphql-first development workflow based on real world lessons, from @danimman \u0026 @stubailo:&apos;,
+      createdAt: 1.479964340853e12,
+      updatedAt: 1.479964340853e12,
+      createdById: { $oid: &apos;583291a1638566b3c5a92ca1&apos; },
+      updatedById: { $oid: &apos;583291a1638566b3c5a92ca1&apos; },
+      secret: &apos;password&apos;
+    };
+
+    const result = protectFields(
+      me,
+      authorizedUserRoles,
+      protectedFields,
+      inputObject,
+      { User }
+    );
+
+    assert.isObject(result);
+    assert.deepEqual(outputObject, result);
+  });
+
+  it(&apos;on proctectedFields: [&quot;secret&quot;, &quot;authorId&quot;] and authorized User, resultObject should include field &quot;secret&quot; and &quot;authorId&quot;&apos;, function() {
+    const me = {
+      _id: { $oid: &apos;583291a1638566b3c5a92ca1&apos; },
+      username: &apos;tmeasday&apos;,
+      role: &apos;admin&apos;
+    };
+    const authorizedUserRoles = [&apos;admin&apos;];
+    const protectedFields = [&apos;secret&apos;, &apos;authorId&apos;];
+    const outputObject = {
+      _id: { $oid: &apos;583676d3618530145474e350&apos; },
+      authorId: { $oid: &apos;583291a1638566b3c5a92ca0&apos; },
+      coauthorsIds: [
+        { $oid: &apos;583291a1638566b3c5a92ca1&apos; },
+        { $oid: &apos;583291a1638566b3c5a92ca2&apos; }
+      ],
+      body:
+        &apos;A #graphql-first development workflow based on real world lessons, from @danimman \u0026 @stubailo:&apos;,
+      createdAt: 1.479964340853e12,
+      updatedAt: 1.479964340853e12,
+      createdById: { $oid: &apos;583291a1638566b3c5a92ca1&apos; },
+      updatedById: { $oid: &apos;583291a1638566b3c5a92ca1&apos; },
+      secret: &apos;password&apos;
+    };
+
+    const result = protectFields(
+      me,
+      authorizedUserRoles,
+      protectedFields,
+      inputObject,
+      { User }
+    );
+
+    assert.isObject(result);
+    assert.deepEqual(outputObject, result);
+  });
+});
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.1)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

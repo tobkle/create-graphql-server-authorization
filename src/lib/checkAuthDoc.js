@@ -1,6 +1,6 @@
-import userRoleAuthorized from "./userRoleAuthorized";
-import fieldContainsUserId from "./fieldContainsUserId";
-import authlog from "./authlog";
+import { userRoleAuthorized } from './userRoleAuthorized';
+import { fieldContainsUserId } from './fieldContainsUserId';
+import { authlog } from './authlog';
 
 const defaultLogger = authlog();
 
@@ -15,7 +15,7 @@ const defaultLogger = authlog();
  * @return {object} doc
  */
 
-function checkAuthDoc(
+export function checkAuthDoc(
   doc = {},
   me = {},
   userRoles = [],
@@ -23,14 +23,14 @@ function checkAuthDoc(
   { User },
   logger = defaultLogger
 ) {
-  let resultDoc = Object.assign({}, doc);
+  const resultDoc = Object.assign({}, doc);
 
   // get the User's role
   const role = User.authRole(me);
 
   // check if userRole entitles current user for this action
   if (userRoleAuthorized(me, userRoles, { User }, logger)) {
-    logger.debug(`and role: "${role}" is authorized by userRole.`);
+    logger.debug(`and role: '${role}' is authorized by userRole.`);
     return resultDoc;
   }
 
@@ -46,12 +46,10 @@ function checkAuthDoc(
     }
   });
   if (authorized) {
-    logger.debug(`and role: "${role}" is authorized by docRole.`);
+    logger.debug(`and role: '${role}' is authorized by docRole.`);
     return resultDoc;
   }
 
   // Not Authorized, throw exception in logger.error
-  logger.error(`and role: "${role}" is not authorized.`);
+  logger.error(`and role: '${role}' is not authorized.`);
 }
-
-module.exports = checkAuthDoc;

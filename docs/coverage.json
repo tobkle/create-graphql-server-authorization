@@ -1,21 +1,110 @@
 {
   "coverage": "0%",
-  "expectCount": 21,
+  "expectCount": 49,
   "actualCount": 0,
   "files": {
-    "src/index.js": {
+    "src/__tests__/authlog-test.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        7,
+        8,
+        10,
+        11
+      ]
+    },
+    "src/__tests__/checkAuthDoc-test.js": {
+      "expectCount": 7,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        7,
+        10,
+        12,
+        13,
+        14,
+        21
+      ]
+    },
+    "src/__tests__/fieldContainsUserId-test.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        7
+      ]
+    },
+    "src/__tests__/findByIds-test.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        8,
+        11,
+        13
+      ]
+    },
+    "src/__tests__/getLogFilename-test.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        4
+      ]
+    },
+    "src/__tests__/index-test.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        7
+      ]
+    },
+    "src/__tests__/loggedIn-test.js": {
       "expectCount": 1,
       "actualCount": 0,
       "undocumentLines": [
         6
       ]
     },
-    "src/lib/authlog.js": {
-      "expectCount": 2,
+    "src/__tests__/logger-test.js": {
+      "expectCount": 1,
       "actualCount": 0,
       "undocumentLines": [
-        4,
-        16
+        5
+      ]
+    },
+    "src/__tests__/protectFields-test.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        8,
+        10
+      ]
+    },
+    "src/__tests__/queryForRoles-test.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        7,
+        10,
+        11,
+        12
+      ]
+    },
+    "src/__tests__/userRoleAuthorized-test.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        9,
+        10,
+        11
+      ]
+    },
+    "src/lib/authlog.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        14
       ]
     },
     "src/lib/checkAuthDoc.js": {
@@ -30,22 +119,22 @@
       "expectCount": 1,
       "actualCount": 0,
       "undocumentLines": [
-        3
+        8
       ]
     },
     "src/lib/fieldContainsUserId.js": {
       "expectCount": 2,
       "actualCount": 0,
       "undocumentLines": [
-        3,
-        22
+        8,
+        27
       ]
     },
     "src/lib/findByIds.js": {
       "expectCount": 1,
       "actualCount": 0,
       "undocumentLines": [
-        9
+        8
       ]
     },
     "src/lib/getLogFilename.js": {
@@ -53,7 +142,7 @@
       "actualCount": 0,
       "undocumentLines": [
         3,
-        11
+        10
       ]
     },
     "src/lib/loggedIn.js": {
@@ -64,13 +153,12 @@
       ]
     },
     "src/lib/logger.js": {
-      "expectCount": 4,
+      "expectCount": 3,
       "actualCount": 0,
       "undocumentLines": [
         12,
         17,
-        31,
-        61
+        31
       ]
     },
     "src/lib/protectFields.js": {
@@ -84,8 +172,8 @@
       "expectCount": 2,
       "actualCount": 0,
       "undocumentLines": [
-        7,
-        22
+        6,
+        23
       ]
     },
     "src/lib/userRoleAuthorized.js": {

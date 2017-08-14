@@ -29,12 +29,23 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  </ul>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib">lib</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-authlog">authlog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-checkAuthDoc">checkAuthDoc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fieldContainsUserId">fieldContainsUserId</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findByIds">findByIds</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLogFilename">getLogFilename</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loggedIn">loggedIn</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logger">logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-protectFields">protectFields</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-queryForRoles">queryForRoles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-userRoleAuthorized">userRoleAuthorized</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dummyUserContext">dummyUserContext</a></span></span></li>
+</ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/lib/protectFields.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import dummyUserContext from &quot;./dummyUserContext&quot;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { dummyUserContext } from &apos;./dummyUserContext&apos;;
 
 /*
  * Protects a field based on authorizations
@@ -45,7 +56,7 @@
  * @param {object} User
  * @return {object} result
  */
-function protectFields(
+export function protectFields(
   me = {},
   authorizedUserRoles = [],
   protectedFields = [],
@@ -58,17 +69,18 @@ function protectFields(
   // getting role of current User
   const role = User.authRole(me);
 
-  // if user is not allowed to access specific fields, remove field from object...
+  // if user is not allowed to access specific fields,
+  // remove field from object...
   if (!authorizedUserRoles.includes(role)) {
     protectedFields.forEach(protectedField =&gt; {
-      if (result[protectedField]) delete result[protectedField];
+      if (result[protectedField]) {
+        delete result[protectedField];
+      }
     });
   }
 
   return result;
 }
-
-module.exports = protectFields;
 </code></pre>
 
 </div>

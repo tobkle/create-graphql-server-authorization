@@ -566,10 +566,10 @@
   {
     "__docId__": 48,
     "kind": "file",
-    "name": "src/index.js",
-    "content": "/*\n * Provides access to all public \n * create graphql server \n * authorization functions\n */\nvar authorization = {};\n\nauthorization.version = require('../package.json').version;\nauthorization.getLogFilename = require('./lib/getLogFilename.js'); \nauthorization.dummyUserContext = require('./lib/dummyUserContext.js'); \nauthorization.logger = require('./lib/logger.js'); \nauthorization.authlog = require('./lib/authlog.js'); \nauthorization.checkAuthDoc = require('./lib/checkAuthDoc.js'); \nauthorization.fieldContainsUserId = require('./lib/fieldContainsUserId.js'); \nauthorization.findByIds = require('./lib/findByIds.js'); \nauthorization.loggedIn = require('./lib/loggedIn.js'); \nauthorization.protectFields = require('./lib/protectFields.js'); \nauthorization.queryForRoles = require('./lib/queryForRoles.js'); \nauthorization.userRoleAuthorized = require('./lib/userRoleAuthorized.js');\n\nmodule.exports = authorization;\n",
+    "name": "src/__tests__/authlog-test.js",
+    "content": "/* eslint-disable max-len */\nimport fs from 'fs';\n\nimport { authlog } from '../lib/authlog';\nimport { getLogFilename } from '../lib/getLogFilename';\n\nconst assert = require('chai').assert;\nconst expect = require('chai').expect;\n\nconst resolver = 'authlog';\nconst mode = 'testMode';\n\nlet logFilename;\n\ndescribe('authlog', function() {\n  before(function() {\n    logFilename = getLogFilename();\n    expect(logFilename).be.a('string');\n    fs.unlinkSync(logFilename);\n  });\n\n  it('should return a function \"error\" and \"debug\"', function() {\n    const log = authlog();\n    expect(log).to.have.property('error');\n    expect(log).to.have.property('debug');\n    assert.isFunction(log.error);\n    assert.isFunction(log.debug);\n  });\n\n  it('function log.debug should return: \"Authorize testMode \"authlog\" with user \"<no-user>\" hello log.debug\"', function() {\n    const log = authlog(resolver, mode);\n    const message = 'hello log.debug';\n\n    let result = '';\n    const testFunction = function() {\n      result = log.debug(message);\n      return result;\n    };\n    expect(testFunction).to.not.throw();\n    expect(result).to.match(\n      /Authorize testMode 'authlog' with user '<no-user>' hello log\\.debug/\n    );\n  });\n\n  it('function log.debug should return: \"Authorize testMode \"authlog\" with user \"tobkle\" hello log.debug\"', function() {\n    const me = {\n      username: 'tobkle',\n      email: 'test@example.com'\n    };\n    const log = authlog(resolver, mode, me);\n    const message = 'hello log.debug';\n\n    let result = '';\n    const testFunction = function() {\n      result = log.debug(message);\n      return result;\n    };\n    expect(testFunction).to.not.throw();\n    expect(result).to.match(\n      /Authorize testMode 'authlog' with user 'tobkle' hello log\\.debug/\n    );\n  });\n\n  it('function log.error should throw exception and return: ERROR Authorize testMode \"authlog\" with user \"<no-user>\" test-error', function() {\n    const me = {};\n    const log = authlog(resolver, mode, me);\n    const message = 'test-error';\n\n    const testFunction = function() {\n      log.error(message);\n    };\n    expect(testFunction).to.throw(message);\n  });\n});\n",
     "static": true,
-    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/index.js",
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/__tests__/authlog-test.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -577,45 +577,372 @@
   {
     "__docId__": 49,
     "kind": "variable",
-    "name": "authorization",
-    "memberof": "src/index.js",
+    "name": "assert",
+    "memberof": "src/__tests__/authlog-test.js",
     "static": true,
-    "longname": "src/index.js~authorization",
+    "longname": "src/__tests__/authlog-test.js~assert",
     "access": "public",
     "export": false,
-    "importPath": "create-graphql-server-authorization/src/index.js",
+    "importPath": "create-graphql-server-authorization/src/__tests__/authlog-test.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 6,
+    "lineNumber": 7,
     "undocument": true,
     "type": {
       "types": [
-        "{}"
+        "*"
       ]
     },
     "ignore": true
   },
   {
     "__docId__": 50,
-    "kind": "file",
-    "name": "src/lib/authlog.js",
-    "content": "import logger from \"./logger\";\nimport getLogFilename from \"./getLogFilename\";\n\nconst expect = require(\"chai\").expect;\n\n/*\n * Central logger for authorization checks\n * @param {string} resolver\n * @param {string} mode\n * @param {object} me\n * @return {\n *    debug {function},\n *    error {function} \n * }\n */\nfunction authlog(resolver = \"\", mode = \"\", me = {}) {\n  const logFilename = getLogFilename();\n  const log = logger(logFilename);\n\n  const makeMessage = message =>\n    `Authorize ${mode} \"${resolver}\" with user \"${me.username\n      ? me.username\n      : \"<no-user>\"}\" ${message}`;\n\n  return {\n    debug: message => {\n      const resultMessage = makeMessage(message);\n      log.debug(resultMessage);\n      return resultMessage;\n    },\n    error: message => {\n      const resultMessage = makeMessage(message);\n      log.error(resultMessage);\n      throw new Error(makeMessage(message));\n    }\n  };\n}\n\nmodule.exports = authlog;\n",
+    "kind": "variable",
+    "name": "expect",
+    "memberof": "src/__tests__/authlog-test.js",
     "static": true,
-    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/authlog.js",
+    "longname": "src/__tests__/authlog-test.js~expect",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/authlog-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 51,
+    "kind": "variable",
+    "name": "resolver",
+    "memberof": "src/__tests__/authlog-test.js",
+    "static": true,
+    "longname": "src/__tests__/authlog-test.js~resolver",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/authlog-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 52,
+    "kind": "variable",
+    "name": "mode",
+    "memberof": "src/__tests__/authlog-test.js",
+    "static": true,
+    "longname": "src/__tests__/authlog-test.js~mode",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/authlog-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 53,
+    "kind": "file",
+    "name": "src/__tests__/checkAuthDoc-test.js",
+    "content": "/* eslint-disable max-len */\nimport { authlog } from '../lib/authlog';\nimport { checkAuthDoc } from '../lib/checkAuthDoc';\nimport { dummyUserContext } from '../lib/dummyUserContext';\n\nconst expect = require('chai').expect;\nconst assert = require('chai').assert;\n\n// mocking User authRole, as it is not existing in this library\nconst User = dummyUserContext;\n\nconst resolver = 'checkAuth';\nconst mode = 'testMode';\nconst doc = {\n  _id: { $oid: '583676d3618530145474e352' },\n  authorId: { $oid: '583291a1638566b3c5a92ca1' },\n  otherExistingField: { $oid: '583291a1638566b3c5a91111' },\n  secret: 'password'\n};\n\nconst not_authorized = 'is not authorized';\n\n// Call pattern:\n// checkAuthDoc(docToInsert, me, ['admin'], ['_id'], { User: this.context.User }, authlog(resolver, 'create', me));\n\ndescribe('checkAuthDoc', function() {\n  it('should NOT authorize on empty me, empty userRoles, empty docRoles', function() {\n    const userRoles = [];\n    const docRoles = [];\n    const me = {};\n\n    let result = {};\n    const testFunction = function() {\n      result = checkAuthDoc(\n        doc,\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n    expect(testFunction).to.throw(not_authorized);\n  });\n\n  it('should NOT authorize on empty me, empty userRoles, docRoles: [\"authorId\"]', function() {\n    const userRoles = [];\n    const docRoles = ['authorId'];\n    const me = {};\n\n    let result = {};\n    const testFunction = function() {\n      result = checkAuthDoc(\n        doc,\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n    expect(testFunction).to.throw(not_authorized);\n  });\n\n  it('should NOT authorize on empty me, userRoles: [\"admin\"], empty docRoles', function() {\n    const userRoles = ['admin'];\n    const docRoles = [];\n    const me = {};\n\n    let result = {};\n    const testFunction = function() {\n      result = checkAuthDoc(\n        doc,\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n    expect(testFunction).to.throw(not_authorized);\n  });\n\n  it('should NOT authorize on me: \"tobkle\", empty userRoles, empty docRoles', function() {\n    const userRoles = [];\n    const docRoles = [];\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tobkle'\n    };\n\n    let result = {};\n    const testFunction = function() {\n      result = checkAuthDoc(\n        doc,\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n    expect(testFunction).to.throw(not_authorized);\n  });\n\n  it('should NOT authorize on me.role: \"admin\", but empty userRoles, empty docRoles', function() {\n    const userRoles = [];\n    const docRoles = [];\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tobkle',\n      role: 'admin'\n    };\n\n    let result = {};\n    const testFunction = function() {\n      result = checkAuthDoc(\n        doc,\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n    expect(testFunction).to.throw(not_authorized);\n  });\n\n  it('should not authorize on me.role: \"admin\" and userRoles: [\"superadmin\"]', function() {\n    const userRoles = ['superadmin'];\n    const docRoles = [];\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tobkle',\n      role: 'admin'\n    };\n\n    let result = {};\n    const testFunction = function() {\n      result = checkAuthDoc(\n        doc,\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n    expect(testFunction).to.throw(not_authorized);\n  });\n\n  it('should authorize on me.role=\"admin\" and userRoles: [\"admin\"]', function() {\n    const userRoles = ['admin'];\n    const docRoles = [];\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tobkle',\n      role: 'admin'\n    };\n\n    let result = {};\n    const testFunction = function() {\n      result = checkAuthDoc(\n        doc,\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n    expect(testFunction).to.not.throw();\n    assert.isObject(result);\n    assert.property(result, 'secret');\n    expect(result.secret).to.equal('password');\n  });\n\n  it('should not authorize on docRoles: [\"notExistingField\"]', function() {\n    const userRoles = [];\n    const docRoles = ['notExistingField'];\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tobkle',\n      role: 'admin'\n    };\n\n    let result = {};\n    const testFunction = function() {\n      result = checkAuthDoc(\n        doc,\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n    expect(testFunction).to.throw(not_authorized);\n  });\n\n  it('should not authorize on docRoles: [\"otherExistingField\"] but other me._id', function() {\n    const userRoles = [];\n    const docRoles = ['otherExistingField'];\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tobkle',\n      role: 'admin'\n    };\n\n    let result = {};\n    const testFunction = function() {\n      result = checkAuthDoc(\n        doc,\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n    expect(testFunction).to.throw(not_authorized);\n  });\n\n  it('should not authorize on docRoles: [\"authorId\"] but other me._id', function() {\n    const userRoles = [];\n    const docRoles = ['authorId'];\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92000' },\n      username: 'tobkle',\n      role: 'admin'\n    };\n\n    let result = {};\n    const testFunction = function() {\n      result = checkAuthDoc(\n        doc,\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n    expect(testFunction).to.throw(not_authorized);\n  });\n\n  it('should authorize on docRoles: [\"authorId\"] and (me._id === doc.authorId)', function() {\n    const userRoles = [];\n    const docRoles = ['authorId'];\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tobkle',\n      role: 'admin'\n    };\n\n    let result = {};\n    const testFunction = function() {\n      result = checkAuthDoc(\n        doc,\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n    expect(testFunction).to.not.throw();\n    assert.isObject(result);\n    assert.property(result, 'secret');\n    expect(result.secret).to.equal('password');\n  });\n});\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/__tests__/checkAuthDoc-test.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 51,
+    "__docId__": 54,
     "kind": "variable",
     "name": "expect",
-    "memberof": "src/lib/authlog.js",
+    "memberof": "src/__tests__/checkAuthDoc-test.js",
     "static": true,
-    "longname": "src/lib/authlog.js~expect",
+    "longname": "src/__tests__/checkAuthDoc-test.js~expect",
     "access": "public",
     "export": false,
-    "importPath": "create-graphql-server-authorization/src/lib/authlog.js",
+    "importPath": "create-graphql-server-authorization/src/__tests__/checkAuthDoc-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 55,
+    "kind": "variable",
+    "name": "assert",
+    "memberof": "src/__tests__/checkAuthDoc-test.js",
+    "static": true,
+    "longname": "src/__tests__/checkAuthDoc-test.js~assert",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/checkAuthDoc-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 56,
+    "kind": "variable",
+    "name": "User",
+    "memberof": "src/__tests__/checkAuthDoc-test.js",
+    "static": true,
+    "longname": "src/__tests__/checkAuthDoc-test.js~User",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/checkAuthDoc-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 57,
+    "kind": "variable",
+    "name": "resolver",
+    "memberof": "src/__tests__/checkAuthDoc-test.js",
+    "static": true,
+    "longname": "src/__tests__/checkAuthDoc-test.js~resolver",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/checkAuthDoc-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 58,
+    "kind": "variable",
+    "name": "mode",
+    "memberof": "src/__tests__/checkAuthDoc-test.js",
+    "static": true,
+    "longname": "src/__tests__/checkAuthDoc-test.js~mode",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/checkAuthDoc-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 59,
+    "kind": "variable",
+    "name": "doc",
+    "memberof": "src/__tests__/checkAuthDoc-test.js",
+    "static": true,
+    "longname": "src/__tests__/checkAuthDoc-test.js~doc",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/checkAuthDoc-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"_id\": *, \"authorId\": *, \"otherExistingField\": *, \"secret\": string}"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 60,
+    "kind": "variable",
+    "name": "not_authorized",
+    "memberof": "src/__tests__/checkAuthDoc-test.js",
+    "static": true,
+    "longname": "src/__tests__/checkAuthDoc-test.js~not_authorized",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/checkAuthDoc-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 61,
+    "kind": "file",
+    "name": "src/__tests__/fieldContainsUserId-test.js",
+    "content": "/* eslint-disable max-len */\n/* eslint-disable no-unused-expressions */\nimport ObjectId from 'bson-objectid';\n\nimport { fieldContainsUserId } from '../lib/fieldContainsUserId';\n\nconst expect = require('chai').expect;\n\ndescribe('fieldContainsUserId', function() {\n  it('should return false on empty call', function() {\n    const result = fieldContainsUserId();\n    expect(result).to.be.false;\n  });\n\n  it('should return false on empty docRoleField Array', function() {\n    const docRoleField = [];\n    const userId = '';\n    const result = fieldContainsUserId(docRoleField, userId);\n    expect(result).to.be.false;\n  });\n\n  it('should return false on empty docRoleField Object', function() {\n    const docRoleField = {};\n    const userId = '';\n    const result = fieldContainsUserId(docRoleField, userId);\n    expect(result).to.be.false;\n  });\n\n  it('should return false on docRoleField Array with element \"\"', function() {\n    const docRoleField = [''];\n    const userId = '';\n    const result = fieldContainsUserId(docRoleField, userId);\n    expect(result).to.be.false;\n  });\n\n  it('should return false on docRoleField Object field: \"\"', function() {\n    const docRoleField = {\n      field: ''\n    };\n    const userId = '';\n    const result = fieldContainsUserId(docRoleField, userId);\n    expect(result).to.be.false;\n  });\n\n  it('should return false on empty docRoleField String and empty userId String', function() {\n    const docRoleField = '';\n    const userId = '';\n    const result = fieldContainsUserId(docRoleField, userId);\n    expect(result).to.be.false;\n  });\n\n  it('should return false on empty docRoleField but userId String', function() {\n    const docRoleField = [];\n    const userId = '583291a1638566b3c5a92ca1';\n    const result = fieldContainsUserId(docRoleField, userId);\n    expect(result).to.be.false;\n  });\n\n  it('should return false on empty docRoleField but userId Object', function() {\n    const docRoleField = [];\n    const userId = {\n      $oid: '583291a1638566b3c5a92ca1'\n    };\n    const result = fieldContainsUserId(docRoleField, userId);\n    expect(result).to.be.false;\n  });\n\n  it('should return true on docRoleField String = userId String', function() {\n    const docRoleField = '583291a1638566b3c5a92ca1';\n    const userId = '583291a1638566b3c5a92ca1';\n    const result = fieldContainsUserId(docRoleField, userId);\n    expect(result).to.be.true;\n  });\n\n  it('should return true on docRoleField Array = userId String', function() {\n    const docRoleField = ['583291a1638566b3c5a92ca1'];\n    const userId = '583291a1638566b3c5a92ca1';\n    const result = fieldContainsUserId(docRoleField, userId);\n    expect(result).to.be.true;\n  });\n\n  it('should return true on docRoleField Object with fields = userId String', function() {\n    const docRoleField = {\n      field1: '583291a1638566b3c5a92ca1',\n      field2: 'xxx'\n    };\n    const userId = '583291a1638566b3c5a92ca1';\n    const result = fieldContainsUserId(docRoleField, userId);\n    expect(result).to.be.true;\n  });\n\n  it('should return true on docRoleField field Object Array = userId String', function() {\n    const docRoleField = [\n      {\n        field0: 'xxx'\n      },\n      {\n        field1: '583291a1638566b3c5a92ca1'\n      },\n      {\n        field2: 'xxx'\n      }\n    ];\n    const userId = '583291a1638566b3c5a92ca1';\n    const result = fieldContainsUserId(docRoleField, userId);\n    expect(result).to.be.true;\n  });\n\n  it('should return true on docRoleField Object with fields = userId Object', function() {\n    const docRoleField = {\n      field1: '583291a1638566b3c5a92ca1',\n      field2: 'xxx'\n    };\n    const userId = {\n      $oid: '583291a1638566b3c5a92ca1'\n    };\n    const result = fieldContainsUserId(docRoleField, userId);\n    expect(result).to.be.true;\n  });\n\n  it('should return true on docRoleField Object with fields and IdObject = userId Object', function() {\n    const docRoleField = {\n      field1: {\n        $oid: '583291a1638566b3c5a92ca1'\n      },\n      field2: {\n        $oid: '583291a1638566b3c5a9000'\n      }\n    };\n    const userId = {\n      $oid: '583291a1638566b3c5a92ca1'\n    };\n    const result = fieldContainsUserId(docRoleField, userId);\n    expect(result).to.be.true;\n  });\n\n  it('should return true on docRoleField field Object Array = userId Object', function() {\n    const docRoleField = [\n      {\n        field0: 'xxx'\n      },\n      {\n        field1: '583291a1638566b3c5a92ca1'\n      },\n      {\n        field2: 'xxx'\n      }\n    ];\n    const userId = {\n      $oid: '583291a1638566b3c5a92ca1'\n    };\n    const result = fieldContainsUserId(docRoleField, userId);\n    expect(result).to.be.true;\n  });\n\n  it('should return true on docRoleField field Object Array = userId Object', function() {\n    const docRoleField = [\n      {\n        field0: {\n          $oid: '583291a1638566b3c5a90000'\n        }\n      },\n      {\n        field1: {\n          $oid: '583291a1638566b3c5a92ca1'\n        }\n      },\n      {\n        field2: {\n          $oid: '583291a1638566b3c5a90000'\n        }\n      }\n    ];\n    const userId = {\n      $oid: '583291a1638566b3c5a92ca1'\n    };\n    const result = fieldContainsUserId(docRoleField, userId);\n    expect(result).to.be.true;\n  });\n\n  it('should return true on docRoleField Object with ObjectID fields = userId Object', function() {\n    const docRoleField = {\n      field1: ObjectId('583291a1638566b3c5a92ca1'),\n      field2: ObjectId('583291a1638566b3c5a90000')\n    };\n    const userId = ObjectId('583291a1638566b3c5a92ca1');\n    const result = fieldContainsUserId(docRoleField, userId);\n    expect(result).to.be.true;\n  });\n});\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/__tests__/fieldContainsUserId-test.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 62,
+    "kind": "variable",
+    "name": "expect",
+    "memberof": "src/__tests__/fieldContainsUserId-test.js",
+    "static": true,
+    "longname": "src/__tests__/fieldContainsUserId-test.js~expect",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/fieldContainsUserId-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 63,
+    "kind": "file",
+    "name": "src/__tests__/findByIds-test.js",
+    "content": "/* eslint-disable max-len */\nimport DataLoader from 'dataloader';\nimport mongodb from 'mongo-mock';\nimport ObjectId from 'bson-objectid';\n\nimport { findByIds } from '../lib/findByIds';\n\nconst assert = require('chai').assert;\n\nmongodb.max_delay = 0; // you can choose to NOT pretend to be async (default is 400ms)\nconst MongoClient = mongodb.MongoClient;\nMongoClient.persist = 'log/mongo-mock.db.js'; // persist the data to disk\nconst url = 'mongodb://localhost:27017/myproject';\n\nlet collection;\n\ndescribe('findByIds', function() {\n  before(function(done) {\n    MongoClient.connect(url, {}, function(err, db) {\n      const docs = [\n        {\n          _id: ObjectId('583291a1638566b3c5a92ca0'),\n          username: 'tmeasday'\n        },\n        {\n          _id: ObjectId('583291a1638566b3c5a92ca1'),\n          username: 'stubailo'\n        },\n        {\n          _id: ObjectId('583291a1638566b3c5a92ca2'),\n          username: 'lacker'\n        }\n      ];\n      collection = db.collection('user');\n      collection.insert(docs, function(error, result) {\n        if (error || result) {\n          done();\n        }\n      });\n    });\n  });\n\n  it('cannot get any user profile with id: \"\"', async function() {\n    // const id = '';\n    // const authQuery = {};\n    // const loader = new DataLoader(ids => findByIds(collection, ids, authQuery));\n    // const result = await loader.load(id);\n    // assert.isUndefined(result);\n  });\n\n  it('can get user profile \"stubailo\" with id: ObjectId(\"583291a1638566b3c5a92ca1\")', async function() {\n    const id = ObjectId('583291a1638566b3c5a92ca1');\n    const authQuery = {};\n    const loader = new DataLoader(ids => findByIds(collection, ids, authQuery));\n    const result = await loader.load(id);\n    assert.isObject(result);\n    // assert.equal(result.username, 'stubailo');\n  });\n\n  it('can get user profile \"stubailo\" with id: ObjectId(\"583291a1638566b3c5a92ca1\") and authQuery: { \"username\" : \"stubailo\" }', async function() {\n    const id = ObjectId('583291a1638566b3c5a92ca1');\n    const authQuery = {\n      username: 'stubailo'\n    };\n    const loader = new DataLoader(ids => findByIds(collection, ids, authQuery));\n    const result = await loader.load(id);\n    assert.isObject(result);\n    // assert.equal(result.username, 'stubailo');\n  });\n\n  it('cannot get user profile \"stubailo\" with id: ObjectId(\"583291a1638566b3c5a92ca1\") and me.username = \"lacker\"', async function() {\n    // const id = ObjectId('583291a1638566b3c5a92ca1');\n    // const me = {\n    //   _id: ObjectId('583291a1638566b3c5a92ca2'),\n    //   username: 'lacker'\n    // };\n    // const authQuery = queryForRoles(\n    //   me,\n    //   [],\n    //   ['_id'],\n    //   { User },\n    //   authlog('findByIds', 'testMode', me)\n    // );\n    // const loader = new DataLoader(ids => findByIds(collection, ids, authQuery));\n    // const result = await loader.load(id);\n    // assert.isUndefined(result);\n  });\n});\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/__tests__/findByIds-test.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 64,
+    "kind": "variable",
+    "name": "assert",
+    "memberof": "src/__tests__/findByIds-test.js",
+    "static": true,
+    "longname": "src/__tests__/findByIds-test.js~assert",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/findByIds-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 65,
+    "kind": "variable",
+    "name": "MongoClient",
+    "memberof": "src/__tests__/findByIds-test.js",
+    "static": true,
+    "longname": "src/__tests__/findByIds-test.js~MongoClient",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/findByIds-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 66,
+    "kind": "variable",
+    "name": "url",
+    "memberof": "src/__tests__/findByIds-test.js",
+    "static": true,
+    "longname": "src/__tests__/findByIds-test.js~url",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/findByIds-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 67,
+    "kind": "file",
+    "name": "src/__tests__/getLogFilename-test.js",
+    "content": "/* eslint-disable max-len */\nimport { getLogFilename } from '../lib/getLogFilename';\n\nconst expect = require('chai').expect;\n\ndescribe('getLogFilename', function() {\n  it('to return a logFilename', function() {\n    const logFilename = getLogFilename();\n    expect(logFilename).be.a('string');\n  });\n});\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/__tests__/getLogFilename-test.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 68,
+    "kind": "variable",
+    "name": "expect",
+    "memberof": "src/__tests__/getLogFilename-test.js",
+    "static": true,
+    "longname": "src/__tests__/getLogFilename-test.js~expect",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/getLogFilename-test.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 4,
@@ -628,7 +955,410 @@
     "ignore": true
   },
   {
-    "__docId__": 52,
+    "__docId__": 69,
+    "kind": "file",
+    "name": "src/__tests__/index-test.js",
+    "content": "/* eslint-disable max-len */\nimport fs from 'fs';\nimport path from 'path';\nimport chai, { expect } from 'chai';\nchai.use(require('chai-fs'));\n\nconst indexFile = path.join(__dirname, '/../index.js');\n\ndescribe('index', function() {\n  it('should return an object with with all functions', function() {\n    const ls = fs.readdirSync(path.join(__dirname, '/../lib'));\n    ls.forEach(filename => {\n      const file = path.parse(filename);\n      if (file.ext === '.js') {\n        const objectName = file.name;\n        const objectNameRegEx = new RegExp(`${objectName}`, 'g');\n        expect(indexFile).to.have.content.that.match(\n          objectNameRegEx,\n          `${objectName} must be in src/index.js file`\n        );\n      }\n    });\n  });\n});\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/__tests__/index-test.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 70,
+    "kind": "variable",
+    "name": "indexFile",
+    "memberof": "src/__tests__/index-test.js",
+    "static": true,
+    "longname": "src/__tests__/index-test.js~indexFile",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/index-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 71,
+    "kind": "file",
+    "name": "src/__tests__/loggedIn-test.js",
+    "content": "/* eslint-disable max-len */\nimport ObjectId from 'bson-objectid';\n\nimport { loggedIn } from '../lib/loggedIn';\n\nconst assert = require('chai').assert;\n\ndescribe('loggedIn', function() {\n  it('should return false, if not logged in', function() {\n    const me = {};\n    const result = loggedIn(me);\n    assert.isFalse(result);\n  });\n\n  it('should return true, if logged in', function() {\n    const me = {\n      _id: ObjectId('583291a1638566b3c5a92ca0'),\n      username: 'tmeasday'\n    };\n    const result = loggedIn(me);\n    assert.isTrue(result);\n  });\n});\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/__tests__/loggedIn-test.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 72,
+    "kind": "variable",
+    "name": "assert",
+    "memberof": "src/__tests__/loggedIn-test.js",
+    "static": true,
+    "longname": "src/__tests__/loggedIn-test.js~assert",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/loggedIn-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 73,
+    "kind": "file",
+    "name": "src/__tests__/logger-test.js",
+    "content": "/* eslint-disable max-len */\nimport { getLogFilename } from '../lib/getLogFilename';\nimport { logger } from '../lib/logger';\n\nconst expect = require('chai').expect;\n\nlet logFilename;\n\ndescribe('logger', function() {\n  before(function() {\n    logFilename = getLogFilename();\n    expect(logFilename).be.a('string');\n  });\n\n  it('should return a function with \"log\"', function() {\n    const result = logger(logFilename);\n    expect(result).to.have.property('log');\n  });\n\n  // This is tested more in depth in test/authlog.js\n});\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/__tests__/logger-test.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 74,
+    "kind": "variable",
+    "name": "expect",
+    "memberof": "src/__tests__/logger-test.js",
+    "static": true,
+    "longname": "src/__tests__/logger-test.js~expect",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/logger-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 75,
+    "kind": "file",
+    "name": "src/__tests__/protectFields-test.js",
+    "content": "/* eslint-disable max-len */\nimport { protectFields } from '../lib/protectFields';\nimport { dummyUserContext } from '../lib/dummyUserContext';\n\nconst assert = require('chai').assert;\n\n// mocking User authRole, as it is not existing in this library\nconst User = dummyUserContext;\n\nconst inputObject = {\n  _id: { $oid: '583676d3618530145474e350' },\n  authorId: { $oid: '583291a1638566b3c5a92ca0' },\n  coauthorsIds: [\n    { $oid: '583291a1638566b3c5a92ca1' },\n    { $oid: '583291a1638566b3c5a92ca2' }\n  ],\n  body:\n    'A #graphql-first development workflow based on real world lessons, from @danimman \\u0026 @stubailo:',\n  createdAt: 1.479964340853e12,\n  updatedAt: 1.479964340853e12,\n  createdById: { $oid: '583291a1638566b3c5a92ca1' },\n  updatedById: { $oid: '583291a1638566b3c5a92ca1' },\n  secret: 'password'\n};\n\ndescribe('protectFields', function() {\n  it('on no proctectedFields, inputObject should be equal to resultObject', function() {\n    const me = {};\n    const authorizedUserRoles = [];\n    const protectedFields = [];\n\n    const result = protectFields(\n      me,\n      authorizedUserRoles,\n      protectedFields,\n      inputObject,\n      { User }\n    );\n\n    assert.isObject(result);\n    assert.deepEqual(inputObject, result);\n  });\n\n  it('on proctectedFields: [\"secret\"], outputObject (without \"secret\") should be equal to resultObject', function() {\n    const me = {};\n    const authorizedUserRoles = [];\n    const protectedFields = ['secret'];\n    const outputObject = {\n      _id: { $oid: '583676d3618530145474e350' },\n      authorId: { $oid: '583291a1638566b3c5a92ca0' },\n      coauthorsIds: [\n        { $oid: '583291a1638566b3c5a92ca1' },\n        { $oid: '583291a1638566b3c5a92ca2' }\n      ],\n      body:\n        'A #graphql-first development workflow based on real world lessons, from @danimman \\u0026 @stubailo:',\n      createdAt: 1.479964340853e12,\n      updatedAt: 1.479964340853e12,\n      createdById: { $oid: '583291a1638566b3c5a92ca1' },\n      updatedById: { $oid: '583291a1638566b3c5a92ca1' }\n    };\n\n    const result = protectFields(\n      me,\n      authorizedUserRoles,\n      protectedFields,\n      inputObject,\n      { User }\n    );\n\n    assert.isObject(result);\n    assert.deepEqual(outputObject, result);\n  });\n\n  it('on proctectedFields: [\"secret\", \"authorId\"], outputObject (without \"secret\", \"authorId\") should be equal to resultObject', function() {\n    const me = {};\n    const authorizedUserRoles = [];\n    const protectedFields = ['secret', 'authorId'];\n    const outputObject = {\n      _id: { $oid: '583676d3618530145474e350' },\n      coauthorsIds: [\n        { $oid: '583291a1638566b3c5a92ca1' },\n        { $oid: '583291a1638566b3c5a92ca2' }\n      ],\n      body:\n        'A #graphql-first development workflow based on real world lessons, from @danimman \\u0026 @stubailo:',\n      createdAt: 1.479964340853e12,\n      updatedAt: 1.479964340853e12,\n      createdById: { $oid: '583291a1638566b3c5a92ca1' },\n      updatedById: { $oid: '583291a1638566b3c5a92ca1' }\n    };\n\n    const result = protectFields(\n      me,\n      authorizedUserRoles,\n      protectedFields,\n      inputObject,\n      { User }\n    );\n\n    assert.isObject(result);\n    assert.deepEqual(outputObject, result);\n  });\n\n  it('if all fields are proctectedFields, empty object {} should be equal to resultObject', function() {\n    const me = {};\n    const authorizedUserRoles = [];\n    const protectedFields = [\n      '_id',\n      'authorId',\n      'coauthorsIds',\n      'body',\n      'createdAt',\n      'updatedAt',\n      'createdById',\n      'updatedById',\n      'secret'\n    ];\n    const outputObject = {};\n\n    const result = protectFields(\n      me,\n      authorizedUserRoles,\n      protectedFields,\n      inputObject,\n      { User }\n    );\n\n    assert.isObject(result);\n    assert.deepEqual(outputObject, result);\n  });\n\n  it('on proctectedFields: [\"secret\"] and authorized User, resultObject should include field \"secret\"', function() {\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tmeasday',\n      role: 'admin'\n    };\n    const authorizedUserRoles = ['admin'];\n    const protectedFields = ['secret'];\n    const outputObject = {\n      _id: { $oid: '583676d3618530145474e350' },\n      authorId: { $oid: '583291a1638566b3c5a92ca0' },\n      coauthorsIds: [\n        { $oid: '583291a1638566b3c5a92ca1' },\n        { $oid: '583291a1638566b3c5a92ca2' }\n      ],\n      body:\n        'A #graphql-first development workflow based on real world lessons, from @danimman \\u0026 @stubailo:',\n      createdAt: 1.479964340853e12,\n      updatedAt: 1.479964340853e12,\n      createdById: { $oid: '583291a1638566b3c5a92ca1' },\n      updatedById: { $oid: '583291a1638566b3c5a92ca1' },\n      secret: 'password'\n    };\n\n    const result = protectFields(\n      me,\n      authorizedUserRoles,\n      protectedFields,\n      inputObject,\n      { User }\n    );\n\n    assert.isObject(result);\n    assert.deepEqual(outputObject, result);\n  });\n\n  it('on proctectedFields: [\"secret\", \"authorId\"] and authorized User, resultObject should include field \"secret\" and \"authorId\"', function() {\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tmeasday',\n      role: 'admin'\n    };\n    const authorizedUserRoles = ['admin'];\n    const protectedFields = ['secret', 'authorId'];\n    const outputObject = {\n      _id: { $oid: '583676d3618530145474e350' },\n      authorId: { $oid: '583291a1638566b3c5a92ca0' },\n      coauthorsIds: [\n        { $oid: '583291a1638566b3c5a92ca1' },\n        { $oid: '583291a1638566b3c5a92ca2' }\n      ],\n      body:\n        'A #graphql-first development workflow based on real world lessons, from @danimman \\u0026 @stubailo:',\n      createdAt: 1.479964340853e12,\n      updatedAt: 1.479964340853e12,\n      createdById: { $oid: '583291a1638566b3c5a92ca1' },\n      updatedById: { $oid: '583291a1638566b3c5a92ca1' },\n      secret: 'password'\n    };\n\n    const result = protectFields(\n      me,\n      authorizedUserRoles,\n      protectedFields,\n      inputObject,\n      { User }\n    );\n\n    assert.isObject(result);\n    assert.deepEqual(outputObject, result);\n  });\n});\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/__tests__/protectFields-test.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 76,
+    "kind": "variable",
+    "name": "assert",
+    "memberof": "src/__tests__/protectFields-test.js",
+    "static": true,
+    "longname": "src/__tests__/protectFields-test.js~assert",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/protectFields-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 77,
+    "kind": "variable",
+    "name": "User",
+    "memberof": "src/__tests__/protectFields-test.js",
+    "static": true,
+    "longname": "src/__tests__/protectFields-test.js~User",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/protectFields-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 78,
+    "kind": "variable",
+    "name": "inputObject",
+    "memberof": "src/__tests__/protectFields-test.js",
+    "static": true,
+    "longname": "src/__tests__/protectFields-test.js~inputObject",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/protectFields-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"_id\": *, \"authorId\": *, \"coauthorsIds\": *, \"body\": string, \"createdAt\": number, \"updatedAt\": number, \"createdById\": *, \"updatedById\": *, \"secret\": string}"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 79,
+    "kind": "file",
+    "name": "src/__tests__/queryForRoles-test.js",
+    "content": "/* eslint-disable max-len */\nimport { queryForRoles } from '../lib/queryForRoles';\nimport { dummyUserContext } from '../lib/dummyUserContext';\nimport { authlog } from '../lib/authlog';\n\nconst expect = require('chai').expect;\nconst assert = require('chai').assert;\n\n// mocking User authRole, as it is not existing in this library\nconst User = dummyUserContext;\nconst mode = 'testMode';\nconst not_authorized = 'is not authorized';\n\ndescribe('queryForRoles', function() {\n  it('should throw an exception on empty call', function() {\n    const resolver = 'queryForRoles-01';\n    const me = {};\n    const userRoles = [];\n    const docRoles = [];\n\n    let result = {};\n    const testFunction = function() {\n      result = queryForRoles(\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n\n    expect(testFunction).to.throw(not_authorized);\n  });\n\n  it('should throw an exception on insufficent authorization data', function() {\n    const resolver = 'queryForRoles-02';\n    const me = {};\n    const userRoles = [];\n    const docRoles = [];\n\n    let result = {};\n    const testFunction = function() {\n      result = queryForRoles(\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n\n    expect(testFunction).to.throw(not_authorized);\n  });\n\n  it('should throw an exception if not authorized by userRoles or docRoles', function() {\n    const resolver = 'queryForRoles-03';\n    const me = {};\n    const userRoles = ['admin', 'super'];\n    const docRoles = ['authorId', 'coauthorsIds'];\n\n    let result = {};\n    const testFunction = function() {\n      result = queryForRoles(\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n\n    expect(testFunction).to.throw(not_authorized);\n  });\n\n  it('should NOT authorize on userRoles: [\"super\", admin\"] and me.role: \"other\"', function() {\n    const resolver = 'queryForRoles-04';\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tobkle',\n      role: 'other'\n    };\n    const userRoles = ['admin', 'super'];\n    const docRoles = [];\n\n    let result = {};\n    const testFunction = function() {\n      result = queryForRoles(\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n\n    expect(testFunction).to.throw(not_authorized);\n  });\n\n  it('should authorize on userRoles: [\"admin\"] and me.role: \"admin\"', function() {\n    const resolver = 'queryForRoles-05';\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tobkle',\n      role: 'admin'\n    };\n    const userRoles = ['admin'];\n    const docRoles = [];\n\n    let result = {};\n    const testFunction = function() {\n      result = queryForRoles(\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n\n    const expectedResult = {};\n\n    expect(testFunction).to.not.throw();\n    assert.deepEqual(result, expectedResult);\n  });\n\n  it('should authorize on userRoles: [\"super\", admin\"] and me.role: \"admin\"', function() {\n    const resolver = 'queryForRoles-06';\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tobkle',\n      role: 'admin'\n    };\n    const userRoles = ['super', 'admin'];\n    const docRoles = [];\n\n    let result = {};\n    const testFunction = function() {\n      result = queryForRoles(\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n\n    const expectedResult = {};\n\n    expect(testFunction).to.not.throw();\n    assert.deepEqual(result, expectedResult);\n  });\n\n  it('should authorize on docRoles: [\"authorId\"] with authQuery: { $or: [ {\"authorId\" : me._id } ] }', function() {\n    const resolver = 'queryForRoles-07';\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tobkle',\n      role: 'admin'\n    };\n    const userRoles = [];\n    const docRoles = ['authorId'];\n\n    let result = {};\n    const testFunction = function() {\n      result = queryForRoles(\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n\n    const expectedResult = {\n      $or: [\n        {\n          authorId: { $oid: '583291a1638566b3c5a92ca1' }\n        }\n      ]\n    };\n\n    expect(testFunction).to.not.throw();\n    assert.deepEqual(result, expectedResult);\n  });\n\n  it('should authorize on docRoles: [\"authorId\"] with authQuery: { $or: [ {\"authorId\": me._id }, { \"coAuthorsIds\": me._id } ] }', function() {\n    const resolver = 'queryForRoles-08';\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tobkle',\n      role: 'admin'\n    };\n    const userRoles = [];\n    const docRoles = ['authorId', 'coauthorsIds'];\n\n    let result = {};\n    const testFunction = function() {\n      result = queryForRoles(\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n\n    const expectedResult = {\n      $or: [\n        {\n          authorId: { $oid: '583291a1638566b3c5a92ca1' }\n        },\n        {\n          coauthorsIds: { $oid: '583291a1638566b3c5a92ca1' }\n        }\n      ]\n    };\n\n    expect(testFunction).to.not.throw();\n    assert.deepEqual(result, expectedResult);\n  });\n\n  it('should authorize on userRoles: [\"super\", admin\"] and me.role: \"admin\" and docRoles: [\"authorId\"]', function() {\n    const resolver = 'queryForRoles-09';\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tobkle',\n      role: 'admin'\n    };\n    const userRoles = ['admin'];\n    const docRoles = ['authorId'];\n\n    let result = {};\n    const testFunction = function() {\n      result = queryForRoles(\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n\n    const expectedResult = {};\n\n    expect(testFunction).to.not.throw();\n    assert.deepEqual(result, expectedResult);\n  });\n\n  it('should authorize on userRoles: [\"super\", admin\"] and me.role: \"admin\" and docRoles: [\"authorId\"]', function() {\n    const resolver = 'queryForRoles-10';\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tobkle',\n      role: 'admin'\n    };\n    const userRoles = ['super', 'admin'];\n    const docRoles = ['authorId', 'coAuthorsIds'];\n\n    let result = {};\n    const testFunction = function() {\n      result = queryForRoles(\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n\n    const expectedResult = {};\n\n    expect(testFunction).to.not.throw();\n    assert.deepEqual(result, expectedResult);\n  });\n\n  it('should authorize on userRoles: [\"world\"]', function() {\n    const resolver = 'queryForRoles-11';\n    const me = {};\n    const userRoles = ['world'];\n    const docRoles = [];\n\n    let result = {};\n    const testFunction = function() {\n      result = queryForRoles(\n        me,\n        userRoles,\n        docRoles,\n        { User },\n        authlog(resolver, mode, me)\n      );\n      return result;\n    };\n\n    const expectedResult = {};\n\n    expect(testFunction).to.not.throw();\n    assert.deepEqual(result, expectedResult);\n  });\n});\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/__tests__/queryForRoles-test.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 80,
+    "kind": "variable",
+    "name": "expect",
+    "memberof": "src/__tests__/queryForRoles-test.js",
+    "static": true,
+    "longname": "src/__tests__/queryForRoles-test.js~expect",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/queryForRoles-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 81,
+    "kind": "variable",
+    "name": "assert",
+    "memberof": "src/__tests__/queryForRoles-test.js",
+    "static": true,
+    "longname": "src/__tests__/queryForRoles-test.js~assert",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/queryForRoles-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 82,
+    "kind": "variable",
+    "name": "User",
+    "memberof": "src/__tests__/queryForRoles-test.js",
+    "static": true,
+    "longname": "src/__tests__/queryForRoles-test.js~User",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/queryForRoles-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 83,
+    "kind": "variable",
+    "name": "mode",
+    "memberof": "src/__tests__/queryForRoles-test.js",
+    "static": true,
+    "longname": "src/__tests__/queryForRoles-test.js~mode",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/queryForRoles-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 84,
+    "kind": "variable",
+    "name": "not_authorized",
+    "memberof": "src/__tests__/queryForRoles-test.js",
+    "static": true,
+    "longname": "src/__tests__/queryForRoles-test.js~not_authorized",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/queryForRoles-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 85,
+    "kind": "file",
+    "name": "src/__tests__/userRoleAuthorized-test.js",
+    "content": "/* eslint-disable max-len */\nimport { userRoleAuthorized } from '../lib/userRoleAuthorized';\nimport { dummyUserContext } from '../lib/dummyUserContext';\nimport { authlog } from '../lib/authlog';\n\nconst assert = require('chai').assert;\n\n// mocking User authRole, as it is not existing in this library\nconst User = dummyUserContext;\nconst resolver = 'userRoleAuthorized';\nconst mode = 'testMode';\n\ndescribe('userRoleAuthorized', function() {\n  it('should return false, on empty call', function() {\n    const result = userRoleAuthorized();\n\n    assert.isFalse(result);\n  });\n\n  it('should return false, on empty variables', function() {\n    const me = {};\n    const userRoles = [];\n\n    const result = userRoleAuthorized(\n      me,\n      userRoles,\n      { User },\n      authlog(resolver, mode, me)\n    );\n\n    assert.isFalse(result);\n  });\n\n  it('should return false, if userRole is empty', function() {\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tmeasday',\n      role: 'admin'\n    };\n    const userRoles = [];\n\n    const result = userRoleAuthorized(\n      me,\n      userRoles,\n      { User },\n      authlog(resolver, mode, me)\n    );\n\n    assert.isFalse(result);\n  });\n\n  it('should return false, if userRole \"admin\" is not authorized with userRole \"super\"', function() {\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tmeasday',\n      role: 'admin'\n    };\n    const userRoles = ['super'];\n\n    const result = userRoleAuthorized(\n      me,\n      userRoles,\n      { User },\n      authlog(resolver, mode, me)\n    );\n\n    assert.isFalse(result);\n  });\n\n  it('should return true, if userRole \"admin\" is authorized by me.role: \"admin\"', function() {\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tmeasday',\n      role: 'admin'\n    };\n    const userRoles = ['admin'];\n\n    const result = userRoleAuthorized(\n      me,\n      userRoles,\n      { User },\n      authlog(resolver, mode, me)\n    );\n\n    assert.isTrue(result);\n  });\n\n  it('should return true, if userRoles: [\"super\", \"admin\"] is authorized by me.role: \"admin\"', function() {\n    const me = {\n      _id: { $oid: '583291a1638566b3c5a92ca1' },\n      username: 'tmeasday',\n      role: 'admin'\n    };\n    const userRoles = ['super', 'admin'];\n\n    const result = userRoleAuthorized(\n      me,\n      userRoles,\n      { User },\n      authlog(resolver, mode, me)\n    );\n\n    assert.isTrue(result);\n  });\n});\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/__tests__/userRoleAuthorized-test.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 86,
+    "kind": "variable",
+    "name": "assert",
+    "memberof": "src/__tests__/userRoleAuthorized-test.js",
+    "static": true,
+    "longname": "src/__tests__/userRoleAuthorized-test.js~assert",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/userRoleAuthorized-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 87,
+    "kind": "variable",
+    "name": "User",
+    "memberof": "src/__tests__/userRoleAuthorized-test.js",
+    "static": true,
+    "longname": "src/__tests__/userRoleAuthorized-test.js~User",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/userRoleAuthorized-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 88,
+    "kind": "variable",
+    "name": "resolver",
+    "memberof": "src/__tests__/userRoleAuthorized-test.js",
+    "static": true,
+    "longname": "src/__tests__/userRoleAuthorized-test.js~resolver",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/userRoleAuthorized-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 89,
+    "kind": "variable",
+    "name": "mode",
+    "memberof": "src/__tests__/userRoleAuthorized-test.js",
+    "static": true,
+    "longname": "src/__tests__/userRoleAuthorized-test.js~mode",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/__tests__/userRoleAuthorized-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 90,
+    "kind": "file",
+    "name": "src/index.js",
+    "content": "/*\n * '../index.js' file provides access to all public \n * create graphql server \n * authorization functions\n */\n\nexport { getLogFilename } from './lib/getLogFilename.js';\nexport { dummyUserContext } from './lib/dummyUserContext.js';\nexport { logger } from './lib/logger.js';\nexport { authlog } from './lib/authlog.js';\nexport { checkAuthDoc } from './lib/checkAuthDoc.js';\nexport { fieldContainsUserId } from './lib/fieldContainsUserId.js';\nexport { findByIds } from './lib/findByIds.js';\nexport { loggedIn } from './lib/loggedIn.js';\nexport { protectFields } from './lib/protectFields.js';\nexport { queryForRoles } from './lib/queryForRoles.js';\nexport { userRoleAuthorized } from './lib/userRoleAuthorized.js';\nexport { version } from '../package.json';\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 91,
+    "kind": "file",
+    "name": "src/lib/authlog.js",
+    "content": "import { logger } from './logger';\nimport { getLogFilename } from './getLogFilename';\n\n/*\n * Central logger for authorization checks\n * @param {string} resolver\n * @param {string} mode\n * @param {object} me\n * @return {\n *    debug {function},\n *    error {function} \n * }\n */\nexport function authlog(resolver = '', mode = '', me = {}) {\n  const logFilename = getLogFilename();\n  const log = logger(logFilename);\n\n  const makeMessage = message =>\n    `Authorize ${mode} '${resolver}' with user '${me.username\n      ? me.username\n      : '<no-user>'}' ${message}`;\n\n  return {\n    debug: message => {\n      const resultMessage = makeMessage(message);\n      log.debug(resultMessage);\n      return resultMessage;\n    },\n    error: message => {\n      const resultMessage = makeMessage(message);\n      log.error(resultMessage);\n      throw new Error(makeMessage(message));\n    }\n  };\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/authlog.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 92,
     "kind": "function",
     "name": "authlog",
     "memberof": "src/lib/authlog.js",
@@ -637,11 +1367,11 @@
     "static": true,
     "longname": "src/lib/authlog.js~authlog",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/authlog.js",
-    "importStyle": null,
+    "importStyle": "{authlog}",
     "description": null,
-    "lineNumber": 16,
+    "lineNumber": 14,
     "undocument": true,
     "params": [
       {
@@ -676,14 +1406,13 @@
       "types": [
         "{\"debug\": *, \"error\": *}"
       ]
-    },
-    "ignore": true
+    }
   },
   {
-    "__docId__": 53,
+    "__docId__": 93,
     "kind": "file",
     "name": "src/lib/checkAuthDoc.js",
-    "content": "import userRoleAuthorized from \"./userRoleAuthorized\";\nimport fieldContainsUserId from \"./fieldContainsUserId\";\nimport authlog from \"./authlog\";\n\nconst defaultLogger = authlog();\n\n/*\n * Returns an authorized document\n * @param {object} doc\n * @param {object} me\n * @param {array} userRoles\n * @param {array} docRoles\n * @param {object} User\n * @param {function} logger\n * @return {object} doc\n */\n\nfunction checkAuthDoc(\n  doc = {},\n  me = {},\n  userRoles = [],\n  docRoles = [],\n  { User },\n  logger = defaultLogger\n) {\n  let resultDoc = Object.assign({}, doc);\n\n  // get the User's role\n  const role = User.authRole(me);\n\n  // check if userRole entitles current user for this action\n  if (userRoleAuthorized(me, userRoles, { User }, logger)) {\n    logger.debug(`and role: \"${role}\" is authorized by userRole.`);\n    return resultDoc;\n  }\n\n  // check if docRole entitles current user for this document and action\n  let authorized = false;\n  docRoles.every(field => {\n    if (\n      resultDoc[field] &&\n      me._id &&\n      fieldContainsUserId(resultDoc[field], me._id)\n    ) {\n      authorized = true;\n    }\n  });\n  if (authorized) {\n    logger.debug(`and role: \"${role}\" is authorized by docRole.`);\n    return resultDoc;\n  }\n\n  // Not Authorized, throw exception in logger.error\n  logger.error(`and role: \"${role}\" is not authorized.`);\n}\n\nmodule.exports = checkAuthDoc;\n",
+    "content": "import { userRoleAuthorized } from './userRoleAuthorized';\nimport { fieldContainsUserId } from './fieldContainsUserId';\nimport { authlog } from './authlog';\n\nconst defaultLogger = authlog();\n\n/*\n * Returns an authorized document\n * @param {object} doc\n * @param {object} me\n * @param {array} userRoles\n * @param {array} docRoles\n * @param {object} User\n * @param {function} logger\n * @return {object} doc\n */\n\nexport function checkAuthDoc(\n  doc = {},\n  me = {},\n  userRoles = [],\n  docRoles = [],\n  { User },\n  logger = defaultLogger\n) {\n  const resultDoc = Object.assign({}, doc);\n\n  // get the User's role\n  const role = User.authRole(me);\n\n  // check if userRole entitles current user for this action\n  if (userRoleAuthorized(me, userRoles, { User }, logger)) {\n    logger.debug(`and role: '${role}' is authorized by userRole.`);\n    return resultDoc;\n  }\n\n  // check if docRole entitles current user for this document and action\n  let authorized = false;\n  docRoles.every(field => {\n    if (\n      resultDoc[field] &&\n      me._id &&\n      fieldContainsUserId(resultDoc[field], me._id)\n    ) {\n      authorized = true;\n    }\n  });\n  if (authorized) {\n    logger.debug(`and role: '${role}' is authorized by docRole.`);\n    return resultDoc;\n  }\n\n  // Not Authorized, throw exception in logger.error\n  logger.error(`and role: '${role}' is not authorized.`);\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/checkAuthDoc.js",
     "access": "public",
@@ -691,7 +1420,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 54,
+    "__docId__": 94,
     "kind": "variable",
     "name": "defaultLogger",
     "memberof": "src/lib/checkAuthDoc.js",
@@ -712,7 +1441,7 @@
     "ignore": true
   },
   {
-    "__docId__": 55,
+    "__docId__": 95,
     "kind": "function",
     "name": "checkAuthDoc",
     "memberof": "src/lib/checkAuthDoc.js",
@@ -721,9 +1450,9 @@
     "static": true,
     "longname": "src/lib/checkAuthDoc.js~checkAuthDoc",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/checkAuthDoc.js",
-    "importStyle": null,
+    "importStyle": "{checkAuthDoc}",
     "description": null,
     "lineNumber": 18,
     "undocument": true,
@@ -788,14 +1517,13 @@
       "types": [
         "*"
       ]
-    },
-    "ignore": true
+    }
   },
   {
-    "__docId__": 56,
+    "__docId__": 96,
     "kind": "file",
     "name": "src/lib/dummyUserContext.js",
-    "content": "// mocking User authRole, as it is not existing in this library\n// for usage in the test cases, where we don't have an original User model context\nconst dummyUserContext = {\n  authRole(user) {\n    return user && user.role ? user.role : null;\n  }\n};\n\nmodule.exports = dummyUserContext;\n",
+    "content": "/*\n * Returns a dummyUserContext\n * mocking User authRole, as it is not existing in this library\n * for usage in the test cases, where we don't have an original \n * User model context\n * @return {object} dummyUserContext\n */\nexport const dummyUserContext = {\n  authRole(user) {\n    return user && user.role ? user.role : null;\n  }\n};\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/dummyUserContext.js",
     "access": "public",
@@ -803,31 +1531,30 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 57,
+    "__docId__": 97,
     "kind": "variable",
     "name": "dummyUserContext",
     "memberof": "src/lib/dummyUserContext.js",
     "static": true,
     "longname": "src/lib/dummyUserContext.js~dummyUserContext",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/dummyUserContext.js",
-    "importStyle": null,
+    "importStyle": "{dummyUserContext}",
     "description": null,
-    "lineNumber": 3,
+    "lineNumber": 8,
     "undocument": true,
     "type": {
       "types": [
         "{\"authRole\": function}"
       ]
-    },
-    "ignore": true
+    }
   },
   {
-    "__docId__": 58,
+    "__docId__": 98,
     "kind": "file",
     "name": "src/lib/fieldContainsUserId.js",
-    "content": "import _ from \"lodash\";\n\nfunction extractUserId(userIdObject) {\n  let newUserId = \"\";\n  if (_.isObject(userIdObject)) {\n    Object.keys(userIdObject).forEach(field => {\n      newUserId = userIdObject[field];\n    });\n  } else {\n    newUserId = userIdObject;\n  }\n  return newUserId;\n}\n\n/*\n * checks, if a field contains a user's id\n * returns true, if a field of type array/object/string contains the userId\n * @param {string, object, array} docRoleField\n * @param {string, object} userId\n * @return {boolean} foundUserId\n */\nfunction fieldContainsUserId(docRoleField, compressedUserId) {\n  let found = false;\n\n  // empty docRoleField is not a valid docRoleField\n  if (!docRoleField || docRoleField === \"\" || docRoleField.length === 0)\n    return false;\n\n  // empty (compressed) userId is not a valid userId\n  if (\n    !compressedUserId ||\n    compressedUserId === \"\" ||\n    compressedUserId.toString() === \"\"\n  )\n    return false;\n\n  // extract userId, if it is a mongoID field\n  const userId = extractUserId(compressedUserId);\n\n  // empty (uncompressed) userId is not a valid userId\n  if (!userId || userId === \"\") return false;\n\n  // docRoleField of type Array\n  if (_.isArray(docRoleField)) {\n    docRoleField.forEach(field => {\n      if (fieldContainsUserId(field, userId)) {\n        found = true;\n      }\n    });\n    if (found) return true;\n    return false;\n  }\n\n  // docRoleField of type Object\n  if (_.isObject(docRoleField)) {\n    // For each field in the object\n    Object.keys(docRoleField).forEach(field => {\n      if (\n        fieldContainsUserId(docRoleField[field], userId) ||\n        fieldContainsUserId(field, userId)\n      ) {\n        found = true;\n      }\n    });\n    if (found) return true;\n    return false;\n  }\n\n  // docRoleField of type field\n  if (docRoleField.toString() === userId.toString()) {\n    return true;\n  }\n\n  return false;\n}\n\nmodule.exports = fieldContainsUserId;\n",
+    "content": "import _ from 'lodash';\n\n/*\n * extract a UserId from a _id object\n * @param {object} userIdObject\n * @return {string} newUserId\n */\nfunction extractUserId(userIdObject) {\n  let newUserId = '';\n  if (_.isObject(userIdObject)) {\n    Object.keys(userIdObject).forEach(field => {\n      newUserId = userIdObject[field];\n    });\n  } else {\n    newUserId = userIdObject;\n  }\n  return newUserId;\n}\n\n/*\n * checks, if a field contains a user's id\n * returns true, if a field of type array/object/string contains the userId\n * @param {string, object, array} docRoleField\n * @param {string, object} userId\n * @return {boolean} foundUserId\n */\nexport function fieldContainsUserId(docRoleField, compressedUserId) {\n  let found = false;\n\n  // empty docRoleField is not a valid docRoleField\n  if (!docRoleField || docRoleField === '' || docRoleField.length === 0) {\n    return false;\n  }\n\n  // empty (compressed) userId is not a valid userId\n  if (\n    !compressedUserId ||\n    compressedUserId === '' ||\n    compressedUserId.toString() === ''\n  ) {\n    return false;\n  }\n\n  // extract userId, if it is a mongoID field\n  const userId = extractUserId(compressedUserId);\n\n  // empty (uncompressed) userId is not a valid userId\n  if (!userId || userId === '') {\n    return false;\n  }\n\n  // docRoleField of type Array\n  if (_.isArray(docRoleField)) {\n    docRoleField.forEach(field => {\n      if (fieldContainsUserId(field, userId)) {\n        found = true;\n      }\n    });\n    if (found) {\n      return true;\n    }\n    return false;\n  }\n\n  // docRoleField of type Object\n  if (_.isObject(docRoleField)) {\n    // For each field in the object\n    Object.keys(docRoleField).forEach(field => {\n      if (\n        fieldContainsUserId(docRoleField[field], userId) ||\n        fieldContainsUserId(field, userId)\n      ) {\n        found = true;\n      }\n    });\n    if (found) {\n      return true;\n    }\n    return false;\n  }\n\n  // docRoleField of type field\n  if (docRoleField.toString() === userId.toString()) {\n    return true;\n  }\n\n  return false;\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/fieldContainsUserId.js",
     "access": "public",
@@ -835,7 +1562,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 59,
+    "__docId__": 99,
     "kind": "function",
     "name": "extractUserId",
     "memberof": "src/lib/fieldContainsUserId.js",
@@ -848,7 +1575,7 @@
     "importPath": "create-graphql-server-authorization/src/lib/fieldContainsUserId.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 3,
+    "lineNumber": 8,
     "undocument": true,
     "params": [
       {
@@ -866,7 +1593,7 @@
     "ignore": true
   },
   {
-    "__docId__": 60,
+    "__docId__": 100,
     "kind": "function",
     "name": "fieldContainsUserId",
     "memberof": "src/lib/fieldContainsUserId.js",
@@ -875,11 +1602,11 @@
     "static": true,
     "longname": "src/lib/fieldContainsUserId.js~fieldContainsUserId",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/fieldContainsUserId.js",
-    "importStyle": null,
+    "importStyle": "{fieldContainsUserId}",
     "description": null,
-    "lineNumber": 22,
+    "lineNumber": 27,
     "undocument": true,
     "params": [
       {
@@ -899,14 +1626,13 @@
       "types": [
         "boolean"
       ]
-    },
-    "ignore": true
+    }
   },
   {
-    "__docId__": 61,
+    "__docId__": 101,
     "kind": "file",
     "name": "src/lib/findByIds.js",
-    "content": "/*\n * find a record by id (cached with dataloader)\n * returns the record, cached if already read, checks authorization if set\n * enhancement of tmeasday'findByIds\n * @param {string, array} docRoleField\n * @param {object} userId\n * @return {boolean} foundUserId\n */\nfunction findByIds(collection, ids = [], authQuery) {\n  const baseQuery = { _id: { $in: ids } };\n  const finalQuery = { ...baseQuery, ...authQuery };\n  return collection.find(finalQuery).toArray().then(docs => {\n    const idMap = {};\n    docs.forEach(d => {\n      idMap[d._id] = d;\n    });\n    return ids.map(id => idMap[id]);\n  });\n}\n\nmodule.exports = findByIds;\n",
+    "content": "/* find a record by id (cached with dataloader)\n * returns the record, cached if already read, checks authorization if set\n * enhancement of tmeasday'findByIds\n * @param {string, array} docRoleField\n * @param {object} userId\n * @return {boolean} foundUserId\n */\nexport function findByIds(collection, ids = [], authQuery = {}) {\n  const baseQuery = { _id: { $in: ids } };\n  const finalQuery = { ...baseQuery, ...authQuery };\n  return collection.find(finalQuery).toArray().then(docs => {\n    const idMap = {};\n    docs.forEach(d => {\n      idMap[d._id] = d;\n    });\n    return ids.map(id => idMap[id]);\n  });\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/findByIds.js",
     "access": "public",
@@ -914,7 +1640,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 62,
+    "__docId__": 102,
     "kind": "function",
     "name": "findByIds",
     "memberof": "src/lib/findByIds.js",
@@ -923,11 +1649,11 @@
     "static": true,
     "longname": "src/lib/findByIds.js~findByIds",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/findByIds.js",
-    "importStyle": null,
+    "importStyle": "{findByIds}",
     "description": null,
-    "lineNumber": 9,
+    "lineNumber": 8,
     "undocument": true,
     "params": [
       {
@@ -947,23 +1673,25 @@
       },
       {
         "name": "authQuery",
+        "optional": true,
         "types": [
-          "*"
-        ]
+          "{}"
+        ],
+        "defaultRaw": {},
+        "defaultValue": "{}"
       }
     ],
     "return": {
       "types": [
         "*"
       ]
-    },
-    "ignore": true
+    }
   },
   {
-    "__docId__": 63,
+    "__docId__": 103,
     "kind": "file",
     "name": "src/lib/getLogFilename.js",
-    "content": "import path from \"path\";\n\nconst expect = require(\"chai\").expect;\n\n/*\n * Get log filename\n * package.json should be existing in current working directory\n * and should have a section \"config\" with a \"logfile\" name\n * @return (string) logFilename\n */\nfunction getLogFilename() {\n  const packageJSON = require(`${process.cwd()}/package.json`);\n  const logFilename = path.normalize(packageJSON.config.logfile);\n  expect(logFilename).be.a(\"string\");\n  return logFilename;\n}\n\nmodule.exports = getLogFilename;\n",
+    "content": "import path from 'path';\n\nconst expect = require('chai').expect;\n\n/* Get log filename\n * package.json should be existing in current working directory\n * and should have a section 'config' with a 'logfile' name\n * @return (string) logFilename\n */\nexport function getLogFilename() {\n  const packageJSON = require(`${process.cwd()}/package.json`);\n  const logFilename = path.normalize(packageJSON.config.logfile);\n  expect(logFilename).be.a('string');\n  return logFilename;\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/getLogFilename.js",
     "access": "public",
@@ -971,7 +1699,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 64,
+    "__docId__": 104,
     "kind": "variable",
     "name": "expect",
     "memberof": "src/lib/getLogFilename.js",
@@ -992,7 +1720,7 @@
     "ignore": true
   },
   {
-    "__docId__": 65,
+    "__docId__": 105,
     "kind": "function",
     "name": "getLogFilename",
     "memberof": "src/lib/getLogFilename.js",
@@ -1001,25 +1729,24 @@
     "static": true,
     "longname": "src/lib/getLogFilename.js~getLogFilename",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/getLogFilename.js",
-    "importStyle": null,
+    "importStyle": "{getLogFilename}",
     "description": null,
-    "lineNumber": 11,
+    "lineNumber": 10,
     "undocument": true,
     "params": [],
     "return": {
       "types": [
         "*"
       ]
-    },
-    "ignore": true
+    }
   },
   {
-    "__docId__": 66,
+    "__docId__": 106,
     "kind": "file",
     "name": "src/lib/loggedIn.js",
-    "content": "/*\n * Checks if an user is logged in\n * @param {object} me\n * @return {boolean} loggedIn\n */\n\nfunction loggedIn(me) {\n  if (me && me._id && me._id.toString() !== \"\") {\n    return true;\n  }\n  return false;\n}\n\nmodule.exports = loggedIn;\n",
+    "content": "/*\n * Checks if an user is logged in\n * @param {object} me\n * @return {boolean} loggedIn\n */\n\nexport function loggedIn(me) {\n  if (me && me._id && me._id.toString() !== '') {\n    return true;\n  }\n  return false;\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/loggedIn.js",
     "access": "public",
@@ -1027,7 +1754,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 67,
+    "__docId__": 107,
     "kind": "function",
     "name": "loggedIn",
     "memberof": "src/lib/loggedIn.js",
@@ -1036,9 +1763,9 @@
     "static": true,
     "longname": "src/lib/loggedIn.js~loggedIn",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/loggedIn.js",
-    "importStyle": null,
+    "importStyle": "{loggedIn}",
     "description": null,
     "lineNumber": 7,
     "undocument": true,
@@ -1054,14 +1781,13 @@
       "types": [
         "boolean"
       ]
-    },
-    "ignore": true
+    }
   },
   {
-    "__docId__": 68,
+    "__docId__": 108,
     "kind": "file",
     "name": "src/lib/logger.js",
-    "content": "import winston from \"winston\";\n\n/*\n * Creates a logger based on winston\n * @param {object} me\n * @return {boolean} logger\n */\n\nwinston.emitErrs = true;\n\n// create timestamps in local format\nconst timestamp = function() {\n  return new Date(Date.now()).toLocaleString();\n};\n\n// format the output messages\nconst formatter = function(options) {\n  return (\n    options.timestamp() +\n    \" \" +\n    (options.level === \"error\" ? \" \" + options.level.toUpperCase() : \"\") +\n    \" \" +\n    (options.message ? options.message : \"\") +\n    (options.meta && Object.keys(options.meta).length\n      ? \"\\n\\t\" + JSON.stringify(options.meta)\n      : \"\")\n  );\n};\n\n// creates the logger, which outputs messages to file and to console\nconst logger = function(filename) {\n  return new winston.Logger({\n    transports: [\n      new winston.transports.File({\n        level: \"debug\",\n        filename: filename,\n        handleExceptions: true,\n        json: false,\n        maxsize: 5 * 1024 * 1024, //5MB\n        maxFiles: 5,\n        colorize: false,\n        timestamp: timestamp,\n        formatter: formatter\n      }),\n\n      new winston.transports.Console({\n        level: \"debug\",\n        handleExceptions: true,\n        json: false,\n        colorize: true,\n        timestamp: timestamp,\n        formatter: formatter\n      })\n    ],\n\n    exitOnError: false\n  });\n};\n\n// define an output stream\nconst stream = {\n  write: function(message, encoding) {\n    logger.debug(message);\n  }\n};\n\nlogger.stream = stream;\n\nmodule.exports = logger;\n",
+    "content": "import winston from 'winston';\n\n/*\n * Creates a logger based on winston\n * @param {object} me\n * @return {boolean} logger\n */\n\nwinston.emitErrs = true;\n\n// create timestamps in local format\nconst timestamp = function() {\n  return new Date(Date.now()).toLocaleString();\n};\n\n// format the output messages\nconst formatter = function(options) {\n  return (\n    options.timestamp() +\n    ' ' +\n    (options.level === 'error' ? ' ' + options.level.toUpperCase() : '') +\n    ' ' +\n    (options.message ? options.message : '') +\n    (options.meta && Object.keys(options.meta).length\n      ? '\\n\\t' + JSON.stringify(options.meta)\n      : '')\n  );\n};\n\n// creates the logger, which outputs messages to file and to console\nexport function logger(filename) {\n  return new winston.Logger({\n    transports: [\n      new winston.transports.File({\n        level: 'debug',\n        filename,\n        handleExceptions: true,\n        json: false,\n        maxsize: 5 * 1024 * 1024, // 5MB\n        maxFiles: 5,\n        colorize: false,\n        timestamp,\n        formatter\n      }),\n\n      new winston.transports.Console({\n        level: 'debug',\n        handleExceptions: true,\n        json: false,\n        colorize: true,\n        timestamp,\n        formatter\n      })\n    ],\n\n    exitOnError: false\n  });\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/logger.js",
     "access": "public",
@@ -1069,7 +1795,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 69,
+    "__docId__": 109,
     "kind": "function",
     "name": "timestamp",
     "memberof": "src/lib/logger.js",
@@ -1093,7 +1819,7 @@
     "ignore": true
   },
   {
-    "__docId__": 70,
+    "__docId__": 110,
     "kind": "function",
     "name": "formatter",
     "memberof": "src/lib/logger.js",
@@ -1124,7 +1850,7 @@
     "ignore": true
   },
   {
-    "__docId__": 71,
+    "__docId__": 111,
     "kind": "function",
     "name": "logger",
     "memberof": "src/lib/logger.js",
@@ -1133,9 +1859,9 @@
     "static": true,
     "longname": "src/lib/logger.js~logger",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/logger.js",
-    "importStyle": null,
+    "importStyle": "{logger}",
     "description": null,
     "lineNumber": 31,
     "undocument": true,
@@ -1151,35 +1877,13 @@
       "types": [
         "*"
       ]
-    },
-    "ignore": true
+    }
   },
   {
-    "__docId__": 72,
-    "kind": "variable",
-    "name": "stream",
-    "memberof": "src/lib/logger.js",
-    "static": true,
-    "longname": "src/lib/logger.js~stream",
-    "access": "public",
-    "export": false,
-    "importPath": "create-graphql-server-authorization/src/lib/logger.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 61,
-    "undocument": true,
-    "type": {
-      "types": [
-        "{\"write\": *}"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 73,
+    "__docId__": 112,
     "kind": "file",
     "name": "src/lib/protectFields.js",
-    "content": "import dummyUserContext from \"./dummyUserContext\";\n\n/*\n * Protects a field based on authorizations\n * @param {object} me\n * @param {array} authorizedUserRoles\n * @param {array} protectedFields\n * @param {object} inputObject\n * @param {object} User\n * @return {object} result\n */\nfunction protectFields(\n  me = {},\n  authorizedUserRoles = [],\n  protectedFields = [],\n  inputObject = {},\n  { User } = { User: dummyUserContext }\n) {\n  // pure function\n  const result = Object.assign({}, inputObject);\n\n  // getting role of current User\n  const role = User.authRole(me);\n\n  // if user is not allowed to access specific fields, remove field from object...\n  if (!authorizedUserRoles.includes(role)) {\n    protectedFields.forEach(protectedField => {\n      if (result[protectedField]) delete result[protectedField];\n    });\n  }\n\n  return result;\n}\n\nmodule.exports = protectFields;\n",
+    "content": "import { dummyUserContext } from './dummyUserContext';\n\n/*\n * Protects a field based on authorizations\n * @param {object} me\n * @param {array} authorizedUserRoles\n * @param {array} protectedFields\n * @param {object} inputObject\n * @param {object} User\n * @return {object} result\n */\nexport function protectFields(\n  me = {},\n  authorizedUserRoles = [],\n  protectedFields = [],\n  inputObject = {},\n  { User } = { User: dummyUserContext }\n) {\n  // pure function\n  const result = Object.assign({}, inputObject);\n\n  // getting role of current User\n  const role = User.authRole(me);\n\n  // if user is not allowed to access specific fields,\n  // remove field from object...\n  if (!authorizedUserRoles.includes(role)) {\n    protectedFields.forEach(protectedField => {\n      if (result[protectedField]) {\n        delete result[protectedField];\n      }\n    });\n  }\n\n  return result;\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/protectFields.js",
     "access": "public",
@@ -1187,7 +1891,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 74,
+    "__docId__": 113,
     "kind": "function",
     "name": "protectFields",
     "memberof": "src/lib/protectFields.js",
@@ -1196,9 +1900,9 @@
     "static": true,
     "longname": "src/lib/protectFields.js~protectFields",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/protectFields.js",
-    "importStyle": null,
+    "importStyle": "{protectFields}",
     "description": null,
     "lineNumber": 12,
     "undocument": true,
@@ -1253,14 +1957,13 @@
       "types": [
         "*"
       ]
-    },
-    "ignore": true
+    }
   },
   {
-    "__docId__": 75,
+    "__docId__": 114,
     "kind": "file",
     "name": "src/lib/queryForRoles.js",
-    "content": "import userRoleAuthorized from \"./userRoleAuthorized\";\nimport loggedIn from \"./loggedIn\";\n\nimport dummyUserContext from \"./dummyUserContext\";\nimport authlog from \"./authlog\";\n\nconst defaultLogger = authlog();\n\n/*\n * Prepare a query object for mongodb operations with authorization queries\n * creates an authQuery object with additional query arguments, to implement authorization restrictions for mongodb access\n * @param {object} me\n * @param {array} userRoles\n * @param {array} docRoles\n * @param {object} inputObject\n * @param {object} User\n * @param {object} logger\n * @return {object, exception} queryObject\n *\n * @example: const authQuery = queryForRoles(me, userRoles, docRoles, { User }, authlog(resolver, mode, me ) ); \n */\nfunction queryForRoles(\n  me = {},\n  userRoles = [],\n  docRoles = [],\n  { User } = { User: dummyUserContext },\n  logger = defaultLogger\n) {\n  // on insufficient authorization data, it cannot be authorized, throws exception\n  if (!User || !User.authRole || !me || (!userRoles && !docRoles))\n    logger.error(` is not authorized, due to authorization data.`);\n\n  // get current User's role\n  const role = User.authRole(me);\n\n  // Build query for the case: The logged in user's role is authorized\n  if (userRoleAuthorized(me, userRoles, { User }, logger)) {\n    return {}; // empty authQuery means, do operation with no access restrictions\n  }\n\n  // Build query for the case: The user is listed in any document field\n  const query = { $or: [] };\n  // makes only sense, if user is logged in - otherwise no userId\n  if (loggedIn(me)) {\n    // prepare selection criterias as \"authQuery\" object\n    // for later mongodb \"find(...baseQuery,  ...authQuery)\"\n    //                               ...  AND ...{ field1 OR field2}\n    // which will be also considered during the database access\n    // as an \"$or: [ { field1: userId}, { field2: userId} ]\"\n    // with all document roles as fields for the later selection.\n    // At least one of those fields must match the userId,\n    // otherwise, whether no data found or not authorized to access data\n    docRoles.forEach(docRole => query.$or.push({ [docRole]: me._id }));\n    // return this authQuery only, if there was at least 1 field added\n    // otherwise it will result in an unlimited access\n    if (query.$or.length > 0) {\n      // for easier debugging write into the authorzation logs\n      logger.debug(\n        `and role: \"${role ? role : \"<no-role>\"}\" with \n        authQuery: ${JSON.stringify(query, null, 2)}`\n      );\n      // return the query as authQuery for later selection\n      return query;\n    }\n  }\n\n  // Not Authorized - throw exception in logger.error\n  const message = `and role: \"${role}\" is not authorized.`;\n  logger.error(message);\n}\n\nmodule.exports = queryForRoles;\n",
+    "content": "import { userRoleAuthorized } from './userRoleAuthorized';\nimport { dummyUserContext } from './dummyUserContext';\nimport { loggedIn } from './loggedIn';\nimport { authlog } from './authlog';\n\nconst defaultLogger = authlog();\n\n/*\n * Prepare a query object for mongodb operations with authorization queries\n * creates an authQuery object with additional \n * query arguments, to implement authorization restrictions for mongodb access\n * @param {object} me\n * @param {array} userRoles\n * @param {array} docRoles\n * @param {object} inputObject\n * @param {object} User\n * @param {object} logger\n * @return {object, exception} queryObject\n *\n * @example: queryForRoles(me, userRoles, docRoles, { User }, \n *                         authlog(resolver, mode, me ) ); \n */\nexport function queryForRoles(\n  me = {},\n  userRoles = [],\n  docRoles = [],\n  { User } = { User: dummyUserContext },\n  logger = defaultLogger\n) {\n  // get current User's role\n  const role = User.authRole(me);\n\n  // Build query for the case: The logged in user's role is authorized\n  if (userRoleAuthorized(me, userRoles, { User }, logger)) {\n    // empty authQuery means, do operation with no access restrictions\n    return {};\n  }\n\n  // Build query for the case: The user is listed in any document field\n  const query = { $or: [] };\n  // makes only sense, if user is logged in - otherwise no userId\n  if (loggedIn(me)) {\n    // prepare selection criterias as 'authQuery' object\n    // for later mongodb 'find(...baseQuery,  ...authQuery)'\n    //                               ...  AND ...{ field1 OR field2}\n    // which will be also considered during the database access\n    // as an '$or: [ { field1: userId}, { field2: userId} ]'\n    // with all document roles as fields for the later selection.\n    // At least one of those fields must match the userId,\n    // otherwise, whether no data found or not authorized to access data\n    docRoles.forEach(docRole => query.$or.push({ [docRole]: me._id }));\n    // return this authQuery only, if there was at least 1 field added\n    // otherwise it will result in an unlimited access\n    if (query.$or.length > 0) {\n      // for easier debugging write into the authorzation logs\n      logger.debug(\n        `and role: '${role ? role : '<no-role>'}' with \n        authQuery: ${JSON.stringify(query, null, 2)}`\n      );\n      // return the query as authQuery for later selection\n      return query;\n    }\n  }\n\n  // Not Authorized - throw exception in logger.error\n  const message = `and role: '${role}' is not authorized.`;\n  logger.error(message);\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/queryForRoles.js",
     "access": "public",
@@ -1268,7 +1971,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 76,
+    "__docId__": 115,
     "kind": "variable",
     "name": "defaultLogger",
     "memberof": "src/lib/queryForRoles.js",
@@ -1279,7 +1982,7 @@
     "importPath": "create-graphql-server-authorization/src/lib/queryForRoles.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 7,
+    "lineNumber": 6,
     "undocument": true,
     "type": {
       "types": [
@@ -1289,7 +1992,7 @@
     "ignore": true
   },
   {
-    "__docId__": 77,
+    "__docId__": 116,
     "kind": "function",
     "name": "queryForRoles",
     "memberof": "src/lib/queryForRoles.js",
@@ -1298,11 +2001,11 @@
     "static": true,
     "longname": "src/lib/queryForRoles.js~queryForRoles",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/queryForRoles.js",
-    "importStyle": null,
+    "importStyle": "{queryForRoles}",
     "description": null,
-    "lineNumber": 22,
+    "lineNumber": 23,
     "undocument": true,
     "params": [
       {
@@ -1355,14 +2058,13 @@
       "types": [
         "*"
       ]
-    },
-    "ignore": true
+    }
   },
   {
-    "__docId__": 78,
+    "__docId__": 117,
     "kind": "file",
     "name": "src/lib/userRoleAuthorized.js",
-    "content": "import dummyUserContext from \"./dummyUserContext\";\nimport authlog from \"./authlog\";\n\nconst defaultLogger = authlog();\n\n/*\n * Is a user's role authorized for a document\n * @param {object} me\n * @param {array} userRoles\n * @param {object} User\n * @param {object} logger\n * @return {boolean} authorized\n */\n\n// returns true, if the user's role is authorized for a document\nfunction userRoleAuthorized(\n  me = {},\n  userRoles = [],\n  { User } = { User: dummyUserContext },\n  logger = defaultLogger\n) {\n  // on insufficient authorization data, it cannot be authorized\n  if (!User || !User.authRole || !me || !userRoles) return false;\n\n  // get current User's role\n  const role = User.authRole(me);\n\n  // determine, if the given userRoles authorize the current User by its role\n  if (\n    // userRole: \"world\" should authorize everyone - known and unknown users\n    userRoles.includes(\"world\") ||\n    // or there must be a userRole given, and current user must have a role\n    // and the current user's role must be in the given userRoles\n    (role && role !== \"\" && userRoles.length > 0 && userRoles.includes(role))\n  ) {\n    // => authorized\n    logger.debug(`and role \"${role ? role : \"<no-role>\"}\" is authorized`);\n    return true;\n  }\n\n  // => not authorized\n  return false;\n}\n\nmodule.exports = userRoleAuthorized;\n",
+    "content": "import { dummyUserContext } from './dummyUserContext';\nimport { authlog } from './authlog';\n\nconst defaultLogger = authlog();\n\n/*\n * Is a user's role authorized for a document\n * @param {object} me\n * @param {array} userRoles\n * @param {object} User\n * @param {object} logger\n * @return {boolean} authorized\n */\n\n// returns true, if the user's role is authorized for a document\nexport function userRoleAuthorized(\n  me = {},\n  userRoles = [],\n  { User } = { User: dummyUserContext },\n  logger = defaultLogger\n) {\n  // get current User's role\n  const role = User.authRole(me);\n\n  // determine, if the given userRoles authorize the current User by its role\n  if (\n    // userRole: 'world' should authorize everyone - known and unknown users\n    userRoles.includes('world') ||\n    // or there must be a userRole given, and current user must have a role\n    // and the current user's role must be in the given userRoles\n    (role && role !== '' && userRoles.length > 0 && userRoles.includes(role))\n  ) {\n    // => authorized\n    logger.debug(`and role '${role ? role : '<no-role>'}' is authorized`);\n    return true;\n  }\n\n  // => not authorized\n  return false;\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/userRoleAuthorized.js",
     "access": "public",
@@ -1370,7 +2072,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 79,
+    "__docId__": 118,
     "kind": "variable",
     "name": "defaultLogger",
     "memberof": "src/lib/userRoleAuthorized.js",
@@ -1391,7 +2093,7 @@
     "ignore": true
   },
   {
-    "__docId__": 80,
+    "__docId__": 119,
     "kind": "function",
     "name": "userRoleAuthorized",
     "memberof": "src/lib/userRoleAuthorized.js",
@@ -1400,9 +2102,9 @@
     "static": true,
     "longname": "src/lib/userRoleAuthorized.js~userRoleAuthorized",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/userRoleAuthorized.js",
-    "importStyle": null,
+    "importStyle": "{userRoleAuthorized}",
     "description": null,
     "lineNumber": 16,
     "undocument": true,
@@ -1448,12 +2150,11 @@
       "types": [
         "boolean"
       ]
-    },
-    "ignore": true
+    }
   },
   {
     "kind": "index",
-    "content": "# create-graphql-server-authorization\n\n[![Build Status](https://travis-ci.org/tobkle/create-graphql-server-authorization.svg?branch=master)](https://travis-ci.org/tobkle/create-graphql-server-authorization) [![Coverage Status](https://coveralls.io/repos/github/tobkle/create-graphql-server-authorization/badge.svg?branch=master)](https://coveralls.io/github/tobkle/create-graphql-server-authorization?branch=master)\n\nAuthorization for create-graphql-server with Command Line Interface and API.\n\nIf you are using create-grapqhl-server, you come to a point, when you need some kind of authorization on types and fields in your GraphQL schema. This package provides a library to do authorization checks.\n\n## Installation\n```bash\nnpm install create-graphql-server-authorization\n```\n\nIt provides Authorization checks for\n* document type authorization\n* field authorization\n\nIt relays on the Api of the create-graphql-server type system e.g.:\n```javascript\ntype User\n@authorize(\n  admin: [\"create\", \"read\", \"update\", \"delete\"],\n  this: [\"readOne\", \"update\", \"delete\"]\n)\n{\n  username: String!\n  role: String! \n  bio: String!\n}\n```\n\n## Usage\n\n\n## Tests\n```bash\nyarn test\n```\n\n## Contributing\nIn lieu of a formal style guide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code.\n\n",
+    "content": "[![npm version](https://badge.fury.io/js/create-graphql-server-authorization.svg)](http://badge.fury.io/js/create-graphql-server-authorization) [![Build Status](https://travis-ci.org/tobkle/create-graphql-server-authorization.svg?branch=master)](https://travis-ci.org/tobkle/create-graphql-server-authorization) [![Coverage Status](https://coveralls.io/repos/github/tobkle/create-graphql-server-authorization/badge.svg?branch=master)](https://coveralls.io/github/tobkle/create-graphql-server-authorization?branch=master)\n\n# create-graphql-server-authorization\n\nAuthorization for create-graphql-server with Command Line Interface and API.\n\nIf you are using create-grapqhl-server, you come to a point, when you need some kind of authorization on types and fields in your GraphQL schema. This package provides a library to do authorization checks.\n\n## Installation\n```bash\nnpm install create-graphql-server-authorization\n```\n\nIt provides Authorization checks for\n* document type authorization\n* field authorization\n\nIt relays on the Api of the create-graphql-server type system e.g.:\n```javascript\ntype User\n@authorize(\n  admin: [\"create\", \"read\", \"update\", \"delete\"],\n  this: [\"readOne\", \"update\", \"delete\"]\n)\n{\n  username: String!\n  role: String! \n  bio: String!\n}\n```\n\n## Usage\n\n\n## Tests\n```bash\nyarn test\n```\n\n## Contributing\nIn lieu of a formal style guide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code.\n\n",
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/README.md",
     "name": "./README.md",
     "static": true,
@@ -1461,7 +2162,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"create-graphql-server-authorization\",\n  \"version\": \"0.0.13\",\n  \"description\": \"Authorization package for create-graphql-server\",\n  \"main\": \"dist/index.js\",\n  \"nyc\": {\n    \"require\": [\n      \"babel-register\"\n    ],\n    \"sourceMap\": false,\n    \"instrument\": false\n  },\n  \"scripts\": {\n    \"dev\": \"babel-node src/index.js\",\n    \"start\": \"node dist/index.js\",\n    \"eslint\": \"node_modules/.bin/eslint src\",\n    \"prettier\": \"node_modules/.bin/prettier src/**/*.js --write\",\n    \"pretest\": \"npm run build\",\n    \"test\": \"cross-env NODE_ENV=test nyc --require babel-register --require babel-polyfill mocha\",\n    \"coverage\": \"cross-env NODE_ENV=test nyc --require babel-register --require babel-polyfill mocha && nyc report --reporter=text-lcov | coveralls\",\n    \"esdoc\": \"node_modules/.bin/esdoc -c esdoc.json\",\n    \"clean\": \"rm -rf dist/*\",\n    \"build\": \"npm run clean && babel src -D --out-dir dist/\",\n    \"prepublish\": \"npm run build\",\n    \"publisher\": \"git add . && git commit -m 'patched' && npm version patch -m 'Version %s' && git push && git push --tags && npm publish\"\n  },\n  \"config\": {\n    \"logfile\": \"log/all-logs-readable.log\"\n  },\n  \"engines\": {\n    \"node\": \">=7.0.0\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/tobkle/create-graphql-server-authorization.git\"\n  },\n  \"keywords\": [\n    \"create-graphql-server\",\n    \"authorization\"\n  ],\n  \"author\": \"Tobias Klemmer <tobias@klemmer.info> (https://www.klemmer.info)\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/tobkle/create-graphql-server-authorization/issues\"\n  },\n  \"homepage\": \"https://github.com/tobkle/create-graphql-server-authorization#readme\",\n  \"devDependencies\": {\n    \"babel-cli\": \"6.16.0\",\n    \"babel-core\": \"^6.25.0\",\n    \"babel-eslint\": \"^7.2.3\",\n    \"babel-loader\": \"^7.1.1\",\n    \"babel-plugin-istanbul\": \"^4.1.4\",\n    \"babel-plugin-transform-regenerator\": \"^6.24.1\",\n    \"babel-polyfill\": \"^6.23.0\",\n    \"babel-preset-env\": \"^1.6.0\",\n    \"babel-preset-es2015\": \"^6.24.1\",\n    \"babel-preset-react\": \"6.16.0\",\n    \"babel-preset-stage-0\": \"^6.24.1\",\n    \"babel-preset-stage-2\": \"6.17.0\",\n    \"babel-register\": \"^6.24.1\",\n    \"bson-objectid\": \"^1.1.5\",\n    \"chai\": \"^4.0.1\",\n    \"chai-fs\": \"^1.0.0\",\n    \"coveralls\": \"^2.13.1\",\n    \"cross-env\": \"^5.0.5\",\n    \"dataloader\": \"^1.3.0\",\n    \"esdoc\": \"^1.0.1\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"3.8.1\",\n    \"eslint-config-prettier\": \"^2.3.0\",\n    \"eslint-config-react-app\": \"^2.0.0\",\n    \"eslint-plugin-babel\": \"3.3.0\",\n    \"eslint-plugin-flowtype\": \"2.21.0\",\n    \"eslint-plugin-import\": \"2.0.1\",\n    \"eslint-plugin-jsx-a11y\": \"2.2.3\",\n    \"eslint-plugin-prettier\": \"^2.1.2\",\n    \"eslint-plugin-react\": \"6.4.1\",\n    \"istanbul\": \"^0.4.5\",\n    \"mocha\": \"^3.4.2\",\n    \"mocha-lcov-reporter\": \"^1.3.0\",\n    \"mongo-mock\": \"^2.4.1\",\n    \"nyc\": \"^11.1.0\",\n    \"prettier\": \"^1.5.3\"\n  },\n  \"dependencies\": {\n    \"lodash\": \"4.16.4\",\n    \"mongodb\": \"^2.2.31\",\n    \"winston\": \"^2.3.1\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"create-graphql-server-authorization\",\n  \"version\": \"0.0.14\",\n  \"description\": \"Authorization package for create-graphql-server\",\n  \"contributors\": [\n    \"Tobias Klemmer <tobias@klemmer.info> (https://www.klemmer.info)\"\n  ],\n  \"main\": \"index.js\",\n  \"author\": \"Tobias Klemmer <tobias@klemmer.info> (https://www.klemmer.info)\",\n  \"license\": \"MIT\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/tobkle/create-graphql-server-authorization.git\"\n  },\n  \"keywords\": [\n    \"create-graphql-server\",\n    \"authorization\"\n  ],\n  \"bugs\": {\n    \"url\": \"https://github.com/tobkle/create-graphql-server-authorization/issues\"\n  },\n  \"config\": {\n    \"logfile\": \"log/all-logs-readable.log\"\n  },\n  \"options\": {\n    \"mocha\": \"--require ./resources/mocha-bootload --check-leaks --full-trace src/**/__tests__/**/*-test.js\"\n  },\n  \"scripts\": {\n    \"test\": \"npm run lint && npm run check && npm run testonly\",\n    \"testonly\": \"babel-node ./node_modules/.bin/_mocha $npm_package_options_mocha\",\n    \"t\": \"babel-node ./node_modules/.bin/_mocha --require ./resources/mocha-bootload\",\n    \"lint\": \"eslint --fix src || (printf '\\\\033[33mTry: \\\\033[7m npm run lint -- --fix \\\\033[0m\\\\n' && exit 1)\",\n    \"check\": \"flow check\",\n    \"check-cover\": \"for file in {src/*.js,src/**/*.js}; do echo $file; flow coverage $file; done\",\n    \"build\": \"babel src --optional runtime --ignore __tests__ --out-dir dist/ && cp package.json dist/ && npm run build-dot-flow\",\n    \"build-dot-flow\": \"find ./src -name '*.js' -not -path '*/__tests__*' | while read filepath; do cp $filepath `echo $filepath | sed 's/\\\\/src\\\\//\\\\/dist\\\\//g'`.flow; done\",\n    \"watch\": \"babel-node ./resources/watch.js\",\n    \"cover\": \"babel-node ./node_modules/.bin/isparta cover --root src --report html _mocha -- $npm_package_options_mocha\",\n    \"cover:lcov\": \"babel-node ./node_modules/.bin/isparta cover --root src --report lcovonly _mocha -- $npm_package_options_mocha\",\n    \"preversion\": \". ./resources/checkgit.sh && npm test\",\n    \"prepublish\": \". ./resources/prepublish.sh\",\n    \"gitpublish\": \". ./resources/gitpublish.sh\",\n    \"prettier\": \"node_modules/.bin/prettier src/**/**/*.js --write\",\n    \"esdoc\": \"node_modules/.bin/esdoc -c esdoc.json\"\n  },\n  \"engines\": {\n    \"node\": \">=7.0.0\"\n  },\n  \"homepage\": \"https://github.com/tobkle/create-graphql-server-authorization#readme\",\n  \"devDependencies\": {\n    \"babel-cli\": \"6.24.1\",\n    \"babel-eslint\": \"7.2.3\",\n    \"babel-plugin-syntax-async-functions\": \"6.13.0\",\n    \"babel-plugin-syntax-async-generators\": \"6.13.0\",\n    \"babel-plugin-transform-class-properties\": \"6.24.1\",\n    \"babel-plugin-transform-flow-strip-types\": \"6.22.0\",\n    \"babel-plugin-transform-object-rest-spread\": \"6.23.0\",\n    \"babel-preset-env\": \"^1.5.2\",\n    \"bson-objectid\": \"^1.1.5\",\n    \"chai\": \"4.1.1\",\n    \"chai-json-equal\": \"0.0.1\",\n    \"chai-spies-next\": \"^0.8.0\",\n    \"chai-subset\": \"1.5.0\",\n    \"chai-fs\": \"^1.0.0\",\n    \"coveralls\": \"^2.13.1\",\n    \"cross-env\": \"^5.0.5\",\n    \"dataloader\": \"^1.3.0\",\n    \"esdoc\": \"^1.0.1\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"4.4.1\",\n    \"eslint-config-prettier\": \"^2.3.0\",\n    \"eslint-config-react-app\": \"^2.0.0\",\n    \"eslint-plugin-babel\": \"4.1.2\",\n    \"eslint-plugin-flowtype\": \"2.35.0\",\n    \"eslint-plugin-import\": \"2.0.1\",\n    \"eslint-plugin-jsx-a11y\": \"2.2.3\",\n    \"eslint-plugin-prettier\": \"^2.1.2\",\n    \"eslint-plugin-react\": \"6.4.1\",\n    \"flow-bin\": \"0.52.0\",\n    \"isparta\": \"4.0.0\",\n    \"mocha\": \"3.5.0\",\n    \"mocha-lcov-reporter\": \"^1.3.0\",\n    \"mongo-mock\": \"^2.4.1\",\n    \"prettier\": \"^1.5.3\",\n    \"sane\": \"2.0.0\"\n  },\n  \"dependencies\": {\n    \"iterall\": \"^1.1.0\",\n    \"lodash\": \"4.16.4\",\n    \"mongodb\": \"^2.2.31\",\n    \"winston\": \"^2.3.1\"\n  }\n}\n",
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/package.json",
     "name": "package.json",
     "static": true,

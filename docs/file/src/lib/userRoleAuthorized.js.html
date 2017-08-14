@@ -29,13 +29,24 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  </ul>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib">lib</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-authlog">authlog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-checkAuthDoc">checkAuthDoc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fieldContainsUserId">fieldContainsUserId</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findByIds">findByIds</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLogFilename">getLogFilename</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loggedIn">loggedIn</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logger">logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-protectFields">protectFields</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-queryForRoles">queryForRoles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-userRoleAuthorized">userRoleAuthorized</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dummyUserContext">dummyUserContext</a></span></span></li>
+</ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/lib/userRoleAuthorized.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import dummyUserContext from &quot;./dummyUserContext&quot;;
-import authlog from &quot;./authlog&quot;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { dummyUserContext } from &apos;./dummyUserContext&apos;;
+import { authlog } from &apos;./authlog&apos;;
 
 const defaultLogger = authlog();
 
@@ -49,36 +60,31 @@ const defaultLogger = authlog();
  */
 
 // returns true, if the user&apos;s role is authorized for a document
-function userRoleAuthorized(
+export function userRoleAuthorized(
   me = {},
   userRoles = [],
   { User } = { User: dummyUserContext },
   logger = defaultLogger
 ) {
-  // on insufficient authorization data, it cannot be authorized
-  if (!User || !User.authRole || !me || !userRoles) return false;
-
   // get current User&apos;s role
   const role = User.authRole(me);
 
   // determine, if the given userRoles authorize the current User by its role
   if (
-    // userRole: &quot;world&quot; should authorize everyone - known and unknown users
-    userRoles.includes(&quot;world&quot;) ||
+    // userRole: &apos;world&apos; should authorize everyone - known and unknown users
+    userRoles.includes(&apos;world&apos;) ||
     // or there must be a userRole given, and current user must have a role
     // and the current user&apos;s role must be in the given userRoles
-    (role &amp;&amp; role !== &quot;&quot; &amp;&amp; userRoles.length &gt; 0 &amp;&amp; userRoles.includes(role))
+    (role &amp;&amp; role !== &apos;&apos; &amp;&amp; userRoles.length &gt; 0 &amp;&amp; userRoles.includes(role))
   ) {
     // =&gt; authorized
-    logger.debug(`and role &quot;${role ? role : &quot;&lt;no-role&gt;&quot;}&quot; is authorized`);
+    logger.debug(`and role &apos;${role ? role : &apos;&lt;no-role&gt;&apos;}&apos; is authorized`);
     return true;
   }
 
   // =&gt; not authorized
   return false;
 }
-
-module.exports = userRoleAuthorized;
 </code></pre>
 
 </div>

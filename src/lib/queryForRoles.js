@@ -1,14 +1,14 @@
-import userRoleAuthorized from "./userRoleAuthorized";
-import loggedIn from "./loggedIn";
-
-import dummyUserContext from "./dummyUserContext";
-import authlog from "./authlog";
+import { userRoleAuthorized } from './userRoleAuthorized';
+import { dummyUserContext } from './dummyUserContext';
+import { loggedIn } from './loggedIn';
+import { authlog } from './authlog';
 
 const defaultLogger = authlog();
 
 /*
  * Prepare a query object for mongodb operations with authorization queries
- * creates an authQuery object with additional query arguments, to implement authorization restrictions for mongodb access
+ * creates an authQuery object with additional 
+ * query arguments, to implement authorization restrictions for mongodb access
  * @param {object} me
  * @param {array} userRoles
  * @param {array} docRoles
@@ -17,36 +17,34 @@ const defaultLogger = authlog();
  * @param {object} logger
  * @return {object, exception} queryObject
  *
- * @example: const authQuery = queryForRoles(me, userRoles, docRoles, { User }, authlog(resolver, mode, me ) ); 
+ * @example: queryForRoles(me, userRoles, docRoles, { User }, 
+ *                         authlog(resolver, mode, me ) ); 
  */
-function queryForRoles(
+export function queryForRoles(
   me = {},
   userRoles = [],
   docRoles = [],
   { User } = { User: dummyUserContext },
   logger = defaultLogger
 ) {
-  // on insufficient authorization data, it cannot be authorized, throws exception
-  if (!User || !User.authRole || !me || (!userRoles && !docRoles))
-    logger.error(` is not authorized, due to authorization data.`);
-
   // get current User's role
   const role = User.authRole(me);
 
   // Build query for the case: The logged in user's role is authorized
   if (userRoleAuthorized(me, userRoles, { User }, logger)) {
-    return {}; // empty authQuery means, do operation with no access restrictions
+    // empty authQuery means, do operation with no access restrictions
+    return {};
   }
 
   // Build query for the case: The user is listed in any document field
   const query = { $or: [] };
   // makes only sense, if user is logged in - otherwise no userId
   if (loggedIn(me)) {
-    // prepare selection criterias as "authQuery" object
-    // for later mongodb "find(...baseQuery,  ...authQuery)"
+    // prepare selection criterias as 'authQuery' object
+    // for later mongodb 'find(...baseQuery,  ...authQuery)'
     //                               ...  AND ...{ field1 OR field2}
     // which will be also considered during the database access
-    // as an "$or: [ { field1: userId}, { field2: userId} ]"
+    // as an '$or: [ { field1: userId}, { field2: userId} ]'
     // with all document roles as fields for the later selection.
     // At least one of those fields must match the userId,
     // otherwise, whether no data found or not authorized to access data
@@ -56,7 +54,7 @@ function queryForRoles(
     if (query.$or.length > 0) {
       // for easier debugging write into the authorzation logs
       logger.debug(
-        `and role: "${role ? role : "<no-role>"}" with 
+        `and role: '${role ? role : '<no-role>'}' with 
         authQuery: ${JSON.stringify(query, null, 2)}`
       );
       // return the query as authQuery for later selection
@@ -65,8 +63,6 @@ function queryForRoles(
   }
 
   // Not Authorized - throw exception in logger.error
-  const message = `and role: "${role}" is not authorized.`;
+  const message = `and role: '${role}' is not authorized.`;
   logger.error(message);
 }
-
-module.exports = queryForRoles;

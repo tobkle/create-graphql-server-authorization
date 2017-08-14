@@ -4,11 +4,9 @@
  * @return {boolean} loggedIn
  */
 
-function loggedIn(me) {
-  if (me && me._id && me._id.toString() !== "") {
+export function loggedIn(me) {
+  if (me && me._id && me._id.toString() !== '') {
     return true;
   }
   return false;
 }
-
-module.exports = loggedIn;

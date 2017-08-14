@@ -1,5 +1,71 @@
 window.esdocSearchIndex = [
   [
+    "create-graphql-server-authorization/src/lib/authlog.js~authlog",
+    "function/index.html#static-function-authlog",
+    "<span>authlog</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/authlog.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/lib/checkauthdoc.js~checkauthdoc",
+    "function/index.html#static-function-checkAuthDoc",
+    "<span>checkAuthDoc</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/checkAuthDoc.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/lib/dummyusercontext.js~dummyusercontext",
+    "variable/index.html#static-variable-dummyUserContext",
+    "<span>dummyUserContext</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/dummyUserContext.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/lib/fieldcontainsuserid.js~fieldcontainsuserid",
+    "function/index.html#static-function-fieldContainsUserId",
+    "<span>fieldContainsUserId</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/fieldContainsUserId.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/lib/findbyids.js~findbyids",
+    "function/index.html#static-function-findByIds",
+    "<span>findByIds</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/findByIds.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/lib/getlogfilename.js~getlogfilename",
+    "function/index.html#static-function-getLogFilename",
+    "<span>getLogFilename</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/getLogFilename.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/lib/loggedin.js~loggedin",
+    "function/index.html#static-function-loggedIn",
+    "<span>loggedIn</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/loggedIn.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/lib/logger.js~logger",
+    "function/index.html#static-function-logger",
+    "<span>logger</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/logger.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/lib/protectfields.js~protectfields",
+    "function/index.html#static-function-protectFields",
+    "<span>protectFields</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/protectFields.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/lib/queryforroles.js~queryforroles",
+    "function/index.html#static-function-queryForRoles",
+    "<span>queryForRoles</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/queryForRoles.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/lib/userroleauthorized.js~userroleauthorized",
+    "function/index.html#static-function-userRoleAuthorized",
+    "<span>userRoleAuthorized</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/userRoleAuthorized.js</span>",
+    "function"
+  ],
+  [
     "src/.external-ecmascript.js~array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
     "src/.external-ecmascript.js~Array",
@@ -280,6 +346,72 @@ window.esdocSearchIndex = [
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
     "src/.external-ecmascript.js~undefined",
     "external"
+  ],
+  [
+    "src/__tests__/authlog-test.js",
+    "file/src/__tests__/authlog-test.js.html",
+    "src/__tests__/authlog-test.js",
+    "file"
+  ],
+  [
+    "src/__tests__/checkauthdoc-test.js",
+    "file/src/__tests__/checkAuthDoc-test.js.html",
+    "src/__tests__/checkAuthDoc-test.js",
+    "file"
+  ],
+  [
+    "src/__tests__/fieldcontainsuserid-test.js",
+    "file/src/__tests__/fieldContainsUserId-test.js.html",
+    "src/__tests__/fieldContainsUserId-test.js",
+    "file"
+  ],
+  [
+    "src/__tests__/findbyids-test.js",
+    "file/src/__tests__/findByIds-test.js.html",
+    "src/__tests__/findByIds-test.js",
+    "file"
+  ],
+  [
+    "src/__tests__/getlogfilename-test.js",
+    "file/src/__tests__/getLogFilename-test.js.html",
+    "src/__tests__/getLogFilename-test.js",
+    "file"
+  ],
+  [
+    "src/__tests__/index-test.js",
+    "file/src/__tests__/index-test.js.html",
+    "src/__tests__/index-test.js",
+    "file"
+  ],
+  [
+    "src/__tests__/loggedin-test.js",
+    "file/src/__tests__/loggedIn-test.js.html",
+    "src/__tests__/loggedIn-test.js",
+    "file"
+  ],
+  [
+    "src/__tests__/logger-test.js",
+    "file/src/__tests__/logger-test.js.html",
+    "src/__tests__/logger-test.js",
+    "file"
+  ],
+  [
+    "src/__tests__/protectfields-test.js",
+    "file/src/__tests__/protectFields-test.js.html",
+    "src/__tests__/protectFields-test.js",
+    "file"
+  ],
+  [
+    "src/__tests__/queryforroles-test.js",
+    "file/src/__tests__/queryForRoles-test.js.html",
+    "src/__tests__/queryForRoles-test.js",
+    "file"
+  ],
+  [
+    "src/__tests__/userroleauthorized-test.js",
+    "file/src/__tests__/userRoleAuthorized-test.js.html",
+    "src/__tests__/userRoleAuthorized-test.js",
+    "file"
   ],
   [
     "src/index.js",

@@ -1,12 +1,11 @@
-/*
- * find a record by id (cached with dataloader)
+/* find a record by id (cached with dataloader)
  * returns the record, cached if already read, checks authorization if set
  * enhancement of tmeasday'findByIds
  * @param {string, array} docRoleField
  * @param {object} userId
  * @return {boolean} foundUserId
  */
-function findByIds(collection, ids = [], authQuery) {
+export function findByIds(collection, ids = [], authQuery = {}) {
   const baseQuery = { _id: { $in: ids } };
   const finalQuery = { ...baseQuery, ...authQuery };
   return collection.find(finalQuery).toArray().then(docs => {
@@ -17,5 +16,3 @@ function findByIds(collection, ids = [], authQuery) {
     return ids.map(id => idMap[id]);
   });
 }
-
-module.exports = findByIds;

@@ -29,14 +29,25 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  </ul>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib">lib</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-authlog">authlog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-checkAuthDoc">checkAuthDoc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fieldContainsUserId">fieldContainsUserId</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findByIds">findByIds</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLogFilename">getLogFilename</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loggedIn">loggedIn</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logger">logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-protectFields">protectFields</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-queryForRoles">queryForRoles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-userRoleAuthorized">userRoleAuthorized</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dummyUserContext">dummyUserContext</a></span></span></li>
+</ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/lib/checkAuthDoc.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import userRoleAuthorized from &quot;./userRoleAuthorized&quot;;
-import fieldContainsUserId from &quot;./fieldContainsUserId&quot;;
-import authlog from &quot;./authlog&quot;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { userRoleAuthorized } from &apos;./userRoleAuthorized&apos;;
+import { fieldContainsUserId } from &apos;./fieldContainsUserId&apos;;
+import { authlog } from &apos;./authlog&apos;;
 
 const defaultLogger = authlog();
 
@@ -51,7 +62,7 @@ const defaultLogger = authlog();
  * @return {object} doc
  */
 
-function checkAuthDoc(
+export function checkAuthDoc(
   doc = {},
   me = {},
   userRoles = [],
@@ -59,14 +70,14 @@ function checkAuthDoc(
   { User },
   logger = defaultLogger
 ) {
-  let resultDoc = Object.assign({}, doc);
+  const resultDoc = Object.assign({}, doc);
 
   // get the User&apos;s role
   const role = User.authRole(me);
 
   // check if userRole entitles current user for this action
   if (userRoleAuthorized(me, userRoles, { User }, logger)) {
-    logger.debug(`and role: &quot;${role}&quot; is authorized by userRole.`);
+    logger.debug(`and role: &apos;${role}&apos; is authorized by userRole.`);
     return resultDoc;
   }
 
@@ -82,15 +93,13 @@ function checkAuthDoc(
     }
   });
   if (authorized) {
-    logger.debug(`and role: &quot;${role}&quot; is authorized by docRole.`);
+    logger.debug(`and role: &apos;${role}&apos; is authorized by docRole.`);
     return resultDoc;
   }
 
   // Not Authorized, throw exception in logger.error
-  logger.error(`and role: &quot;${role}&quot; is not authorized.`);
+  logger.error(`and role: &apos;${role}&apos; is not authorized.`);
 }
-
-module.exports = checkAuthDoc;
 </code></pre>
 
 </div>

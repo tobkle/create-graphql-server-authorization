@@ -29,15 +29,31 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  </ul>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib">lib</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-authlog">authlog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-checkAuthDoc">checkAuthDoc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fieldContainsUserId">fieldContainsUserId</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findByIds">findByIds</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLogFilename">getLogFilename</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loggedIn">loggedIn</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logger">logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-protectFields">protectFields</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-queryForRoles">queryForRoles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-userRoleAuthorized">userRoleAuthorized</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dummyUserContext">dummyUserContext</a></span></span></li>
+</ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/lib/fieldContainsUserId.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import _ from &quot;lodash&quot;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import _ from &apos;lodash&apos;;
 
+/*
+ * extract a UserId from a _id object
+ * @param {object} userIdObject
+ * @return {string} newUserId
+ */
 function extractUserId(userIdObject) {
-  let newUserId = &quot;&quot;;
+  let newUserId = &apos;&apos;;
   if (_.isObject(userIdObject)) {
     Object.keys(userIdObject).forEach(field =&gt; {
       newUserId = userIdObject[field];
@@ -55,26 +71,30 @@ function extractUserId(userIdObject) {
  * @param {string, object} userId
  * @return {boolean} foundUserId
  */
-function fieldContainsUserId(docRoleField, compressedUserId) {
+export function fieldContainsUserId(docRoleField, compressedUserId) {
   let found = false;
 
   // empty docRoleField is not a valid docRoleField
-  if (!docRoleField || docRoleField === &quot;&quot; || docRoleField.length === 0)
+  if (!docRoleField || docRoleField === &apos;&apos; || docRoleField.length === 0) {
     return false;
+  }
 
   // empty (compressed) userId is not a valid userId
   if (
     !compressedUserId ||
-    compressedUserId === &quot;&quot; ||
-    compressedUserId.toString() === &quot;&quot;
-  )
+    compressedUserId === &apos;&apos; ||
+    compressedUserId.toString() === &apos;&apos;
+  ) {
     return false;
+  }
 
   // extract userId, if it is a mongoID field
   const userId = extractUserId(compressedUserId);
 
   // empty (uncompressed) userId is not a valid userId
-  if (!userId || userId === &quot;&quot;) return false;
+  if (!userId || userId === &apos;&apos;) {
+    return false;
+  }
 
   // docRoleField of type Array
   if (_.isArray(docRoleField)) {
@@ -83,7 +103,9 @@ function fieldContainsUserId(docRoleField, compressedUserId) {
         found = true;
       }
     });
-    if (found) return true;
+    if (found) {
+      return true;
+    }
     return false;
   }
 
@@ -98,7 +120,9 @@ function fieldContainsUserId(docRoleField, compressedUserId) {
         found = true;
       }
     });
-    if (found) return true;
+    if (found) {
+      return true;
+    }
     return false;
   }
 
@@ -109,8 +133,6 @@ function fieldContainsUserId(docRoleField, compressedUserId) {
 
   return false;
 }
-
-module.exports = fieldContainsUserId;
 </code></pre>
 
 </div>

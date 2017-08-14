@@ -1,13 +1,30 @@
 language: node_js
-
 node_js:
-  - stable
-
-install:
-  - npm install
-
+- '8'
+- '6'
+- '4'
+git:
+  depth: 5
+cache: yarn
 script:
-  - npm run coverage
-
-# Send coverage data to Coveralls
-after_script: "npm run coverage"
+- if [[ "$TRAVIS_JOB_NUMBER" == *.1 ]]; then npm run lint && npm run check && npm
+  run cover:lcov && cat ./coverage/lcov.info | coveralls; else npm run testonly; fi
+jobs:
+  include:
+  - stage: Deploy
+    script: echo "Deploying..."
+    node_js: '8'
+    deploy:
+    - provider: script
+      script: npm run gitpublish
+      skip_cleanup: true
+      on:
+        branch: master
+    - provider: npm
+      skip_cleanup: true
+      email: tobias@klemmer.info
+      api_key:
+        secure: d6aQxKC97jyoGZMsXaN5gmy0eGSR+YLbPvtdFFNaWAjnnqn8cl2nTFUnrkWH8kAoH3P8sIuMee8dF/waVLF+U/mDI/+D1Y6T9Fn4ZR4lLaAcMzdySzkHNOyZblkBswM8+Lo5AnyAaMZcJGa1Gd84+8vb+k1LtaUeJUs2Bfln8CsAKbepNPFqMtztiptT4YXn2Nhb7xd2ag6ciZfnQRxLD8FLXWhP7NDigI3hnIXQgRKwwuICzCCEZjLR+Hs+9BqVVF/BDQi7ytx9/VwqQcQUXEYhrGzM81oxHYIEC/FP1Mwo7qFAwL1CSHMziHHGWuq/x3tQb9mGGA1hWCwRWLJbc72vPQ4fxHUSSEITaGl4d4q+tpD1HH7YN/ugwutTqR6GCMvV4BdixgRX3z/L5mudCHQ0IRC9LFfVVyfIMGg4xt+aWU2dIU9EBuV86/Eh3S4AvETdlfjga9saqKlSvYccUnCKh9m0b1ueBW50/tAEo4bbNo+Yxmlch1KkM7FayRMALQpy+QhH0k84X5gVPjW6AyFttr3loeTqWrISR6+N38U1sPy3SCtNC0z3atpmEXuEv9VR04dpl4coIjI6WLvudPzm3SVGR2vCfN8veE/l3wOqLGUoWoNUdWjoPSE1P9472euc7lsod2si13or+xFrKN64DbSCC4Udc3FpDKvMyd4=
+      on:
+        tags: true
+        branch: master

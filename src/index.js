@@ -1,21 +1,18 @@
 /*
- * Provides access to all public 
+ * '../index.js' file provides access to all public 
  * create graphql server 
  * authorization functions
  */
-var authorization = {};
 
-authorization.version = require('../package.json').version;
-authorization.getLogFilename = require('./lib/getLogFilename.js'); 
-authorization.dummyUserContext = require('./lib/dummyUserContext.js'); 
-authorization.logger = require('./lib/logger.js'); 
-authorization.authlog = require('./lib/authlog.js'); 
-authorization.checkAuthDoc = require('./lib/checkAuthDoc.js'); 
-authorization.fieldContainsUserId = require('./lib/fieldContainsUserId.js'); 
-authorization.findByIds = require('./lib/findByIds.js'); 
-authorization.loggedIn = require('./lib/loggedIn.js'); 
-authorization.protectFields = require('./lib/protectFields.js'); 
-authorization.queryForRoles = require('./lib/queryForRoles.js'); 
-authorization.userRoleAuthorized = require('./lib/userRoleAuthorized.js');
-
-module.exports = authorization;
+export { getLogFilename } from './lib/getLogFilename.js';
+export { dummyUserContext } from './lib/dummyUserContext.js';
+export { logger } from './lib/logger.js';
+export { authlog } from './lib/authlog.js';
+export { checkAuthDoc } from './lib/checkAuthDoc.js';
+export { fieldContainsUserId } from './lib/fieldContainsUserId.js';
+export { findByIds } from './lib/findByIds.js';
+export { loggedIn } from './lib/loggedIn.js';
+export { protectFields } from './lib/protectFields.js';
+export { queryForRoles } from './lib/queryForRoles.js';
+export { userRoleAuthorized } from './lib/userRoleAuthorized.js';
+export { version } from '../package.json';

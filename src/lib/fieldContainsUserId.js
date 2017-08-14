@@ -1,7 +1,12 @@
-import _ from "lodash";
+import _ from 'lodash';
 
+/*
+ * extract a UserId from a _id object
+ * @param {object} userIdObject
+ * @return {string} newUserId
+ */
 function extractUserId(userIdObject) {
-  let newUserId = "";
+  let newUserId = '';
   if (_.isObject(userIdObject)) {
     Object.keys(userIdObject).forEach(field => {
       newUserId = userIdObject[field];
@@ -19,26 +24,30 @@ function extractUserId(userIdObject) {
  * @param {string, object} userId
  * @return {boolean} foundUserId
  */
-function fieldContainsUserId(docRoleField, compressedUserId) {
+export function fieldContainsUserId(docRoleField, compressedUserId) {
   let found = false;
 
   // empty docRoleField is not a valid docRoleField
-  if (!docRoleField || docRoleField === "" || docRoleField.length === 0)
+  if (!docRoleField || docRoleField === '' || docRoleField.length === 0) {
     return false;
+  }
 
   // empty (compressed) userId is not a valid userId
   if (
     !compressedUserId ||
-    compressedUserId === "" ||
-    compressedUserId.toString() === ""
-  )
+    compressedUserId === '' ||
+    compressedUserId.toString() === ''
+  ) {
     return false;
+  }
 
   // extract userId, if it is a mongoID field
   const userId = extractUserId(compressedUserId);
 
   // empty (uncompressed) userId is not a valid userId
-  if (!userId || userId === "") return false;
+  if (!userId || userId === '') {
+    return false;
+  }
 
   // docRoleField of type Array
   if (_.isArray(docRoleField)) {
@@ -47,7 +56,9 @@ function fieldContainsUserId(docRoleField, compressedUserId) {
         found = true;
       }
     });
-    if (found) return true;
+    if (found) {
+      return true;
+    }
     return false;
   }
 
@@ -62,7 +73,9 @@ function fieldContainsUserId(docRoleField, compressedUserId) {
         found = true;
       }
     });
-    if (found) return true;
+    if (found) {
+      return true;
+    }
     return false;
   }
 
@@ -73,5 +86,3 @@ function fieldContainsUserId(docRoleField, compressedUserId) {
 
   return false;
 }
-
-module.exports = fieldContainsUserId;

@@ -39,7 +39,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-protectFields">protectFields</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-queryForRoles">queryForRoles</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-userRoleAuthorized">userRoleAuthorized</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-stream">stream</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dummyUserContext">dummyUserContext</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -147,7 +147,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-findByIds">findByIds</a></span></span><span class="code" data-ice="signature">(collection: <span>*</span>, ids: <span><span>*</span><span>[]</span></span>, authQuery: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-findByIds">findByIds</a></span></span><span class="code" data-ice="signature">(collection: <span>*</span>, ids: <span><span>*</span><span>[]</span></span>, authQuery: {}): <span>*</span></span>
         </p>
       </div>
       <div>
@@ -259,7 +259,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-protectFields">protectFields</a></span></span><span class="code" data-ice="signature">(me: {}, authorizedUserRoles: <span><span>*</span><span>[]</span></span>, protectedFields: <span><span>*</span><span>[]</span></span>, inputObject: {}, objectPattern4: {&quot;User&quot;: <span>*</span>}): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-protectFields">protectFields</a></span></span><span class="code" data-ice="signature">(me: {}, authorizedUserRoles: <span><span>*</span><span>[]</span></span>, protectedFields: <span><span>*</span><span>[]</span></span>, inputObject: {}, objectPattern4: {&quot;User&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></span>}): <span>*</span></span>
         </p>
       </div>
       <div>
@@ -346,11 +346,11 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/authlog.js.html#lineNumber16">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/authlog.js.html#lineNumber14">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import authlog from &apos;<span><a href="file/src/lib/authlog.js.html#lineNumber16">create-graphql-server-authorization/src/lib/authlog.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {authlog} from &apos;<span><a href="file/src/lib/authlog.js.html#lineNumber14">create-graphql-server-authorization/src/lib/authlog.js</a></span>&apos;</code></pre></div>
   
   
   
@@ -436,7 +436,7 @@
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import checkAuthDoc from &apos;<span><a href="file/src/lib/checkAuthDoc.js.html#lineNumber18">create-graphql-server-authorization/src/lib/checkAuthDoc.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {checkAuthDoc} from &apos;<span><a href="file/src/lib/checkAuthDoc.js.html#lineNumber18">create-graphql-server-authorization/src/lib/checkAuthDoc.js</a></span>&apos;</code></pre></div>
   
   
   
@@ -538,11 +538,11 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/fieldContainsUserId.js.html#lineNumber23">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/fieldContainsUserId.js.html#lineNumber27">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import fieldContainsUserId from &apos;<span><a href="file/src/lib/fieldContainsUserId.js.html#lineNumber23">create-graphql-server-authorization/src/lib/fieldContainsUserId.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {fieldContainsUserId} from &apos;<span><a href="file/src/lib/fieldContainsUserId.js.html#lineNumber27">create-graphql-server-authorization/src/lib/fieldContainsUserId.js</a></span>&apos;</code></pre></div>
   
   
   
@@ -611,15 +611,15 @@
     
     
     
-    <span class="code" data-ice="name">findByIds</span><span class="code" data-ice="signature">(collection: <span>*</span>, ids: <span><span>*</span><span>[]</span></span>, authQuery: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">findByIds</span><span class="code" data-ice="signature">(collection: <span>*</span>, ids: <span><span>*</span><span>[]</span></span>, authQuery: {}): <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/findByIds.js.html#lineNumber10">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/findByIds.js.html#lineNumber8">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import findByIds from &apos;<span><a href="file/src/lib/findByIds.js.html#lineNumber10">create-graphql-server-authorization/src/lib/findByIds.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {findByIds} from &apos;<span><a href="file/src/lib/findByIds.js.html#lineNumber8">create-graphql-server-authorization/src/lib/findByIds.js</a></span>&apos;</code></pre></div>
   
   
   
@@ -649,8 +649,9 @@
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">authQuery</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
+      <td data-ice="type" class="code">{}</td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: {}</li></ul></td>
       <td data-ice="description"></td>
     </tr>
 </tbody>
@@ -699,11 +700,11 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/getLogFilename.js.html#lineNumber11">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/getLogFilename.js.html#lineNumber10">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import getLogFilename from &apos;<span><a href="file/src/lib/getLogFilename.js.html#lineNumber11">create-graphql-server-authorization/src/lib/getLogFilename.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {getLogFilename} from &apos;<span><a href="file/src/lib/getLogFilename.js.html#lineNumber10">create-graphql-server-authorization/src/lib/getLogFilename.js</a></span>&apos;</code></pre></div>
   
   
   
@@ -758,7 +759,7 @@
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import loggedIn from &apos;<span><a href="file/src/lib/loggedIn.js.html#lineNumber7">create-graphql-server-authorization/src/lib/loggedIn.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {loggedIn} from &apos;<span><a href="file/src/lib/loggedIn.js.html#lineNumber7">create-graphql-server-authorization/src/lib/loggedIn.js</a></span>&apos;</code></pre></div>
   
   
   
@@ -829,7 +830,7 @@
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import logger from &apos;<span><a href="file/src/lib/logger.js.html#lineNumber31">create-graphql-server-authorization/src/lib/logger.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {logger} from &apos;<span><a href="file/src/lib/logger.js.html#lineNumber31">create-graphql-server-authorization/src/lib/logger.js</a></span>&apos;</code></pre></div>
   
   
   
@@ -892,15 +893,15 @@
     
     
     
-    <span class="code" data-ice="name">protectFields</span><span class="code" data-ice="signature">(me: {}, authorizedUserRoles: <span><span>*</span><span>[]</span></span>, protectedFields: <span><span>*</span><span>[]</span></span>, inputObject: {}, objectPattern4: {&quot;User&quot;: <span>*</span>}): <span>*</span></span>
+    <span class="code" data-ice="name">protectFields</span><span class="code" data-ice="signature">(me: {}, authorizedUserRoles: <span><span>*</span><span>[]</span></span>, protectedFields: <span><span>*</span><span>[]</span></span>, inputObject: {}, objectPattern4: {&quot;User&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></span>}): <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/protectFields.js.html#lineNumber11">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/protectFields.js.html#lineNumber12">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import protectFields from &apos;<span><a href="file/src/lib/protectFields.js.html#lineNumber11">create-graphql-server-authorization/src/lib/protectFields.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {protectFields} from &apos;<span><a href="file/src/lib/protectFields.js.html#lineNumber12">create-graphql-server-authorization/src/lib/protectFields.js</a></span>&apos;</code></pre></div>
   
   
   
@@ -945,8 +946,9 @@
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">objectPattern4</td>
-      <td data-ice="type" class="code">{&quot;User&quot;: <span>*</span>}</td>
-      <td data-ice="appendix"><ul><li>default: {&quot;User&quot;:null}</li></ul></td>
+      <td data-ice="type" class="code">{&quot;User&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></span>}</td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: {}</li></ul></td>
       <td data-ice="description"></td>
     </tr>
 </tbody>
@@ -995,11 +997,11 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/queryForRoles.js.html#lineNumber24">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/queryForRoles.js.html#lineNumber23">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import queryForRoles from &apos;<span><a href="file/src/lib/queryForRoles.js.html#lineNumber24">create-graphql-server-authorization/src/lib/queryForRoles.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {queryForRoles} from &apos;<span><a href="file/src/lib/queryForRoles.js.html#lineNumber23">create-graphql-server-authorization/src/lib/queryForRoles.js</a></span>&apos;</code></pre></div>
   
   
   
@@ -1095,11 +1097,11 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/userRoleAuthorized.js.html#lineNumber17">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/userRoleAuthorized.js.html#lineNumber16">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import userRoleAuthorized from &apos;<span><a href="file/src/lib/userRoleAuthorized.js.html#lineNumber17">create-graphql-server-authorization/src/lib/userRoleAuthorized.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {userRoleAuthorized} from &apos;<span><a href="file/src/lib/userRoleAuthorized.js.html#lineNumber16">create-graphql-server-authorization/src/lib/userRoleAuthorized.js</a></span>&apos;</code></pre></div>
   
   
   

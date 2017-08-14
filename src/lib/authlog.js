@@ -1,7 +1,5 @@
-import logger from "./logger";
-import getLogFilename from "./getLogFilename";
-
-const expect = require("chai").expect;
+import { logger } from './logger';
+import { getLogFilename } from './getLogFilename';
 
 /*
  * Central logger for authorization checks
@@ -13,14 +11,14 @@ const expect = require("chai").expect;
  *    error {function} 
  * }
  */
-function authlog(resolver = "", mode = "", me = {}) {
+export function authlog(resolver = '', mode = '', me = {}) {
   const logFilename = getLogFilename();
   const log = logger(logFilename);
 
   const makeMessage = message =>
-    `Authorize ${mode} "${resolver}" with user "${me.username
+    `Authorize ${mode} '${resolver}' with user '${me.username
       ? me.username
-      : "<no-user>"}" ${message}`;
+      : '<no-user>'}' ${message}`;
 
   return {
     debug: message => {
@@ -35,5 +33,3 @@ function authlog(resolver = "", mode = "", me = {}) {
     }
   };
 }
-
-module.exports = authlog;
