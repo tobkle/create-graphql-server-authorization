@@ -242,4 +242,22 @@ describe('queryForRoles', function() {
     assert.deepEqual(result, expectedResult);
   });
 
+  it('should authorize on userRoles: ["world"]', function() {
+    const resolver = 'queryForRoles-11';
+    const me = {};
+    const userRoles = ["world"];
+    const docRoles = [];
+
+    let result = {};
+    const testFunction = function () {
+      result = queryForRoles(me, userRoles, docRoles, { User }, authlog(resolver, mode, me ) );
+      return result;
+    }
+
+    let expectedResult = {};
+
+    expect(testFunction).to.not.throw();
+    assert.deepEqual(result, expectedResult);
+  });
+
 });
