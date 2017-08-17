@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import fs from 'fs';
+import path from 'path';
 
 import { authlog } from '../lib/authlog';
 import { getLogFilename } from '../lib/getLogFilename';
@@ -11,12 +12,20 @@ const resolver = 'authlog';
 const mode = 'testMode';
 
 let logFilename;
+let directoryName;
 
 describe('authlog', function() {
   before(function() {
     logFilename = getLogFilename();
     expect(logFilename).be.a('string');
-    fs.unlinkSync(logFilename);
+    directoryName = path.dirname(logFilename);
+    try {
+      fs.mkdirSync(directoryName);
+    } catch (err) {
+      if (err.code !== 'EEXIST') {
+        throw err;
+      }
+    }
   });
 
   it('should return a function "error" and "debug"', function() {

@@ -20,12 +20,6 @@ cp README.md npm/
 cp LICENSE npm/
 cp -r docs npm/
 
-# for build runs and test cases necessary, otherwise travis fails
-mkdir log
-touch log/all-logs-readable.log
-touch log/mongo-mock.db.js
-cp -r log npm/
-
 cd npm
 git init
 git config user.name "Travis CI"
