@@ -14,8 +14,7 @@ coverage
 resources
 src
 dist
-log/mongo-mock.db.js
-log/all-logs-readable.log
 *.js.flow
 esdoc.json
-
+log/mongo-mock.db.js
+log/all-logs-readable.log
