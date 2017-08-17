@@ -19,6 +19,7 @@ node -e "var package = require('./package.json'); \
 cp README.md npm/
 cp LICENSE npm/
 cp -r docs npm/
+cp .travis.yml npm/
 
 cd npm
 git init
