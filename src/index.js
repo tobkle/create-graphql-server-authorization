@@ -15,4 +15,3 @@ export { loggedIn } from './lib/loggedIn.js';
 export { protectFields } from './lib/protectFields.js';
 export { queryForRoles } from './lib/queryForRoles.js';
 export { userRoleAuthorized } from './lib/userRoleAuthorized.js';
-export { version } from '../package.json';
