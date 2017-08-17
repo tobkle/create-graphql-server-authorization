@@ -21,9 +21,10 @@ cp LICENSE npm/
 cp -r docs npm/
 
 # for build runs and test cases necessary, otherwise travis fails
-mkdir npm/log
-touch npm/log/all-logs-readable.log
-touch npm/log/mongo-mock.db.js
+mkdir log
+touch log/all-logs-readable.log
+touch log/mongo-mock.db.js
+cp -r log npm/
 
 cd npm
 git init
