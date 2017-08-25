@@ -13,7 +13,6 @@ npm install create-graphql-server-authorization
 
 It provides Authorization checks for
 * document type authorization
-* field authorization
 
 It relays on the Api of the create-graphql-server type system e.g.:
 ```javascript
@@ -34,7 +33,7 @@ type User
 
 ## Tests
 ```bash
-yarn test
+npm run test
 ```
 
 ## Contributing
