@@ -1,6 +1,6 @@
 {
   "name": "create-graphql-server-authorization",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "description": "Authorization package for create-graphql-server",
   "contributors": [
     "Tobias Klemmer <tobias@klemmer.info> (https://www.klemmer.info)"
