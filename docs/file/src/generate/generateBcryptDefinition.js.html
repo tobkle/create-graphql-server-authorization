@@ -123,8 +123,8 @@ export function generateBcryptDefinition(
   // with @authorize directive: means there must be a User type
   if (authorize &amp;&amp; typeName === USER_MODEL) {
     generatedCode = `
-    import bcrypt from &apos;bcrypt&apos;;
-    const SALT_ROUNDS = 10;`;
+import bcrypt from &apos;bcrypt&apos;;
+const SALT_ROUNDS = 10;`;
   }
 
   return generatedCode;
