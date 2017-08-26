@@ -1,5 +1,227 @@
 window.esdocSearchIndex = [
   [
+    "create-graphql-server-authorization/src/constants.js~argument",
+    "variable/index.html#static-variable-ARGUMENT",
+    "<span>ARGUMENT</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~authorize_directive",
+    "variable/index.html#static-variable-AUTHORIZE_DIRECTIVE",
+    "<span>AUTHORIZE_DIRECTIVE</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~auth_role",
+    "variable/index.html#static-variable-AUTH_ROLE",
+    "<span>AUTH_ROLE</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~code_modes",
+    "variable/index.html#static-variable-CODE_MODES",
+    "<span>CODE_MODES</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~create",
+    "variable/index.html#static-variable-CREATE",
+    "<span>CREATE</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~delete",
+    "variable/index.html#static-variable-DELETE",
+    "<span>DELETE</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~directive",
+    "variable/index.html#static-variable-DIRECTIVE",
+    "<span>DIRECTIVE</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~doc_role",
+    "variable/index.html#static-variable-DOC_ROLE",
+    "<span>DOC_ROLE</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~field_definition",
+    "variable/index.html#static-variable-FIELD_DEFINITION",
+    "<span>FIELD_DEFINITION</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~for",
+    "variable/index.html#static-variable-FOR",
+    "<span>FOR</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~id_field",
+    "variable/index.html#static-variable-ID_FIELD",
+    "<span>ID_FIELD</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~id_plural",
+    "variable/index.html#static-variable-ID_PLURAL",
+    "<span>ID_PLURAL</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~id_singular",
+    "variable/index.html#static-variable-ID_SINGULAR",
+    "<span>ID_SINGULAR</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~list_of_strings",
+    "variable/index.html#static-variable-LIST_OF_STRINGS",
+    "<span>LIST_OF_STRINGS</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~list_of_users",
+    "variable/index.html#static-variable-LIST_OF_USERS",
+    "<span>LIST_OF_USERS</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~list_type",
+    "variable/index.html#static-variable-LIST_TYPE",
+    "<span>LIST_TYPE</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~list_value",
+    "variable/index.html#static-variable-LIST_VALUE",
+    "<span>LIST_VALUE</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~log_level",
+    "variable/index.html#static-variable-LOG_LEVEL",
+    "<span>LOG_LEVEL</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~log_max_files",
+    "variable/index.html#static-variable-LOG_MAX_FILES",
+    "<span>LOG_MAX_FILES</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~log_max_size",
+    "variable/index.html#static-variable-LOG_MAX_SIZE",
+    "<span>LOG_MAX_SIZE</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~modes",
+    "variable/index.html#static-variable-MODES",
+    "<span>MODES</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~name",
+    "variable/index.html#static-variable-NAME",
+    "<span>NAME</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~named_type",
+    "variable/index.html#static-variable-NAMED_TYPE",
+    "<span>NAMED_TYPE</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~non_null_type",
+    "variable/index.html#static-variable-NON_NULL_TYPE",
+    "<span>NON_NULL_TYPE</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~no_role",
+    "variable/index.html#static-variable-NO_ROLE",
+    "<span>NO_ROLE</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~no_user",
+    "variable/index.html#static-variable-NO_USER",
+    "<span>NO_USER</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~read",
+    "variable/index.html#static-variable-READ",
+    "<span>READ</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~read_many",
+    "variable/index.html#static-variable-READ_MANY",
+    "<span>READ_MANY</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~read_one",
+    "variable/index.html#static-variable-READ_ONE",
+    "<span>READ_ONE</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~string",
+    "variable/index.html#static-variable-STRING",
+    "<span>STRING</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~string_value",
+    "variable/index.html#static-variable-STRING_VALUE",
+    "<span>STRING_VALUE</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~this",
+    "variable/index.html#static-variable-THIS",
+    "<span>THIS</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~update",
+    "variable/index.html#static-variable-UPDATE",
+    "<span>UPDATE</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~user",
+    "variable/index.html#static-variable-USER",
+    "<span>USER</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~user_model",
+    "variable/index.html#static-variable-USER_MODEL",
+    "<span>USER_MODEL</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~user_role",
+    "variable/index.html#static-variable-USER_ROLE",
+    "<span>USER_ROLE</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~world",
+    "variable/index.html#static-variable-WORLD",
+    "<span>WORLD</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
     "create-graphql-server-authorization/src/lib/authlog.js~authlog",
     "function/index.html#static-function-authlog",
     "<span>authlog</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/authlog.js</span>",
@@ -18,6 +240,12 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "create-graphql-server-authorization/src/generate/extractroles.js~extractroles",
+    "function/index.html#static-function-extractRoles",
+    "<span>extractRoles</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/extractRoles.js</span>",
+    "function"
+  ],
+  [
     "create-graphql-server-authorization/src/lib/fieldcontainsuserid.js~fieldcontainsuserid",
     "function/index.html#static-function-fieldContainsUserId",
     "<span>fieldContainsUserId</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/fieldContainsUserId.js</span>",
@@ -30,9 +258,69 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "create-graphql-server-authorization/src/generate/index.js~generateauthorizationcode",
+    "create-graphql-server-authorization/src/generate/generateauthcodemodecreate.js~generateauthcodemodecreate",
+    "function/index.html#static-function-generateAuthCodeModeCreate",
+    "<span>generateAuthCodeModeCreate</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/generateAuthCodeModeCreate.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generate/generateauthcodemodedelete.js~generateauthcodemodedelete",
+    "function/index.html#static-function-generateAuthCodeModeDelete",
+    "<span>generateAuthCodeModeDelete</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/generateAuthCodeModeDelete.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generate/generateauthcodemodereadmany.js~generateauthcodemodereadmany",
+    "function/index.html#static-function-generateAuthCodeModeReadMany",
+    "<span>generateAuthCodeModeReadMany</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/generateAuthCodeModeReadMany.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generate/generateauthcodemodereadone.js~generateauthcodemodereadone",
+    "function/index.html#static-function-generateAuthCodeModeReadOne",
+    "<span>generateAuthCodeModeReadOne</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/generateAuthCodeModeReadOne.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generate/generateauthcodemodeupdate.js~generateauthcodemodeupdate",
+    "function/index.html#static-function-generateAuthCodeModeUpdate",
+    "<span>generateAuthCodeModeUpdate</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/generateAuthCodeModeUpdate.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generate/generateauthroledefinition.js~generateauthroledefinition",
+    "function/index.html#static-function-generateAuthRoleDefinition",
+    "<span>generateAuthRoleDefinition</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/generateAuthRoleDefinition.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generate/generateauthrolemethod.js~generateauthrolemethod",
+    "function/index.html#static-function-generateAuthRoleMethod",
+    "<span>generateAuthRoleMethod</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/generateAuthRoleMethod.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generate/generateauthorizationcode.js~generateauthorizationcode",
     "function/index.html#static-function-generateAuthorizationCode",
-    "<span>generateAuthorizationCode</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/index.js</span>",
+    "<span>generateAuthorizationCode</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/generateAuthorizationCode.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generate/generatecreatedby.js~generatecreatedby",
+    "function/index.html#static-function-generateCreatedBy",
+    "<span>generateCreatedBy</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/generateCreatedBy.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generate/generateupdatedby.js~generateupdatedby",
+    "function/index.html#static-function-generateUpdatedBy",
+    "<span>generateUpdatedBy</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/generateUpdatedBy.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generate/getfieldtype.js~getfieldtype",
+    "function/index.html#static-function-getFieldType",
+    "<span>getFieldType</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/getFieldType.js</span>",
     "function"
   ],
   [
@@ -42,9 +330,27 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "create-graphql-server-authorization/src/generate/index.js~isauthorizedirectivedefined",
+    "create-graphql-server-authorization/src/generate/getroletype.js~getroletype",
+    "function/index.html#static-function-getRoleType",
+    "<span>getRoleType</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/getRoleType.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generate/getroles.js~getroles",
+    "function/index.html#static-function-getRoles",
+    "<span>getRoles</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/getRoles.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generate/isauthorizedirectivedefined.js~isauthorizedirectivedefined",
     "function/index.html#static-function-isAuthorizeDirectiveDefined",
-    "<span>isAuthorizeDirectiveDefined</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/index.js</span>",
+    "<span>isAuthorizeDirectiveDefined</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/isAuthorizeDirectiveDefined.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generate/isrolefield.js~isrolefield",
+    "function/index.html#static-function-isRoleField",
+    "<span>isRoleField</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/isRoleField.js</span>",
     "function"
   ],
   [
@@ -57,6 +363,12 @@ window.esdocSearchIndex = [
     "create-graphql-server-authorization/src/lib/logger.js~logger",
     "function/index.html#static-function-logger",
     "<span>logger</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/logger.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generate/prep.js~prep",
+    "function/index.html#static-function-prep",
+    "<span>prep</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/prep.js</span>",
     "function"
   ],
   [
@@ -360,9 +672,111 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "src/generate/index.js",
-    "file/src/generate/index.js.html",
-    "src/generate/index.js",
+    "src/constants.js",
+    "file/src/constants.js.html",
+    "src/constants.js",
+    "file"
+  ],
+  [
+    "src/generate/extractroles.js",
+    "file/src/generate/extractRoles.js.html",
+    "src/generate/extractRoles.js",
+    "file"
+  ],
+  [
+    "src/generate/generateauthcodemodecreate.js",
+    "file/src/generate/generateAuthCodeModeCreate.js.html",
+    "src/generate/generateAuthCodeModeCreate.js",
+    "file"
+  ],
+  [
+    "src/generate/generateauthcodemodedelete.js",
+    "file/src/generate/generateAuthCodeModeDelete.js.html",
+    "src/generate/generateAuthCodeModeDelete.js",
+    "file"
+  ],
+  [
+    "src/generate/generateauthcodemodereadmany.js",
+    "file/src/generate/generateAuthCodeModeReadMany.js.html",
+    "src/generate/generateAuthCodeModeReadMany.js",
+    "file"
+  ],
+  [
+    "src/generate/generateauthcodemodereadone.js",
+    "file/src/generate/generateAuthCodeModeReadOne.js.html",
+    "src/generate/generateAuthCodeModeReadOne.js",
+    "file"
+  ],
+  [
+    "src/generate/generateauthcodemodeupdate.js",
+    "file/src/generate/generateAuthCodeModeUpdate.js.html",
+    "src/generate/generateAuthCodeModeUpdate.js",
+    "file"
+  ],
+  [
+    "src/generate/generateauthroledefinition.js",
+    "file/src/generate/generateAuthRoleDefinition.js.html",
+    "src/generate/generateAuthRoleDefinition.js",
+    "file"
+  ],
+  [
+    "src/generate/generateauthrolemethod.js",
+    "file/src/generate/generateAuthRoleMethod.js.html",
+    "src/generate/generateAuthRoleMethod.js",
+    "file"
+  ],
+  [
+    "src/generate/generateauthorizationcode.js",
+    "file/src/generate/generateAuthorizationCode.js.html",
+    "src/generate/generateAuthorizationCode.js",
+    "file"
+  ],
+  [
+    "src/generate/generatecreatedby.js",
+    "file/src/generate/generateCreatedBy.js.html",
+    "src/generate/generateCreatedBy.js",
+    "file"
+  ],
+  [
+    "src/generate/generateupdatedby.js",
+    "file/src/generate/generateUpdatedBy.js.html",
+    "src/generate/generateUpdatedBy.js",
+    "file"
+  ],
+  [
+    "src/generate/getfieldtype.js",
+    "file/src/generate/getFieldType.js.html",
+    "src/generate/getFieldType.js",
+    "file"
+  ],
+  [
+    "src/generate/getroletype.js",
+    "file/src/generate/getRoleType.js.html",
+    "src/generate/getRoleType.js",
+    "file"
+  ],
+  [
+    "src/generate/getroles.js",
+    "file/src/generate/getRoles.js.html",
+    "src/generate/getRoles.js",
+    "file"
+  ],
+  [
+    "src/generate/isauthorizedirectivedefined.js",
+    "file/src/generate/isAuthorizeDirectiveDefined.js.html",
+    "src/generate/isAuthorizeDirectiveDefined.js",
+    "file"
+  ],
+  [
+    "src/generate/isrolefield.js",
+    "file/src/generate/isRoleField.js.html",
+    "src/generate/isRoleField.js",
+    "file"
+  ],
+  [
+    "src/generate/prep.js",
+    "file/src/generate/prep.js.html",
+    "src/generate/prep.js",
     "file"
   ],
   [

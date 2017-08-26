@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 // @flow
 
+import { NO_ROLE } from '../constants';
 import { userRoleAuthorized } from './userRoleAuthorized';
 import { dummyUserContext } from './dummyUserContext';
 import { loggedIn } from './loggedIn';
@@ -58,7 +59,7 @@ export function queryForRoles(
     if (query.$or.length > 0) {
       // for easier debugging write into the authorzation logs
       logger.debug(
-        `and role: '${role ? role : '<no-role>'}' with 
+        `and role: '${role ? role : NO_ROLE}' with 
         authQuery: ${JSON.stringify(query, null, 2)}`
       );
       // return the query as authQuery for later selection

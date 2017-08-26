@@ -1,5 +1,5 @@
-/* eslint-disable max-len */
 // @flow
+/* eslint-disable max-len */
 
 import _ from 'lodash';
 

@@ -1,5 +1,6 @@
 // @flow
 
+import { WORLD, NO_ROLE } from '../constants';
 import { dummyUserContext } from './dummyUserContext';
 import { authlog } from './authlog';
 
@@ -28,13 +29,13 @@ export function userRoleAuthorized(
   // determine, if the given userRoles authorize the current User by its role
   if (
     // userRole: 'world' should authorize everyone - known and unknown users
-    userRoles.includes('world') ||
+    userRoles.includes(WORLD) ||
     // or there must be a userRole given, and current user must have a role
     // and the current user's role must be in the given userRoles
     (role && role !== '' && userRoles.length > 0 && userRoles.includes(role))
   ) {
     // => authorized
-    logger.debug(`and role '${role ? role : '<no-role>'}' is authorized`);
+    logger.debug(`and role '${role ? role : NO_ROLE}' is authorized`);
     return true;
   }
 

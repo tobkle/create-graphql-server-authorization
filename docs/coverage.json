@@ -1,30 +1,30 @@
 {
-  "coverage": "47.69%",
-  "expectCount": 65,
+  "coverage": "43.05%",
+  "expectCount": 72,
   "actualCount": 31,
   "files": {
-    "src/generate/index.js": {
-      "expectCount": 47,
-      "actualCount": 17,
+    "src/constants.js": {
+      "expectCount": 37,
+      "actualCount": 0,
       "undocumentLines": [
-        6,
+        4,
+        7,
+        8,
         9,
-        10,
-        11,
         12,
         13,
         14,
         15,
         16,
+        17,
+        18,
         19,
-        20,
-        21,
         22,
         23,
         24,
+        25,
+        26,
         27,
-        28,
-        29,
         30,
         31,
         32,
@@ -35,9 +35,101 @@
         37,
         38,
         39,
+        40,
+        41,
         42,
-        45
+        43,
+        44,
+        45,
+        46,
+        49,
+        52
       ]
+    },
+    "src/generate/extractRoles.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generate/generateAuthCodeModeCreate.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generate/generateAuthCodeModeDelete.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generate/generateAuthCodeModeReadMany.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generate/generateAuthCodeModeReadOne.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generate/generateAuthCodeModeUpdate.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generate/generateAuthRoleDefinition.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generate/generateAuthRoleMethod.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generate/generateAuthorizationCode.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generate/generateCreatedBy.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generate/generateUpdatedBy.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generate/getFieldType.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generate/getRoleType.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generate/getRoles.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generate/isAuthorizeDirectiveDefined.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generate/isRoleField.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generate/prep.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
     },
     "src/lib/authlog.js": {
       "expectCount": 1,
@@ -92,14 +184,14 @@
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
-        9
+        10
       ]
     },
     "src/lib/userRoleAuthorized.js": {
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
-        6
+        7
       ]
     }
   }

@@ -1,5 +1,6 @@
 // @flow
 
+import { NO_USER } from '../constants';
 import { logger } from './logger';
 import { getLogFilename } from './getLogFilename';
 
@@ -9,9 +10,10 @@ import { getLogFilename } from './getLogFilename';
  * @param {string} resolver - log name of a resolver
  * @param {string} mode - crud operation name
  * @param {object} me - current user
- * @return {
- *    debug {function} - debug() function
- *    error {function} - error() function
+ * @return {Object} return - Object with two functions
+ * @property {function} debug - debug() function
+ * @property {function} error - error() function
+ * @throws {Error} - throws Error message in the error() function
  * }
  */
 
@@ -26,7 +28,7 @@ export function authlog(
   const makeMessage = message =>
     `Authorize ${mode} '${resolver}' with user '${me.username
       ? me.username
-      : '<no-user>'}' ${message}`;
+      : NO_USER}' ${message}`;
 
   return {
     debug: message => {

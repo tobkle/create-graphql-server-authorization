@@ -1,5 +1,6 @@
 // @flow
 
+import { LOG_LEVEL, LOG_MAX_FILES, LOG_MAX_SIZE } from '../constants';
 import winston from 'winston';
 
 winston.emitErrs = true;
@@ -42,22 +43,25 @@ const formatter = function(options: any): string {
  */
 
 export function logger(filename: string): any {
+  const logLevel = process.env.npm_package_config_loglevel || LOG_LEVEL;
+  const maxSize = process.env.npm_package_config_maxsize || LOG_MAX_SIZE;
+  const maxFiles = process.env.npm_package_config_maxfiles || LOG_MAX_FILES;
   return new winston.Logger({
     transports: [
       new winston.transports.File({
-        level: 'debug',
+        level: logLevel,
         filename,
         handleExceptions: true,
         json: false,
-        maxsize: 5 * 1024 * 1024, // 5MB
-        maxFiles: 5,
+        maxsize: maxSize * 1024 * 1024, // e.g. 5MB
+        maxFiles,
         colorize: false,
         timestamp,
         formatter
       }),
 
       new winston.transports.Console({
-        level: 'debug',
+        level: logLevel,
         handleExceptions: true,
         json: false,
         colorize: true,

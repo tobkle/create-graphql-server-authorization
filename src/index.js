@@ -19,7 +19,7 @@
  * @param {function} isAuthorizeDirectiveDefined - returns true, if authorization logic is defined
  */
 
-/* for the model authorization logic */
+/* for the authorization logic */
 export { getLogFilename } from './lib/getLogFilename.js';
 export { dummyUserContext } from './lib/dummyUserContext.js';
 export { logger } from './lib/logger.js';
@@ -34,6 +34,8 @@ export { userRoleAuthorized } from './lib/userRoleAuthorized.js';
 
 /* for the code generator */
 export {
-  generateAuthorizationCode,
+  generateAuthorizationCode
+} from './generate/generateAuthorizationCode.js';
+export {
   isAuthorizeDirectiveDefined
-} from './generate/index.js';
+} from './generate/isAuthorizeDirectiveDefined.js';

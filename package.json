@@ -20,7 +20,10 @@
     "url": "https://github.com/tobkle/create-graphql-server-authorization/issues"
   },
   "config": {
-    "logfile": "log/all-logs-readable.log"
+    "logfile": "log/all-logs-readable.log",
+    "loglevel": "debug",
+    "maxsize": 5,
+    "maxfiles": 5
   },
   "options": {
     "mocha": "--require ./resources/mocha-bootload --check-leaks --full-trace src/**/__tests__/**/*-test.js"

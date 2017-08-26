@@ -101,10 +101,10 @@
         },
         "leadingComments": [
           {
-            "type": "CommentBlock",
-            "value": " eslint-disable max-len ",
+            "type": "CommentLine",
+            "value": " @flow",
             "start": 0,
-            "end": 28,
+            "end": 8,
             "loc": {
               "start": {
                 "line": 1,
@@ -112,14 +112,14 @@
               },
               "end": {
                 "line": 1,
-                "column": 28
+                "column": 8
               }
             }
           },
           {
-            "type": "CommentLine",
-            "value": " @flow",
-            "start": 29,
+            "type": "CommentBlock",
+            "value": " eslint-disable max-len ",
+            "start": 9,
             "end": 37,
             "loc": {
               "start": {
@@ -128,7 +128,7 @@
               },
               "end": {
                 "line": 2,
-                "column": 8
+                "column": 28
               }
             }
           }
@@ -3872,10 +3872,10 @@
   },
   "comments": [
     {
-      "type": "CommentBlock",
-      "value": " eslint-disable max-len ",
+      "type": "CommentLine",
+      "value": " @flow",
       "start": 0,
-      "end": 28,
+      "end": 8,
       "loc": {
         "start": {
           "line": 1,
@@ -3883,14 +3883,14 @@
         },
         "end": {
           "line": 1,
-          "column": 28
+          "column": 8
         }
       }
     },
     {
-      "type": "CommentLine",
-      "value": " @flow",
-      "start": 29,
+      "type": "CommentBlock",
+      "value": " eslint-disable max-len ",
+      "start": 9,
       "end": 37,
       "loc": {
         "start": {
@@ -3899,7 +3899,7 @@
         },
         "end": {
           "line": 2,
-          "column": 8
+          "column": 28
         }
       }
     },
@@ -4066,10 +4066,10 @@
   ],
   "tokens": [
     {
-      "type": "CommentBlock",
-      "value": " eslint-disable max-len ",
+      "type": "CommentLine",
+      "value": " @flow",
       "start": 0,
-      "end": 28,
+      "end": 8,
       "loc": {
         "start": {
           "line": 1,
@@ -4077,14 +4077,14 @@
         },
         "end": {
           "line": 1,
-          "column": 28
+          "column": 8
         }
       }
     },
     {
-      "type": "CommentLine",
-      "value": " @flow",
-      "start": 29,
+      "type": "CommentBlock",
+      "value": " eslint-disable max-len ",
+      "start": 9,
       "end": 37,
       "loc": {
         "start": {
@@ -4093,7 +4093,7 @@
         },
         "end": {
           "line": 2,
-          "column": 8
+          "column": 28
         }
       }
     },
