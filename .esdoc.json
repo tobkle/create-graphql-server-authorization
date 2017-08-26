@@ -1,18 +1,28 @@
 {
   "source": "./src",
-  "destination": "./doc",
+  "destination": "./docs",
   "excludes": [
     "__tests__"
   ],
   "plugins": [
+    
     {
       "name": "esdoc-standard-plugin"
     },
+
     {
       "name": "esdoc-ecmascript-proposal-plugin",
       "option": {
         "objectRestSpread": true
       }
+    },
+
+    {
+      "name": "esdoc-flow-type-plugin", 
+      "option": {
+        "enable": true
+      }
     }
+
   ]
 }

@@ -1,12 +1,11 @@
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
+// @flow
 
 /* 
- * Authorization Code Generator functions
- * 
- * @module create-graphql-server-authorization
- * @export function generateAuthCode(typeName, inputSchema)
- *
+ * @desc Authorization Code Generator functions
+ * @public
+ * @return {function} generateAuthCode(typeName, inputSchema)
  */
 
 // name of the @authorize directive, which triggers authorization logic
@@ -52,12 +51,26 @@ const MODES = [CREATE, READ, READ_ONE, READ_MANY, UPDATE, DELETE];
 const CODE_MODES = [CREATE, READ_ONE, READ_MANY, UPDATE, DELETE];
 
 /*
- * generate authorization code
- * @param {string} typeName    
- * @param {object} inputSchema
- * @return {object} generatedCode
+ * @desc generates authorization code
+ * @public
+ * @param {string} typeName - the name of the type
+ * @param {object} inputSchema - the schema for that type
+ * @return {object} generatedCode - generated code
  */
-export function generateAuthorizationCode(typeName = '', inputSchema = {}) {
+export function generateAuthorizationCode(
+  typeName: string = '',
+  inputSchema: any = {}
+): {
+  generateAuthCodeModeReadOne: string,
+  generateAuthCodeModeReadMany: string,
+  generateAuthCodeModeCreate: string,
+  generateAuthCodeModeUpdate: string,
+  generateAuthCodeModeDelete: string,
+  generateCreatedBy: string,
+  generateUpdatedBy: string,
+  generateAuthRoleDefinition: string,
+  generateAuthRoleMethod: string
+} {
   const authorize = isAuthorizeDirectiveDefined(inputSchema);
   const { userRoles, docRoles, roleFieldName } = getRoles(
     authorize,
@@ -108,14 +121,16 @@ export function generateAuthorizationCode(typeName = '', inputSchema = {}) {
 }
 
 /*
- * check, if there is a @authorize directive in the header 
- * of the type's inputSchema
- * if there is an @authorize directive => true
- * if thers is no @authorize directive => false
- * @param {object} inputSchema
- * @return {boolean} authorized
+ * @desc checks, if there is authorization logic defined
+ * @desc true, if there is an @authorize directive in the header 
+ * @desc in the type's inputSchema
+ * @desc if there is an @authorize directive => true
+ * @desc if thers is no @authorize directive => false
+ * @public
+ * @param {object} inputSchema - schema for the type
+ * @return {boolean} authorized - true, if authorization logic defined
  */
-export function isAuthorizeDirectiveDefined(inputSchema) {
+export function isAuthorizeDirectiveDefined(inputSchema: any): boolean {
   const authorized =
     (inputSchema.definitions &&
       inputSchema.definitions[0] &&
@@ -130,16 +145,17 @@ export function isAuthorizeDirectiveDefined(inputSchema) {
 }
 
 /*
- * get userRoles and docRoles
- * @param {boolean} authorize
- * @param {object} inputSchema
+ * @desc get userRoles and docRoles
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {object} inputSchema - type's schema
  * @return {object} {
- *    {object} userRoles,
- *    {object} docRoles,
- *    {string} roleFieldName,
+ *    {object} userRoles - userRoles
+ *    {object} docRoles - docRoles
+ *    {string} roleFieldName - field, containing roles
  * }
  */
-function getRoles(authorize, inputSchema) {
+function getRoles(authorize: boolean, inputSchema: any) {
   // create empty userRoles and docRoles objects
   // as default values, which are used
   // if there is not @authorize directive
@@ -163,10 +179,8 @@ function getRoles(authorize, inputSchema) {
           if (
             roleFieldNamesFound.length > 0 &&
             role.roleFieldName !== '' &&
-            !roleFieldNamesFound.indexOf(role.roleFieldName) >= 0
+            roleFieldNamesFound.indexOf(role.roleFieldName) < 0
           ) {
-            // !roleFieldNamesFound.includes(role.roleFieldName)) {
-
             // We allow only one field which keeps all userRoles
             throw new Error(`Please adjust type definition, that there is 
               only ONE field, which keeps all user roles. You've tried to 
@@ -206,22 +220,22 @@ function getRoles(authorize, inputSchema) {
 }
 
 /*
- * get the roles from the @authorize directive
- * by reading the input schema's abstract syntax tree
- * to get the roles and their authorized modes
- * @param {object} allRolesArguments
- * @return {array} allRoles
+ * @desc get the roles from the @authorize directive
+ * @desc by reading the input schema's abstract syntax tree
+ * @desc to get the roles and their authorized modes
+ * @private
+ * @param {object} allRolesArguments - AST with role definitions
+ * @return {array} allRoles - returns the defined roles
+ * @example @authorize(
+             admin: ["create", "read", "update", "delete"]
+             this: ["read", "update", "delete"]
+            )
  */
-function getAllRoles(allRolesArguments = [], inputSchema) {
-  /*  Example:
-      @authorize(
-      //role:  roleModes: [mode.value]   
-        admin: ["create", "read", "update", "delete"]
-        this: ["read", "update", "delete"]
-      ) 
-  */
+function getAllRoles(
+  allRolesArguments: any = [],
+  inputSchema: any
+): Array<any> {
   const allRoles = [];
-
   // get all Roles of the type's @authorize directives
   // e.g. 'admin', 'this'
   allRolesArguments.forEach(roleArgument => {
@@ -270,8 +284,6 @@ function getAllRoles(allRolesArguments = [], inputSchema) {
             mode.value &&
             MODES.indexOf(mode.value) >= 0
           ) {
-            // MODES.includes(mode.value) ){
-
             // it is a valid authorization mode:
             // e.g.   {
             //           name: 'admin',
@@ -302,8 +314,6 @@ function getAllRoles(allRolesArguments = [], inputSchema) {
         roleArgument.name.value &&
         MODES.indexOf(roleArgument.name.value) >= 0
       ) {
-        // MODES.includes(roleArgument.name.value) ) {
-
         //                         'create' = 'admin'
         // special case 'read' means both, 'readOne' and 'readMany'
         if (roleArgument.name.value === READ) {
@@ -322,7 +332,7 @@ function getAllRoles(allRolesArguments = [], inputSchema) {
 }
 
 /*
- * decide, if the given role is whether 
+ * @desc decide, if the given role is whether 
  * a 'userRole' or a 'docRole'
  *
  * Procedure:
@@ -361,10 +371,11 @@ function getAllRoles(allRolesArguments = [], inputSchema) {
  * For 3. none of the above applies
  *   so the role must be a userRole
  *   
- * @param {string} roleName
- * @return {string} roleType => 'userRole' || 'docRole' || exception
+ * @private
+ * @param {string} roleName - name of the role
+ * @return {string} roleType - which is whether 'userRole' or 'docRole'
  */
-function getRoleType(name = '', inputSchema = {}) {
+function getRoleType(name: string = '', inputSchema: any = {}): any {
   // all field definitions of the type
   const allFields = inputSchema.definitions[0].fields;
   let roleType = null;
@@ -451,13 +462,14 @@ function getRoleType(name = '', inputSchema = {}) {
 }
 
 /*
- * is this field a roleField
+ * @desc is this field a roleField
  * check, if this field has the authRole directive
- * @param {string} roleName
- * @param {array} fieldDirectives 
- * @return {boolean} isRoleField
+ * @private
+ * @param {string} roleName - name of the role
+ * @param {array} fieldDirectives  - AST with field directives
+ * @return {boolean} isRoleField - true, if it is a field with a role
  */
-function isRoleField(roleName, fieldDirectives) {
+function isRoleField(roleName: string, fieldDirectives: any): boolean {
   let found = false;
 
   // loop over all field directives for an 'authRole'
@@ -523,11 +535,18 @@ function isRoleField(roleName, fieldDirectives) {
 }
 
 /*
- * get the field's type 
- * @param {object} field
- * @return {type} fieldType
+ * @desc get the field's type 
+ * @private
+ * @param {object} field - AST with field definitions
+ * @return {type} fieldType - returns the type of the field
+ * @example 'role: String'
+ * @example 'role: String!'
+ * @example 'coauthors: [User]'
+ * @example 'coauthors: [User]!'
+ * @example 'coauthors: [User!]'
+ * @example 'coauthors: [User!]!'
  */
-function getFieldType(field) {
+function getFieldType(field: any): string | null {
   // pattern: 'role: String'
   if (
     field.type &&
@@ -669,30 +688,32 @@ function getFieldType(field) {
 }
 
 /*
- * prepare roles for code generator
+ * @desc prepare roles for code generator
  * convert array to String value
  * replace " by '
- * @param {array} role
- * @return {string} roleString
+ * @private
+ * @param {array} role - name of role
+ * @return {string} roleString - role string
  */
-function prep(role) {
+function prep(role: any): string {
   return JSON.stringify(role).replace(/"/g, "'");
 }
 
 /*
- * generate authorization code for mode readOne
- * @param {boolean} authorize
- * @param {string} typeName
- * @param {string} userRoles
- * @param {string} docRoles
- * @return {string} generatedCode
+ * @desc generate authorization code for mode readOne
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @param {string} userRoles - list of userRoles
+ * @param {string} docRoles - list of docRoles
+ * @return {string} generatedCode - generated code to be injected
  */
 function generateAuthCodeModeReadOne(
-  authorize = false,
-  typeName = '',
-  userRoles = [],
-  docRoles = []
-) {
+  authorize: boolean = false,
+  typeName: string = '',
+  userRoles: Array<string> = [],
+  docRoles: Array<string> = []
+): string {
   // default code
   let generatedCode = `const { me } = context;
     that.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids))`;
@@ -720,18 +741,19 @@ function generateAuthCodeModeReadOne(
 }
 
 /*
- * generate authorization code for mode readMany
- * @param {boolean} authorize
- * @param {string} typeName
- * @param {string} userRoles
- * @param {string} docRoles
- * @return {string} generatedCode
+ * @desc generate authorization code for mode readMany
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @param {string} userRoles - list of userRoles
+ * @param {string} docRoles - list of docRoles
+ * @return {string} generatedCode - generated code to be injected
  */
 function generateAuthCodeModeReadMany(
-  authorize = false,
-  typeName = '',
-  userRoles = [],
-  docRoles = []
+  authorize: boolean = false,
+  typeName: string = '',
+  userRoles: Array<string> = [],
+  docRoles: Array<string> = []
 ) {
   // default code
   let generatedCode = `const finalQuery = {...baseQuery, createdAt: { $gt: lastCreatedAt } };`;
@@ -750,19 +772,20 @@ function generateAuthCodeModeReadMany(
 }
 
 /*
- * generate authorization code for mode create
- * @param {boolean} authorize
- * @param {string} typeName
- * @param {string} userRoles
- * @param {string} docRoles
- * @return {string} generatedCode
+ * @desc generate authorization code for mode create
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @param {string} userRoles - list of userRoles
+ * @param {string} docRoles - list of docRoles
+ * @return {string} generatedCode - generated code to be injected
  */
 function generateAuthCodeModeCreate(
-  authorize = false,
-  typeName = '',
-  userRoles = [],
-  docRoles = [],
-  roleFieldName = null
+  authorize: boolean = false,
+  typeName: string = '',
+  userRoles: Array<string> = [],
+  docRoles: Array<string> = [],
+  roleFieldName?: string = ''
 ) {
   // default code
   let generatedCode = ``;
@@ -777,8 +800,8 @@ function generateAuthCodeModeCreate(
       // to the programmer, assuming this is the most important role,
       // with higher authorization (see in README.md)
       const firstUserRole =
-        userRoles.length > 0 && userRoles[0] ? `'${userRoles[0]}'` : null;
-      const roleField = roleFieldName ? `'${roleFieldName}'` : null;
+        userRoles.length > 0 && userRoles[0] ? `'${userRoles[0]}'` : ``;
+      const roleField = roleFieldName ? `'${roleFieldName}'` : ``;
       generatedCode = `checkAuthDoc(docToInsert, me, ${prep(userRoles)}, ${prep(
         docRoles
       )}, { User: this.context.User }, authlog(resolver, 'create', me));
@@ -795,19 +818,20 @@ function generateAuthCodeModeCreate(
 }
 
 /*
- * generate authorization code for mode update
- * @param {boolean} authorize
- * @param {string} typeName
- * @param {string} userRoles
- * @param {string} docRoles
- * @return {string} generatedCode
+ * @desc generate authorization code for mode update
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @param {string} userRoles - list of userRoles
+ * @param {string} docRoles - list of docRoles
+ * @return {string} generatedCode - generated code to be injected
  */
 function generateAuthCodeModeUpdate(
-  authorize = false,
-  typeName = '',
-  userRoles = [],
-  docRoles = [],
-  roleFieldName = null
+  authorize: boolean = false,
+  typeName: string = '',
+  userRoles?: Array<string> = [],
+  docRoles?: Array<string> = [],
+  roleFieldName?: string = ''
 ) {
   // default code
   let generatedCode = `const finalQuery = {...baseQuery};`;
@@ -823,8 +847,8 @@ function generateAuthCodeModeUpdate(
       // assuming this is the most important role,
       // with higher authorization (see in README.md)
       const firstUserRole =
-        userRoles.length > 0 && userRoles[0] ? `'${userRoles[0]}'` : null;
-      const roleField = roleFieldName ? `'${roleFieldName}'` : null;
+        userRoles.length > 0 && userRoles[0] ? `'${userRoles[0]}'` : ``;
+      const roleField = roleFieldName ? `'${roleFieldName}'` : ``;
       generatedCode = `const authQuery = queryForRoles(me, ${prep(
         userRoles
       )}, ${prep(
@@ -847,18 +871,19 @@ function generateAuthCodeModeUpdate(
 }
 
 /*
- * generate authorization code for mode delete
- * @param {boolean} authorize
- * @param {string} typeName
- * @param {string} userRoles
- * @param {string} docRoles
- * @return {string} generatedCode
+ * @desc generate authorization code for mode delete
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @param {string} userRoles - list of userRoles
+ * @param {string} docRoles - list of docRoles
+ * @return {string} generatedCode - generated code to be injected
  */
 function generateAuthCodeModeDelete(
-  authorize = false,
-  typeName = '',
-  userRoles = [],
-  docRoles = []
+  authorize: boolean = false,
+  typeName: string = '',
+  userRoles?: Array<string> = [],
+  docRoles?: Array<string> = []
 ) {
   // default code
   let generatedCode = `const finalQuery = {...baseQuery};`;
@@ -877,12 +902,16 @@ function generateAuthCodeModeDelete(
 }
 
 /*
- * generate createdBy method
- * @param {boolean} authorize
- * @param {string} typeName
- * @return {string} generatedCode
+ * @desc generate createdBy method
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @return {string} generatedCode - generated code to be injected
  */
-function generateCreatedBy(authorize = false, typeName = '') {
+function generateCreatedBy(
+  authorize: boolean = false,
+  typeName: string = ''
+): string {
   // default code
   let generatedCode = ``;
 
@@ -897,12 +926,16 @@ function generateCreatedBy(authorize = false, typeName = '') {
 }
 
 /*
- * generate updatedBy method
- * @param {boolean} authorize
- * @param {string} typeName
- * @return {string} generatedCode
+ * @desc generate updatedBy method
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @return {string} generatedCode - generated code to be injected
  */
-function generateUpdatedBy(authorize = false, typeName = '') {
+function generateUpdatedBy(
+  authorize: boolean = false,
+  typeName: string = ''
+): string {
   // default code
   let generatedCode = ``;
 
@@ -917,12 +950,16 @@ function generateUpdatedBy(authorize = false, typeName = '') {
 }
 
 /*
- * generate updatedBy method
- * @param {boolean} authorize
- * @param {string} typeName
- * @return {string} generatedCode
+ * @desc generate updatedBy method
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @return {string} generatedCode - generated code to be injected
  */
-function generateAuthRoleDefinition(authorize, typeName) {
+function generateAuthRoleDefinition(
+  authorize: boolean = false,
+  typeName: string = ''
+): string {
   // default code
   let generatedCode = ``;
 
@@ -936,12 +973,18 @@ function generateAuthRoleDefinition(authorize, typeName) {
 }
 
 /*
- * generate authRole() method
- * @param {boolean} authorize
- * @param {string} typeName
- * @return {string} generatedCode
+ * @desc generate authRole() method only in type User
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @param {string} roleFieldName - field name, where userRole is stored on type User
+ * @return {string} generatedCode - generated code to be injected
  */
-function generateAuthRoleMethod(authorize, typeName, roleFieldName) {
+function generateAuthRoleMethod(
+  authorize: boolean = false,
+  typeName: string = '',
+  roleFieldName: string = ''
+): string {
   // default code
   let generatedCode = ``;
 

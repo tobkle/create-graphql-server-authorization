@@ -1,7 +1,22 @@
+/* eslint-disable max-len */
+
 /*
- * '../index.js' file provides access to all public 
- * create graphql server 
- * authorization functions
+ * @desc create-graphql-server-authorization
+ * @desc provides access to all public functions
+ * @public
+ * @param {function} getLogFilename - get name of log file
+ * @param {function} dummyUserContext - get user.role
+ * @param {function} logger - write to authorization log file
+ * @param {function} authlog - how to log
+ * @param {function} checkAuthDoc - checks, if authorized for document
+ * @param {function} fieldContainsUserId - checks, if field contains user id
+ * @param {function} findByIds - find documents with their ids, cached
+ * @param {function} loggedIn - checks, if user logged in
+ * @param {function} protectFields - protects fields for authorized users
+ * @param {function} queryForRoles - creates authQuery for later data operations
+ * @param {function} userRoleAuthorized - checks, if a user's role is authorized
+ * @param {function} generateAuthorizationCode - generates authorization code during add-type
+ * @param {function} isAuthorizeDirectiveDefined - returns true, if authorization logic is defined
  */
 
 /* for the model authorization logic */

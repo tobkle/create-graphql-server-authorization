@@ -1,3 +1,6 @@
+/* eslint-disable max-len */
+// @flow
+
 import { userRoleAuthorized } from './userRoleAuthorized';
 import { dummyUserContext } from './dummyUserContext';
 import { loggedIn } from './loggedIn';
@@ -6,27 +9,28 @@ import { authlog } from './authlog';
 const defaultLogger = authlog();
 
 /*
- * Prepare a query object for mongodb operations with authorization queries
- * creates an authQuery object with additional 
- * query arguments, to implement authorization restrictions for mongodb access
- * @param {object} me
- * @param {array} userRoles
- * @param {array} docRoles
- * @param {object} inputObject
- * @param {object} User
- * @param {object} logger
- * @return {object, exception} queryObject
+ * @desc Prepare a query object for mongodb operations with authorization queries
+ * @desc creates an authQuery object with additional 
+ * @desc query arguments, to implement authorization restrictions for mongodb access
+ * @public
+ * @param {object} me - current user
+ * @param {array} userRoles - list of userRoles
+ * @param {array} docRoles - list of docRoles
+ * @param {object} inputObject - document
+ * @param {object} User - model context for type User
+ * @param {object} logger - logger function
+ * @return {object, exception} queryObject - authQuery for data operations
  *
  * @example: queryForRoles(me, userRoles, docRoles, { User }, 
  *                         authlog(resolver, mode, me ) ); 
  */
 export function queryForRoles(
-  me = {},
-  userRoles = [],
-  docRoles = [],
+  me: any = {},
+  userRoles: Array<string> = [],
+  docRoles: Array<string> = [],
   { User } = { User: dummyUserContext },
-  logger = defaultLogger
-) {
+  logger: any = defaultLogger
+): any {
   // get current User's role
   const role = User.authRole(me);
 

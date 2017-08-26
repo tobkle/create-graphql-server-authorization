@@ -1,24 +1,27 @@
+// @flow
+
 import { dummyUserContext } from './dummyUserContext';
 import { authlog } from './authlog';
 
 const defaultLogger = authlog();
 
 /*
- * Is a user's role authorized for a document
- * @param {object} me
- * @param {array} userRoles
- * @param {object} User
- * @param {object} logger
- * @return {boolean} authorized
+ * @desc Is a user's role authorized for a document
+ * @desc You can use also the role 'world', to authorize everyone
+ * @public
+ * @param {object} me - current user
+ * @param {array} userRoles - list of userRoles
+ * @param {object} User - model context for type User
+ * @param {object} logger - logger function
+ * @return {boolean} authorized - true, if userRole is authorized
  */
 
-// returns true, if the user's role is authorized for a document
 export function userRoleAuthorized(
-  me = {},
-  userRoles = [],
+  me: any = {},
+  userRoles: Array<string> = [],
   { User } = { User: dummyUserContext },
-  logger = defaultLogger
-) {
+  logger: any = defaultLogger
+): boolean {
   // get current User's role
   const role = User.authRole(me);
 

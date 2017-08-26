@@ -24,6 +24,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "create-graphql-server-authorization/src/lib/findbyids.js~findbyids",
+    "function/index.html#static-function-findByIds",
+    "<span>findByIds</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/findByIds.js</span>",
+    "function"
+  ],
+  [
     "create-graphql-server-authorization/src/generate/index.js~generateauthorizationcode",
     "function/index.html#static-function-generateAuthorizationCode",
     "<span>generateAuthorizationCode</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/index.js</span>",
@@ -354,72 +360,6 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "src/__tests__/authlog-test.js",
-    "file/src/__tests__/authlog-test.js.html",
-    "src/__tests__/authlog-test.js",
-    "file"
-  ],
-  [
-    "src/__tests__/checkauthdoc-test.js",
-    "file/src/__tests__/checkAuthDoc-test.js.html",
-    "src/__tests__/checkAuthDoc-test.js",
-    "file"
-  ],
-  [
-    "src/__tests__/fieldcontainsuserid-test.js",
-    "file/src/__tests__/fieldContainsUserId-test.js.html",
-    "src/__tests__/fieldContainsUserId-test.js",
-    "file"
-  ],
-  [
-    "src/__tests__/findbyids-test.js",
-    "file/src/__tests__/findByIds-test.js.html",
-    "src/__tests__/findByIds-test.js",
-    "file"
-  ],
-  [
-    "src/__tests__/getlogfilename-test.js",
-    "file/src/__tests__/getLogFilename-test.js.html",
-    "src/__tests__/getLogFilename-test.js",
-    "file"
-  ],
-  [
-    "src/__tests__/index-test.js",
-    "file/src/__tests__/index-test.js.html",
-    "src/__tests__/index-test.js",
-    "file"
-  ],
-  [
-    "src/__tests__/loggedin-test.js",
-    "file/src/__tests__/loggedIn-test.js.html",
-    "src/__tests__/loggedIn-test.js",
-    "file"
-  ],
-  [
-    "src/__tests__/logger-test.js",
-    "file/src/__tests__/logger-test.js.html",
-    "src/__tests__/logger-test.js",
-    "file"
-  ],
-  [
-    "src/__tests__/protectfields-test.js",
-    "file/src/__tests__/protectFields-test.js.html",
-    "src/__tests__/protectFields-test.js",
-    "file"
-  ],
-  [
-    "src/__tests__/queryforroles-test.js",
-    "file/src/__tests__/queryForRoles-test.js.html",
-    "src/__tests__/queryForRoles-test.js",
-    "file"
-  ],
-  [
-    "src/__tests__/userroleauthorized-test.js",
-    "file/src/__tests__/userRoleAuthorized-test.js.html",
-    "src/__tests__/userRoleAuthorized-test.js",
-    "file"
-  ],
-  [
     "src/generate/index.js",
     "file/src/generate/index.js.html",
     "src/generate/index.js",
@@ -453,6 +393,12 @@ window.esdocSearchIndex = [
     "src/lib/fieldcontainsuserid.js",
     "file/src/lib/fieldContainsUserId.js.html",
     "src/lib/fieldContainsUserId.js",
+    "file"
+  ],
+  [
+    "src/lib/findbyids.js",
+    "file/src/lib/findByIds.js.html",
+    "src/lib/findByIds.js",
     "file"
   ],
   [

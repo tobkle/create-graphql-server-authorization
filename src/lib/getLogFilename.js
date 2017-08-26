@@ -1,15 +1,16 @@
+// @flow
+
 import path from 'path';
 
 const expect = require('chai').expect;
 
-/* Get log filename
- * package.json should be existing in current working directory
- * and should have a section 'config' with a 'logfile' name
- * @return (string) logFilename
+/* @desc Get name for the log file
+ * @desc reads package.json for config.logfile variable
+ * @public
+ * @return (string) logFilename - path and file name for the log file
  */
-export function getLogFilename() {
-  const packageJSON = require(`${process.cwd()}/package.json`);
-  const logFilename = path.normalize(packageJSON.config.logfile);
+export function getLogFilename(): string {
+  const logFilename = path.normalize(process.env.npm_package_config_logfile);
   expect(logFilename).be.a('string');
   return logFilename;
 }

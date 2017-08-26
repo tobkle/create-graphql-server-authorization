@@ -10,11 +10,10 @@ Therefore it enhances the type schema with two additional GraphQL directives:
 * @authorize
 * @authRole
 
-Use these two directives in your GraphQL type definitions. Then use the ```bash create-graphql-server add-type <your-type>``` command to generate the according GraphQL server code with already injected generated authorization logic code.
+Use these two directives in your GraphQL type definitions. Then use the ```create-graphql-server add-type <your-type>``` command to generate the according GraphQL server code with already injected generated authorization logic code.
 
 ## Usage
-It provides Authorization checks for
-* document type authorization
+It provides Authorization checks for type authorization.
 
 It adds the two GraphQL directives @authorize and @authRole to the create-graphql-server type system e.g.:
 ```javascript
@@ -222,6 +221,9 @@ if (authorize){
 }
 ...
 ```
+
+## Documentation
+(API Documentation)[https://tobkle.github.io/create-graphql-server-authorization/]
 
 ## Tests
 ```bash

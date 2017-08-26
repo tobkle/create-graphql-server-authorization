@@ -1,3 +1,4 @@
+// @flow
 import { userRoleAuthorized } from './userRoleAuthorized';
 import { fieldContainsUserId } from './fieldContainsUserId';
 import { authlog } from './authlog';
@@ -5,24 +6,26 @@ import { authlog } from './authlog';
 const defaultLogger = authlog();
 
 /*
- * Returns an authorized document
- * @param {object} doc
- * @param {object} me
- * @param {array} userRoles
- * @param {array} docRoles
- * @param {object} User
- * @param {function} logger
- * @return {object} doc
+ * @desc Returns an authorized document
+ * @public
+ * @param {object} doc - any document to be checked
+ * @param {object} me - current user
+ * @param {array} userRoles - list of userRoles
+ * @param {array} docRoles - list of docRoles
+ * @param {object} User - model context of type User
+ * @param {function} logger - the logger function
+ * @return {object} doc - returns the authorized document
+ * @throws {Error} - throws on a missing authorization
  */
 
 export function checkAuthDoc(
-  doc = {},
-  me = {},
-  userRoles = [],
-  docRoles = [],
+  doc: any = {},
+  me: any = {},
+  userRoles: Array<string> = [],
+  docRoles: Array<string> = [],
   { User },
-  logger = defaultLogger
-) {
+  logger: any = defaultLogger
+): any {
   const resultDoc = Object.assign({}, doc);
 
   // get the User's role

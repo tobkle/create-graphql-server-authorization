@@ -34,6 +34,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib">lib</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-authlog">authlog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-checkAuthDoc">checkAuthDoc</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fieldContainsUserId">fieldContainsUserId</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findByIds">findByIds</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLogFilename">getLogFilename</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loggedIn">loggedIn</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logger">logger</a></span></span></li>
@@ -46,18 +47,19 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/lib/getLogFilename.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import path from &apos;path&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// @flow
+
+import path from &apos;path&apos;;
 
 const expect = require(&apos;chai&apos;).expect;
 
-/* Get log filename
- * package.json should be existing in current working directory
- * and should have a section &apos;config&apos; with a &apos;logfile&apos; name
- * @return (string) logFilename
+/* @desc Get name for the log file
+ * @desc reads package.json for config.logfile variable
+ * @public
+ * @return (string) logFilename - path and file name for the log file
  */
-export function getLogFilename() {
-  const packageJSON = require(`${process.cwd()}/package.json`);
-  const logFilename = path.normalize(packageJSON.config.logfile);
+export function getLogFilename(): string {
+  const logFilename = path.normalize(process.env.npm_package_config_logfile);
   expect(logFilename).be.a(&apos;string&apos;);
   return logFilename;
 }

@@ -34,6 +34,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib">lib</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-authlog">authlog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-checkAuthDoc">checkAuthDoc</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fieldContainsUserId">fieldContainsUserId</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findByIds">findByIds</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLogFilename">getLogFilename</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loggedIn">loggedIn</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logger">logger</a></span></span></li>
@@ -46,7 +47,10 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/lib/queryForRoles.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { userRoleAuthorized } from &apos;./userRoleAuthorized&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/* eslint-disable max-len */
+// @flow
+
+import { userRoleAuthorized } from &apos;./userRoleAuthorized&apos;;
 import { dummyUserContext } from &apos;./dummyUserContext&apos;;
 import { loggedIn } from &apos;./loggedIn&apos;;
 import { authlog } from &apos;./authlog&apos;;
@@ -54,27 +58,28 @@ import { authlog } from &apos;./authlog&apos;;
 const defaultLogger = authlog();
 
 /*
- * Prepare a query object for mongodb operations with authorization queries
- * creates an authQuery object with additional 
- * query arguments, to implement authorization restrictions for mongodb access
- * @param {object} me
- * @param {array} userRoles
- * @param {array} docRoles
- * @param {object} inputObject
- * @param {object} User
- * @param {object} logger
- * @return {object, exception} queryObject
+ * @desc Prepare a query object for mongodb operations with authorization queries
+ * @desc creates an authQuery object with additional 
+ * @desc query arguments, to implement authorization restrictions for mongodb access
+ * @public
+ * @param {object} me - current user
+ * @param {array} userRoles - list of userRoles
+ * @param {array} docRoles - list of docRoles
+ * @param {object} inputObject - document
+ * @param {object} User - model context for type User
+ * @param {object} logger - logger function
+ * @return {object, exception} queryObject - authQuery for data operations
  *
  * @example: queryForRoles(me, userRoles, docRoles, { User }, 
  *                         authlog(resolver, mode, me ) ); 
  */
 export function queryForRoles(
-  me = {},
-  userRoles = [],
-  docRoles = [],
+  me: any = {},
+  userRoles: Array&lt;string&gt; = [],
+  docRoles: Array&lt;string&gt; = [],
   { User } = { User: dummyUserContext },
-  logger = defaultLogger
-) {
+  logger: any = defaultLogger
+): any {
   // get current User&apos;s role
   const role = User.authRole(me);
 

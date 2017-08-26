@@ -1,20 +1,24 @@
-import winston from 'winston';
+// @flow
 
-/*
- * Creates a logger based on winston
- * @param {object} me
- * @return {boolean} logger
- */
+import winston from 'winston';
 
 winston.emitErrs = true;
 
-// create timestamps in local format
-const timestamp = function() {
+/*
+ * @desc create timestamps in local format
+ * @private
+ * @return {string} timestamp - current time stamp in local format
+ */
+const timestamp = function(): string {
   return new Date(Date.now()).toLocaleString();
 };
 
-// format the output messages
-const formatter = function(options) {
+/*
+ * @desc formats the output message string
+ * @private
+ * @return {string} message - prepares output message
+ */
+const formatter = function(options: any): string {
   return (
     options.timestamp() +
     ' ' +
@@ -27,8 +31,14 @@ const formatter = function(options) {
   );
 };
 
-// creates the logger, which outputs messages to file and to console
-export function logger(filename) {
+/*
+ * @desc Creates a logger based on winston
+ * @desc file is allowed to have 5 MB size
+ * @public
+ * @param {object} me - current user
+ * @return {boolean} logger - logger function
+ */
+export function logger(filename: string): any {
   return new winston.Logger({
     transports: [
       new winston.transports.File({

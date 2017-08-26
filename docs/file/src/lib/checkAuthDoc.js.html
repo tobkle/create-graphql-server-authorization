@@ -34,6 +34,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib">lib</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-authlog">authlog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-checkAuthDoc">checkAuthDoc</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fieldContainsUserId">fieldContainsUserId</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findByIds">findByIds</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLogFilename">getLogFilename</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loggedIn">loggedIn</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logger">logger</a></span></span></li>
@@ -46,31 +47,34 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/lib/checkAuthDoc.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { userRoleAuthorized } from &apos;./userRoleAuthorized&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// @flow
+import { userRoleAuthorized } from &apos;./userRoleAuthorized&apos;;
 import { fieldContainsUserId } from &apos;./fieldContainsUserId&apos;;
 import { authlog } from &apos;./authlog&apos;;
 
 const defaultLogger = authlog();
 
 /*
- * Returns an authorized document
- * @param {object} doc
- * @param {object} me
- * @param {array} userRoles
- * @param {array} docRoles
- * @param {object} User
- * @param {function} logger
- * @return {object} doc
+ * @desc Returns an authorized document
+ * @public
+ * @param {object} doc - any document to be checked
+ * @param {object} me - current user
+ * @param {array} userRoles - list of userRoles
+ * @param {array} docRoles - list of docRoles
+ * @param {object} User - model context of type User
+ * @param {function} logger - the logger function
+ * @return {object} doc - returns the authorized document
+ * @throws {Error} - throws on a missing authorization
  */
 
 export function checkAuthDoc(
-  doc = {},
-  me = {},
-  userRoles = [],
-  docRoles = [],
+  doc: any = {},
+  me: any = {},
+  userRoles: Array&lt;string&gt; = [],
+  docRoles: Array&lt;string&gt; = [],
   { User },
-  logger = defaultLogger
-) {
+  logger: any = defaultLogger
+): any {
   const resultDoc = Object.assign({}, doc);
 
   // get the User&apos;s role

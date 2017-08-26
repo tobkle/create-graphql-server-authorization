@@ -1,11 +1,19 @@
-/* find a record by id (cached with dataloader)
- * returns the record, cached if already read, checks authorization if set
+// @flow
+
+/* @desc find a record by an id (cached with dataloader)
+ * @desc returns the record, checks authorization if set
  * enhancement of tmeasday'findByIds
- * @param {string, array} docRoleField
- * @param {object} userId
- * @return {boolean} foundUserId
+ * @public
+ * @param {object} collection - data model type collection
+ * @param {array} ids - one or a list of document ids
+ * @param {object} authQuery - authorization query to be used to access data
+ * @return {array} documents - the found documents with these ids
  */
-export function findByIds(collection, ids = [], authQuery = {}) {
+export function findByIds(
+  collection: any,
+  ids: Array<any> = [],
+  authQuery?: any = {}
+): any {
   const baseQuery = { _id: { $in: ids } };
   const finalQuery = { ...baseQuery, ...authQuery };
   return collection.find(finalQuery).toArray().then(docs => {

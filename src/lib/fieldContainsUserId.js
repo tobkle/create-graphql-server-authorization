@@ -1,11 +1,15 @@
+/* eslint-disable max-len */
+// @flow
+
 import _ from 'lodash';
 
 /*
- * extract a UserId from a _id object
- * @param {object} userIdObject
- * @return {string} newUserId
+ * @desc extracts a UserId from an _id object
+ * @private
+ * @param {object} userIdObject - user object
+ * @return {string} newUserId - id of the user
  */
-function extractUserId(userIdObject) {
+function extractUserId(userIdObject: any): any {
   let newUserId = '';
   if (_.isObject(userIdObject)) {
     Object.keys(userIdObject).forEach(field => {
@@ -18,13 +22,17 @@ function extractUserId(userIdObject) {
 }
 
 /*
- * checks, if a field contains a user's id
- * returns true, if a field of type array/object/string contains the userId
- * @param {string, object, array} docRoleField
- * @param {string, object} userId
- * @return {boolean} foundUserId
+ * @desc checks, if a field contains a user's id
+ * @desc returns true, if a field of type array/object/string contains the userId
+ * @public
+ * @param {string, object, array} docRoleField - the field to be checked
+ * @param {string, object} userId - the user id to test
+ * @return {boolean} foundUserId - true if it contains the user id
  */
-export function fieldContainsUserId(docRoleField, compressedUserId) {
+export function fieldContainsUserId(
+  docRoleField: any,
+  compressedUserId: any
+): boolean {
   let found = false;
 
   // empty docRoleField is not a valid docRoleField

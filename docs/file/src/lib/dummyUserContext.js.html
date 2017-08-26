@@ -34,6 +34,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib">lib</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-authlog">authlog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-checkAuthDoc">checkAuthDoc</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fieldContainsUserId">fieldContainsUserId</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findByIds">findByIds</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLogFilename">getLogFilename</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loggedIn">loggedIn</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logger">logger</a></span></span></li>
@@ -46,12 +47,14 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/lib/dummyUserContext.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/*
- * Returns a dummyUserContext
- * mocking User authRole, as it is not existing in this library
- * for usage in the test cases, where we don&apos;t have an original 
- * User model context
- * @return {object} dummyUserContext
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// @flow
+/*
+ * @desc Returns a dummyUserContext
+ * @desc mocking User authRole, as it is not existing in this library
+ * @desc for usage in the test cases, where we don&apos;t have an original 
+ * @desc User model context
+ * @public
+ * @return {object} dummyUserContext - returns user.role || null
  */
 export const dummyUserContext = {
   authRole(user) {

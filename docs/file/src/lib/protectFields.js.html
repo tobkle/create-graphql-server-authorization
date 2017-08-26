@@ -34,6 +34,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib">lib</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-authlog">authlog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-checkAuthDoc">checkAuthDoc</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fieldContainsUserId">fieldContainsUserId</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findByIds">findByIds</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLogFilename">getLogFilename</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loggedIn">loggedIn</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logger">logger</a></span></span></li>
@@ -46,24 +47,27 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/lib/protectFields.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { dummyUserContext } from &apos;./dummyUserContext&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// @flow
+
+import { dummyUserContext } from &apos;./dummyUserContext&apos;;
 
 /*
- * Protects a field based on authorizations
- * @param {object} me
- * @param {array} authorizedUserRoles
- * @param {array} protectedFields
- * @param {object} inputObject
- * @param {object} User
- * @return {object} result
+ * @desc Protects a field based on authorizations
+ * @public
+ * @param {object} me - current user
+ * @param {array} authorizedUserRoles - userRoles with authorization
+ * @param {array} protectedFields - list of fields only for these userRoles
+ * @param {object} inputObject - document with might contain those fields
+ * @param {object} User - model context for type User
+ * @return {object} result - document with or without the protected fields
  */
 export function protectFields(
-  me = {},
-  authorizedUserRoles = [],
-  protectedFields = [],
-  inputObject = {},
+  me: any = {},
+  authorizedUserRoles: Array&lt;string&gt; = [],
+  protectedFields: Array&lt;string&gt; = [],
+  inputObject: any = {},
   { User } = { User: dummyUserContext }
-) {
+): any {
   // pure function
   const result = Object.assign({}, inputObject);
 
