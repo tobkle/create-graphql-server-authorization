@@ -7,7 +7,16 @@
   "plugins": [
     
     {
-      "name": "esdoc-standard-plugin"
+      "name": "esdoc-standard-plugin",
+      "option": {
+        "coverage": {"enable": true},
+        "brand": {
+          "title": "create-graphql-server-authorization",
+          "description": "Adds authorization to create-graphql-server",
+          "repository": "https://github.com/tobkle/create-graphql-server-authorization",
+          "author": "Tobias Klemmer"
+        }
+      }
     },
 
     {

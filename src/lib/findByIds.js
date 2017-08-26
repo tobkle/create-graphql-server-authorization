@@ -1,7 +1,8 @@
 // @flow
 
-/* @desc find a record by an id (cached with dataloader)
- * @desc returns the record, checks authorization if set
+/** 
+ * Finds records by ids (cached with dataloader)
+ * returns the record, checks authorization if set
  * enhancement of tmeasday'findByIds
  * @public
  * @param {object} collection - data model type collection
@@ -9,6 +10,7 @@
  * @param {object} authQuery - authorization query to be used to access data
  * @return {array} documents - the found documents with these ids
  */
+
 export function findByIds(
   collection: any,
   ids: Array<any> = [],

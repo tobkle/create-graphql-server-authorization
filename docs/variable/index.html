@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="Authorization package for create-graphql-server"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="create-graphql-server-authorization"><meta property="twitter:description" content="Authorization package for create-graphql-server"></head>
+<meta name="description" content="Adds authorization to create-graphql-server"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="create-graphql-server-authorization"><meta property="twitter:description" content="Adds authorization to create-graphql-server"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -65,13 +65,17 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-dummyUserContext">dummyUserContext</a></span></span><span class="code" data-ice="signature">: {&quot;authRole&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>}</span>
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-dummyUserContext">dummyUserContext</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>: {&quot;authRole&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>}</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Returns a dummyUserContext
+mocking User authRole, as it is not existing in this library
+for usage in the test cases, where we don&apos;t have an original 
+User model context</p>
+</div>
       </div>
     </td>
     <td>
@@ -92,25 +96,42 @@
     
     
     
-    <span class="code" data-ice="name">dummyUserContext</span><span class="code" data-ice="signature">: {&quot;authRole&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>}</span>
+    <span class="code" data-ice="name">dummyUserContext</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>: {&quot;authRole&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>}</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lib/dummyUserContext.js.html#lineNumber10">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lib/dummyUserContext.js.html#lineNumber12">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {dummyUserContext} from &apos;<span><a href="file/src/lib/dummyUserContext.js.html#lineNumber10">create-graphql-server-authorization/src/lib/dummyUserContext.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {dummyUserContext} from &apos;<span><a href="file/src/lib/dummyUserContext.js.html#lineNumber12">create-graphql-server-authorization/src/lib/dummyUserContext.js</a></span>&apos;</code></pre></div>
   
   
-  
+  <div data-ice="description"><p>Returns a dummyUserContext
+mocking User authRole, as it is not existing in this library
+for usage in the test cases, where we don&apos;t have an original 
+User model context</p>
+</div>
 
   
 
   <div data-ice="properties">
 </div>
 
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>dummyUserContext - returns user.role || null</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
   
 

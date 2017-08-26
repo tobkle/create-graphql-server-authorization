@@ -8,22 +8,22 @@ import { authlog } from './authlog';
 
 const defaultLogger = authlog();
 
-/*
- * @desc Prepare a query object for mongodb operations with authorization queries
- * @desc creates an authQuery object with additional 
- * @desc query arguments, to implement authorization restrictions for mongodb access
+/**
+ * Prepare a query object for mongodb operations with authorization queries
+ * creates an authQuery object with additional 
+ * query arguments, to implement authorization restrictions for mongodb access
  * @public
  * @param {object} me - current user
  * @param {array} userRoles - list of userRoles
  * @param {array} docRoles - list of docRoles
- * @param {object} inputObject - document
  * @param {object} User - model context for type User
  * @param {object} logger - logger function
- * @return {object, exception} queryObject - authQuery for data operations
- *
- * @example: queryForRoles(me, userRoles, docRoles, { User }, 
- *                         authlog(resolver, mode, me ) ); 
+ * @return {object} authQuery - authQuery for data operations
+ * @example 
+ *   const authQuery = 
+ *     queryForRoles(me, userRoles, docRoles, { User }, authlog(resolver, mode, me ) );
  */
+
 export function queryForRoles(
   me: any = {},
   userRoles: Array<string> = [],

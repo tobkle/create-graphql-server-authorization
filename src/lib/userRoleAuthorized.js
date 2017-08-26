@@ -5,9 +5,9 @@ import { authlog } from './authlog';
 
 const defaultLogger = authlog();
 
-/*
- * @desc Is a user's role authorized for a document
- * @desc You can use also the role 'world', to authorize everyone
+/**
+ * Is a user's role authorized for a document
+ * You can use also the role 'world', to authorize everyone
  * @public
  * @param {object} me - current user
  * @param {array} userRoles - list of userRoles

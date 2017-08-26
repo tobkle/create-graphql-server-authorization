@@ -1,7 +1,7 @@
 // @flow
 
-/*
- * @desc Checks, if an user is logged in
+/**
+ * Checks, if an user is logged in
  * @param {object} me - current user
  * @return {boolean} loggedIn - true, if user is logged in
  */

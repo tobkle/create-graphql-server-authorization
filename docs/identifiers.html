@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="Authorization package for create-graphql-server"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="create-graphql-server-authorization"><meta property="twitter:description" content="Authorization package for create-graphql-server"></head>
+<meta name="description" content="Adds authorization to create-graphql-server"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="create-graphql-server-authorization"><meta property="twitter:description" content="Adds authorization to create-graphql-server"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -71,13 +71,14 @@
           <span data-ice="kind-icon" class="kind-function">F</span>
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-generateAuthorizationCode">generateAuthorizationCode</a></span></span><span class="code" data-ice="signature">(undefined: <span>*</span>, undefined: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-generateAuthorizationCode">generateAuthorizationCode</a></span></span><span class="code" data-ice="signature">(typeName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, inputSchema: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>generates authorization code</p>
+</div>
       </div>
     </td>
     <td>
@@ -99,13 +100,18 @@
           <span data-ice="kind-icon" class="kind-function">F</span>
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-isAuthorizeDirectiveDefined">isAuthorizeDirectiveDefined</a></span></span><span class="code" data-ice="signature">(inputSchema: <span>any</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-isAuthorizeDirectiveDefined">isAuthorizeDirectiveDefined</a></span></span><span class="code" data-ice="signature">(inputSchema: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>checks, if there is authorization logic defined
+true, if there is an @authorize directive in the header 
+in the type&apos;s inputSchema
+if there is an @authorize directive =&gt; true
+if thers is no @authorize directive =&gt; false</p>
+</div>
       </div>
     </td>
     <td>
@@ -137,13 +143,15 @@
           <span data-ice="kind-icon" class="kind-function">F</span>
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-authlog">authlog</a></span></span><span class="code" data-ice="signature">(undefined: <span>*</span>, undefined: <span>*</span>, undefined: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-authlog">authlog</a></span></span><span class="code" data-ice="signature">(resolver: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, mode: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, me: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span>
+   debug {function</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Central logger for authorization checks</p>
+</div>
       </div>
     </td>
     <td>
@@ -165,13 +173,14 @@
           <span data-ice="kind-icon" class="kind-function">F</span>
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-checkAuthDoc">checkAuthDoc</a></span></span><span class="code" data-ice="signature">(undefined: <span>*</span>, undefined: <span>*</span>, undefined: <span>*</span>, undefined: <span>*</span>, undefined: <span>*</span>, undefined: <span>*</span>): <span>any</span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-checkAuthDoc">checkAuthDoc</a></span></span><span class="code" data-ice="signature">(doc: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, me: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, userRoles: <span>array</span>, docRoles: <span>array</span>, User: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, logger: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Returns an authorized document</p>
+</div>
       </div>
     </td>
     <td>
@@ -193,13 +202,15 @@
           <span data-ice="kind-icon" class="kind-function">F</span>
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-fieldContainsUserId">fieldContainsUserId</a></span></span><span class="code" data-ice="signature">(docRoleField: <span>any</span>, compressedUserId: <span>any</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-fieldContainsUserId">fieldContainsUserId</a></span></span><span class="code" data-ice="signature">(docRoleField: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, compressedUserId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>checks, if a field contains a user&apos;s id
+returns true, if a field of type array/object/string contains the userId</p>
+</div>
       </div>
     </td>
     <td>
@@ -221,13 +232,16 @@
           <span data-ice="kind-icon" class="kind-function">F</span>
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-findByIds">findByIds</a></span></span><span class="code" data-ice="signature">(collection: <span>any</span>, undefined: <span>*</span>, undefined: <span>*</span>): <span>any</span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-findByIds">findByIds</a></span></span><span class="code" data-ice="signature">(collection: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, ids: <span>array</span>, authQuery: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span>array</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Finds records by ids (cached with dataloader)
+returns the record, checks authorization if set
+enhancement of tmeasday&apos;findByIds</p>
+</div>
       </div>
     </td>
     <td>
@@ -249,13 +263,15 @@
           <span data-ice="kind-icon" class="kind-function">F</span>
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-getLogFilename">getLogFilename</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-getLogFilename">getLogFilename</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Get name for the log file
+reads package.json for config.logfile variable</p>
+</div>
       </div>
     </td>
     <td>
@@ -277,13 +293,14 @@
           <span data-ice="kind-icon" class="kind-function">F</span>
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-loggedIn">loggedIn</a></span></span><span class="code" data-ice="signature">(me: <span>any</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-loggedIn">loggedIn</a></span></span><span class="code" data-ice="signature">(me: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Checks, if an user is logged in</p>
+</div>
       </div>
     </td>
     <td>
@@ -305,13 +322,14 @@
           <span data-ice="kind-icon" class="kind-function">F</span>
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-logger">logger</a></span></span><span class="code" data-ice="signature">(filename: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>any</span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-logger">logger</a></span></span><span class="code" data-ice="signature">(filename: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Creates a logger based on winston</p>
+</div>
       </div>
     </td>
     <td>
@@ -333,13 +351,14 @@
           <span data-ice="kind-icon" class="kind-function">F</span>
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-protectFields">protectFields</a></span></span><span class="code" data-ice="signature">(undefined: <span>*</span>, undefined: <span>*</span>, undefined: <span>*</span>, undefined: <span>*</span>, undefined: <span>*</span>): <span>any</span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-protectFields">protectFields</a></span></span><span class="code" data-ice="signature">(me: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, authorizedUserRoles: <span>array</span>, protectedFields: <span>array</span>, inputObject: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, User: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Protects a field based on authorizations</p>
+</div>
       </div>
     </td>
     <td>
@@ -361,13 +380,16 @@
           <span data-ice="kind-icon" class="kind-function">F</span>
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-queryForRoles">queryForRoles</a></span></span><span class="code" data-ice="signature">(undefined: <span>*</span>, undefined: <span>*</span>, undefined: <span>*</span>, undefined: <span>*</span>, undefined: <span>*</span>): <span>any</span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-queryForRoles">queryForRoles</a></span></span><span class="code" data-ice="signature">(me: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, userRoles: <span>array</span>, docRoles: <span>array</span>, User: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, logger: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Prepare a query object for mongodb operations with authorization queries
+creates an authQuery object with additional 
+query arguments, to implement authorization restrictions for mongodb access</p>
+</div>
       </div>
     </td>
     <td>
@@ -389,13 +411,15 @@
           <span data-ice="kind-icon" class="kind-function">F</span>
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-userRoleAuthorized">userRoleAuthorized</a></span></span><span class="code" data-ice="signature">(undefined: <span>*</span>, undefined: <span>*</span>, undefined: <span>*</span>, undefined: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-userRoleAuthorized">userRoleAuthorized</a></span></span><span class="code" data-ice="signature">(me: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, userRoles: <span>array</span>, User: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, logger: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Is a user&apos;s role authorized for a document
+You can use also the role &apos;world&apos;, to authorize everyone</p>
+</div>
       </div>
     </td>
     <td>
@@ -417,13 +441,17 @@
           <span data-ice="kind-icon" class="kind-variable">V</span>
           
           
-          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-dummyUserContext">dummyUserContext</a></span></span><span class="code" data-ice="signature">: {&quot;authRole&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>}</span>
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-dummyUserContext">dummyUserContext</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>: {&quot;authRole&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>}</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Returns a dummyUserContext
+mocking User authRole, as it is not existing in this library
+for usage in the test cases, where we don&apos;t have an original 
+User model context</p>
+</div>
       </div>
     </td>
     <td>

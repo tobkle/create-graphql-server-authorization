@@ -3,8 +3,8 @@
 import { logger } from './logger';
 import { getLogFilename } from './getLogFilename';
 
-/*
- * @desc Central logger for authorization checks
+/**
+ * Central logger for authorization checks
  * @public
  * @param {string} resolver - log name of a resolver
  * @param {string} mode - crud operation name
@@ -14,6 +14,7 @@ import { getLogFilename } from './getLogFilename';
  *    error {function} - error() function
  * }
  */
+
 export function authlog(
   resolver: string = '',
   mode: string = '',

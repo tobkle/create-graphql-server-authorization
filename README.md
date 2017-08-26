@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/create-graphql-server-authorization.svg)](http://badge.fury.io/js/create-graphql-server-authorization) [![Build Status](https://travis-ci.org/tobkle/create-graphql-server-authorization.svg?branch=master)](https://travis-ci.org/tobkle/create-graphql-server-authorization) [![Coverage Status](https://coveralls.io/repos/github/tobkle/create-graphql-server-authorization/badge.svg?branch=master)](https://coveralls.io/github/tobkle/create-graphql-server-authorization?branch=master)
+[![npm version](https://badge.fury.io/js/create-graphql-server-authorization.svg)](http://badge.fury.io/js/create-graphql-server-authorization) [![Build Status](https://travis-ci.org/tobkle/create-graphql-server-authorization.svg?branch=master)](https://travis-ci.org/tobkle/create-graphql-server-authorization) [![Coverage Status](https://coveralls.io/repos/github/tobkle/create-graphql-server-authorization/badge.svg?branch=master)](https://coveralls.io/github/tobkle/create-graphql-server-authorization?branch=master) [![documentation](https://github.com/tobkle/create-graphql-server-authorization/docs/badge.svg)](https://github.com/tobkle/create-graphql-server-authorization/docs/badge.svg)
 
 # create-graphql-server-authorization
 
@@ -223,11 +223,11 @@ if (authorize){
 ```
 
 ## Documentation
-(API Documentation)[https://tobkle.github.io/create-graphql-server-authorization/]
+[API Documentation](https://tobkle.github.io/create-graphql-server-authorization/)
 
 ## Tests
 ```bash
-npm run test
+yarn test
 ```
 
 ## Contributing

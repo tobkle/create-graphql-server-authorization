@@ -3,12 +3,13 @@
 
 import _ from 'lodash';
 
-/*
- * @desc extracts a UserId from an _id object
+/**
+ * extracts a UserId from an _id object
  * @private
  * @param {object} userIdObject - user object
  * @return {string} newUserId - id of the user
  */
+
 function extractUserId(userIdObject: any): any {
   let newUserId = '';
   if (_.isObject(userIdObject)) {
@@ -21,14 +22,15 @@ function extractUserId(userIdObject: any): any {
   return newUserId;
 }
 
-/*
- * @desc checks, if a field contains a user's id
- * @desc returns true, if a field of type array/object/string contains the userId
+/**
+ * checks, if a field contains a user's id
+ * returns true, if a field of type array/object/string contains the userId
  * @public
- * @param {string, object, array} docRoleField - the field to be checked
- * @param {string, object} userId - the user id to test
- * @return {boolean} foundUserId - true if it contains the user id
+ * @param {object} docRoleField - the field to be checked
+ * @param {object} compressedUserId - the user id to test
+ * @return {boolean} found - true if it contains the user id
  */
+
 export function fieldContainsUserId(
   docRoleField: any,
   compressedUserId: any

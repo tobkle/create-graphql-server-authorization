@@ -2,8 +2,8 @@
 
 import { dummyUserContext } from './dummyUserContext';
 
-/*
- * @desc Protects a field based on authorizations
+/**
+ * Protects a field based on authorizations
  * @public
  * @param {object} me - current user
  * @param {array} authorizedUserRoles - userRoles with authorization
@@ -12,6 +12,7 @@ import { dummyUserContext } from './dummyUserContext';
  * @param {object} User - model context for type User
  * @return {object} result - document with or without the protected fields
  */
+
 export function protectFields(
   me: any = {},
   authorizedUserRoles: Array<string> = [],

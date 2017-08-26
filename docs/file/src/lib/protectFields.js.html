@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="Authorization package for create-graphql-server"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="create-graphql-server-authorization"><meta property="twitter:description" content="Authorization package for create-graphql-server"></head>
+<meta name="description" content="Adds authorization to create-graphql-server"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="create-graphql-server-authorization"><meta property="twitter:description" content="Adds authorization to create-graphql-server"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -51,8 +51,8 @@
 
 import { dummyUserContext } from &apos;./dummyUserContext&apos;;
 
-/*
- * @desc Protects a field based on authorizations
+/**
+ * Protects a field based on authorizations
  * @public
  * @param {object} me - current user
  * @param {array} authorizedUserRoles - userRoles with authorization
@@ -61,6 +61,7 @@ import { dummyUserContext } from &apos;./dummyUserContext&apos;;
  * @param {object} User - model context for type User
  * @return {object} result - document with or without the protected fields
  */
+ 
 export function protectFields(
   me: any = {},
   authorizedUserRoles: Array&lt;string&gt; = [],

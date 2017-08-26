@@ -567,7 +567,7 @@
     "__docId__": 48,
     "kind": "file",
     "name": "src/generate/index.js",
-    "content": "/* eslint-disable max-len */\n/* eslint-disable no-unused-vars */\n// @flow\n\n/* \n * @desc Authorization Code Generator functions\n * @public\n * @return {function} generateAuthCode(typeName, inputSchema)\n */\n\n// name of the @authorize directive, which triggers authorization logic\nconst AUTHORIZE_DIRECTIVE = 'authorize';\n\n// constants to read GraphQL Abstract Syntax Tree (AST)\nconst FIELD_DEFINITION = 'FieldDefinition';\nconst NON_NULL_TYPE = 'NonNullType';\nconst STRING_VALUE = 'StringValue';\nconst LIST_TYPE = 'ListType';\nconst LIST_VALUE = 'ListValue';\nconst DIRECTIVE = 'Directive';\nconst ARGUMENT = 'Argument';\nconst NAME = 'Name';\n\n// valid authorization mode values:\nconst CREATE = 'create';\nconst READ = 'read'; // which means both: 'readOne' and 'readMany'\nconst READ_ONE = 'readOne';\nconst READ_MANY = 'readMany';\nconst UPDATE = 'update';\nconst DELETE = 'delete';\n\n// for the role definitions\nconst USER_ROLE = 'userRole';\nconst DOC_ROLE = 'docRole';\nconst AUTH_ROLE = 'authRole';\nconst FOR = 'for';\nconst THIS = 'this';\nconst NAMED_TYPE = 'NamedType';\nconst STRING = 'String';\nconst LIST_OF_STRINGS = '[String]';\nconst USER = 'User';\nconst LIST_OF_USERS = '[User]';\nconst ID_FIELD = '_id';\nconst ID_SINGULAR = 'Id';\nconst ID_PLURAL = 'Ids';\n\n// valid authorization modes\nconst MODES = [CREATE, READ, READ_ONE, READ_MANY, UPDATE, DELETE];\n\n// template for default allRoles, to prepare one role\nconst CODE_MODES = [CREATE, READ_ONE, READ_MANY, UPDATE, DELETE];\n\n/*\n * @desc generates authorization code\n * @public\n * @param {string} typeName - the name of the type\n * @param {object} inputSchema - the schema for that type\n * @return {object} generatedCode - generated code\n */\nexport function generateAuthorizationCode(\n  typeName: string = '',\n  inputSchema: any = {}\n): {\n  generateAuthCodeModeReadOne: string,\n  generateAuthCodeModeReadMany: string,\n  generateAuthCodeModeCreate: string,\n  generateAuthCodeModeUpdate: string,\n  generateAuthCodeModeDelete: string,\n  generateCreatedBy: string,\n  generateUpdatedBy: string,\n  generateAuthRoleDefinition: string,\n  generateAuthRoleMethod: string\n} {\n  const authorize = isAuthorizeDirectiveDefined(inputSchema);\n  const { userRoles, docRoles, roleFieldName } = getRoles(\n    authorize,\n    inputSchema\n  );\n  return {\n    generateAuthCodeModeReadOne: generateAuthCodeModeReadOne(\n      authorize,\n      typeName,\n      userRoles.readOne,\n      docRoles.readOne\n    ),\n    generateAuthCodeModeReadMany: generateAuthCodeModeReadMany(\n      authorize,\n      typeName,\n      userRoles.readMany,\n      docRoles.readMany\n    ),\n    generateAuthCodeModeCreate: generateAuthCodeModeCreate(\n      authorize,\n      typeName,\n      userRoles.create,\n      docRoles.create,\n      roleFieldName\n    ),\n    generateAuthCodeModeUpdate: generateAuthCodeModeUpdate(\n      authorize,\n      typeName,\n      userRoles.update,\n      docRoles.update,\n      roleFieldName\n    ),\n    generateAuthCodeModeDelete: generateAuthCodeModeDelete(\n      authorize,\n      typeName,\n      userRoles.delete,\n      docRoles.delete\n    ),\n    generateCreatedBy: generateCreatedBy(authorize, typeName),\n    generateUpdatedBy: generateUpdatedBy(authorize, typeName),\n    generateAuthRoleDefinition: generateAuthRoleDefinition(authorize, typeName),\n    generateAuthRoleMethod: generateAuthRoleMethod(\n      authorize,\n      typeName,\n      roleFieldName\n    )\n  };\n}\n\n/*\n * @desc checks, if there is authorization logic defined\n * @desc true, if there is an @authorize directive in the header \n * @desc in the type's inputSchema\n * @desc if there is an @authorize directive => true\n * @desc if thers is no @authorize directive => false\n * @public\n * @param {object} inputSchema - schema for the type\n * @return {boolean} authorized - true, if authorization logic defined\n */\nexport function isAuthorizeDirectiveDefined(inputSchema: any): boolean {\n  const authorized =\n    (inputSchema.definitions &&\n      inputSchema.definitions[0] &&\n      inputSchema.definitions[0].directives &&\n      inputSchema.definitions[0].directives[0] &&\n      inputSchema.definitions[0].directives[0].name &&\n      inputSchema.definitions[0].directives[0].name.value ===\n        AUTHORIZE_DIRECTIVE) ||\n    false;\n\n  return authorized;\n}\n\n/*\n * @desc get userRoles and docRoles\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {object} inputSchema - type's schema\n * @return {object} {\n *    {object} userRoles - userRoles\n *    {object} docRoles - docRoles\n *    {string} roleFieldName - field, containing roles\n * }\n */\nfunction getRoles(authorize: boolean, inputSchema: any) {\n  // create empty userRoles and docRoles objects\n  // as default values, which are used\n  // if there is not @authorize directive\n  const userRoles = {};\n  const docRoles = {};\n  const roleFieldNamesFound = [];\n  CODE_MODES.forEach(mode => (userRoles[mode] = []));\n  CODE_MODES.forEach(mode => (docRoles[mode] = []));\n\n  // check if there is an @authorize directive\n  if (authorize) {\n    // then re-determine the userRoles and docRoles\n    // from the @authorize tag of the type definition\n    const allRolesArguments =\n      inputSchema.definitions[0].directives[0].arguments || {};\n    const allRoles = getAllRoles(allRolesArguments, inputSchema);\n    allRoles.forEach(role => {\n      switch (role.type) {\n        case USER_ROLE:\n          // check, if there is already another userRole field\n          if (\n            roleFieldNamesFound.length > 0 &&\n            role.roleFieldName !== '' &&\n            roleFieldNamesFound.indexOf(role.roleFieldName) < 0\n          ) {\n            // We allow only one field which keeps all userRoles\n            throw new Error(`Please adjust type definition, that there is \n              only ONE field, which keeps all user roles. You've tried to \n              add a second userRole field: '${role.roleFieldName}',\n              but there is already another userRole field: \n              '${roleFieldNamesFound[0]}' defined.\n              Please try instead: '${roleFieldNamesFound[0]}: \n              String @authRole(for: [\"otherRole\", \"${role.roleName}\"])'`);\n          }\n          if (role.roleFieldName !== '') {\n            roleFieldNamesFound.push(role.roleFieldName);\n          }\n\n          Object.keys(role.modes).forEach(mode => {\n            if (role.modes[mode]) {\n              userRoles[mode].push(role.roleName);\n            }\n          });\n          break;\n\n        case DOC_ROLE:\n          Object.keys(role.modes).forEach(mode => {\n            if (role.modes[mode]) {\n              docRoles[mode].push(role.roleName);\n            }\n          });\n          break;\n      }\n    });\n  }\n\n  return {\n    userRoles,\n    docRoles,\n    roleFieldName: roleFieldNamesFound.length > 0 ? roleFieldNamesFound[0] : ''\n  };\n}\n\n/*\n * @desc get the roles from the @authorize directive\n * @desc by reading the input schema's abstract syntax tree\n * @desc to get the roles and their authorized modes\n * @private\n * @param {object} allRolesArguments - AST with role definitions\n * @return {array} allRoles - returns the defined roles\n * @example @authorize(\n             admin: [\"create\", \"read\", \"update\", \"delete\"]\n             this: [\"read\", \"update\", \"delete\"]\n            )\n */\nfunction getAllRoles(\n  allRolesArguments: any = [],\n  inputSchema: any\n): Array<any> {\n  const allRoles = [];\n  // get all Roles of the type's @authorize directives\n  // e.g. 'admin', 'this'\n  allRolesArguments.forEach(roleArgument => {\n    // new role found\n    const role = {};\n\n    // check if it is a valid role\n    if (\n      roleArgument.kind === ARGUMENT &&\n      roleArgument.name &&\n      roleArgument.name.kind === NAME &&\n      roleArgument.name.value &&\n      roleArgument.name.value !== ''\n    ) {\n      // define the new role\n      role.name = roleArgument.name.value;\n\n      // determine, if it is a 'userRole' or 'docRole'\n      const { roleType, roleName, roleFieldName } = getRoleType(\n        role.name,\n        inputSchema\n      );\n      role.type = roleType;\n      role.roleName = roleName;\n      role.roleFieldName = roleFieldName;\n\n      // create a default object, necessary for missing modes\n      role.modes = {};\n      CODE_MODES.forEach(mode => (role.modes[mode] = ''));\n\n      // check, if it is a list of values\n      if (\n        roleArgument.value.kind &&\n        roleArgument.value.kind === LIST_VALUE &&\n        roleArgument.value.values &&\n        roleArgument.value.values.length > 0\n      ) {\n        // get all authorized modes of the role\n        const roleModes = roleArgument.value.values;\n        roleModes.forEach(mode => {\n          // check, if it is a valid authorization mode\n          // e.g. 'create', 'update', 'delete', etc.\n          if (\n            mode.kind &&\n            mode.kind === STRING_VALUE &&\n            mode.value &&\n            MODES.indexOf(mode.value) >= 0\n          ) {\n            // it is a valid authorization mode:\n            // e.g.   {\n            //           name: 'admin',\n            //           type: null,      // later: => 'userRole' || 'docRole'\n            //           modes: {\n            //            create: 'admin',\n            //            readOne: 'admin',\n            //            readMany: 'admin',\n            //            update: 'admin',,\n            //            delete: 'admin',\n            //        }\n            //            'create' = 'admin'\n            // special case 'read' means both, 'readOne' and 'readMany'\n\n            if (mode.value === READ) {\n              role.modes[READ_ONE] = role.roleName;\n              role.modes[READ_MANY] = role.roleName;\n            } else {\n              role.modes[mode.value] = role.roleName;\n            }\n          }\n        });\n\n        // check, if it is a simple string value:\n      } else if (\n        roleArgument.name.value.kind &&\n        roleArgument.name.value.kind === STRING_VALUE &&\n        roleArgument.name.value &&\n        MODES.indexOf(roleArgument.name.value) >= 0\n      ) {\n        //                         'create' = 'admin'\n        // special case 'read' means both, 'readOne' and 'readMany'\n        if (roleArgument.name.value === READ) {\n          role.modes[READ_ONE] = role.roleName;\n          role.modes[READ_MANY] = role.roleName;\n        } else {\n          role.modes[roleArgument.name.value] = role.roleName;\n        }\n      }\n      // add it to the list of roles\n      allRoles.push(role);\n    }\n  });\n\n  return allRoles;\n}\n\n/*\n * @desc decide, if the given role is whether \n * a 'userRole' or a 'docRole'\n *\n * Procedure:\n * 1. Determine, if this field is used as a roleField\n * 2. Check, if this roleField...\n *    a) is of type: String or [String] ==> userRole\n *    b) is of type: User or [User]     ==> docRole\n *    c) roleName = 'this'              ==> docRole\n * 3. If there is no roleField in this type\n *    it must be a userRole\n * \n * For 1. is a roleField:\n *   read the type's abstract syntax tree\n *   loop over all provided fields,\n *   check, if the field has a directive '@authRole'\n *   and if this authRole is 'for' the provided 'roleName'\n *   or the roleName is the special case 'this'\n *   ==> then it is a roleField\n *\n * For 2. get it's fieldType:\n *   read the type's abstract syntax tree\n *   for the roleField and read it's type\n *   \n *   a) if it is a String or List of Strings,\n *   then the roleType = 'userRole'\n *\n *   b) if it is a User or List of Users (userIds),\n *   then the roleType = 'docType'\n *\n *   c) special case: roleName = 'this'\n *   (it doesn't look for an authRole for 'this')\n *   it means the document's id field is used for this\n *   meaning the role defines the authorizations,\n *   a User has upon his own User document\n *\n * For 3. none of the above applies\n *   so the role must be a userRole\n *   \n * @private\n * @param {string} roleName - name of the role\n * @return {string} roleType - which is whether 'userRole' or 'docRole'\n */\nfunction getRoleType(name: string = '', inputSchema: any = {}): any {\n  // all field definitions of the type\n  const allFields = inputSchema.definitions[0].fields;\n  let roleType = null;\n  let roleName = '';\n  let roleFieldName = '';\n\n  // special case 'this'\n  if (name === THIS) {\n    return {\n      roleType: DOC_ROLE,\n      roleName: ID_FIELD,\n      roleFieldName: ID_FIELD\n    };\n  }\n\n  // loop over all fields to find authRole directive\n  allFields.forEach(field => {\n    if (\n      field.kind &&\n      field.kind === FIELD_DEFINITION &&\n      field.name &&\n      field.name.kind &&\n      field.name.kind === NAME &&\n      field.name.value &&\n      field.directives &&\n      field.directives.length > 0\n    ) {\n      // 1. check, if it is a roleField\n      if (isRoleField(name, field.directives)) {\n        // 2. get the type of the field\n        const fieldType = getFieldType(field);\n        // determine the roleType: 'userRole' || 'docRole'\n        // and the roleName for...\n        // userRoles: 'admin', 'user',...\n        // docRoles: 'authorId', 'coAuthorsIds',...\n        switch (fieldType) {\n          case STRING:\n            // a) userRole\n            roleType = USER_ROLE;\n            roleName = name;\n            roleFieldName = field.name.value;\n            break;\n\n          case LIST_OF_STRINGS:\n            // a) userRole\n            roleType = USER_ROLE;\n            roleName = name;\n            roleFieldName = field.name.value;\n            break;\n\n          case USER:\n            // b) docRole\n            roleType = DOC_ROLE;\n            roleName = `${field.name.value}${ID_SINGULAR}`;\n            roleFieldName = field.name.value;\n            break;\n\n          case LIST_OF_USERS:\n            // b) docRole\n            roleType = DOC_ROLE;\n            roleName = `${field.name.value}${ID_PLURAL}`;\n            roleFieldName = field.name.value;\n            break;\n        }\n      }\n    }\n  });\n\n  if (roleType) {\n    // 2. a) userRole or b) docRole applies\n    return {\n      roleType,\n      roleName,\n      roleFieldName\n    };\n  } else if (name !== '') {\n    // 3. none of the above applies, so it must be a userRole\n    return {\n      roleType: USER_ROLE,\n      roleName: name,\n      roleFieldName: ''\n    };\n  }\n}\n\n/*\n * @desc is this field a roleField\n * check, if this field has the authRole directive\n * @private\n * @param {string} roleName - name of the role\n * @param {array} fieldDirectives  - AST with field directives\n * @return {boolean} isRoleField - true, if it is a field with a role\n */\nfunction isRoleField(roleName: string, fieldDirectives: any): boolean {\n  let found = false;\n\n  // loop over all field directives for an 'authRole'\n  fieldDirectives.forEach(fieldDirective => {\n    if (\n      fieldDirective.kind &&\n      fieldDirective.kind === DIRECTIVE &&\n      fieldDirective.name &&\n      fieldDirective.name.kind === NAME &&\n      fieldDirective.name.value === AUTH_ROLE &&\n      fieldDirective.arguments &&\n      fieldDirective.arguments.length > 0\n    ) {\n      // loop over all arguments, if it is for our roleName\n      // e.g. roleName: 'admin' find @authRole(for: [\"admin\"])\n      fieldDirective.arguments.forEach(fieldDirectiveArgument => {\n        // check, if there is a 'for'\n        if (\n          fieldDirectiveArgument.name &&\n          fieldDirectiveArgument.name.kind &&\n          fieldDirectiveArgument.name.kind === NAME &&\n          fieldDirectiveArgument.name.value &&\n          fieldDirectiveArgument.name.value === FOR &&\n          fieldDirectiveArgument.value &&\n          fieldDirectiveArgument.value.kind\n        ) {\n          // check, if it is a list value:\n          if (\n            fieldDirectiveArgument.value.kind === LIST_VALUE &&\n            fieldDirectiveArgument.value.values &&\n            fieldDirectiveArgument.value.values.length > 0\n          ) {\n            // loop over all values, if there is one with our roleName\n            const fieldRoles = fieldDirectiveArgument.value.values;\n            fieldRoles.forEach(fieldRole => {\n              // check, if it is our roleName\n              if (\n                fieldRole.kind &&\n                fieldRole.kind === STRING_VALUE &&\n                fieldRole.value &&\n                fieldRole.value !== '' &&\n                fieldRole.value === roleName\n              ) {\n                // we found it!\n                found = true;\n              }\n            });\n            // check, if it is a single value:\n          } else if (\n            fieldDirectiveArgument.value.kind === STRING_VALUE &&\n            fieldDirectiveArgument.value.value &&\n            fieldDirectiveArgument.value.value !== '' &&\n            fieldDirectiveArgument.value.value === roleName\n          ) {\n            // we found it!\n            found = true;\n          }\n        }\n      });\n    }\n  });\n  return found;\n}\n\n/*\n * @desc get the field's type \n * @private\n * @param {object} field - AST with field definitions\n * @return {type} fieldType - returns the type of the field\n * @example 'role: String'\n * @example 'role: String!'\n * @example 'coauthors: [User]'\n * @example 'coauthors: [User]!'\n * @example 'coauthors: [User!]'\n * @example 'coauthors: [User!]!'\n */\nfunction getFieldType(field: any): string | null {\n  // pattern: 'role: String'\n  if (\n    field.type &&\n    field.type.kind &&\n    field.type.kind === NAMED_TYPE &&\n    field.type.name &&\n    field.type.name.kind &&\n    field.type.name.kind === NAME &&\n    field.type.name.value\n  ) {\n    if (field.type.name.value === STRING) {\n      return STRING;\n    }\n\n    if (field.type.name.value === USER) {\n      return USER;\n    }\n  }\n\n  // pattern: 'role: String!'\n  if (\n    field.type &&\n    field.type.kind &&\n    field.type.kind === NON_NULL_TYPE &&\n    field.type.type &&\n    field.type.type.name &&\n    field.type.type.name.kind &&\n    field.type.type.name.kind === NAME &&\n    field.type.type.name.value\n  ) {\n    if (field.type.type.name.value === STRING) {\n      return STRING;\n    }\n\n    if (field.type.type.name.value === USER) {\n      return USER;\n    }\n  }\n\n  // pattern: 'coauthors: [User]'\n  if (\n    field.type &&\n    field.type.kind &&\n    field.type.kind === LIST_TYPE &&\n    field.type.type &&\n    field.type.type.name &&\n    field.type.type.name.kind &&\n    field.type.type.name.kind === NAME &&\n    field.type.type.name.value\n  ) {\n    if (field.type.type.name.value === STRING) {\n      return LIST_OF_STRINGS;\n    }\n\n    if (field.type.type.name.value === USER) {\n      return LIST_OF_USERS;\n    }\n  }\n\n  // pattern: 'coauthors: [User]!'\n  if (\n    field.type &&\n    field.type.kind &&\n    field.type.kind === NON_NULL_TYPE &&\n    field.type.type &&\n    field.type.type.kind &&\n    field.type.type.kind === LIST_TYPE &&\n    field.type.type.type &&\n    field.type.type.type.kind &&\n    field.type.type.type.kind === NAMED_TYPE &&\n    field.type.type.type.name &&\n    field.type.type.type.name.kind &&\n    field.type.type.type.name.kind === NAME &&\n    field.type.type.type.name.value\n  ) {\n    if (field.type.type.type.name.value === STRING) {\n      return LIST_OF_STRINGS;\n    }\n\n    if (field.type.type.type.name.value === USER) {\n      return LIST_OF_USERS;\n    }\n  }\n\n  // pattern: 'coauthors: [User!]'\n  if (\n    field.type &&\n    field.type.kind &&\n    field.type.kind === LIST_TYPE &&\n    field.type.type &&\n    field.type.type.kind &&\n    field.type.type.kind === NON_NULL_TYPE &&\n    field.type.type.type &&\n    field.type.type.type.kind &&\n    field.type.type.type.kind === NAMED_TYPE &&\n    field.type.type.type.name &&\n    field.type.type.type.name.kind &&\n    field.type.type.type.name.kind === NAME &&\n    field.type.type.type.name.value\n  ) {\n    if (field.type.type.type.name.value === STRING) {\n      return LIST_OF_STRINGS;\n    }\n\n    if (field.type.type.type.name.value === USER) {\n      return LIST_OF_USERS;\n    }\n  }\n\n  // pattern: 'coauthors: [User!]!'\n  if (\n    field.type &&\n    field.type.kind &&\n    field.type.kind === NON_NULL_TYPE &&\n    field.type.type &&\n    field.type.type.kind &&\n    field.type.type.kind === LIST_TYPE &&\n    field.type.type.type &&\n    field.type.type.type.kind &&\n    field.type.type.type.kind === NON_NULL_TYPE &&\n    field.type.type.type.type &&\n    field.type.type.type.type.kind &&\n    field.type.type.type.type.kind === NAMED_TYPE &&\n    field.type.type.type.type.name &&\n    field.type.type.type.type.name.kind &&\n    field.type.type.type.type.name.kind === NAME &&\n    field.type.type.type.type.name.value\n  ) {\n    if (field.type.type.type.type.name.value === STRING) {\n      return LIST_OF_STRINGS;\n    }\n\n    if (field.type.type.type.type.name.value === USER) {\n      return LIST_OF_USERS;\n    }\n  }\n\n  return null;\n}\n\n/*\n * @desc prepare roles for code generator\n * convert array to String value\n * replace \" by '\n * @private\n * @param {array} role - name of role\n * @return {string} roleString - role string\n */\nfunction prep(role: any): string {\n  return JSON.stringify(role).replace(/\"/g, \"'\");\n}\n\n/*\n * @desc generate authorization code for mode readOne\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {string} typeName - name of the type\n * @param {string} userRoles - list of userRoles\n * @param {string} docRoles - list of docRoles\n * @return {string} generatedCode - generated code to be injected\n */\nfunction generateAuthCodeModeReadOne(\n  authorize: boolean = false,\n  typeName: string = '',\n  userRoles: Array<string> = [],\n  docRoles: Array<string> = []\n): string {\n  // default code\n  let generatedCode = `const { me } = context;\n    that.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids))`;\n\n  // with @authorize directive\n  if (authorize) {\n    if (typeName === 'user') {\n      // User has to come from current class context\n      generatedCode = `const { me } = context;\n      const authQuery = queryForRoles(me, ${prep(userRoles)}, ${prep(\n        docRoles\n      )}, { User }, authlog('${typeName} findOneById', 'readOne', me));\n      that.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));`;\n    } else {\n      // User has to come from this.context.User\n      generatedCode = `const { me, User } = context;\n      const authQuery = queryForRoles(me, ${prep(userRoles)}, ${prep(\n        docRoles\n      )}, { User }, authlog('${typeName} findOneById', 'readOne', me));\n      that.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));`;\n    }\n  }\n\n  return generatedCode;\n}\n\n/*\n * @desc generate authorization code for mode readMany\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {string} typeName - name of the type\n * @param {string} userRoles - list of userRoles\n * @param {string} docRoles - list of docRoles\n * @return {string} generatedCode - generated code to be injected\n */\nfunction generateAuthCodeModeReadMany(\n  authorize: boolean = false,\n  typeName: string = '',\n  userRoles: Array<string> = [],\n  docRoles: Array<string> = []\n) {\n  // default code\n  let generatedCode = `const finalQuery = {...baseQuery, createdAt: { $gt: lastCreatedAt } };`;\n\n  // with @authorize directive\n  if (authorize) {\n    generatedCode = `const authQuery = queryForRoles(me, ${prep(\n      userRoles\n    )}, ${prep(\n      docRoles\n    )}, { User: this.context.User }, authlog(resolver, 'readMany', me));\n      const finalQuery = {...baseQuery, ...authQuery, createdAt: { $gt: lastCreatedAt } };`;\n  }\n\n  return generatedCode;\n}\n\n/*\n * @desc generate authorization code for mode create\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {string} typeName - name of the type\n * @param {string} userRoles - list of userRoles\n * @param {string} docRoles - list of docRoles\n * @return {string} generatedCode - generated code to be injected\n */\nfunction generateAuthCodeModeCreate(\n  authorize: boolean = false,\n  typeName: string = '',\n  userRoles: Array<string> = [],\n  docRoles: Array<string> = [],\n  roleFieldName?: string = ''\n) {\n  // default code\n  let generatedCode = ``;\n\n  // with @authorize directive\n  if (authorize) {\n    if (typeName === 'user') {\n      // protectFields only on the user type\n      // if the fields are filled, than convert them to proper strings,\n      // otherwise set them to null\n      // take the first userRole into the protectFields as a suggestion\n      // to the programmer, assuming this is the most important role,\n      // with higher authorization (see in README.md)\n      const firstUserRole =\n        userRoles.length > 0 && userRoles[0] ? `'${userRoles[0]}'` : ``;\n      const roleField = roleFieldName ? `'${roleFieldName}'` : ``;\n      generatedCode = `checkAuthDoc(docToInsert, me, ${prep(userRoles)}, ${prep(\n        docRoles\n      )}, { User: this.context.User }, authlog(resolver, 'create', me));\n      docToInsert = protectFields(me, [${firstUserRole}], [${roleField}], docToInsert, { User: this.context.User });`;\n    } else {\n      // without protectFields\n      generatedCode = `checkAuthDoc(docToInsert, me, ${prep(userRoles)}, ${prep(\n        docRoles\n      )}, { User: this.context.User }, authlog(resolver, 'create', me));`;\n    }\n  }\n\n  return generatedCode;\n}\n\n/*\n * @desc generate authorization code for mode update\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {string} typeName - name of the type\n * @param {string} userRoles - list of userRoles\n * @param {string} docRoles - list of docRoles\n * @return {string} generatedCode - generated code to be injected\n */\nfunction generateAuthCodeModeUpdate(\n  authorize: boolean = false,\n  typeName: string = '',\n  userRoles?: Array<string> = [],\n  docRoles?: Array<string> = [],\n  roleFieldName?: string = ''\n) {\n  // default code\n  let generatedCode = `const finalQuery = {...baseQuery};`;\n\n  // with @authorize directive\n  if (authorize) {\n    if (typeName === 'user') {\n      // protectFields only on the user type\n      // if the fields are filled, than convert them to proper strings,\n      // otherwise set them to null\n      // take the first userRole into the protectFields\n      // as a suggestion to the programmer,\n      // assuming this is the most important role,\n      // with higher authorization (see in README.md)\n      const firstUserRole =\n        userRoles.length > 0 && userRoles[0] ? `'${userRoles[0]}'` : ``;\n      const roleField = roleFieldName ? `'${roleFieldName}'` : ``;\n      generatedCode = `const authQuery = queryForRoles(me, ${prep(\n        userRoles\n      )}, ${prep(\n        docRoles\n      )}, { User: this.context.User }, authlog(resolver, 'update', me));\n      const finalQuery = {...baseQuery, ...authQuery};\n      docToUpdate.$set = protectFields(me, [${firstUserRole}], [${roleField}], docToUpdate.$set, { User: this.context.User });`;\n    } else {\n      // without protectFields\n      generatedCode = `const authQuery = queryForRoles(me, ${prep(\n        userRoles\n      )}, ${prep(\n        docRoles\n      )}, { User: this.context.User }, authlog(resolver, 'update', me));\n      const finalQuery = {...baseQuery, ...authQuery};`;\n    }\n  }\n\n  return generatedCode;\n}\n\n/*\n * @desc generate authorization code for mode delete\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {string} typeName - name of the type\n * @param {string} userRoles - list of userRoles\n * @param {string} docRoles - list of docRoles\n * @return {string} generatedCode - generated code to be injected\n */\nfunction generateAuthCodeModeDelete(\n  authorize: boolean = false,\n  typeName: string = '',\n  userRoles?: Array<string> = [],\n  docRoles?: Array<string> = []\n) {\n  // default code\n  let generatedCode = `const finalQuery = {...baseQuery};`;\n\n  // with @authorize directive\n  if (authorize) {\n    generatedCode = `const authQuery = queryForRoles(me, ${prep(\n      userRoles\n    )}, ${prep(\n      docRoles\n    )}, { User: this.context.User }, authlog(resolver, 'delete', me));\n      const finalQuery = {...baseQuery, ...authQuery};`;\n  }\n\n  return generatedCode;\n}\n\n/*\n * @desc generate createdBy method\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {string} typeName - name of the type\n * @return {string} generatedCode - generated code to be injected\n */\nfunction generateCreatedBy(\n  authorize: boolean = false,\n  typeName: string = ''\n): string {\n  // default code\n  let generatedCode = ``;\n\n  // with @authorize directive: means there must be a User type\n  if (authorize) {\n    generatedCode = `createdBy(${typeName}, me, resolver) {\n    return this.context.User.findOneById(${typeName}.createdById, me, resolver);\n  }`;\n  }\n\n  return generatedCode;\n}\n\n/*\n * @desc generate updatedBy method\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {string} typeName - name of the type\n * @return {string} generatedCode - generated code to be injected\n */\nfunction generateUpdatedBy(\n  authorize: boolean = false,\n  typeName: string = ''\n): string {\n  // default code\n  let generatedCode = ``;\n\n  // with @authorize directive: means there must be a User type\n  if (authorize) {\n    generatedCode = `updatedBy(${typeName}, me, resolver) {\n    return this.context.User.findOneById(${typeName}.updatedById, me, resolver);\n  }`;\n  }\n\n  return generatedCode;\n}\n\n/*\n * @desc generate updatedBy method\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {string} typeName - name of the type\n * @return {string} generatedCode - generated code to be injected\n */\nfunction generateAuthRoleDefinition(\n  authorize: boolean = false,\n  typeName: string = ''\n): string {\n  // default code\n  let generatedCode = ``;\n\n  // with @authorize directive: means there must be a User type\n  if (authorize && typeName === 'user') {\n    generatedCode = `\n    this.authRole = User.authRole;`;\n  }\n\n  return generatedCode;\n}\n\n/*\n * @desc generate authRole() method only in type User\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {string} typeName - name of the type\n * @param {string} roleFieldName - field name, where userRole is stored on type User\n * @return {string} generatedCode - generated code to be injected\n */\nfunction generateAuthRoleMethod(\n  authorize: boolean = false,\n  typeName: string = '',\n  roleFieldName: string = ''\n): string {\n  // default code\n  let generatedCode = ``;\n\n  // with @authorize directive: means there must be a User type\n  if (authorize && roleFieldName !== '' && typeName === 'user') {\n    generatedCode = `\n  static authRole(${typeName}){\n    return (${typeName} && ${typeName}.${roleFieldName}) ? ${typeName}.${roleFieldName} : null;\n  }\n  `;\n  }\n\n  return generatedCode;\n}\n",
+    "content": "/* eslint-disable max-len */\n/* eslint-disable no-unused-vars */\n// @flow\n\n// name of the @authorize directive, which triggers authorization logic\nconst AUTHORIZE_DIRECTIVE = 'authorize';\n\n// constants to read GraphQL Abstract Syntax Tree (AST)\nconst FIELD_DEFINITION = 'FieldDefinition';\nconst NON_NULL_TYPE = 'NonNullType';\nconst STRING_VALUE = 'StringValue';\nconst LIST_TYPE = 'ListType';\nconst LIST_VALUE = 'ListValue';\nconst DIRECTIVE = 'Directive';\nconst ARGUMENT = 'Argument';\nconst NAME = 'Name';\n\n// valid authorization mode values:\nconst CREATE = 'create';\nconst READ = 'read'; // which means both: 'readOne' and 'readMany'\nconst READ_ONE = 'readOne';\nconst READ_MANY = 'readMany';\nconst UPDATE = 'update';\nconst DELETE = 'delete';\n\n// for the role definitions\nconst USER_ROLE = 'userRole';\nconst DOC_ROLE = 'docRole';\nconst AUTH_ROLE = 'authRole';\nconst FOR = 'for';\nconst THIS = 'this';\nconst NAMED_TYPE = 'NamedType';\nconst STRING = 'String';\nconst LIST_OF_STRINGS = '[String]';\nconst USER = 'User';\nconst LIST_OF_USERS = '[User]';\nconst ID_FIELD = '_id';\nconst ID_SINGULAR = 'Id';\nconst ID_PLURAL = 'Ids';\n\n// valid authorization modes\nconst MODES = [CREATE, READ, READ_ONE, READ_MANY, UPDATE, DELETE];\n\n// template for default allRoles, to prepare one role\nconst CODE_MODES = [CREATE, READ_ONE, READ_MANY, UPDATE, DELETE];\n\n/**\n * generates authorization code\n * @public\n * @param {string} typeName - the name of the type\n * @param {object} inputSchema - the schema for that type\n * @return {Object} generatedCode - generated code\n * @property {string} generateAuthCodeModeReadOne - code for mode 'readOne'\n * @property {string} generateAuthCodeModeReadMany - code for mode 'readMany'\n * @property {string} generateAuthCodeModeCreate - code for mode 'create'\n * @property {string} generateAuthCodeModeUpdate - code for mode 'update'\n * @property {string} generateAuthCodeModeDelete - code for mode 'delete'\n * @property {string} generateCreatedBy - code for field createdBy\n * @property {string} generateUpdatedBy - code for field updatedBy\n * @property {string} generateAuthRoleDefinition - code for authRole definition\n * @property {string} generateAuthRoleMethod - code for authRole method in type User\n */\n\nexport function generateAuthorizationCode(\n  typeName: string = '',\n  inputSchema: any = {}\n): {\n  generateAuthCodeModeReadOne: string,\n  generateAuthCodeModeReadMany: string,\n  generateAuthCodeModeCreate: string,\n  generateAuthCodeModeUpdate: string,\n  generateAuthCodeModeDelete: string,\n  generateCreatedBy: string,\n  generateUpdatedBy: string,\n  generateAuthRoleDefinition: string,\n  generateAuthRoleMethod: string\n} {\n  const authorize = isAuthorizeDirectiveDefined(inputSchema);\n  const { userRoles, docRoles, roleFieldName } = getRoles(\n    authorize,\n    inputSchema\n  );\n  return {\n    generateAuthCodeModeReadOne: generateAuthCodeModeReadOne(\n      authorize,\n      typeName,\n      userRoles.readOne,\n      docRoles.readOne\n    ),\n    generateAuthCodeModeReadMany: generateAuthCodeModeReadMany(\n      authorize,\n      typeName,\n      userRoles.readMany,\n      docRoles.readMany\n    ),\n    generateAuthCodeModeCreate: generateAuthCodeModeCreate(\n      authorize,\n      typeName,\n      userRoles.create,\n      docRoles.create,\n      roleFieldName\n    ),\n    generateAuthCodeModeUpdate: generateAuthCodeModeUpdate(\n      authorize,\n      typeName,\n      userRoles.update,\n      docRoles.update,\n      roleFieldName\n    ),\n    generateAuthCodeModeDelete: generateAuthCodeModeDelete(\n      authorize,\n      typeName,\n      userRoles.delete,\n      docRoles.delete\n    ),\n    generateCreatedBy: generateCreatedBy(authorize, typeName),\n    generateUpdatedBy: generateUpdatedBy(authorize, typeName),\n    generateAuthRoleDefinition: generateAuthRoleDefinition(authorize, typeName),\n    generateAuthRoleMethod: generateAuthRoleMethod(\n      authorize,\n      typeName,\n      roleFieldName\n    )\n  };\n}\n\n/**\n * checks, if there is authorization logic defined\n * true, if there is an @authorize directive in the header \n * in the type's inputSchema\n * if there is an @authorize directive => true\n * if thers is no @authorize directive => false\n * @public\n * @param {object} inputSchema - schema for the type\n * @return {boolean} authorized - true, if authorization logic defined\n */\n\nexport function isAuthorizeDirectiveDefined(inputSchema: any): boolean {\n  const authorized =\n    (inputSchema.definitions &&\n      inputSchema.definitions[0] &&\n      inputSchema.definitions[0].directives &&\n      inputSchema.definitions[0].directives[0] &&\n      inputSchema.definitions[0].directives[0].name &&\n      inputSchema.definitions[0].directives[0].name.value ===\n        AUTHORIZE_DIRECTIVE) ||\n    false;\n\n  return authorized;\n}\n\n/**\n * get userRoles and docRoles\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {object} inputSchema - type's schema\n * @return {Object}\n * @property {object} userRoles - userRoles object with modes\n * @property {object} docRoles - docRoles object with modes\n * @property {string} roleFieldName - field containing the roles\n * }\n */\n\nfunction getRoles(authorize: boolean, inputSchema: any) {\n  // create empty userRoles and docRoles objects\n  // as default values, which are used\n  // if there is not @authorize directive\n  const userRoles = {};\n  const docRoles = {};\n  const roleFieldNamesFound = [];\n  CODE_MODES.forEach(mode => (userRoles[mode] = []));\n  CODE_MODES.forEach(mode => (docRoles[mode] = []));\n\n  // check if there is an @authorize directive\n  if (authorize) {\n    // then re-determine the userRoles and docRoles\n    // from the @authorize tag of the type definition\n    const allRolesArguments =\n      inputSchema.definitions[0].directives[0].arguments || {};\n    const allRoles = getAllRoles(allRolesArguments, inputSchema);\n    allRoles.forEach(role => {\n      switch (role.type) {\n        case USER_ROLE:\n          // check, if there is already another userRole field\n          if (\n            roleFieldNamesFound.length > 0 &&\n            role.roleFieldName !== '' &&\n            roleFieldNamesFound.indexOf(role.roleFieldName) < 0\n          ) {\n            // We allow only one field which keeps all userRoles\n            throw new Error(`Please adjust type definition, that there is \n              only ONE field, which keeps all user roles. You've tried to \n              add a second userRole field: '${role.roleFieldName}',\n              but there is already another userRole field: \n              '${roleFieldNamesFound[0]}' defined.\n              Please try instead: '${roleFieldNamesFound[0]}: \n              String @authRole(for: [\"otherRole\", \"${role.roleName}\"])'`);\n          }\n          if (role.roleFieldName !== '') {\n            roleFieldNamesFound.push(role.roleFieldName);\n          }\n\n          Object.keys(role.modes).forEach(mode => {\n            if (role.modes[mode]) {\n              userRoles[mode].push(role.roleName);\n            }\n          });\n          break;\n\n        case DOC_ROLE:\n          Object.keys(role.modes).forEach(mode => {\n            if (role.modes[mode]) {\n              docRoles[mode].push(role.roleName);\n            }\n          });\n          break;\n      }\n    });\n  }\n\n  return {\n    userRoles,\n    docRoles,\n    roleFieldName: roleFieldNamesFound.length > 0 ? roleFieldNamesFound[0] : ''\n  };\n}\n\n/**\n * get the roles from the @authorize directive\n * by reading the input schema's abstract syntax tree\n * to get the roles and their authorized modes\n * @private\n * @param {object} allRolesArguments - AST with role definitions\n * @param {object} inputSchema - the schema of the type\n * @return {array} allRoles - returns the defined roles\n * @example \n *          @authorize(\n *            admin: [\"create\", \"read\", \"update\", \"delete\"]\n *            this: [\"read\", \"update\", \"delete\"]\n *          )\n */\n\nfunction getAllRoles(\n  allRolesArguments: any = [],\n  inputSchema: any\n): Array<any> {\n  const allRoles = [];\n  // get all Roles of the type's @authorize directives\n  // e.g. 'admin', 'this'\n  allRolesArguments.forEach(roleArgument => {\n    // new role found\n    const role = {};\n\n    // check if it is a valid role\n    if (\n      roleArgument.kind === ARGUMENT &&\n      roleArgument.name &&\n      roleArgument.name.kind === NAME &&\n      roleArgument.name.value &&\n      roleArgument.name.value !== ''\n    ) {\n      // define the new role\n      role.name = roleArgument.name.value;\n\n      // determine, if it is a 'userRole' or 'docRole'\n      const { roleType, roleName, roleFieldName } = getRoleType(\n        role.name,\n        inputSchema\n      );\n      role.type = roleType;\n      role.roleName = roleName;\n      role.roleFieldName = roleFieldName;\n\n      // create a default object, necessary for missing modes\n      role.modes = {};\n      CODE_MODES.forEach(mode => (role.modes[mode] = ''));\n\n      // check, if it is a list of values\n      if (\n        roleArgument.value.kind &&\n        roleArgument.value.kind === LIST_VALUE &&\n        roleArgument.value.values &&\n        roleArgument.value.values.length > 0\n      ) {\n        // get all authorized modes of the role\n        const roleModes = roleArgument.value.values;\n        roleModes.forEach(mode => {\n          // check, if it is a valid authorization mode\n          // e.g. 'create', 'update', 'delete', etc.\n          if (\n            mode.kind &&\n            mode.kind === STRING_VALUE &&\n            mode.value &&\n            MODES.indexOf(mode.value) >= 0\n          ) {\n            // it is a valid authorization mode:\n            // e.g.   {\n            //           name: 'admin',\n            //           type: null,      // later: => 'userRole' || 'docRole'\n            //           modes: {\n            //            create: 'admin',\n            //            readOne: 'admin',\n            //            readMany: 'admin',\n            //            update: 'admin',,\n            //            delete: 'admin',\n            //        }\n            //            'create' = 'admin'\n            // special case 'read' means both, 'readOne' and 'readMany'\n\n            if (mode.value === READ) {\n              role.modes[READ_ONE] = role.roleName;\n              role.modes[READ_MANY] = role.roleName;\n            } else {\n              role.modes[mode.value] = role.roleName;\n            }\n          }\n        });\n\n        // check, if it is a simple string value:\n      } else if (\n        roleArgument.name.value.kind &&\n        roleArgument.name.value.kind === STRING_VALUE &&\n        roleArgument.name.value &&\n        MODES.indexOf(roleArgument.name.value) >= 0\n      ) {\n        //                         'create' = 'admin'\n        // special case 'read' means both, 'readOne' and 'readMany'\n        if (roleArgument.name.value === READ) {\n          role.modes[READ_ONE] = role.roleName;\n          role.modes[READ_MANY] = role.roleName;\n        } else {\n          role.modes[roleArgument.name.value] = role.roleName;\n        }\n      }\n      // add it to the list of roles\n      allRoles.push(role);\n    }\n  });\n\n  return allRoles;\n}\n\n/**\n * decide, if the given role is whether \n * a 'userRole' or a 'docRole'\n *\n * Procedure:\n * 1. Determine, if this field is used as a roleField\n * 2. Check, if this roleField...\n *    a) is of type: String or [String] ==> userRole\n *    b) is of type: User or [User]     ==> docRole\n *    c) roleName = 'this'              ==> docRole\n * 3. If there is no roleField in this type\n *    it must be a userRole\n * \n * For 1. is a roleField:\n *   read the type's abstract syntax tree\n *   loop over all provided fields,\n *   check, if the field has a directive '@authRole'\n *   and if this authRole is 'for' the provided 'roleName'\n *   or the roleName is the special case 'this'\n *   ==> then it is a roleField\n *\n * For 2. get it's fieldType:\n *   read the type's abstract syntax tree\n *   for the roleField and read it's type\n *   \n *   a) if it is a String or List of Strings,\n *   then the roleType = 'userRole'\n *\n *   b) if it is a User or List of Users (userIds),\n *   then the roleType = 'docType'\n *\n *   c) special case: roleName = 'this'\n *   (it doesn't look for an authRole for 'this')\n *   it means the document's id field is used for this\n *   meaning the role defines the authorizations,\n *   a User has upon his own User document\n *\n * For 3. none of the above applies\n *   so the role must be a userRole\n *   \n * @private\n * @param {string} name - name of the role\n * @param {object} inputSchema - the schema of the type\n * @return {Object} role - role definitions\n * @property {string} roleType - type of the role 'userRole', 'docRole'\n * @property {string} roleName - name of the role\n * @property {string} roleFieldName - field name for the userRole\n */\n\nfunction getRoleType(name: string = '', inputSchema: any = {}): any {\n  // all field definitions of the type\n  const allFields = inputSchema.definitions[0].fields;\n  let roleType = null;\n  let roleName = '';\n  let roleFieldName = '';\n\n  // special case 'this'\n  if (name === THIS) {\n    return {\n      roleType: DOC_ROLE,\n      roleName: ID_FIELD,\n      roleFieldName: ID_FIELD\n    };\n  }\n\n  // loop over all fields to find authRole directive\n  allFields.forEach(field => {\n    if (\n      field.kind &&\n      field.kind === FIELD_DEFINITION &&\n      field.name &&\n      field.name.kind &&\n      field.name.kind === NAME &&\n      field.name.value &&\n      field.directives &&\n      field.directives.length > 0\n    ) {\n      // 1. check, if it is a roleField\n      if (isRoleField(name, field.directives)) {\n        // 2. get the type of the field\n        const fieldType = getFieldType(field);\n        // determine the roleType: 'userRole' || 'docRole'\n        // and the roleName for...\n        // userRoles: 'admin', 'user',...\n        // docRoles: 'authorId', 'coAuthorsIds',...\n        switch (fieldType) {\n          case STRING:\n            // a) userRole\n            roleType = USER_ROLE;\n            roleName = name;\n            roleFieldName = field.name.value;\n            break;\n\n          case LIST_OF_STRINGS:\n            // a) userRole\n            roleType = USER_ROLE;\n            roleName = name;\n            roleFieldName = field.name.value;\n            break;\n\n          case USER:\n            // b) docRole\n            roleType = DOC_ROLE;\n            roleName = `${field.name.value}${ID_SINGULAR}`;\n            roleFieldName = field.name.value;\n            break;\n\n          case LIST_OF_USERS:\n            // b) docRole\n            roleType = DOC_ROLE;\n            roleName = `${field.name.value}${ID_PLURAL}`;\n            roleFieldName = field.name.value;\n            break;\n        }\n      }\n    }\n  });\n\n  if (roleType) {\n    // 2. a) userRole or b) docRole applies\n    return {\n      roleType,\n      roleName,\n      roleFieldName\n    };\n  } else if (name !== '') {\n    // 3. none of the above applies, so it must be a userRole\n    return {\n      roleType: USER_ROLE,\n      roleName: name,\n      roleFieldName: ''\n    };\n  }\n}\n\n/*\n * is this field a roleField\n * check, if this field has the authRole directive\n * @private\n * @param {string} roleName - name of the role\n * @param {array} fieldDirectives  - AST with field directives\n * @return {boolean} isRoleField - true, if it is a field with a role\n */\n\nfunction isRoleField(roleName: string, fieldDirectives: any): boolean {\n  let found = false;\n\n  // loop over all field directives for an 'authRole'\n  fieldDirectives.forEach(fieldDirective => {\n    if (\n      fieldDirective.kind &&\n      fieldDirective.kind === DIRECTIVE &&\n      fieldDirective.name &&\n      fieldDirective.name.kind === NAME &&\n      fieldDirective.name.value === AUTH_ROLE &&\n      fieldDirective.arguments &&\n      fieldDirective.arguments.length > 0\n    ) {\n      // loop over all arguments, if it is for our roleName\n      // e.g. roleName: 'admin' find @authRole(for: [\"admin\"])\n      fieldDirective.arguments.forEach(fieldDirectiveArgument => {\n        // check, if there is a 'for'\n        if (\n          fieldDirectiveArgument.name &&\n          fieldDirectiveArgument.name.kind &&\n          fieldDirectiveArgument.name.kind === NAME &&\n          fieldDirectiveArgument.name.value &&\n          fieldDirectiveArgument.name.value === FOR &&\n          fieldDirectiveArgument.value &&\n          fieldDirectiveArgument.value.kind\n        ) {\n          // check, if it is a list value:\n          if (\n            fieldDirectiveArgument.value.kind === LIST_VALUE &&\n            fieldDirectiveArgument.value.values &&\n            fieldDirectiveArgument.value.values.length > 0\n          ) {\n            // loop over all values, if there is one with our roleName\n            const fieldRoles = fieldDirectiveArgument.value.values;\n            fieldRoles.forEach(fieldRole => {\n              // check, if it is our roleName\n              if (\n                fieldRole.kind &&\n                fieldRole.kind === STRING_VALUE &&\n                fieldRole.value &&\n                fieldRole.value !== '' &&\n                fieldRole.value === roleName\n              ) {\n                // we found it!\n                found = true;\n              }\n            });\n            // check, if it is a single value:\n          } else if (\n            fieldDirectiveArgument.value.kind === STRING_VALUE &&\n            fieldDirectiveArgument.value.value &&\n            fieldDirectiveArgument.value.value !== '' &&\n            fieldDirectiveArgument.value.value === roleName\n          ) {\n            // we found it!\n            found = true;\n          }\n        }\n      });\n    }\n  });\n  return found;\n}\n\n/**\n * get the field's type \n * @private\n * @param {object} field - AST with field definitions\n * @return {type} fieldType - returns the type of the field\n * @example 'role: String'\n * @example 'role: String!'\n * @example 'coauthors: [User]'\n * @example 'coauthors: [User]!'\n * @example 'coauthors: [User!]'\n * @example 'coauthors: [User!]!'\n */\n\nfunction getFieldType(field: any): string | null {\n  // pattern: 'role: String'\n  if (\n    field.type &&\n    field.type.kind &&\n    field.type.kind === NAMED_TYPE &&\n    field.type.name &&\n    field.type.name.kind &&\n    field.type.name.kind === NAME &&\n    field.type.name.value\n  ) {\n    if (field.type.name.value === STRING) {\n      return STRING;\n    }\n\n    if (field.type.name.value === USER) {\n      return USER;\n    }\n  }\n\n  // pattern: 'role: String!'\n  if (\n    field.type &&\n    field.type.kind &&\n    field.type.kind === NON_NULL_TYPE &&\n    field.type.type &&\n    field.type.type.name &&\n    field.type.type.name.kind &&\n    field.type.type.name.kind === NAME &&\n    field.type.type.name.value\n  ) {\n    if (field.type.type.name.value === STRING) {\n      return STRING;\n    }\n\n    if (field.type.type.name.value === USER) {\n      return USER;\n    }\n  }\n\n  // pattern: 'coauthors: [User]'\n  if (\n    field.type &&\n    field.type.kind &&\n    field.type.kind === LIST_TYPE &&\n    field.type.type &&\n    field.type.type.name &&\n    field.type.type.name.kind &&\n    field.type.type.name.kind === NAME &&\n    field.type.type.name.value\n  ) {\n    if (field.type.type.name.value === STRING) {\n      return LIST_OF_STRINGS;\n    }\n\n    if (field.type.type.name.value === USER) {\n      return LIST_OF_USERS;\n    }\n  }\n\n  // pattern: 'coauthors: [User]!'\n  if (\n    field.type &&\n    field.type.kind &&\n    field.type.kind === NON_NULL_TYPE &&\n    field.type.type &&\n    field.type.type.kind &&\n    field.type.type.kind === LIST_TYPE &&\n    field.type.type.type &&\n    field.type.type.type.kind &&\n    field.type.type.type.kind === NAMED_TYPE &&\n    field.type.type.type.name &&\n    field.type.type.type.name.kind &&\n    field.type.type.type.name.kind === NAME &&\n    field.type.type.type.name.value\n  ) {\n    if (field.type.type.type.name.value === STRING) {\n      return LIST_OF_STRINGS;\n    }\n\n    if (field.type.type.type.name.value === USER) {\n      return LIST_OF_USERS;\n    }\n  }\n\n  // pattern: 'coauthors: [User!]'\n  if (\n    field.type &&\n    field.type.kind &&\n    field.type.kind === LIST_TYPE &&\n    field.type.type &&\n    field.type.type.kind &&\n    field.type.type.kind === NON_NULL_TYPE &&\n    field.type.type.type &&\n    field.type.type.type.kind &&\n    field.type.type.type.kind === NAMED_TYPE &&\n    field.type.type.type.name &&\n    field.type.type.type.name.kind &&\n    field.type.type.type.name.kind === NAME &&\n    field.type.type.type.name.value\n  ) {\n    if (field.type.type.type.name.value === STRING) {\n      return LIST_OF_STRINGS;\n    }\n\n    if (field.type.type.type.name.value === USER) {\n      return LIST_OF_USERS;\n    }\n  }\n\n  // pattern: 'coauthors: [User!]!'\n  if (\n    field.type &&\n    field.type.kind &&\n    field.type.kind === NON_NULL_TYPE &&\n    field.type.type &&\n    field.type.type.kind &&\n    field.type.type.kind === LIST_TYPE &&\n    field.type.type.type &&\n    field.type.type.type.kind &&\n    field.type.type.type.kind === NON_NULL_TYPE &&\n    field.type.type.type.type &&\n    field.type.type.type.type.kind &&\n    field.type.type.type.type.kind === NAMED_TYPE &&\n    field.type.type.type.type.name &&\n    field.type.type.type.type.name.kind &&\n    field.type.type.type.type.name.kind === NAME &&\n    field.type.type.type.type.name.value\n  ) {\n    if (field.type.type.type.type.name.value === STRING) {\n      return LIST_OF_STRINGS;\n    }\n\n    if (field.type.type.type.type.name.value === USER) {\n      return LIST_OF_USERS;\n    }\n  }\n\n  return null;\n}\n\n/**\n * prepare roles for code generator\n * convert array to String value\n * replace \" by '\n * @private\n * @param {array} role - name of role\n * @return {string} roleString - role string\n */\n\nfunction prep(role: any): string {\n  return JSON.stringify(role).replace(/\"/g, \"'\");\n}\n\n/**\n * generate authorization code for mode readOne\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {string} typeName - name of the type\n * @param {string} userRoles - list of userRoles\n * @param {string} docRoles - list of docRoles\n * @return {string} generatedCode - generated code to be injected\n */\n\nfunction generateAuthCodeModeReadOne(\n  authorize: boolean = false,\n  typeName: string = '',\n  userRoles: Array<string> = [],\n  docRoles: Array<string> = []\n): string {\n  // default code\n  let generatedCode = `const { me } = context;\n    that.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids))`;\n\n  // with @authorize directive\n  if (authorize) {\n    if (typeName === 'user') {\n      // User has to come from current class context\n      generatedCode = `const { me } = context;\n      const authQuery = queryForRoles(me, ${prep(userRoles)}, ${prep(\n        docRoles\n      )}, { User }, authlog('${typeName} findOneById', 'readOne', me));\n      that.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));`;\n    } else {\n      // User has to come from this.context.User\n      generatedCode = `const { me, User } = context;\n      const authQuery = queryForRoles(me, ${prep(userRoles)}, ${prep(\n        docRoles\n      )}, { User }, authlog('${typeName} findOneById', 'readOne', me));\n      that.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));`;\n    }\n  }\n\n  return generatedCode;\n}\n\n/**\n * generate authorization code for mode readMany\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {string} typeName - name of the type\n * @param {string} userRoles - list of userRoles\n * @param {string} docRoles - list of docRoles\n * @return {string} generatedCode - generated code to be injected\n */\n\nfunction generateAuthCodeModeReadMany(\n  authorize: boolean = false,\n  typeName: string = '',\n  userRoles: Array<string> = [],\n  docRoles: Array<string> = []\n) {\n  // default code\n  let generatedCode = `const finalQuery = {...baseQuery, createdAt: { $gt: lastCreatedAt } };`;\n\n  // with @authorize directive\n  if (authorize) {\n    generatedCode = `const authQuery = queryForRoles(me, ${prep(\n      userRoles\n    )}, ${prep(\n      docRoles\n    )}, { User: this.context.User }, authlog(resolver, 'readMany', me));\n      const finalQuery = {...baseQuery, ...authQuery, createdAt: { $gt: lastCreatedAt } };`;\n  }\n\n  return generatedCode;\n}\n\n/**\n * generate authorization code for mode create\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {string} typeName - name of the type\n * @param {array} userRoles - list of userRoles\n * @param {array} docRoles - list of docRoles\n * @param {string} roleFieldName - field name for the role\n * @return {string} generatedCode - generated code to be injected\n */\n\nfunction generateAuthCodeModeCreate(\n  authorize: boolean = false,\n  typeName: string = '',\n  userRoles: Array<string> = [],\n  docRoles: Array<string> = [],\n  roleFieldName?: string = ''\n) {\n  // default code\n  let generatedCode = ``;\n\n  // with @authorize directive\n  if (authorize) {\n    if (typeName === 'user') {\n      // protectFields only on the user type\n      // if the fields are filled, than convert them to proper strings,\n      // otherwise set them to null\n      // take the first userRole into the protectFields as a suggestion\n      // to the programmer, assuming this is the most important role,\n      // with higher authorization (see in README.md)\n      const firstUserRole =\n        userRoles.length > 0 && userRoles[0] ? `'${userRoles[0]}'` : ``;\n      const roleField = roleFieldName ? `'${roleFieldName}'` : ``;\n      generatedCode = `checkAuthDoc(docToInsert, me, ${prep(userRoles)}, ${prep(\n        docRoles\n      )}, { User: this.context.User }, authlog(resolver, 'create', me));\n      docToInsert = protectFields(me, [${firstUserRole}], [${roleField}], docToInsert, { User: this.context.User });`;\n    } else {\n      // without protectFields\n      generatedCode = `checkAuthDoc(docToInsert, me, ${prep(userRoles)}, ${prep(\n        docRoles\n      )}, { User: this.context.User }, authlog(resolver, 'create', me));`;\n    }\n  }\n\n  return generatedCode;\n}\n\n/**\n * generate authorization code for mode update\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {string} typeName - name of the type\n * @param {array} userRoles - list of userRoles\n * @param {array} docRoles - list of docRoles\n * @param {string} roleFieldName - field name for the role\n * @return {string} generatedCode - generated code to be injected\n */\n\nfunction generateAuthCodeModeUpdate(\n  authorize: boolean = false,\n  typeName: string = '',\n  userRoles?: Array<string> = [],\n  docRoles?: Array<string> = [],\n  roleFieldName?: string = ''\n) {\n  // default code\n  let generatedCode = `const finalQuery = {...baseQuery};`;\n\n  // with @authorize directive\n  if (authorize) {\n    if (typeName === 'user') {\n      // protectFields only on the user type\n      // if the fields are filled, than convert them to proper strings,\n      // otherwise set them to null\n      // take the first userRole into the protectFields\n      // as a suggestion to the programmer,\n      // assuming this is the most important role,\n      // with higher authorization (see in README.md)\n      const firstUserRole =\n        userRoles.length > 0 && userRoles[0] ? `'${userRoles[0]}'` : ``;\n      const roleField = roleFieldName ? `'${roleFieldName}'` : ``;\n      generatedCode = `const authQuery = queryForRoles(me, ${prep(\n        userRoles\n      )}, ${prep(\n        docRoles\n      )}, { User: this.context.User }, authlog(resolver, 'update', me));\n      const finalQuery = {...baseQuery, ...authQuery};\n      docToUpdate.$set = protectFields(me, [${firstUserRole}], [${roleField}], docToUpdate.$set, { User: this.context.User });`;\n    } else {\n      // without protectFields\n      generatedCode = `const authQuery = queryForRoles(me, ${prep(\n        userRoles\n      )}, ${prep(\n        docRoles\n      )}, { User: this.context.User }, authlog(resolver, 'update', me));\n      const finalQuery = {...baseQuery, ...authQuery};`;\n    }\n  }\n\n  return generatedCode;\n}\n\n/**\n * generate authorization code for mode delete\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {string} typeName - name of the type\n * @param {string} userRoles - list of userRoles\n * @param {string} docRoles - list of docRoles\n * @return {string} generatedCode - generated code to be injected\n */\n\nfunction generateAuthCodeModeDelete(\n  authorize: boolean = false,\n  typeName: string = '',\n  userRoles?: Array<string> = [],\n  docRoles?: Array<string> = []\n) {\n  // default code\n  let generatedCode = `const finalQuery = {...baseQuery};`;\n\n  // with @authorize directive\n  if (authorize) {\n    generatedCode = `const authQuery = queryForRoles(me, ${prep(\n      userRoles\n    )}, ${prep(\n      docRoles\n    )}, { User: this.context.User }, authlog(resolver, 'delete', me));\n      const finalQuery = {...baseQuery, ...authQuery};`;\n  }\n\n  return generatedCode;\n}\n\n/**\n * generate createdBy method\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {string} typeName - name of the type\n * @return {string} generatedCode - generated code to be injected\n */\n\nfunction generateCreatedBy(\n  authorize: boolean = false,\n  typeName: string = ''\n): string {\n  // default code\n  let generatedCode = ``;\n\n  // with @authorize directive: means there must be a User type\n  if (authorize) {\n    generatedCode = `createdBy(${typeName}, me, resolver) {\n    return this.context.User.findOneById(${typeName}.createdById, me, resolver);\n  }`;\n  }\n\n  return generatedCode;\n}\n\n/**\n * generate updatedBy method\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {string} typeName - name of the type\n * @return {string} generatedCode - generated code to be injected\n */\n\nfunction generateUpdatedBy(\n  authorize: boolean = false,\n  typeName: string = ''\n): string {\n  // default code\n  let generatedCode = ``;\n\n  // with @authorize directive: means there must be a User type\n  if (authorize) {\n    generatedCode = `updatedBy(${typeName}, me, resolver) {\n    return this.context.User.findOneById(${typeName}.updatedById, me, resolver);\n  }`;\n  }\n\n  return generatedCode;\n}\n\n/**\n * generate updatedBy method\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {string} typeName - name of the type\n * @return {string} generatedCode - generated code to be injected\n */\n\nfunction generateAuthRoleDefinition(\n  authorize: boolean = false,\n  typeName: string = ''\n): string {\n  // default code\n  let generatedCode = ``;\n\n  // with @authorize directive: means there must be a User type\n  if (authorize && typeName === 'user') {\n    generatedCode = `\n    this.authRole = User.authRole;`;\n  }\n\n  return generatedCode;\n}\n\n/**\n * generate authRole() method only in type User\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {string} typeName - name of the type\n * @param {string} roleFieldName - field name, where userRole is stored on type User\n * @return {string} generatedCode - generated code to be injected\n */\n\nfunction generateAuthRoleMethod(\n  authorize: boolean = false,\n  typeName: string = '',\n  roleFieldName: string = ''\n): string {\n  // default code\n  let generatedCode = ``;\n\n  // with @authorize directive: means there must be a User type\n  if (authorize && roleFieldName !== '' && typeName === 'user') {\n    generatedCode = `\n  static authRole(${typeName}){\n    return (${typeName} && ${typeName}.${roleFieldName}) ? ${typeName}.${roleFieldName} : null;\n  }\n  `;\n  }\n\n  return generatedCode;\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/generate/index.js",
     "access": "public",
@@ -586,7 +586,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 12,
+    "lineNumber": 6,
     "undocument": true,
     "type": {
       "types": [
@@ -607,7 +607,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 15,
+    "lineNumber": 9,
     "undocument": true,
     "type": {
       "types": [
@@ -628,7 +628,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 16,
+    "lineNumber": 10,
     "undocument": true,
     "type": {
       "types": [
@@ -649,7 +649,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 17,
+    "lineNumber": 11,
     "undocument": true,
     "type": {
       "types": [
@@ -670,7 +670,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 18,
+    "lineNumber": 12,
     "undocument": true,
     "type": {
       "types": [
@@ -691,7 +691,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 19,
+    "lineNumber": 13,
     "undocument": true,
     "type": {
       "types": [
@@ -712,7 +712,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 20,
+    "lineNumber": 14,
     "undocument": true,
     "type": {
       "types": [
@@ -733,7 +733,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 21,
+    "lineNumber": 15,
     "undocument": true,
     "type": {
       "types": [
@@ -754,7 +754,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 22,
+    "lineNumber": 16,
     "undocument": true,
     "type": {
       "types": [
@@ -775,7 +775,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 25,
+    "lineNumber": 19,
     "undocument": true,
     "type": {
       "types": [
@@ -796,7 +796,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 26,
+    "lineNumber": 20,
     "undocument": true,
     "type": {
       "types": [
@@ -817,7 +817,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 27,
+    "lineNumber": 21,
     "undocument": true,
     "type": {
       "types": [
@@ -838,7 +838,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 28,
+    "lineNumber": 22,
     "undocument": true,
     "type": {
       "types": [
@@ -859,7 +859,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 29,
+    "lineNumber": 23,
     "undocument": true,
     "type": {
       "types": [
@@ -880,7 +880,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 30,
+    "lineNumber": 24,
     "undocument": true,
     "type": {
       "types": [
@@ -901,7 +901,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 33,
+    "lineNumber": 27,
     "undocument": true,
     "type": {
       "types": [
@@ -922,7 +922,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 34,
+    "lineNumber": 28,
     "undocument": true,
     "type": {
       "types": [
@@ -943,7 +943,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 35,
+    "lineNumber": 29,
     "undocument": true,
     "type": {
       "types": [
@@ -964,7 +964,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 36,
+    "lineNumber": 30,
     "undocument": true,
     "type": {
       "types": [
@@ -985,7 +985,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 37,
+    "lineNumber": 31,
     "undocument": true,
     "type": {
       "types": [
@@ -1006,7 +1006,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 38,
+    "lineNumber": 32,
     "undocument": true,
     "type": {
       "types": [
@@ -1027,7 +1027,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 39,
+    "lineNumber": 33,
     "undocument": true,
     "type": {
       "types": [
@@ -1048,7 +1048,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 40,
+    "lineNumber": 34,
     "undocument": true,
     "type": {
       "types": [
@@ -1069,7 +1069,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 41,
+    "lineNumber": 35,
     "undocument": true,
     "type": {
       "types": [
@@ -1090,7 +1090,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 42,
+    "lineNumber": 36,
     "undocument": true,
     "type": {
       "types": [
@@ -1111,7 +1111,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 43,
+    "lineNumber": 37,
     "undocument": true,
     "type": {
       "types": [
@@ -1132,7 +1132,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 44,
+    "lineNumber": 38,
     "undocument": true,
     "type": {
       "types": [
@@ -1153,7 +1153,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 45,
+    "lineNumber": 39,
     "undocument": true,
     "type": {
       "types": [
@@ -1174,7 +1174,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 48,
+    "lineNumber": 42,
     "undocument": true,
     "type": {
       "types": [
@@ -1195,7 +1195,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 51,
+    "lineNumber": 45,
     "undocument": true,
     "type": {
       "types": [
@@ -1217,37 +1217,129 @@
     "export": true,
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": "{generateAuthorizationCode}",
-    "description": " ",
-    "lineNumber": 60,
+    "description": "generates authorization code",
+    "lineNumber": 64,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "typeName",
+        "description": "the name of the type"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "object"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "inputSchema",
+        "description": "the schema for that type"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "generateAuthCodeModeReadOne",
+        "description": "code for mode 'readOne'"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "generateAuthCodeModeReadMany",
+        "description": "code for mode 'readMany'"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "generateAuthCodeModeCreate",
+        "description": "code for mode 'create'"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "generateAuthCodeModeUpdate",
+        "description": "code for mode 'update'"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "generateAuthCodeModeDelete",
+        "description": "code for mode 'delete'"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "generateCreatedBy",
+        "description": "code for field createdBy"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "generateUpdatedBy",
+        "description": "code for field updatedBy"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "generateAuthRoleDefinition",
+        "description": "code for authRole definition"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "generateAuthRoleMethod",
+        "description": "code for authRole method in type User"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "object"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "generatedCode - generated code"
     }
   },
   {
@@ -1263,18 +1355,18 @@
     "export": true,
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": "{isAuthorizeDirectiveDefined}",
-    "description": " ",
-    "lineNumber": 133,
+    "description": "checks, if there is authorization logic defined\ntrue, if there is an @authorize directive in the header \nin the type's inputSchema\nif there is an @authorize directive => true\nif thers is no @authorize directive => false",
+    "lineNumber": 138,
     "params": [
       {
         "nullable": null,
         "types": [
-          "any"
+          "object"
         ],
         "spread": false,
         "optional": false,
         "name": "inputSchema",
-        "description": ""
+        "description": "schema for the type"
       }
     ],
     "return": {
@@ -1283,7 +1375,7 @@
         "boolean"
       ],
       "spread": false,
-      "description": ""
+      "description": "authorized - true, if authorization logic defined"
     }
   },
   {
@@ -1295,12 +1387,12 @@
     "async": false,
     "static": true,
     "longname": "src/generate/index.js~getRoles",
-    "access": "public",
+    "access": "private",
     "export": false,
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
-    "description": "",
-    "lineNumber": 158,
+    "description": "get userRoles and docRoles ",
+    "lineNumber": 164,
     "params": [
       {
         "nullable": null,
@@ -1310,23 +1402,58 @@
         "spread": false,
         "optional": false,
         "name": "authorize",
-        "description": ""
+        "description": "flag for authorization logic"
       },
       {
         "nullable": null,
         "types": [
-          "any"
+          "object"
         ],
         "spread": false,
         "optional": false,
         "name": "inputSchema",
-        "description": ""
+        "description": "type's schema"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "userRoles",
+        "description": "userRoles object with modes"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "docRoles",
+        "description": "docRoles object with modes"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "roleFieldName",
+        "description": "field containing the roles\n}"
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "{\"userRoles\": *, \"docRoles\": *, \"roleFieldName\": *}"
-      ]
+        "Object"
+      ],
+      "spread": false,
+      "description": ""
     },
     "ignore": true
   },
@@ -1339,32 +1466,35 @@
     "async": false,
     "static": true,
     "longname": "src/generate/index.js~getAllRoles",
-    "access": "public",
+    "access": "private",
     "export": false,
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
-    "description": " ",
-    "lineNumber": 234,
+    "description": "get the roles from the @authorize directive\nby reading the input schema's abstract syntax tree\nto get the roles and their authorized modes  ",
+    "examples": [
+      "         @authorize(\n           admin: [\"create\", \"read\", \"update\", \"delete\"]\n           this: [\"read\", \"update\", \"delete\"]\n         )  "
+    ],
+    "lineNumber": 243,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "object"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "allRolesArguments",
+        "description": "AST with role definitions"
       },
       {
         "nullable": null,
         "types": [
-          "any"
+          "object"
         ],
         "spread": false,
         "optional": false,
         "name": "inputSchema",
-        "description": ""
+        "description": "the schema of the type"
       }
     ],
     "return": {
@@ -1386,32 +1516,64 @@
     "async": false,
     "static": true,
     "longname": "src/generate/index.js~getRoleType",
-    "access": "public",
+    "access": "private",
     "export": false,
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
-    "description": " ",
-    "lineNumber": 378,
+    "description": "decide, if the given role is whether \na 'userRole' or a 'docRole'\n\nProcedure:\n1. Determine, if this field is used as a roleField\n2. Check, if this roleField...\n   a) is of type: String or [String] ==> userRole\n   b) is of type: User or [User]     ==> docRole\n   c) roleName = 'this'              ==> docRole\n3. If there is no roleField in this type\n   it must be a userRole\n\nFor 1. is a roleField:\n  read the type's abstract syntax tree\n  loop over all provided fields,\n  check, if the field has a directive '@authRole'\n  and if this authRole is 'for' the provided 'roleName'\n  or the roleName is the special case 'this'\n  ==> then it is a roleField\n\nFor 2. get it's fieldType:\n  read the type's abstract syntax tree\n  for the roleField and read it's type\n  \n  a) if it is a String or List of Strings,\n  then the roleType = 'userRole'\n\n  b) if it is a User or List of Users (userIds),\n  then the roleType = 'docType'\n\n  c) special case: roleName = 'this'\n  (it doesn't look for an authRole for 'this')\n  it means the document's id field is used for this\n  meaning the role defines the authorizations,\n  a User has upon his own User document\n\nFor 3. none of the above applies\n  so the role must be a userRole\n    ",
+    "lineNumber": 392,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "name",
+        "description": "name of the role"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "object"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "inputSchema",
+        "description": "the schema of the type"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "roleType",
+        "description": "type of the role 'userRole', 'docRole'"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "roleName",
+        "description": "name of the role"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "roleFieldName",
+        "description": "field name for the userRole"
       }
     ],
     "return": {
@@ -1438,7 +1600,7 @@
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
     "description": " ",
-    "lineNumber": 472,
+    "lineNumber": 487,
     "params": [
       {
         "nullable": null,
@@ -1480,22 +1642,30 @@
     "async": false,
     "static": true,
     "longname": "src/generate/index.js~getFieldType",
-    "access": "public",
+    "access": "private",
     "export": false,
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
-    "description": " ",
-    "lineNumber": 549,
+    "description": "get the field's type   ",
+    "examples": [
+      "'role: String'  ",
+      "'role: String!'  ",
+      "'coauthors: [User]'  ",
+      "'coauthors: [User]!'  ",
+      "'coauthors: [User!]'  ",
+      "'coauthors: [User!]!'  "
+    ],
+    "lineNumber": 565,
     "params": [
       {
         "nullable": null,
         "types": [
-          "any"
+          "object"
         ],
         "spread": false,
         "optional": false,
         "name": "field",
-        "description": ""
+        "description": "AST with field definitions"
       }
     ],
     "return": {
@@ -1517,22 +1687,22 @@
     "async": false,
     "static": true,
     "longname": "src/generate/index.js~prep",
-    "access": "public",
+    "access": "private",
     "export": false,
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
-    "description": " ",
-    "lineNumber": 698,
+    "description": "prepare roles for code generator\nconvert array to String value\nreplace \" by '  ",
+    "lineNumber": 715,
     "params": [
       {
         "nullable": null,
         "types": [
-          "any"
+          "array"
         ],
         "spread": false,
         "optional": false,
         "name": "role",
-        "description": ""
+        "description": "name of role"
       }
     ],
     "return": {
@@ -1554,52 +1724,52 @@
     "async": false,
     "static": true,
     "longname": "src/generate/index.js~generateAuthCodeModeReadOne",
-    "access": "public",
+    "access": "private",
     "export": false,
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
-    "description": " ",
-    "lineNumber": 711,
+    "description": "generate authorization code for mode readOne  ",
+    "lineNumber": 729,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "boolean"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "authorize",
+        "description": "flag for authorization logic"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "typeName",
+        "description": "name of the type"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "userRoles",
+        "description": "list of userRoles"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "docRoles",
+        "description": "list of docRoles"
       }
     ],
     "return": {
@@ -1621,58 +1791,61 @@
     "async": false,
     "static": true,
     "longname": "src/generate/index.js~generateAuthCodeModeReadMany",
-    "access": "public",
+    "access": "private",
     "export": false,
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
-    "description": "",
-    "lineNumber": 752,
+    "description": "generate authorization code for mode readMany ",
+    "lineNumber": 771,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "boolean"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "authorize",
+        "description": "flag for authorization logic"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "typeName",
+        "description": "name of the type"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "userRoles",
+        "description": "list of userRoles"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "docRoles",
+        "description": "list of docRoles"
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": "generatedCode - generated code to be injected"
     },
     "ignore": true
   },
@@ -1685,68 +1858,71 @@
     "async": false,
     "static": true,
     "longname": "src/generate/index.js~generateAuthCodeModeCreate",
-    "access": "public",
+    "access": "private",
     "export": false,
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
-    "description": "",
-    "lineNumber": 783,
+    "description": "generate authorization code for mode create ",
+    "lineNumber": 804,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "boolean"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "authorize",
+        "description": "flag for authorization logic"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "typeName",
+        "description": "name of the type"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "array"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "userRoles",
+        "description": "list of userRoles"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "array"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "docRoles",
+        "description": "list of docRoles"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "roleFieldName",
+        "description": "field name for the role"
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": "generatedCode - generated code to be injected"
     },
     "ignore": true
   },
@@ -1759,68 +1935,71 @@
     "async": false,
     "static": true,
     "longname": "src/generate/index.js~generateAuthCodeModeUpdate",
-    "access": "public",
+    "access": "private",
     "export": false,
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
-    "description": "",
-    "lineNumber": 829,
+    "description": "generate authorization code for mode update ",
+    "lineNumber": 852,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "boolean"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "authorize",
+        "description": "flag for authorization logic"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "typeName",
+        "description": "name of the type"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "array"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "userRoles",
+        "description": "list of userRoles"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "array"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "docRoles",
+        "description": "list of docRoles"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "roleFieldName",
+        "description": "field name for the role"
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": "generatedCode - generated code to be injected"
     },
     "ignore": true
   },
@@ -1833,58 +2012,61 @@
     "async": false,
     "static": true,
     "longname": "src/generate/index.js~generateAuthCodeModeDelete",
-    "access": "public",
+    "access": "private",
     "export": false,
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
-    "description": "",
-    "lineNumber": 882,
+    "description": "generate authorization code for mode delete ",
+    "lineNumber": 906,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "boolean"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "authorize",
+        "description": "flag for authorization logic"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "typeName",
+        "description": "name of the type"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "userRoles",
+        "description": "list of userRoles"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "docRoles",
+        "description": "list of docRoles"
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": "generatedCode - generated code to be injected"
     },
     "ignore": true
   },
@@ -1897,32 +2079,32 @@
     "async": false,
     "static": true,
     "longname": "src/generate/index.js~generateCreatedBy",
-    "access": "public",
+    "access": "private",
     "export": false,
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
-    "description": " ",
-    "lineNumber": 911,
+    "description": "generate createdBy method  ",
+    "lineNumber": 936,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "boolean"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "authorize",
+        "description": "flag for authorization logic"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "typeName",
+        "description": "name of the type"
       }
     ],
     "return": {
@@ -1944,32 +2126,32 @@
     "async": false,
     "static": true,
     "longname": "src/generate/index.js~generateUpdatedBy",
-    "access": "public",
+    "access": "private",
     "export": false,
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
-    "description": " ",
-    "lineNumber": 935,
+    "description": "generate updatedBy method  ",
+    "lineNumber": 961,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "boolean"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "authorize",
+        "description": "flag for authorization logic"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "typeName",
+        "description": "name of the type"
       }
     ],
     "return": {
@@ -1991,32 +2173,32 @@
     "async": false,
     "static": true,
     "longname": "src/generate/index.js~generateAuthRoleDefinition",
-    "access": "public",
+    "access": "private",
     "export": false,
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
-    "description": " ",
-    "lineNumber": 959,
+    "description": "generate updatedBy method  ",
+    "lineNumber": 986,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "boolean"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "authorize",
+        "description": "flag for authorization logic"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "typeName",
+        "description": "name of the type"
       }
     ],
     "return": {
@@ -2038,42 +2220,42 @@
     "async": false,
     "static": true,
     "longname": "src/generate/index.js~generateAuthRoleMethod",
-    "access": "public",
+    "access": "private",
     "export": false,
     "importPath": "create-graphql-server-authorization/src/generate/index.js",
     "importStyle": null,
-    "description": " ",
-    "lineNumber": 983,
+    "description": "generate authRole() method only in type User  ",
+    "lineNumber": 1011,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "boolean"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "authorize",
+        "description": "flag for authorization logic"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "typeName",
+        "description": "name of the type"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "roleFieldName",
+        "description": "field name, where userRole is stored on type User"
       }
     ],
     "return": {
@@ -2101,7 +2283,7 @@
     "__docId__": 97,
     "kind": "file",
     "name": "src/lib/authlog.js",
-    "content": "// @flow\n\nimport { logger } from './logger';\nimport { getLogFilename } from './getLogFilename';\n\n/*\n * @desc Central logger for authorization checks\n * @public\n * @param {string} resolver - log name of a resolver\n * @param {string} mode - crud operation name\n * @param {object} me - current user\n * @return {\n *    debug {function} - debug() function\n *    error {function} - error() function\n * }\n */\nexport function authlog(\n  resolver: string = '',\n  mode: string = '',\n  me?: any = {}\n): { debug: any, error: any } {\n  const logFilename = getLogFilename();\n  const log = logger(logFilename);\n\n  const makeMessage = message =>\n    `Authorize ${mode} '${resolver}' with user '${me.username\n      ? me.username\n      : '<no-user>'}' ${message}`;\n\n  return {\n    debug: message => {\n      const resultMessage = makeMessage(message);\n      log.debug(resultMessage);\n      return resultMessage;\n    },\n    error: message => {\n      const resultMessage = makeMessage(message);\n      log.error(resultMessage);\n      throw new Error(makeMessage(message));\n    }\n  };\n}\n",
+    "content": "// @flow\n\nimport { logger } from './logger';\nimport { getLogFilename } from './getLogFilename';\n\n/**\n * Central logger for authorization checks\n * @public\n * @param {string} resolver - log name of a resolver\n * @param {string} mode - crud operation name\n * @param {object} me - current user\n * @return {\n *    debug {function} - debug() function\n *    error {function} - error() function\n * }\n */\n \nexport function authlog(\n  resolver: string = '',\n  mode: string = '',\n  me?: any = {}\n): { debug: any, error: any } {\n  const logFilename = getLogFilename();\n  const log = logger(logFilename);\n\n  const makeMessage = message =>\n    `Authorize ${mode} '${resolver}' with user '${me.username\n      ? me.username\n      : '<no-user>'}' ${message}`;\n\n  return {\n    debug: message => {\n      const resultMessage = makeMessage(message);\n      log.debug(resultMessage);\n      return resultMessage;\n    },\n    error: message => {\n      const resultMessage = makeMessage(message);\n      log.error(resultMessage);\n      throw new Error(makeMessage(message));\n    }\n  };\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/authlog.js",
     "access": "public",
@@ -2121,54 +2303,54 @@
     "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/authlog.js",
     "importStyle": "{authlog}",
-    "description": " ",
-    "lineNumber": 17,
+    "description": "Central logger for authorization checks",
+    "lineNumber": 18,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "resolver",
+        "description": "log name of a resolver"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "mode",
+        "description": "crud operation name"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "object"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "me",
+        "description": "current user"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "object"
+        "\n   debug {function"
       ],
       "spread": false,
-      "description": ""
+      "description": "debug() function\n   error {function} - error() function\n}"
     }
   },
   {
     "__docId__": 99,
     "kind": "file",
     "name": "src/lib/checkAuthDoc.js",
-    "content": "// @flow\nimport { userRoleAuthorized } from './userRoleAuthorized';\nimport { fieldContainsUserId } from './fieldContainsUserId';\nimport { authlog } from './authlog';\n\nconst defaultLogger = authlog();\n\n/*\n * @desc Returns an authorized document\n * @public\n * @param {object} doc - any document to be checked\n * @param {object} me - current user\n * @param {array} userRoles - list of userRoles\n * @param {array} docRoles - list of docRoles\n * @param {object} User - model context of type User\n * @param {function} logger - the logger function\n * @return {object} doc - returns the authorized document\n * @throws {Error} - throws on a missing authorization\n */\n\nexport function checkAuthDoc(\n  doc: any = {},\n  me: any = {},\n  userRoles: Array<string> = [],\n  docRoles: Array<string> = [],\n  { User },\n  logger: any = defaultLogger\n): any {\n  const resultDoc = Object.assign({}, doc);\n\n  // get the User's role\n  const role = User.authRole(me);\n\n  // check if userRole entitles current user for this action\n  if (userRoleAuthorized(me, userRoles, { User }, logger)) {\n    logger.debug(`and role: '${role}' is authorized by userRole.`);\n    return resultDoc;\n  }\n\n  // check if docRole entitles current user for this document and action\n  let authorized = false;\n  docRoles.every(field => {\n    if (\n      resultDoc[field] &&\n      me._id &&\n      fieldContainsUserId(resultDoc[field], me._id)\n    ) {\n      authorized = true;\n    }\n  });\n  if (authorized) {\n    logger.debug(`and role: '${role}' is authorized by docRole.`);\n    return resultDoc;\n  }\n\n  // Not Authorized, throw exception in logger.error\n  logger.error(`and role: '${role}' is not authorized.`);\n}\n",
+    "content": "// @flow\n\nimport { userRoleAuthorized } from './userRoleAuthorized';\nimport { fieldContainsUserId } from './fieldContainsUserId';\nimport { authlog } from './authlog';\n\n// default logger, if there is none given\nconst defaultLogger = authlog();\n\n/**\n * Returns an authorized document\n * @public\n * @param {object} doc - any document to be checked\n * @param {object} me - current user\n * @param {array} userRoles - list of userRoles\n * @param {array} docRoles - list of docRoles\n * @param {object} User - model context of type User\n * @param {function} logger - the logger function\n * @return {object} doc - returns the authorized document\n * @throws {Error} - throws on a missing authorization\n */\n\nexport function checkAuthDoc(\n  doc: any = {},\n  me: any = {},\n  userRoles: Array<string> = [],\n  docRoles: Array<string> = [],\n  { User },\n  logger: any = defaultLogger\n): any {\n  const resultDoc = Object.assign({}, doc);\n\n  // get the User's role\n  const role = User.authRole(me);\n\n  // check if userRole entitles current user for this action\n  if (userRoleAuthorized(me, userRoles, { User }, logger)) {\n    logger.debug(`and role: '${role}' is authorized by userRole.`);\n    return resultDoc;\n  }\n\n  // check if docRole entitles current user for this document and action\n  let authorized = false;\n  docRoles.every(field => {\n    if (\n      resultDoc[field] &&\n      me._id &&\n      fieldContainsUserId(resultDoc[field], me._id)\n    ) {\n      authorized = true;\n    }\n  });\n  if (authorized) {\n    logger.debug(`and role: '${role}' is authorized by docRole.`);\n    return resultDoc;\n  }\n\n  // Not Authorized, throw exception in logger.error\n  logger.error(`and role: '${role}' is not authorized.`);\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/checkAuthDoc.js",
     "access": "public",
@@ -2187,7 +2369,7 @@
     "importPath": "create-graphql-server-authorization/src/lib/checkAuthDoc.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 6,
+    "lineNumber": 8,
     "undocument": true,
     "type": {
       "types": [
@@ -2209,84 +2391,92 @@
     "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/checkAuthDoc.js",
     "importStyle": "{checkAuthDoc}",
-    "description": " ",
-    "lineNumber": 21,
+    "description": "Returns an authorized document",
+    "lineNumber": 23,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "object"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "doc",
+        "description": "any document to be checked"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "object"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "me",
+        "description": "current user"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "array"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "userRoles",
+        "description": "list of userRoles"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "array"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "docRoles",
+        "description": "list of docRoles"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "object"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "User",
+        "description": "model context of type User"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "function"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "logger",
+        "description": "the logger function"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "any"
+        "object"
       ],
       "spread": false,
-      "description": ""
-    }
+      "description": "doc - returns the authorized document"
+    },
+    "throws": [
+      {
+        "types": [
+          "Error"
+        ],
+        "description": "throws on a missing authorization"
+      }
+    ]
   },
   {
     "__docId__": 102,
     "kind": "file",
     "name": "src/lib/dummyUserContext.js",
-    "content": "// @flow\n/*\n * @desc Returns a dummyUserContext\n * @desc mocking User authRole, as it is not existing in this library\n * @desc for usage in the test cases, where we don't have an original \n * @desc User model context\n * @public\n * @return {object} dummyUserContext - returns user.role || null\n */\nexport const dummyUserContext = {\n  authRole(user) {\n    return user && user.role ? user.role : null;\n  }\n};\n",
+    "content": "// @flow\n\n/**\n * Returns a dummyUserContext\n * mocking User authRole, as it is not existing in this library\n * for usage in the test cases, where we don't have an original \n * User model context\n * @public\n * @return {object} dummyUserContext - returns user.role || null\n */\n\nexport const dummyUserContext = {\n  authRole(user) {\n    return user && user.role ? user.role : null;\n  }\n};\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/dummyUserContext.js",
     "access": "public",
@@ -2304,9 +2494,16 @@
     "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/dummyUserContext.js",
     "importStyle": "{dummyUserContext}",
-    "description": null,
-    "lineNumber": 10,
-    "undocument": true,
+    "description": "Returns a dummyUserContext\nmocking User authRole, as it is not existing in this library\nfor usage in the test cases, where we don't have an original \nUser model context",
+    "lineNumber": 12,
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": "dummyUserContext - returns user.role || null"
+    },
     "type": {
       "types": [
         "{\"authRole\": function}"
@@ -2317,7 +2514,7 @@
     "__docId__": 104,
     "kind": "file",
     "name": "src/lib/fieldContainsUserId.js",
-    "content": "/* eslint-disable max-len */\n// @flow\n\nimport _ from 'lodash';\n\n/*\n * @desc extracts a UserId from an _id object\n * @private\n * @param {object} userIdObject - user object\n * @return {string} newUserId - id of the user\n */\nfunction extractUserId(userIdObject: any): any {\n  let newUserId = '';\n  if (_.isObject(userIdObject)) {\n    Object.keys(userIdObject).forEach(field => {\n      newUserId = userIdObject[field];\n    });\n  } else {\n    newUserId = userIdObject;\n  }\n  return newUserId;\n}\n\n/*\n * @desc checks, if a field contains a user's id\n * @desc returns true, if a field of type array/object/string contains the userId\n * @public\n * @param {string, object, array} docRoleField - the field to be checked\n * @param {string, object} userId - the user id to test\n * @return {boolean} foundUserId - true if it contains the user id\n */\nexport function fieldContainsUserId(\n  docRoleField: any,\n  compressedUserId: any\n): boolean {\n  let found = false;\n\n  // empty docRoleField is not a valid docRoleField\n  if (!docRoleField || docRoleField === '' || docRoleField.length === 0) {\n    return false;\n  }\n\n  // empty (compressed) userId is not a valid userId\n  if (\n    !compressedUserId ||\n    compressedUserId === '' ||\n    compressedUserId.toString() === ''\n  ) {\n    return false;\n  }\n\n  // extract userId, if it is a mongoID field\n  const userId = extractUserId(compressedUserId);\n\n  // empty (uncompressed) userId is not a valid userId\n  if (!userId || userId === '') {\n    return false;\n  }\n\n  // docRoleField of type Array\n  if (_.isArray(docRoleField)) {\n    docRoleField.forEach(field => {\n      if (fieldContainsUserId(field, userId)) {\n        found = true;\n      }\n    });\n    if (found) {\n      return true;\n    }\n    return false;\n  }\n\n  // docRoleField of type Object\n  if (_.isObject(docRoleField)) {\n    // For each field in the object\n    Object.keys(docRoleField).forEach(field => {\n      if (\n        fieldContainsUserId(docRoleField[field], userId) ||\n        fieldContainsUserId(field, userId)\n      ) {\n        found = true;\n      }\n    });\n    if (found) {\n      return true;\n    }\n    return false;\n  }\n\n  // docRoleField of type field\n  if (docRoleField.toString() === userId.toString()) {\n    return true;\n  }\n\n  return false;\n}\n",
+    "content": "/* eslint-disable max-len */\n// @flow\n\nimport _ from 'lodash';\n\n/**\n * extracts a UserId from an _id object\n * @private\n * @param {object} userIdObject - user object\n * @return {string} newUserId - id of the user\n */\n\nfunction extractUserId(userIdObject: any): any {\n  let newUserId = '';\n  if (_.isObject(userIdObject)) {\n    Object.keys(userIdObject).forEach(field => {\n      newUserId = userIdObject[field];\n    });\n  } else {\n    newUserId = userIdObject;\n  }\n  return newUserId;\n}\n\n/**\n * checks, if a field contains a user's id\n * returns true, if a field of type array/object/string contains the userId\n * @public\n * @param {object} docRoleField - the field to be checked\n * @param {object} compressedUserId - the user id to test\n * @return {boolean} found - true if it contains the user id\n */\n \nexport function fieldContainsUserId(\n  docRoleField: any,\n  compressedUserId: any\n): boolean {\n  let found = false;\n\n  // empty docRoleField is not a valid docRoleField\n  if (!docRoleField || docRoleField === '' || docRoleField.length === 0) {\n    return false;\n  }\n\n  // empty (compressed) userId is not a valid userId\n  if (\n    !compressedUserId ||\n    compressedUserId === '' ||\n    compressedUserId.toString() === ''\n  ) {\n    return false;\n  }\n\n  // extract userId, if it is a mongoID field\n  const userId = extractUserId(compressedUserId);\n\n  // empty (uncompressed) userId is not a valid userId\n  if (!userId || userId === '') {\n    return false;\n  }\n\n  // docRoleField of type Array\n  if (_.isArray(docRoleField)) {\n    docRoleField.forEach(field => {\n      if (fieldContainsUserId(field, userId)) {\n        found = true;\n      }\n    });\n    if (found) {\n      return true;\n    }\n    return false;\n  }\n\n  // docRoleField of type Object\n  if (_.isObject(docRoleField)) {\n    // For each field in the object\n    Object.keys(docRoleField).forEach(field => {\n      if (\n        fieldContainsUserId(docRoleField[field], userId) ||\n        fieldContainsUserId(field, userId)\n      ) {\n        found = true;\n      }\n    });\n    if (found) {\n      return true;\n    }\n    return false;\n  }\n\n  // docRoleField of type field\n  if (docRoleField.toString() === userId.toString()) {\n    return true;\n  }\n\n  return false;\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/fieldContainsUserId.js",
     "access": "public",
@@ -2333,22 +2530,22 @@
     "async": false,
     "static": true,
     "longname": "src/lib/fieldContainsUserId.js~extractUserId",
-    "access": "public",
+    "access": "private",
     "export": false,
     "importPath": "create-graphql-server-authorization/src/lib/fieldContainsUserId.js",
     "importStyle": null,
-    "description": " ",
-    "lineNumber": 12,
+    "description": "extracts a UserId from an _id object  ",
+    "lineNumber": 13,
     "params": [
       {
         "nullable": null,
         "types": [
-          "any"
+          "object"
         ],
         "spread": false,
         "optional": false,
         "name": "userIdObject",
-        "description": ""
+        "description": "user object"
       }
     ],
     "return": {
@@ -2374,28 +2571,28 @@
     "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/fieldContainsUserId.js",
     "importStyle": "{fieldContainsUserId}",
-    "description": " ",
-    "lineNumber": 32,
+    "description": "checks, if a field contains a user's id\nreturns true, if a field of type array/object/string contains the userId",
+    "lineNumber": 34,
     "params": [
       {
         "nullable": null,
         "types": [
-          "any"
+          "object"
         ],
         "spread": false,
         "optional": false,
         "name": "docRoleField",
-        "description": ""
+        "description": "the field to be checked"
       },
       {
         "nullable": null,
         "types": [
-          "any"
+          "object"
         ],
         "spread": false,
         "optional": false,
         "name": "compressedUserId",
-        "description": ""
+        "description": "the user id to test"
       }
     ],
     "return": {
@@ -2404,14 +2601,14 @@
         "boolean"
       ],
       "spread": false,
-      "description": ""
+      "description": "found - true if it contains the user id"
     }
   },
   {
     "__docId__": 107,
     "kind": "file",
     "name": "src/lib/findByIds.js",
-    "content": "// @flow\n\n/* @desc find a record by an id (cached with dataloader)\n * @desc returns the record, checks authorization if set\n * enhancement of tmeasday'findByIds\n * @public\n * @param {object} collection - data model type collection\n * @param {array} ids - one or a list of document ids\n * @param {object} authQuery - authorization query to be used to access data\n * @return {array} documents - the found documents with these ids\n */\nexport function findByIds(\n  collection: any,\n  ids: Array<any> = [],\n  authQuery?: any = {}\n): any {\n  const baseQuery = { _id: { $in: ids } };\n  const finalQuery = { ...baseQuery, ...authQuery };\n  return collection.find(finalQuery).toArray().then(docs => {\n    const idMap = {};\n    docs.forEach(d => {\n      idMap[d._id] = d;\n    });\n    return ids.map(id => idMap[id]);\n  });\n}\n",
+    "content": "// @flow\n\n/** \n * Finds records by ids (cached with dataloader)\n * returns the record, checks authorization if set\n * enhancement of tmeasday'findByIds\n * @public\n * @param {object} collection - data model type collection\n * @param {array} ids - one or a list of document ids\n * @param {object} authQuery - authorization query to be used to access data\n * @return {array} documents - the found documents with these ids\n */\n \nexport function findByIds(\n  collection: any,\n  ids: Array<any> = [],\n  authQuery?: any = {}\n): any {\n  const baseQuery = { _id: { $in: ids } };\n  const finalQuery = { ...baseQuery, ...authQuery };\n  return collection.find(finalQuery).toArray().then(docs => {\n    const idMap = {};\n    docs.forEach(d => {\n      idMap[d._id] = d;\n    });\n    return ids.map(id => idMap[id]);\n  });\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/findByIds.js",
     "access": "public",
@@ -2431,54 +2628,54 @@
     "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/findByIds.js",
     "importStyle": "{findByIds}",
-    "description": " ",
-    "lineNumber": 12,
+    "description": "Finds records by ids (cached with dataloader)\nreturns the record, checks authorization if set\nenhancement of tmeasday'findByIds",
+    "lineNumber": 14,
     "params": [
       {
         "nullable": null,
         "types": [
-          "any"
+          "object"
         ],
         "spread": false,
         "optional": false,
         "name": "collection",
-        "description": ""
+        "description": "data model type collection"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "array"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "ids",
+        "description": "one or a list of document ids"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "object"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "authQuery",
+        "description": "authorization query to be used to access data"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "any"
+        "array"
       ],
       "spread": false,
-      "description": ""
+      "description": "documents - the found documents with these ids"
     }
   },
   {
     "__docId__": 109,
     "kind": "file",
     "name": "src/lib/getLogFilename.js",
-    "content": "// @flow\n\nimport path from 'path';\n\nconst expect = require('chai').expect;\n\n/* @desc Get name for the log file\n * @desc reads package.json for config.logfile variable\n * @public\n * @return (string) logFilename - path and file name for the log file\n */\nexport function getLogFilename(): string {\n  const logFilename = path.normalize(process.env.npm_package_config_logfile);\n  expect(logFilename).be.a('string');\n  return logFilename;\n}\n",
+    "content": "// @flow\n\nimport path from 'path';\n\nconst expect = require('chai').expect;\n\n/**\n * Get name for the log file\n * reads package.json for config.logfile variable\n * @public\n * @return (string) logFilename - path and file name for the log file\n */\n \nexport function getLogFilename(): string {\n  const logFilename = path.normalize(process.env.npm_package_config_logfile);\n  expect(logFilename).be.a('string');\n  return logFilename;\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/getLogFilename.js",
     "access": "public",
@@ -2519,15 +2716,15 @@
     "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/getLogFilename.js",
     "importStyle": "{getLogFilename}",
-    "description": " ",
-    "lineNumber": 12,
+    "description": "Get name for the log file\nreads package.json for config.logfile variable",
+    "lineNumber": 14,
     "return": {
       "nullable": null,
       "types": [
-        "string"
+        "*"
       ],
       "spread": false,
-      "description": ""
+      "description": "(string) logFilename - path and file name for the log file"
     },
     "params": []
   },
@@ -2535,7 +2732,7 @@
     "__docId__": 112,
     "kind": "file",
     "name": "src/lib/loggedIn.js",
-    "content": "// @flow\n\n/*\n * @desc Checks, if an user is logged in\n * @param {object} me - current user\n * @return {boolean} loggedIn - true, if user is logged in\n */\n\nexport function loggedIn(me: any): boolean {\n  if (me && me._id && me._id.toString() !== '') {\n    return true;\n  }\n  return false;\n}\n",
+    "content": "// @flow\n\n/**\n * Checks, if an user is logged in\n * @param {object} me - current user\n * @return {boolean} loggedIn - true, if user is logged in\n */\n\nexport function loggedIn(me: any): boolean {\n  if (me && me._id && me._id.toString() !== '') {\n    return true;\n  }\n  return false;\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/loggedIn.js",
     "access": "public",
@@ -2555,18 +2752,18 @@
     "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/loggedIn.js",
     "importStyle": "{loggedIn}",
-    "description": " ",
+    "description": "Checks, if an user is logged in",
     "lineNumber": 9,
     "params": [
       {
         "nullable": null,
         "types": [
-          "any"
+          "object"
         ],
         "spread": false,
         "optional": false,
         "name": "me",
-        "description": ""
+        "description": "current user"
       }
     ],
     "return": {
@@ -2575,14 +2772,14 @@
         "boolean"
       ],
       "spread": false,
-      "description": ""
+      "description": "loggedIn - true, if user is logged in"
     }
   },
   {
     "__docId__": 114,
     "kind": "file",
     "name": "src/lib/logger.js",
-    "content": "// @flow\n\nimport winston from 'winston';\n\nwinston.emitErrs = true;\n\n/*\n * @desc create timestamps in local format\n * @private\n * @return {string} timestamp - current time stamp in local format\n */\nconst timestamp = function(): string {\n  return new Date(Date.now()).toLocaleString();\n};\n\n/*\n * @desc formats the output message string\n * @private\n * @return {string} message - prepares output message\n */\nconst formatter = function(options: any):string {\n  return (\n    options.timestamp() +\n    ' ' +\n    (options.level === 'error' ? ' ' + options.level.toUpperCase() : '') +\n    ' ' +\n    (options.message ? options.message : '') +\n    (options.meta && Object.keys(options.meta).length\n      ? '\\n\\t' + JSON.stringify(options.meta)\n      : '')\n  );\n};\n\n/*\n * @desc Creates a logger based on winston\n * @desc file is allowed to have 5 MB size\n * @public\n * @param {object} me - current user\n * @return {boolean} logger - logger function\n */\nexport function logger(filename: string): any {\n  return new winston.Logger({\n    transports: [\n      new winston.transports.File({\n        level: 'debug',\n        filename,\n        handleExceptions: true,\n        json: false,\n        maxsize: 5 * 1024 * 1024, // 5MB\n        maxFiles: 5,\n        colorize: false,\n        timestamp,\n        formatter\n      }),\n\n      new winston.transports.Console({\n        level: 'debug',\n        handleExceptions: true,\n        json: false,\n        colorize: true,\n        timestamp,\n        formatter\n      })\n    ],\n\n    exitOnError: false\n  });\n}\n",
+    "content": "// @flow\n\nimport winston from 'winston';\n\nwinston.emitErrs = true;\n\n/**\n * create timestamps in local format\n * @private\n * @return {string} timestamp - current time stamp in local format\n */\n\nconst timestamp = function(): string {\n  return new Date(Date.now()).toLocaleString();\n};\n\n/**\n * formats the output message string\n * @private\n * @param {object} options - options timestamp, message, meta, level\n * @return {string} message - prepares output message\n */\n\nconst formatter = function(options: any): string {\n  return (\n    options.timestamp() +\n    ' ' +\n    (options.level === 'error' ? ' ' + options.level.toUpperCase() : '') +\n    ' ' +\n    (options.message ? options.message : '') +\n    (options.meta && Object.keys(options.meta).length\n      ? '\\n\\t' + JSON.stringify(options.meta)\n      : '')\n  );\n};\n\n/**\n * Creates a logger based on winston\n * @public\n * @param {string} filename - log file name\n * @return {function} logger - logger function\n */\n \nexport function logger(filename: string): any {\n  return new winston.Logger({\n    transports: [\n      new winston.transports.File({\n        level: 'debug',\n        filename,\n        handleExceptions: true,\n        json: false,\n        maxsize: 5 * 1024 * 1024, // 5MB\n        maxFiles: 5,\n        colorize: false,\n        timestamp,\n        formatter\n      }),\n\n      new winston.transports.Console({\n        level: 'debug',\n        handleExceptions: true,\n        json: false,\n        colorize: true,\n        timestamp,\n        formatter\n      })\n    ],\n\n    exitOnError: false\n  });\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/logger.js",
     "access": "public",
@@ -2598,19 +2795,21 @@
     "async": false,
     "static": true,
     "longname": "src/lib/logger.js~timestamp",
-    "access": "public",
+    "access": "private",
     "export": false,
     "importPath": "create-graphql-server-authorization/src/lib/logger.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 12,
-    "undocument": true,
-    "params": [],
+    "description": "create timestamps in local format",
+    "lineNumber": 13,
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": "timestamp - current time stamp in local format"
     },
+    "params": [],
     "ignore": true
   },
   {
@@ -2622,25 +2821,31 @@
     "async": false,
     "static": true,
     "longname": "src/lib/logger.js~formatter",
-    "access": "public",
+    "access": "private",
     "export": false,
     "importPath": "create-graphql-server-authorization/src/lib/logger.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 21,
-    "undocument": true,
+    "description": "formats the output message string",
+    "lineNumber": 24,
     "params": [
       {
-        "name": "options",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "options",
+        "description": "options timestamp, message, meta, level"
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": "message - prepares output message"
     },
     "ignore": true
   },
@@ -2657,8 +2862,8 @@
     "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/logger.js",
     "importStyle": "{logger}",
-    "description": " ",
-    "lineNumber": 41,
+    "description": "Creates a logger based on winston",
+    "lineNumber": 44,
     "params": [
       {
         "nullable": null,
@@ -2668,23 +2873,23 @@
         "spread": false,
         "optional": false,
         "name": "filename",
-        "description": ""
+        "description": "log file name"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "any"
+        "function"
       ],
       "spread": false,
-      "description": ""
+      "description": "logger - logger function"
     }
   },
   {
     "__docId__": 118,
     "kind": "file",
     "name": "src/lib/protectFields.js",
-    "content": "// @flow\n\nimport { dummyUserContext } from './dummyUserContext';\n\n/*\n * @desc Protects a field based on authorizations\n * @public\n * @param {object} me - current user\n * @param {array} authorizedUserRoles - userRoles with authorization\n * @param {array} protectedFields - list of fields only for these userRoles\n * @param {object} inputObject - document with might contain those fields\n * @param {object} User - model context for type User\n * @return {object} result - document with or without the protected fields\n */\nexport function protectFields(\n  me: any = {},\n  authorizedUserRoles: Array<string> = [],\n  protectedFields: Array<string> = [],\n  inputObject: any = {},\n  { User } = { User: dummyUserContext }\n): any {\n  // pure function\n  const result = Object.assign({}, inputObject);\n\n  // getting role of current User\n  const role = User.authRole(me);\n\n  // if user is not allowed to access specific fields,\n  // remove field from object...\n  if (!authorizedUserRoles.includes(role)) {\n    protectedFields.forEach(protectedField => {\n      if (result[protectedField]) {\n        delete result[protectedField];\n      }\n    });\n  }\n\n  return result;\n}\n",
+    "content": "// @flow\n\nimport { dummyUserContext } from './dummyUserContext';\n\n/**\n * Protects a field based on authorizations\n * @public\n * @param {object} me - current user\n * @param {array} authorizedUserRoles - userRoles with authorization\n * @param {array} protectedFields - list of fields only for these userRoles\n * @param {object} inputObject - document with might contain those fields\n * @param {object} User - model context for type User\n * @return {object} result - document with or without the protected fields\n */\n \nexport function protectFields(\n  me: any = {},\n  authorizedUserRoles: Array<string> = [],\n  protectedFields: Array<string> = [],\n  inputObject: any = {},\n  { User } = { User: dummyUserContext }\n): any {\n  // pure function\n  const result = Object.assign({}, inputObject);\n\n  // getting role of current User\n  const role = User.authRole(me);\n\n  // if user is not allowed to access specific fields,\n  // remove field from object...\n  if (!authorizedUserRoles.includes(role)) {\n    protectedFields.forEach(protectedField => {\n      if (result[protectedField]) {\n        delete result[protectedField];\n      }\n    });\n  }\n\n  return result;\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/protectFields.js",
     "access": "public",
@@ -2704,74 +2909,74 @@
     "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/protectFields.js",
     "importStyle": "{protectFields}",
-    "description": " ",
-    "lineNumber": 15,
+    "description": "Protects a field based on authorizations",
+    "lineNumber": 16,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "object"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "me",
+        "description": "current user"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "array"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "authorizedUserRoles",
+        "description": "userRoles with authorization"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "array"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "protectedFields",
+        "description": "list of fields only for these userRoles"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "object"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "inputObject",
+        "description": "document with might contain those fields"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "object"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "User",
+        "description": "model context for type User"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "any"
+        "object"
       ],
       "spread": false,
-      "description": ""
+      "description": "result - document with or without the protected fields"
     }
   },
   {
     "__docId__": 120,
     "kind": "file",
     "name": "src/lib/queryForRoles.js",
-    "content": "/* eslint-disable max-len */\n// @flow\n\nimport { userRoleAuthorized } from './userRoleAuthorized';\nimport { dummyUserContext } from './dummyUserContext';\nimport { loggedIn } from './loggedIn';\nimport { authlog } from './authlog';\n\nconst defaultLogger = authlog();\n\n/*\n * @desc Prepare a query object for mongodb operations with authorization queries\n * @desc creates an authQuery object with additional \n * @desc query arguments, to implement authorization restrictions for mongodb access\n * @public\n * @param {object} me - current user\n * @param {array} userRoles - list of userRoles\n * @param {array} docRoles - list of docRoles\n * @param {object} inputObject - document\n * @param {object} User - model context for type User\n * @param {object} logger - logger function\n * @return {object, exception} queryObject - authQuery for data operations\n *\n * @example: queryForRoles(me, userRoles, docRoles, { User }, \n *                         authlog(resolver, mode, me ) ); \n */\nexport function queryForRoles(\n  me: any = {},\n  userRoles: Array<string> = [],\n  docRoles: Array<string> = [],\n  { User } = { User: dummyUserContext },\n  logger: any = defaultLogger\n): any {\n  // get current User's role\n  const role = User.authRole(me);\n\n  // Build query for the case: The logged in user's role is authorized\n  if (userRoleAuthorized(me, userRoles, { User }, logger)) {\n    // empty authQuery means, do operation with no access restrictions\n    return {};\n  }\n\n  // Build query for the case: The user is listed in any document field\n  const query = { $or: [] };\n  // makes only sense, if user is logged in - otherwise no userId\n  if (loggedIn(me)) {\n    // prepare selection criterias as 'authQuery' object\n    // for later mongodb 'find(...baseQuery,  ...authQuery)'\n    //                               ...  AND ...{ field1 OR field2}\n    // which will be also considered during the database access\n    // as an '$or: [ { field1: userId}, { field2: userId} ]'\n    // with all document roles as fields for the later selection.\n    // At least one of those fields must match the userId,\n    // otherwise, whether no data found or not authorized to access data\n    docRoles.forEach(docRole => query.$or.push({ [docRole]: me._id }));\n    // return this authQuery only, if there was at least 1 field added\n    // otherwise it will result in an unlimited access\n    if (query.$or.length > 0) {\n      // for easier debugging write into the authorzation logs\n      logger.debug(\n        `and role: '${role ? role : '<no-role>'}' with \n        authQuery: ${JSON.stringify(query, null, 2)}`\n      );\n      // return the query as authQuery for later selection\n      return query;\n    }\n  }\n\n  // Not Authorized - throw exception in logger.error\n  const message = `and role: '${role}' is not authorized.`;\n  logger.error(message);\n}\n",
+    "content": "/* eslint-disable max-len */\n// @flow\n\nimport { userRoleAuthorized } from './userRoleAuthorized';\nimport { dummyUserContext } from './dummyUserContext';\nimport { loggedIn } from './loggedIn';\nimport { authlog } from './authlog';\n\nconst defaultLogger = authlog();\n\n/**\n * Prepare a query object for mongodb operations with authorization queries\n * creates an authQuery object with additional \n * query arguments, to implement authorization restrictions for mongodb access\n * @public\n * @param {object} me - current user\n * @param {array} userRoles - list of userRoles\n * @param {array} docRoles - list of docRoles\n * @param {object} User - model context for type User\n * @param {object} logger - logger function\n * @return {object} authQuery - authQuery for data operations\n * @example \n *   const authQuery = \n *     queryForRoles(me, userRoles, docRoles, { User }, authlog(resolver, mode, me ) );\n */\n\nexport function queryForRoles(\n  me: any = {},\n  userRoles: Array<string> = [],\n  docRoles: Array<string> = [],\n  { User } = { User: dummyUserContext },\n  logger: any = defaultLogger\n): any {\n  // get current User's role\n  const role = User.authRole(me);\n\n  // Build query for the case: The logged in user's role is authorized\n  if (userRoleAuthorized(me, userRoles, { User }, logger)) {\n    // empty authQuery means, do operation with no access restrictions\n    return {};\n  }\n\n  // Build query for the case: The user is listed in any document field\n  const query = { $or: [] };\n  // makes only sense, if user is logged in - otherwise no userId\n  if (loggedIn(me)) {\n    // prepare selection criterias as 'authQuery' object\n    // for later mongodb 'find(...baseQuery,  ...authQuery)'\n    //                               ...  AND ...{ field1 OR field2}\n    // which will be also considered during the database access\n    // as an '$or: [ { field1: userId}, { field2: userId} ]'\n    // with all document roles as fields for the later selection.\n    // At least one of those fields must match the userId,\n    // otherwise, whether no data found or not authorized to access data\n    docRoles.forEach(docRole => query.$or.push({ [docRole]: me._id }));\n    // return this authQuery only, if there was at least 1 field added\n    // otherwise it will result in an unlimited access\n    if (query.$or.length > 0) {\n      // for easier debugging write into the authorzation logs\n      logger.debug(\n        `and role: '${role ? role : '<no-role>'}' with \n        authQuery: ${JSON.stringify(query, null, 2)}`\n      );\n      // return the query as authQuery for later selection\n      return query;\n    }\n  }\n\n  // Not Authorized - throw exception in logger.error\n  const message = `and role: '${role}' is not authorized.`;\n  logger.error(message);\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/queryForRoles.js",
     "access": "public",
@@ -2812,74 +3017,77 @@
     "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/queryForRoles.js",
     "importStyle": "{queryForRoles}",
-    "description": " ",
+    "description": "Prepare a query object for mongodb operations with authorization queries\ncreates an authQuery object with additional \nquery arguments, to implement authorization restrictions for mongodb access",
+    "examples": [
+      "  const authQuery = \n    queryForRoles(me, userRoles, docRoles, { User }, authlog(resolver, mode, me ) );"
+    ],
     "lineNumber": 27,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "object"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "me",
+        "description": "current user"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "array"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "userRoles",
+        "description": "list of userRoles"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "array"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "docRoles",
+        "description": "list of docRoles"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "object"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "User",
+        "description": "model context for type User"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "object"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "logger",
+        "description": "logger function"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "any"
+        "object"
       ],
       "spread": false,
-      "description": ""
+      "description": "authQuery - authQuery for data operations"
     }
   },
   {
     "__docId__": 123,
     "kind": "file",
     "name": "src/lib/userRoleAuthorized.js",
-    "content": "// @flow\n\nimport { dummyUserContext } from './dummyUserContext';\nimport { authlog } from './authlog';\n\nconst defaultLogger = authlog();\n\n/*\n * @desc Is a user's role authorized for a document\n * @desc You can use also the role 'world', to authorize everyone\n * @public\n * @param {object} me - current user\n * @param {array} userRoles - list of userRoles\n * @param {object} User - model context for type User\n * @param {object} logger - logger function\n * @return {boolean} authorized - true, if userRole is authorized\n */\n\nexport function userRoleAuthorized(\n  me: any = {},\n  userRoles: Array<string> = [],\n  { User } = { User: dummyUserContext },\n  logger: any = defaultLogger\n): boolean {\n  // get current User's role\n  const role = User.authRole(me);\n\n  // determine, if the given userRoles authorize the current User by its role\n  if (\n    // userRole: 'world' should authorize everyone - known and unknown users\n    userRoles.includes('world') ||\n    // or there must be a userRole given, and current user must have a role\n    // and the current user's role must be in the given userRoles\n    (role && role !== '' && userRoles.length > 0 && userRoles.includes(role))\n  ) {\n    // => authorized\n    logger.debug(`and role '${role ? role : '<no-role>'}' is authorized`);\n    return true;\n  }\n\n  // => not authorized\n  return false;\n}\n",
+    "content": "// @flow\n\nimport { dummyUserContext } from './dummyUserContext';\nimport { authlog } from './authlog';\n\nconst defaultLogger = authlog();\n\n/**\n * Is a user's role authorized for a document\n * You can use also the role 'world', to authorize everyone\n * @public\n * @param {object} me - current user\n * @param {array} userRoles - list of userRoles\n * @param {object} User - model context for type User\n * @param {object} logger - logger function\n * @return {boolean} authorized - true, if userRole is authorized\n */\n\nexport function userRoleAuthorized(\n  me: any = {},\n  userRoles: Array<string> = [],\n  { User } = { User: dummyUserContext },\n  logger: any = defaultLogger\n): boolean {\n  // get current User's role\n  const role = User.authRole(me);\n\n  // determine, if the given userRoles authorize the current User by its role\n  if (\n    // userRole: 'world' should authorize everyone - known and unknown users\n    userRoles.includes('world') ||\n    // or there must be a userRole given, and current user must have a role\n    // and the current user's role must be in the given userRoles\n    (role && role !== '' && userRoles.length > 0 && userRoles.includes(role))\n  ) {\n    // => authorized\n    logger.debug(`and role '${role ? role : '<no-role>'}' is authorized`);\n    return true;\n  }\n\n  // => not authorized\n  return false;\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/userRoleAuthorized.js",
     "access": "public",
@@ -2920,48 +3128,48 @@
     "export": true,
     "importPath": "create-graphql-server-authorization/src/lib/userRoleAuthorized.js",
     "importStyle": "{userRoleAuthorized}",
-    "description": " ",
+    "description": "Is a user's role authorized for a document\nYou can use also the role 'world', to authorize everyone",
     "lineNumber": 19,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "object"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "me",
+        "description": "current user"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "array"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "userRoles",
+        "description": "list of userRoles"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "object"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "User",
+        "description": "model context for type User"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "object"
         ],
         "spread": false,
         "optional": false,
-        "name": "undefined",
-        "description": ""
+        "name": "logger",
+        "description": "logger function"
       }
     ],
     "return": {
@@ -2970,12 +3178,12 @@
         "boolean"
       ],
       "spread": false,
-      "description": ""
+      "description": "authorized - true, if userRole is authorized"
     }
   },
   {
     "kind": "index",
-    "content": "[![npm version](https://badge.fury.io/js/create-graphql-server-authorization.svg)](http://badge.fury.io/js/create-graphql-server-authorization) [![Build Status](https://travis-ci.org/tobkle/create-graphql-server-authorization.svg?branch=master)](https://travis-ci.org/tobkle/create-graphql-server-authorization) [![Coverage Status](https://coveralls.io/repos/github/tobkle/create-graphql-server-authorization/badge.svg?branch=master)](https://coveralls.io/github/tobkle/create-graphql-server-authorization?branch=master)\n\n# create-graphql-server-authorization\n\nAdds Authorization Logic to the GraphQL-Server-Generator: **create-graphql-server**.\n\nIf you are using create-grapqhl-server, you come to a point, when you need some kind of authorization on your GraphQL server. This package provides a possible way to do authorization checks.\n\nTherefore it enhances the type schema with two additional GraphQL directives:\n* @authorize\n* @authRole\n\nUse these two directives in your GraphQL type definitions. Then use the ```create-graphql-server add-type <your-type>``` command to generate the according GraphQL server code with already injected generated authorization logic code.\n\n## Usage\nIt provides Authorization checks for type authorization.\n\nIt adds the two GraphQL directives @authorize and @authRole to the create-graphql-server type system e.g.:\n```javascript\ntype User\n@authorize(\n  admin: [\"create\", \"read\", \"update\", \"delete\"],\n  this: [\"readOne\", \"update\", \"delete\"]\n)\n{\n  username: String!\n  role: String! @authRole(for: [\"admin\"]) \n  bio: String!\n}\n```\n\n## Installation\n```bash\ngit clone git@github.com:tmeasday/create-graphql-server.git\ncd create-graphql-server\nyarn add create-graphql-server-authorization\n```\n\nAdd it to the generator files here:\n* generate/model/index.js [Mandatory]\n* generate/schema/index.js [Optional]\n\nIn the Model generator you can use it, to generate authorization code which is then injected in the Model methods of the types:\n```javascript\nimport { generateAuthorizationCode } from 'create-graphql-server-authorization';\n...\nexport function generateModelAst(inputSchema) {\n  const type = inputSchema.definitions[0];\n  const TypeName = type.name.value;\n  const typeName = lcFirst(TypeName);\n\n  const ast = generators.base({ \n    TypeName,\n    typeName,\n    ...generateAuthorizationCode( typeName, inputSchema )\n  });\n\n  ...\n}\n...\n```\n\nIt generates authorization code for the following **tags**...\n* generateAuthCodeModeReadOne\n* generateAuthCodeModeReadMany\n* generateAuthCodeModeCreate\n* generateAuthCodeModeUpdate\n* generateAuthCodeModeDelete\n* generateCreatedBy\n* generateUpdatedBy\n* generateAuthRoleDefinition\n* generateAuthRoleMethod\n\nInsert those tags at the appropriate places in the /generate/model/templates/... files.\n\nFor example:\nIf you want to use authorization logic in the update mutation: Add the tag **generateAuthCodeModeUpdate** into the /generate/model/templates/base.js.template file like so:\n\n```javascript\n...\nimport { findByIds, queryForRoles, getLogFilename, logger, authlog, checkAuthDoc, protectFields } from 'create-graphql-server-authorization';\n...\n\nasync updateById(id, doc, me, resolver) {\n  try {\n    let docToUpdate = {$set: Object.assign({}, doc, {\n          updatedAt: Date.now(),\n          updatedById: (me && me._id) ? me._id : 'unknown',\n    })};\n    const baseQuery = {_id: id};\n\n\t// here at this location:\n    generateAuthCodeModeUpdate\n\n    const result = await this.collection.updateOne(finalQuery, docToUpdate);\n    if (result.result.ok !== 1 || result.result.n !== 1){\n      throw new Error(`update typeName not possible for ${id}.`);\n    }\n    log.debug(`updated typeName ${id}.`);\n    this.authorizedLoader.clear(id);\n    const updatedDoc = this.findOneById(id, me, 'pubsub typeNameUpdated');\n    this.pubsub.publish('typeNameUpdated', updatedDoc);\n    return updatedDoc;\n  } catch (err) { log.error(err.message); }\n}\n\n...\n```\n\nHere is a complete example file for generate/model/templates/base.js.template:\n```javascript\nimport DataLoader from 'dataloader';\nimport { findByIds, queryForRoles, getLogFilename, logger, authlog, checkAuthDoc, protectFields } from 'create-graphql-server-authorization';\nconst log = logger(getLogFilename());\n\nexport default class TypeName {\n  constructor(context) {\n    this.context = context;\n    this.collection = context.db.collection('typeName');\n    this.pubsub = context.pubsub;generateAuthRoleDefinition\n    const that = this;\n    try {\n      generateAuthCodeModeReadOne\n    } catch (err) { log.error(err.message); }\n  }\n  generateAuthRoleMethod\n  async findOneById(id, me, resolver) {\n    try {\n      if (!this.authorizedLoader) return null;\n      return await this.authorizedLoader.load(id);\n    } catch (err) { log.error(err.message); }\n  }\n\n  find({ lastCreatedAt = 0, limit = 10, baseQuery = {} }, me, resolver) {\n    try {\n      generateAuthCodeModeReadMany\n      return this.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();\n    } catch (err) { log.error(err.message); }\n  }\n\n  generateCreatedBy\n\n  generateUpdatedBy\n\n  async insert(doc, me, resolver) {\n    try {\n      let docToInsert = Object.assign({}, doc, {\n        createdAt: Date.now(),\n        updatedAt: Date.now(),\n        createdById: (me && me._id) ? me._id : 'unknown',\n        updatedById: (me && me._id) ? me._id : 'unknown',\n      });\n      generateAuthCodeModeCreate\n      const id = (await this.collection.insertOne(docToInsert)).insertedId;\n      if (!id) {\n        throw new Error(`insert typeName not possible.`);\n      }\n      log.debug(`inserted typeName ${id}.`);\n      const insertedDoc = this.findOneById(id, me, 'pubsub typeNameInserted');\n      this.pubsub.publish('typeNameInserted', insertedDoc);\n      return insertedDoc;\n    } catch (err) { log.error(err.message); }\n  }\n\n  async updateById(id, doc, me, resolver) {\n    try {\n      let docToUpdate = {$set: Object.assign({}, doc, {\n            updatedAt: Date.now(),\n            updatedById: (me && me._id) ? me._id : 'unknown',\n      })};\n      const baseQuery = {_id: id};\n      generateAuthCodeModeUpdate\n      const result = await this.collection.updateOne(finalQuery, docToUpdate);\n      if (result.result.ok !== 1 || result.result.n !== 1){\n        throw new Error(`update typeName not possible for ${id}.`);\n      }\n      log.debug(`updated typeName ${id}.`);\n      this.authorizedLoader.clear(id);\n      const updatedDoc = this.findOneById(id, me, 'pubsub typeNameUpdated');\n      this.pubsub.publish('typeNameUpdated', updatedDoc);\n      return updatedDoc;\n    } catch (err) { log.error(err.message); }\n  }\n\n  async removeById(id, me, resolver) {\n    try {\n      const baseQuery = {_id: id};\n      generateAuthCodeModeDelete\n      const result = await this.collection.remove(finalQuery);\n      if (result.result.ok !== 1 || result.result.n !== 1){\n        throw new Error(`remove typeName not possible for ${id}.`);\n      }\n      log.debug(`removed typeName ${id}.`);\n      this.authorizedLoader.clear(id);\n      this.pubsub.publish('typeNameRemoved', id);\n      return result;\n    } catch (err) { log.error(err.message); }\n  }\n\n}\n```\n\nAdditional references for this module **create-graphql-server-authorization** in the create-graphql-server are here:\n* /skel/server/authenticate.js [uses: findByIds]\n* /skel/server/index.js [uses: getLogFilename, logger]\n\nSo if you are replacing **create-graphql-server-authorization** by your own forked version of this module, please don't forget the other two references, or just keep the original version in your package.json.\n\n### Option\nIn the Schema generator you can use it as an option for example, to generate two fields createdBy and updatedBy only if there is a user type and authorization setup:\n```javascript \nimport { isAuthorizeDirectiveDefined } from 'create-graphql-server-authorization';\n...\nconst authorize = isAuthorizeDirectiveDefined(outputSchema);\n...\n// for safety reasons:\n// only with @authorize we know that there is a \"User\" type defined\nif (authorize){\n  type.fields.push(buildField('createdBy', [], 'User'));\n  type.fields.push(buildField('updatedBy', [], 'User'));\n}\n...\n```\n\n## Documentation\n(API Documentation)[https://tobkle.github.io/create-graphql-server-authorization/]\n\n## Tests\n```bash\nnpm run test\n```\n\n## Contributing\nIn lieu of a formal style guide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code.\n\n",
+    "content": "[![npm version](https://badge.fury.io/js/create-graphql-server-authorization.svg)](http://badge.fury.io/js/create-graphql-server-authorization) [![Build Status](https://travis-ci.org/tobkle/create-graphql-server-authorization.svg?branch=master)](https://travis-ci.org/tobkle/create-graphql-server-authorization) [![Coverage Status](https://coveralls.io/repos/github/tobkle/create-graphql-server-authorization/badge.svg?branch=master)](https://coveralls.io/github/tobkle/create-graphql-server-authorization?branch=master) [![documentation](https://github.com/tobkle/create-graphql-server-authorization/docs/badge.svg)](https://github.com/tobkle/create-graphql-server-authorization/docs/badge.svg)\n\n# create-graphql-server-authorization\n\nAdds Authorization Logic to the GraphQL-Server-Generator: **create-graphql-server**.\n\nIf you are using create-grapqhl-server, you come to a point, when you need some kind of authorization on your GraphQL server. This package provides a possible way to do authorization checks.\n\nTherefore it enhances the type schema with two additional GraphQL directives:\n* @authorize\n* @authRole\n\nUse these two directives in your GraphQL type definitions. Then use the ```create-graphql-server add-type <your-type>``` command to generate the according GraphQL server code with already injected generated authorization logic code.\n\n## Usage\nIt provides Authorization checks for type authorization.\n\nIt adds the two GraphQL directives @authorize and @authRole to the create-graphql-server type system e.g.:\n```javascript\ntype User\n@authorize(\n  admin: [\"create\", \"read\", \"update\", \"delete\"],\n  this: [\"readOne\", \"update\", \"delete\"]\n)\n{\n  username: String!\n  role: String! @authRole(for: [\"admin\"]) \n  bio: String!\n}\n```\n\n## Installation\n```bash\ngit clone git@github.com:tmeasday/create-graphql-server.git\ncd create-graphql-server\nyarn add create-graphql-server-authorization\n```\n\nAdd it to the generator files here:\n* generate/model/index.js [Mandatory]\n* generate/schema/index.js [Optional]\n\nIn the Model generator you can use it, to generate authorization code which is then injected in the Model methods of the types:\n```javascript\nimport { generateAuthorizationCode } from 'create-graphql-server-authorization';\n...\nexport function generateModelAst(inputSchema) {\n  const type = inputSchema.definitions[0];\n  const TypeName = type.name.value;\n  const typeName = lcFirst(TypeName);\n\n  const ast = generators.base({ \n    TypeName,\n    typeName,\n    ...generateAuthorizationCode( typeName, inputSchema )\n  });\n\n  ...\n}\n...\n```\n\nIt generates authorization code for the following **tags**...\n* generateAuthCodeModeReadOne\n* generateAuthCodeModeReadMany\n* generateAuthCodeModeCreate\n* generateAuthCodeModeUpdate\n* generateAuthCodeModeDelete\n* generateCreatedBy\n* generateUpdatedBy\n* generateAuthRoleDefinition\n* generateAuthRoleMethod\n\nInsert those tags at the appropriate places in the /generate/model/templates/... files.\n\nFor example:\nIf you want to use authorization logic in the update mutation: Add the tag **generateAuthCodeModeUpdate** into the /generate/model/templates/base.js.template file like so:\n\n```javascript\n...\nimport { findByIds, queryForRoles, getLogFilename, logger, authlog, checkAuthDoc, protectFields } from 'create-graphql-server-authorization';\n...\n\nasync updateById(id, doc, me, resolver) {\n  try {\n    let docToUpdate = {$set: Object.assign({}, doc, {\n          updatedAt: Date.now(),\n          updatedById: (me && me._id) ? me._id : 'unknown',\n    })};\n    const baseQuery = {_id: id};\n\n\t// here at this location:\n    generateAuthCodeModeUpdate\n\n    const result = await this.collection.updateOne(finalQuery, docToUpdate);\n    if (result.result.ok !== 1 || result.result.n !== 1){\n      throw new Error(`update typeName not possible for ${id}.`);\n    }\n    log.debug(`updated typeName ${id}.`);\n    this.authorizedLoader.clear(id);\n    const updatedDoc = this.findOneById(id, me, 'pubsub typeNameUpdated');\n    this.pubsub.publish('typeNameUpdated', updatedDoc);\n    return updatedDoc;\n  } catch (err) { log.error(err.message); }\n}\n\n...\n```\n\nHere is a complete example file for generate/model/templates/base.js.template:\n```javascript\nimport DataLoader from 'dataloader';\nimport { findByIds, queryForRoles, getLogFilename, logger, authlog, checkAuthDoc, protectFields } from 'create-graphql-server-authorization';\nconst log = logger(getLogFilename());\n\nexport default class TypeName {\n  constructor(context) {\n    this.context = context;\n    this.collection = context.db.collection('typeName');\n    this.pubsub = context.pubsub;generateAuthRoleDefinition\n    const that = this;\n    try {\n      generateAuthCodeModeReadOne\n    } catch (err) { log.error(err.message); }\n  }\n  generateAuthRoleMethod\n  async findOneById(id, me, resolver) {\n    try {\n      if (!this.authorizedLoader) return null;\n      return await this.authorizedLoader.load(id);\n    } catch (err) { log.error(err.message); }\n  }\n\n  find({ lastCreatedAt = 0, limit = 10, baseQuery = {} }, me, resolver) {\n    try {\n      generateAuthCodeModeReadMany\n      return this.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();\n    } catch (err) { log.error(err.message); }\n  }\n\n  generateCreatedBy\n\n  generateUpdatedBy\n\n  async insert(doc, me, resolver) {\n    try {\n      let docToInsert = Object.assign({}, doc, {\n        createdAt: Date.now(),\n        updatedAt: Date.now(),\n        createdById: (me && me._id) ? me._id : 'unknown',\n        updatedById: (me && me._id) ? me._id : 'unknown',\n      });\n      generateAuthCodeModeCreate\n      const id = (await this.collection.insertOne(docToInsert)).insertedId;\n      if (!id) {\n        throw new Error(`insert typeName not possible.`);\n      }\n      log.debug(`inserted typeName ${id}.`);\n      const insertedDoc = this.findOneById(id, me, 'pubsub typeNameInserted');\n      this.pubsub.publish('typeNameInserted', insertedDoc);\n      return insertedDoc;\n    } catch (err) { log.error(err.message); }\n  }\n\n  async updateById(id, doc, me, resolver) {\n    try {\n      let docToUpdate = {$set: Object.assign({}, doc, {\n            updatedAt: Date.now(),\n            updatedById: (me && me._id) ? me._id : 'unknown',\n      })};\n      const baseQuery = {_id: id};\n      generateAuthCodeModeUpdate\n      const result = await this.collection.updateOne(finalQuery, docToUpdate);\n      if (result.result.ok !== 1 || result.result.n !== 1){\n        throw new Error(`update typeName not possible for ${id}.`);\n      }\n      log.debug(`updated typeName ${id}.`);\n      this.authorizedLoader.clear(id);\n      const updatedDoc = this.findOneById(id, me, 'pubsub typeNameUpdated');\n      this.pubsub.publish('typeNameUpdated', updatedDoc);\n      return updatedDoc;\n    } catch (err) { log.error(err.message); }\n  }\n\n  async removeById(id, me, resolver) {\n    try {\n      const baseQuery = {_id: id};\n      generateAuthCodeModeDelete\n      const result = await this.collection.remove(finalQuery);\n      if (result.result.ok !== 1 || result.result.n !== 1){\n        throw new Error(`remove typeName not possible for ${id}.`);\n      }\n      log.debug(`removed typeName ${id}.`);\n      this.authorizedLoader.clear(id);\n      this.pubsub.publish('typeNameRemoved', id);\n      return result;\n    } catch (err) { log.error(err.message); }\n  }\n\n}\n```\n\nAdditional references for this module **create-graphql-server-authorization** in the create-graphql-server are here:\n* /skel/server/authenticate.js [uses: findByIds]\n* /skel/server/index.js [uses: getLogFilename, logger]\n\nSo if you are replacing **create-graphql-server-authorization** by your own forked version of this module, please don't forget the other two references, or just keep the original version in your package.json.\n\n### Option\nIn the Schema generator you can use it as an option for example, to generate two fields createdBy and updatedBy only if there is a user type and authorization setup:\n```javascript \nimport { isAuthorizeDirectiveDefined } from 'create-graphql-server-authorization';\n...\nconst authorize = isAuthorizeDirectiveDefined(outputSchema);\n...\n// for safety reasons:\n// only with @authorize we know that there is a \"User\" type defined\nif (authorize){\n  type.fields.push(buildField('createdBy', [], 'User'));\n  type.fields.push(buildField('updatedBy', [], 'User'));\n}\n...\n```\n\n## Documentation\n[API Documentation](https://tobkle.github.io/create-graphql-server-authorization/)\n\n## Tests\n```bash\nyarn test\n```\n\n## Contributing\nIn lieu of a formal style guide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code.\n\n",
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/README.md",
     "name": "./README.md",
     "static": true,
@@ -2983,7 +3191,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"create-graphql-server-authorization\",\n  \"version\": \"0.0.29\",\n  \"description\": \"Authorization package for create-graphql-server\",\n  \"contributors\": [\n    \"Tobias Klemmer <tobias@klemmer.info> (https://www.klemmer.info)\"\n  ],\n  \"main\": \"index.js\",\n  \"author\": \"Tobias Klemmer <tobias@klemmer.info> (https://www.klemmer.info)\",\n  \"license\": \"MIT\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/tobkle/create-graphql-server-authorization.git\"\n  },\n  \"keywords\": [\n    \"create-graphql-server\",\n    \"authorization\"\n  ],\n  \"bugs\": {\n    \"url\": \"https://github.com/tobkle/create-graphql-server-authorization/issues\"\n  },\n  \"config\": {\n    \"logfile\": \"log/all-logs-readable.log\"\n  },\n  \"options\": {\n    \"mocha\": \"--require ./resources/mocha-bootload --check-leaks --full-trace src/**/__tests__/**/*-test.js\"\n  },\n  \"scripts\": {\n    \"test\": \"npm run lint && npm run check && npm run testonly\",\n    \"testonly\": \"babel-node ./node_modules/.bin/_mocha $npm_package_options_mocha\",\n    \"t\": \"babel-node ./node_modules/.bin/_mocha --require ./resources/mocha-bootload\",\n    \"lint\": \"eslint --fix src || (printf '\\\\033[33mTry: \\\\033[7m npm run lint -- --fix \\\\033[0m\\\\n' && exit 1)\",\n    \"check\": \"flow check\",\n    \"check-cover\": \"for file in {src/*.js,src/**/*.js}; do echo $file; flow coverage $file; done\",\n    \"build\": \"babel src --optional runtime --ignore __tests__ --out-dir dist/ && cp package.json dist/ && npm run build-dot-flow\",\n    \"build-dot-flow\": \"find ./src -name '*.js' -not -path '*/__tests__*' | while read filepath; do cp $filepath `echo $filepath | sed 's/\\\\/src\\\\//\\\\/dist\\\\//g'`.flow; done\",\n    \"watch\": \"babel-node ./resources/watch.js\",\n    \"cover\": \"babel-node ./node_modules/.bin/isparta cover --root src --report html _mocha -- $npm_package_options_mocha\",\n    \"cover:lcov\": \"babel-node ./node_modules/.bin/isparta cover --root src --report lcovonly _mocha -- $npm_package_options_mocha\",\n    \"preversion\": \". ./resources/checkgit.sh && npm test\",\n    \"prepublish\": \". ./resources/prepublish.sh\",\n    \"gitpublish\": \". ./resources/gitpublish.sh\",\n    \"prettier\": \"node_modules/.bin/prettier src/**/**/*.js --write\",\n    \"esdoc\": \"node_modules/.bin/esdoc -c .esdoc.json\"\n  },\n  \"homepage\": \"https://github.com/tobkle/create-graphql-server-authorization#readme\",\n  \"devDependencies\": {\n    \"babel-cli\": \"6.24.1\",\n    \"babel-eslint\": \"7.2.3\",\n    \"babel-plugin-syntax-async-functions\": \"6.13.0\",\n    \"babel-plugin-syntax-async-generators\": \"6.13.0\",\n    \"babel-plugin-transform-class-properties\": \"6.24.1\",\n    \"babel-plugin-transform-flow-strip-types\": \"6.22.0\",\n    \"babel-plugin-transform-object-rest-spread\": \"6.23.0\",\n    \"babel-preset-env\": \"^1.5.2\",\n    \"bson-objectid\": \"^1.1.5\",\n    \"chai\": \"4.1.1\",\n    \"chai-fs\": \"^1.0.0\",\n    \"chai-json-equal\": \"0.0.1\",\n    \"chai-spies-next\": \"^0.8.0\",\n    \"chai-subset\": \"1.5.0\",\n    \"coveralls\": \"^2.13.1\",\n    \"cross-env\": \"^5.0.5\",\n    \"dataloader\": \"^1.3.0\",\n    \"esdoc\": \"^1.0.1\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-flow-type-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^4.5.0\",\n    \"eslint-config-prettier\": \"^2.3.0\",\n    \"eslint-config-react-app\": \"^2.0.0\",\n    \"eslint-plugin-babel\": \"4.1.2\",\n    \"eslint-plugin-flowtype\": \"2.35.0\",\n    \"eslint-plugin-import\": \"^2.7.0\",\n    \"eslint-plugin-prettier\": \"^2.1.2\",\n    \"eslint-plugin-react\": \"^7.3.0\",\n    \"flow-bin\": \"0.52.0\",\n    \"isparta\": \"4.0.0\",\n    \"mocha\": \"3.5.0\",\n    \"mocha-lcov-reporter\": \"^1.3.0\",\n    \"mongo-mock\": \"^2.4.1\",\n    \"prettier\": \"^1.5.3\",\n    \"sane\": \"2.0.0\"\n  },\n  \"dependencies\": {\n    \"global\": \"^4.3.2\",\n    \"iterall\": \"^1.1.0\",\n    \"lodash\": \"4.16.4\",\n    \"mongodb\": \"^2.2.31\",\n    \"winston\": \"^2.3.1\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"create-graphql-server-authorization\",\n  \"version\": \"0.0.30\",\n  \"description\": \"Authorization package for create-graphql-server\",\n  \"contributors\": [\n    \"Tobias Klemmer <tobias@klemmer.info> (https://www.klemmer.info)\"\n  ],\n  \"main\": \"index.js\",\n  \"author\": \"Tobias Klemmer <tobias@klemmer.info> (https://www.klemmer.info)\",\n  \"license\": \"MIT\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/tobkle/create-graphql-server-authorization.git\"\n  },\n  \"keywords\": [\n    \"create-graphql-server\",\n    \"authorization\"\n  ],\n  \"bugs\": {\n    \"url\": \"https://github.com/tobkle/create-graphql-server-authorization/issues\"\n  },\n  \"config\": {\n    \"logfile\": \"log/all-logs-readable.log\"\n  },\n  \"options\": {\n    \"mocha\": \"--require ./resources/mocha-bootload --check-leaks --full-trace src/**/__tests__/**/*-test.js\"\n  },\n  \"scripts\": {\n    \"test\": \"npm run lint && npm run check && npm run testonly\",\n    \"testonly\": \"babel-node ./node_modules/.bin/_mocha $npm_package_options_mocha\",\n    \"t\": \"babel-node ./node_modules/.bin/_mocha --require ./resources/mocha-bootload\",\n    \"lint\": \"eslint --fix src || (printf '\\\\033[33mTry: \\\\033[7m npm run lint -- --fix \\\\033[0m\\\\n' && exit 1)\",\n    \"check\": \"flow check\",\n    \"check-cover\": \"for file in {src/*.js,src/**/*.js}; do echo $file; flow coverage $file; done\",\n    \"build\": \"babel src --optional runtime --ignore __tests__ --out-dir dist/ && cp package.json dist/ && npm run build-dot-flow\",\n    \"build-dot-flow\": \"find ./src -name '*.js' -not -path '*/__tests__*' | while read filepath; do cp $filepath `echo $filepath | sed 's/\\\\/src\\\\//\\\\/dist\\\\//g'`.flow; done\",\n    \"watch\": \"babel-node ./resources/watch.js\",\n    \"cover\": \"babel-node ./node_modules/.bin/isparta cover --root src --report html _mocha -- $npm_package_options_mocha\",\n    \"cover:lcov\": \"babel-node ./node_modules/.bin/isparta cover --root src --report lcovonly _mocha -- $npm_package_options_mocha\",\n    \"preversion\": \". ./resources/checkgit.sh && npm test\",\n    \"prepublish\": \". ./resources/prepublish.sh\",\n    \"gitpublish\": \". ./resources/gitpublish.sh\",\n    \"prettier\": \"node_modules/.bin/prettier src/**/**/*.js --write\",\n    \"esdoc\": \"node_modules/.bin/esdoc -c .esdoc.json\"\n  },\n  \"homepage\": \"https://github.com/tobkle/create-graphql-server-authorization#readme\",\n  \"devDependencies\": {\n    \"babel-cli\": \"6.24.1\",\n    \"babel-eslint\": \"7.2.3\",\n    \"babel-plugin-syntax-async-functions\": \"6.13.0\",\n    \"babel-plugin-syntax-async-generators\": \"6.13.0\",\n    \"babel-plugin-transform-class-properties\": \"6.24.1\",\n    \"babel-plugin-transform-flow-strip-types\": \"6.22.0\",\n    \"babel-plugin-transform-object-rest-spread\": \"6.23.0\",\n    \"babel-preset-env\": \"^1.5.2\",\n    \"bson-objectid\": \"^1.1.5\",\n    \"chai\": \"4.1.1\",\n    \"chai-fs\": \"^1.0.0\",\n    \"chai-json-equal\": \"0.0.1\",\n    \"chai-spies-next\": \"^0.8.0\",\n    \"chai-subset\": \"1.5.0\",\n    \"coveralls\": \"^2.13.1\",\n    \"cross-env\": \"^5.0.5\",\n    \"dataloader\": \"^1.3.0\",\n    \"esdoc\": \"^1.0.1\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-flow-type-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^4.5.0\",\n    \"eslint-config-prettier\": \"^2.3.0\",\n    \"eslint-config-react-app\": \"^2.0.0\",\n    \"eslint-plugin-babel\": \"4.1.2\",\n    \"eslint-plugin-flowtype\": \"2.35.0\",\n    \"eslint-plugin-import\": \"^2.7.0\",\n    \"eslint-plugin-prettier\": \"^2.1.2\",\n    \"eslint-plugin-react\": \"^7.3.0\",\n    \"flow-bin\": \"0.52.0\",\n    \"isparta\": \"4.0.0\",\n    \"mocha\": \"3.5.0\",\n    \"mocha-lcov-reporter\": \"^1.3.0\",\n    \"mongo-mock\": \"^2.4.1\",\n    \"prettier\": \"^1.5.3\",\n    \"sane\": \"2.0.0\"\n  },\n  \"dependencies\": {\n    \"global\": \"^4.3.2\",\n    \"iterall\": \"^1.1.0\",\n    \"lodash\": \"4.16.4\",\n    \"mongodb\": \"^2.2.31\",\n    \"winston\": \"^2.3.1\"\n  }\n}\n",
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/package.json",
     "name": "package.json",
     "static": true,

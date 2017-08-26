@@ -1,12 +1,14 @@
 // @flow
+
 import { userRoleAuthorized } from './userRoleAuthorized';
 import { fieldContainsUserId } from './fieldContainsUserId';
 import { authlog } from './authlog';
 
+// default logger, if there is none given
 const defaultLogger = authlog();
 
-/*
- * @desc Returns an authorized document
+/**
+ * Returns an authorized document
  * @public
  * @param {object} doc - any document to be checked
  * @param {object} me - current user

@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="Authorization package for create-graphql-server"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="create-graphql-server-authorization"><meta property="twitter:description" content="Authorization package for create-graphql-server"></head>
+<meta name="description" content="Adds authorization to create-graphql-server"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="create-graphql-server-authorization"><meta property="twitter:description" content="Adds authorization to create-graphql-server"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -48,14 +48,16 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/lib/dummyUserContext.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// @flow
-/*
- * @desc Returns a dummyUserContext
- * @desc mocking User authRole, as it is not existing in this library
- * @desc for usage in the test cases, where we don&apos;t have an original 
- * @desc User model context
+
+/**
+ * Returns a dummyUserContext
+ * mocking User authRole, as it is not existing in this library
+ * for usage in the test cases, where we don&apos;t have an original 
+ * User model context
  * @public
  * @return {object} dummyUserContext - returns user.role || null
  */
+
 export const dummyUserContext = {
   authRole(user) {
     return user &amp;&amp; user.role ? user.role : null;

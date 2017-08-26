@@ -1,27 +1,33 @@
 {
-  "coverage": "43.07%",
+  "coverage": "47.69%",
   "expectCount": 65,
-  "actualCount": 28,
+  "actualCount": 31,
   "files": {
     "src/generate/index.js": {
       "expectCount": 47,
       "actualCount": 17,
       "undocumentLines": [
+        6,
+        9,
+        10,
+        11,
         12,
+        13,
+        14,
         15,
         16,
-        17,
-        18,
         19,
         20,
         21,
         22,
-        25,
-        26,
+        23,
+        24,
         27,
         28,
         29,
         30,
+        31,
+        32,
         33,
         34,
         35,
@@ -29,14 +35,8 @@
         37,
         38,
         39,
-        40,
-        41,
         42,
-        43,
-        44,
-        45,
-        48,
-        51
+        45
       ]
     },
     "src/lib/authlog.js": {
@@ -48,15 +48,13 @@
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
-        6
+        8
       ]
     },
     "src/lib/dummyUserContext.js": {
       "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        10
-      ]
+      "actualCount": 1,
+      "undocumentLines": []
     },
     "src/lib/fieldContainsUserId.js": {
       "expectCount": 2,
@@ -82,11 +80,8 @@
     },
     "src/lib/logger.js": {
       "expectCount": 3,
-      "actualCount": 1,
-      "undocumentLines": [
-        12,
-        21
-      ]
+      "actualCount": 3,
+      "undocumentLines": []
     },
     "src/lib/protectFields.js": {
       "expectCount": 1,
