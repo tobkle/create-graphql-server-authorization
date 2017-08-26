@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/lib/queryForRoles.js | create-graphql-server-authorization</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Authorization package for create-graphql-server"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="create-graphql-server-authorization"><meta property="twitter:description" content="Authorization package for create-graphql-server"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/tobkle/create-graphql-server-authorization"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#generate">generate</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-generateAuthorizationCode">generateAuthorizationCode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isAuthorizeDirectiveDefined">isAuthorizeDirectiveDefined</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib">lib</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-authlog">authlog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-checkAuthDoc">checkAuthDoc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fieldContainsUserId">fieldContainsUserId</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findByIds">findByIds</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLogFilename">getLogFilename</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loggedIn">loggedIn</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logger">logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-protectFields">protectFields</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-queryForRoles">queryForRoles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-userRoleAuthorized">userRoleAuthorized</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dummyUserContext">dummyUserContext</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/lib/queryForRoles.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { userRoleAuthorized } from &apos;./userRoleAuthorized&apos;;
+import { dummyUserContext } from &apos;./dummyUserContext&apos;;
+import { loggedIn } from &apos;./loggedIn&apos;;
+import { authlog } from &apos;./authlog&apos;;
+
+const defaultLogger = authlog();
+
+/*
+ * Prepare a query object for mongodb operations with authorization queries
+ * creates an authQuery object with additional 
+ * query arguments, to implement authorization restrictions for mongodb access
+ * @param {object} me
+ * @param {array} userRoles
+ * @param {array} docRoles
+ * @param {object} inputObject
+ * @param {object} User
+ * @param {object} logger
+ * @return {object, exception} queryObject
+ *
+ * @example: queryForRoles(me, userRoles, docRoles, { User }, 
+ *                         authlog(resolver, mode, me ) ); 
+ */
+export function queryForRoles(
+  me = {},
+  userRoles = [],
+  docRoles = [],
+  { User } = { User: dummyUserContext },
+  logger = defaultLogger
+) {
+  // get current User&apos;s role
+  const role = User.authRole(me);
+
+  // Build query for the case: The logged in user&apos;s role is authorized
+  if (userRoleAuthorized(me, userRoles, { User }, logger)) {
+    // empty authQuery means, do operation with no access restrictions
+    return {};
+  }
+
+  // Build query for the case: The user is listed in any document field
+  const query = { $or: [] };
+  // makes only sense, if user is logged in - otherwise no userId
+  if (loggedIn(me)) {
+    // prepare selection criterias as &apos;authQuery&apos; object
+    // for later mongodb &apos;find(...baseQuery,  ...authQuery)&apos;
+    //                               ...  AND ...{ field1 OR field2}
+    // which will be also considered during the database access
+    // as an &apos;$or: [ { field1: userId}, { field2: userId} ]&apos;
+    // with all document roles as fields for the later selection.
+    // At least one of those fields must match the userId,
+    // otherwise, whether no data found or not authorized to access data
+    docRoles.forEach(docRole =&gt; query.$or.push({ [docRole]: me._id }));
+    // return this authQuery only, if there was at least 1 field added
+    // otherwise it will result in an unlimited access
+    if (query.$or.length &gt; 0) {
+      // for easier debugging write into the authorzation logs
+      logger.debug(
+        `and role: &apos;${role ? role : &apos;&lt;no-role&gt;&apos;}&apos; with 
+        authQuery: ${JSON.stringify(query, null, 2)}`
+      );
+      // return the query as authQuery for later selection
+      return query;
+    }
+  }
+
+  // Not Authorized - throw exception in logger.error
+  const message = `and role: &apos;${role}&apos; is not authorized.`;
+  logger.error(message);
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.1)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

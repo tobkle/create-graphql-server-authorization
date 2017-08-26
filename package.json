@@ -41,7 +41,7 @@
     "prepublish": ". ./resources/prepublish.sh",
     "gitpublish": ". ./resources/gitpublish.sh",
     "prettier": "node_modules/.bin/prettier src/**/**/*.js --write",
-    "esdoc": "node_modules/.bin/esdoc -c esdoc.json"
+    "esdoc": "node_modules/.bin/esdoc -c .esdoc.json"
   },
   "homepage": "https://github.com/tobkle/create-graphql-server-authorization#readme",
   "devDependencies": {

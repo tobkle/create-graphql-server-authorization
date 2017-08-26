@@ -4,6 +4,7 @@
  * authorization functions
  */
 
+/* for the model authorization logic */
 export { getLogFilename } from './lib/getLogFilename.js';
 export { dummyUserContext } from './lib/dummyUserContext.js';
 export { logger } from './lib/logger.js';
@@ -15,3 +16,9 @@ export { loggedIn } from './lib/loggedIn.js';
 export { protectFields } from './lib/protectFields.js';
 export { queryForRoles } from './lib/queryForRoles.js';
 export { userRoleAuthorized } from './lib/userRoleAuthorized.js';
+
+/* for the code generator */
+export {
+  generateAuthorizationCode,
+  isAuthorizeDirectiveDefined
+} from './generate/index.js';

@@ -24,15 +24,21 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "create-graphql-server-authorization/src/lib/findbyids.js~findbyids",
-    "function/index.html#static-function-findByIds",
-    "<span>findByIds</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/findByIds.js</span>",
+    "create-graphql-server-authorization/src/generate/index.js~generateauthorizationcode",
+    "function/index.html#static-function-generateAuthorizationCode",
+    "<span>generateAuthorizationCode</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/index.js</span>",
     "function"
   ],
   [
     "create-graphql-server-authorization/src/lib/getlogfilename.js~getlogfilename",
     "function/index.html#static-function-getLogFilename",
     "<span>getLogFilename</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/getLogFilename.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generate/index.js~isauthorizedirectivedefined",
+    "function/index.html#static-function-isAuthorizeDirectiveDefined",
+    "<span>isAuthorizeDirectiveDefined</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/index.js</span>",
     "function"
   ],
   [
@@ -414,6 +420,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/generate/index.js",
+    "file/src/generate/index.js.html",
+    "src/generate/index.js",
+    "file"
+  ],
+  [
     "src/index.js",
     "file/src/index.js.html",
     "src/index.js",
@@ -441,12 +453,6 @@ window.esdocSearchIndex = [
     "src/lib/fieldcontainsuserid.js",
     "file/src/lib/fieldContainsUserId.js.html",
     "src/lib/fieldContainsUserId.js",
-    "file"
-  ],
-  [
-    "src/lib/findbyids.js",
-    "file/src/lib/findByIds.js.html",
-    "src/lib/findByIds.js",
     "file"
   ],
   [
