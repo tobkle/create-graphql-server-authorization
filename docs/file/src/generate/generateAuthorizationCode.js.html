@@ -66,7 +66,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-USER_MODEL">USER_MODEL</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-USER_ROLE">USER_ROLE</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-WORLD">WORLD</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#generate">generate</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-extractRoles">extractRoles</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#generate">generate</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-adjustSchemaForAuthorization">adjustSchemaForAuthorization</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-extractRoles">extractRoles</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-generateAuthCodeModeCreate">generateAuthCodeModeCreate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-generateAuthCodeModeDelete">generateAuthCodeModeDelete</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-generateAuthCodeModeReadMany">generateAuthCodeModeReadMany</a></span></span></li>
@@ -75,6 +76,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-generateAuthRoleDefinition">generateAuthRoleDefinition</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-generateAuthRoleMethod">generateAuthRoleMethod</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-generateAuthorizationCode">generateAuthorizationCode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-generateBcryptDefinition">generateBcryptDefinition</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-generateCreatedBy">generateCreatedBy</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-generateUpdatedBy">generateUpdatedBy</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getFieldType">getFieldType</a></span></span></li>
@@ -114,6 +116,7 @@ import { generateCreatedBy } from &apos;./generateCreatedBy&apos;;
 import { generateUpdatedBy } from &apos;./generateUpdatedBy&apos;;
 import { generateAuthRoleDefinition } from &apos;./generateAuthRoleDefinition&apos;;
 import { generateAuthRoleMethod } from &apos;./generateAuthRoleMethod&apos;;
+import { generateBcryptDefinition } from &apos;./generateBcryptDefinition&apos;;
 
 /**
  * generates authorization code
@@ -130,6 +133,7 @@ import { generateAuthRoleMethod } from &apos;./generateAuthRoleMethod&apos;;
  * @property {string} generateUpdatedBy - code for field updatedBy
  * @property {string} generateAuthRoleDefinition - code for authRole definition
  * @property {string} generateAuthRoleMethod - code for authRole method in type User
+ * @property {string} generateBcryptDefinition - code for bcrypt definition in type User
  */
 
 export function generateAuthorizationCode(
@@ -144,7 +148,8 @@ export function generateAuthorizationCode(
   generateCreatedBy: string,
   generateUpdatedBy: string,
   generateAuthRoleDefinition: string,
-  generateAuthRoleMethod: string
+  generateAuthRoleMethod: string,
+  generateBcryptDefinition: string
 } {
   const authorize = isAuthorizeDirectiveDefined(inputSchema);
   const { userRoles, docRoles, roleFieldName } = getRoles(
@@ -189,7 +194,8 @@ export function generateAuthorizationCode(
       authorize,
       typeName,
       roleFieldName
-    )
+    ),
+    generateBcryptDefinition: generateBcryptDefinition(authorize, typeName)
   };
 }
 </code></pre>

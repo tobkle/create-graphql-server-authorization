@@ -1,7 +1,7 @@
 {
-  "coverage": "43.05%",
-  "expectCount": 72,
-  "actualCount": 31,
+  "coverage": "44.59%",
+  "expectCount": 74,
+  "actualCount": 33,
   "files": {
     "src/constants.js": {
       "expectCount": 37,
@@ -46,6 +46,11 @@
         52
       ]
     },
+    "src/generate/adjustSchemaForAuthorization.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
     "src/generate/extractRoles.js": {
       "expectCount": 1,
       "actualCount": 1,
@@ -87,6 +92,11 @@
       "undocumentLines": []
     },
     "src/generate/generateAuthorizationCode.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generate/generateBcryptDefinition.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []

@@ -222,6 +222,12 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "create-graphql-server-authorization/src/generate/adjustschemaforauthorization.js~adjustschemaforauthorization",
+    "function/index.html#static-function-adjustSchemaForAuthorization",
+    "<span>adjustSchemaForAuthorization</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/adjustSchemaForAuthorization.js</span>",
+    "function"
+  ],
+  [
     "create-graphql-server-authorization/src/lib/authlog.js~authlog",
     "function/index.html#static-function-authlog",
     "<span>authlog</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/authlog.js</span>",
@@ -303,6 +309,12 @@ window.esdocSearchIndex = [
     "create-graphql-server-authorization/src/generate/generateauthorizationcode.js~generateauthorizationcode",
     "function/index.html#static-function-generateAuthorizationCode",
     "<span>generateAuthorizationCode</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/generateAuthorizationCode.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generate/generatebcryptdefinition.js~generatebcryptdefinition",
+    "function/index.html#static-function-generateBcryptDefinition",
+    "<span>generateBcryptDefinition</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generate/generateBcryptDefinition.js</span>",
     "function"
   ],
   [
@@ -678,6 +690,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/generate/adjustschemaforauthorization.js",
+    "file/src/generate/adjustSchemaForAuthorization.js.html",
+    "src/generate/adjustSchemaForAuthorization.js",
+    "file"
+  ],
+  [
     "src/generate/extractroles.js",
     "file/src/generate/extractRoles.js.html",
     "src/generate/extractRoles.js",
@@ -729,6 +747,12 @@ window.esdocSearchIndex = [
     "src/generate/generateauthorizationcode.js",
     "file/src/generate/generateAuthorizationCode.js.html",
     "src/generate/generateAuthorizationCode.js",
+    "file"
+  ],
+  [
+    "src/generate/generatebcryptdefinition.js",
+    "file/src/generate/generateBcryptDefinition.js.html",
+    "src/generate/generateBcryptDefinition.js",
     "file"
   ],
   [

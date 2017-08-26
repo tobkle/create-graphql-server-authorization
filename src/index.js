@@ -17,6 +17,7 @@
  * @param {function} userRoleAuthorized - checks, if a user's role is authorized
  * @param {function} generateAuthorizationCode - generates authorization code during add-type
  * @param {function} isAuthorizeDirectiveDefined - returns true, if authorization logic is defined
+ * @param {function} adjustSchemaForAuthorization - returns an array of fields for schema
  */
 
 /* for the authorization logic */
@@ -39,3 +40,6 @@ export {
 export {
   isAuthorizeDirectiveDefined
 } from './generate/isAuthorizeDirectiveDefined.js';
+export {
+  adjustSchemaForAuthorization
+} from './generate/adjustSchemaForAuthorization.js';

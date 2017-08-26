@@ -13,6 +13,7 @@ import { generateCreatedBy } from './generateCreatedBy';
 import { generateUpdatedBy } from './generateUpdatedBy';
 import { generateAuthRoleDefinition } from './generateAuthRoleDefinition';
 import { generateAuthRoleMethod } from './generateAuthRoleMethod';
+import { generateBcryptDefinition } from './generateBcryptDefinition';
 
 /**
  * generates authorization code
@@ -29,6 +30,7 @@ import { generateAuthRoleMethod } from './generateAuthRoleMethod';
  * @property {string} generateUpdatedBy - code for field updatedBy
  * @property {string} generateAuthRoleDefinition - code for authRole definition
  * @property {string} generateAuthRoleMethod - code for authRole method in type User
+ * @property {string} generateBcryptDefinition - code for bcrypt definition in type User
  */
 
 export function generateAuthorizationCode(
@@ -43,7 +45,8 @@ export function generateAuthorizationCode(
   generateCreatedBy: string,
   generateUpdatedBy: string,
   generateAuthRoleDefinition: string,
-  generateAuthRoleMethod: string
+  generateAuthRoleMethod: string,
+  generateBcryptDefinition: string
 } {
   const authorize = isAuthorizeDirectiveDefined(inputSchema);
   const { userRoles, docRoles, roleFieldName } = getRoles(
@@ -88,6 +91,7 @@ export function generateAuthorizationCode(
       authorize,
       typeName,
       roleFieldName
-    )
+    ),
+    generateBcryptDefinition: generateBcryptDefinition(authorize, typeName)
   };
 }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">src/lib/queryForRoles.js | create-graphql-server-authorization</title>
+  <title data-ice="title">src/generate/generateBcryptDefinition.js | create-graphql-server-authorization</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -100,79 +100,34 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/lib/queryForRoles.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/* eslint-disable max-len */
-// @flow
+<div class="content" data-ice="content"><h1 data-ice="title">src/generate/generateBcryptDefinition.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// @flow
 
-import { NO_ROLE } from &apos;../constants&apos;;
-import { userRoleAuthorized } from &apos;./userRoleAuthorized&apos;;
-import { dummyUserContext } from &apos;./dummyUserContext&apos;;
-import { loggedIn } from &apos;./loggedIn&apos;;
-import { authlog } from &apos;./authlog&apos;;
-
-const defaultLogger = authlog();
+import { USER_MODEL } from &apos;../constants&apos;;
 
 /**
- * Prepare a query object for mongodb operations with authorization queries
- * creates an authQuery object with additional 
- * query arguments, to implement authorization restrictions for mongodb access
- * @public
- * @param {object} me - current user
- * @param {array} userRoles - list of userRoles
- * @param {array} docRoles - list of docRoles
- * @param {object} User - model context for type User
- * @param {object} logger - logger function
- * @return {object} authQuery - authQuery for data operations
- * @example 
- *   const authQuery = 
- *     queryForRoles(me, userRoles, docRoles, { User }, authlog(resolver, mode, me ) );
+ * generate bcrypt definition, only for type User
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @return {string} generatedCode - generated code to be injected
  */
 
-export function queryForRoles(
-  me: any = {},
-  userRoles: Array&lt;string&gt; = [],
-  docRoles: Array&lt;string&gt; = [],
-  { User } = { User: dummyUserContext },
-  logger: any = defaultLogger
-): any {
-  // get current User&apos;s role
-  const role = User.authRole(me);
+export function generateBcryptDefinition(
+  authorize: boolean = false,
+  typeName: string = &apos;&apos;
+): string {
+  // default code
+  let generatedCode = ``;
 
-  // Build query for the case: The logged in user&apos;s role is authorized
-  if (userRoleAuthorized(me, userRoles, { User }, logger)) {
-    // empty authQuery means, do operation with no access restrictions
-    return {};
+  // with @authorize directive: means there must be a User type
+  if (authorize &amp;&amp; typeName === USER_MODEL) {
+    generatedCode = `
+    import bcrypt from &apos;bcrypt&apos;;
+    const SALT_ROUNDS = 10;`;
   }
 
-  // Build query for the case: The user is listed in any document field
-  const query = { $or: [] };
-  // makes only sense, if user is logged in - otherwise no userId
-  if (loggedIn(me)) {
-    // prepare selection criterias as &apos;authQuery&apos; object
-    // for later mongodb &apos;find(...baseQuery,  ...authQuery)&apos;
-    //                               ...  AND ...{ field1 OR field2}
-    // which will be also considered during the database access
-    // as an &apos;$or: [ { field1: userId}, { field2: userId} ]&apos;
-    // with all document roles as fields for the later selection.
-    // At least one of those fields must match the userId,
-    // otherwise, whether no data found or not authorized to access data
-    docRoles.forEach(docRole =&gt; query.$or.push({ [docRole]: me._id }));
-    // return this authQuery only, if there was at least 1 field added
-    // otherwise it will result in an unlimited access
-    if (query.$or.length &gt; 0) {
-      // for easier debugging write into the authorzation logs
-      logger.debug(
-        `and role: &apos;${role ? role : NO_ROLE}&apos; with 
-        authQuery: ${JSON.stringify(query, null, 2)}`
-      );
-      // return the query as authQuery for later selection
-      return query;
-    }
-  }
-
-  // Not Authorized - throw exception in logger.error
-  const message = `and role: &apos;${role}&apos; is not authorized.`;
-  logger.error(message);
+  return generatedCode;
 }
 </code></pre>
 

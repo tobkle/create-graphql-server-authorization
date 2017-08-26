@@ -23,7 +23,13 @@ export function generateAuthCodeModeCreate(
   roleFieldName?: string = ''
 ) {
   // default code
-  let generatedCode = ``;
+  let generatedCode = `
+  let docToInsert = Object.assign({}, doc, {
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+    createdById: (me && me._id) ? me._id : 'unknown',
+    updatedById: (me && me._id) ? me._id : 'unknown',
+  });`;
 
   // with @authorize directive
   if (authorize) {
@@ -40,13 +46,29 @@ export function generateAuthCodeModeCreate(
 
       const roleField = roleFieldName ? `'${roleFieldName}'` : ``;
 
-      generatedCode = `checkAuthDoc(docToInsert, me, ${prep(userRoles)}, ${prep(
+      generatedCode = `// We don't want to store passwords plaintext!
+      const { password, ...rest } = doc;
+      const hash = await bcrypt.hash(password, SALT_ROUNDS);
+      let docToInsert = Object.assign({}, rest, {
+        hash,
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+        createdById: (me && me._id) ? me._id : 'unknown',
+        updatedById: (me && me._id) ? me._id : 'unknown',
+      });
+      checkAuthDoc(docToInsert, me, ${prep(userRoles)}, ${prep(
         docRoles
       )}, { ${USER}: this.context.${USER} }, authlog(resolver, 'create', me));
       docToInsert = protectFields(me, [${firstUserRole}], [${roleField}], docToInsert, { ${USER}: this.context.${USER} });`;
     } else {
       // without protectFields
-      generatedCode = `checkAuthDoc(docToInsert, me, ${prep(userRoles)}, ${prep(
+      generatedCode = `let docToInsert = Object.assign({}, doc, {
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+        createdById: (me && me._id) ? me._id : 'unknown',
+        updatedById: (me && me._id) ? me._id : 'unknown',
+      });
+      checkAuthDoc(docToInsert, me, ${prep(userRoles)}, ${prep(
         docRoles
       )}, { ${USER}: this.context.${USER} }, authlog(resolver, 'create', me));`;
     }
