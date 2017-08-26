@@ -59,7 +59,7 @@ const expect = require(&apos;chai&apos;).expect;
  * @public
  * @return (string) logFilename - path and file name for the log file
  */
- 
+
 export function getLogFilename(): string {
   const logFilename = path.normalize(process.env.npm_package_config_logfile);
   expect(logFilename).be.a(&apos;string&apos;);
