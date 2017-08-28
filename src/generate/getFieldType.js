@@ -25,7 +25,6 @@ import {
  */
 
 export function getFieldType(field: any): string | null {
-  
   // pattern: 'role: String'
   if (field.type.kind === NAMED_TYPE && field.type.name.kind === NAME) {
     if (field.type.name.value === STRING_LITERAL) {

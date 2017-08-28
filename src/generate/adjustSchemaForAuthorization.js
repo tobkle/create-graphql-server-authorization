@@ -19,13 +19,14 @@ export function adjustSchemaForAuthorization(
 
   // only if authorization directive is defined for this type
   if (authorize) {
-
     // for type User: add field 'password' for mode 'create'
-    if (typeName === USER_MODEL) adjustments.push({
-          mode: CREATE,
-          name: 'password',
-          type: 'String!'
-        });
+    if (typeName === USER_MODEL) {
+      adjustments.push({
+        mode: CREATE,
+        name: 'password',
+        type: 'String!'
+      });
+    }
 
     // for all typeNames with authorization: add 'createdBy'
     adjustments.push({
@@ -40,7 +41,6 @@ export function adjustSchemaForAuthorization(
       name: 'updatedBy',
       type: USER_LITERAL
     });
-
   }
 
   // for all typeNames: add 'createdBy'

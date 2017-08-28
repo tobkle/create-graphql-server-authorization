@@ -53,12 +53,10 @@ export function extractRoles(
   // get all Roles of the type's @authorize directives
   // e.g. 'admin', 'this'
   allRolesArguments.forEach(roleArgument => {
-
     const role = {};
 
     // check if it is a valid role
     if (roleArgument.kind === ARGUMENT && roleArgument.name.kind === NAME) {
-
       role.name = roleArgument.name.value;
 
       // determine the role type, ==> 'userRole' || 'docRole'
@@ -76,43 +74,39 @@ export function extractRoles(
 
       // LIST? e.g. ['create', 'update', 'delete']
       if (roleArgument.value.kind === LIST) {
-
         // get all authorized modes for that role
         const roleModes = roleArgument.value.values;
 
         roleModes.forEach(mode => {
-
           // check, if it is a valid authorization mode
           // e.g. 'create', 'update', 'delete', etc.
           if (mode.kind === STRING && MODES.indexOf(mode.value) >= 0) {
-
             // special case 'read' means both, 'readOne' and 'readMany'
             if (mode.value === READ) {
               role.modes[READ_ONE] = role.roleName;
               role.modes[READ_MANY] = role.roleName;
 
-            // all other modes
+              // all other modes
             } else {
               role.modes[mode.value] = role.roleName;
             }
-
           }
         });
 
-      // STRING? e.g. 'create'
-      } else if (roleArgument.name.value.kind === STRING &&
-        MODES.indexOf(roleArgument.name.value) >= 0) {
-
+        // STRING? e.g. 'create'
+      } else if (
+        roleArgument.name.value.kind === STRING &&
+        MODES.indexOf(roleArgument.name.value) >= 0
+      ) {
         // special case 'read' means both, 'readOne' and 'readMany'
         if (roleArgument.name.value === READ) {
           role.modes[READ_ONE] = role.roleName;
           role.modes[READ_MANY] = role.roleName;
 
-        // for all other modes
+          // for all other modes
         } else {
           role.modes[roleArgument.name.value] = role.roleName;
         }
-
       }
 
       // add it to the list of roles

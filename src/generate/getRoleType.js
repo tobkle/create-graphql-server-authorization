@@ -67,7 +67,6 @@ import { getFieldType } from './getFieldType';
  */
 
 export function getRoleType(name: string = '', inputSchema: any = {}): any {
-  
   // all field definitions of the type
   const allFields = inputSchema.definitions[0].fields;
   let roleType = null;
@@ -85,16 +84,13 @@ export function getRoleType(name: string = '', inputSchema: any = {}): any {
 
   // loop over all fields to find authRole directive
   allFields.forEach(field => {
-
     if (
       field.kind === FIELD_DEFINITION &&
       field.name.kind === NAME &&
       field.directives.length > 0
     ) {
-
       // 1. check, if it is a roleField
       if (isRoleField(name, field.directives)) {
-
         // 2. get the type of the field
         const fieldType = getFieldType(field);
 
@@ -103,7 +99,6 @@ export function getRoleType(name: string = '', inputSchema: any = {}): any {
         // userRoles: 'admin', 'user',...
         // docRoles: 'authorId', 'coAuthorsIds',...
         switch (fieldType) {
-
           case STRING_LITERAL:
             // ==> a) userRole
             roleType = USER_ROLE;
@@ -137,23 +132,18 @@ export function getRoleType(name: string = '', inputSchema: any = {}): any {
   });
 
   if (roleType) {
-
     // 2. a) userRole or b) docRole applies
     return {
       roleType,
       roleName,
       roleFieldName
     };
-
   } else if (name !== '') {
-
     // 3. none of the above, so it must be a userRole
     return {
       roleType: USER_ROLE,
       roleName: name,
       roleFieldName: ''
     };
-
   }
-
 }

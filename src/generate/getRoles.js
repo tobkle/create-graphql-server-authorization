@@ -29,7 +29,6 @@ export function getRoles(authorize: boolean, inputSchema: any) {
 
   // check if there is an @authorize directive
   if (authorize) {
-
     // then re-determine the userRoles and docRoles
     // from the @authorize tag of the type definition
     const allRolesArguments =
@@ -38,9 +37,7 @@ export function getRoles(authorize: boolean, inputSchema: any) {
     const allRoles = extractRoles(allRolesArguments, inputSchema);
 
     allRoles.forEach(role => {
-
       switch (role.type) {
-
         case USER_ROLE:
           // check, if there is already another userRole field
           if (
@@ -77,7 +74,6 @@ export function getRoles(authorize: boolean, inputSchema: any) {
           break;
       }
     });
-
   }
 
   return {
@@ -85,5 +81,4 @@ export function getRoles(authorize: boolean, inputSchema: any) {
     docRoles,
     roleFieldName: roleFieldNamesFound.length > 0 ? roleFieldNamesFound[0] : ''
   };
-
 }
