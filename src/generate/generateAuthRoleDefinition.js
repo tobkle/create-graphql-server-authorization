@@ -1,6 +1,6 @@
 // @flow
 
-import { USER, USER_MODEL } from '../constants';
+import { USER_LITERAL, USER_MODEL } from '../constants';
 
 /**
  * generate updatedBy method
@@ -20,7 +20,7 @@ export function generateAuthRoleDefinition(
   // with @authorize directive: means there must be a User type
   if (authorize && typeName === USER_MODEL) {
     generatedCode = `
-    this.authRole = ${USER}.authRole;`;
+    this.authRole = ${USER_LITERAL}.authRole;`;
   }
 
   return generatedCode;

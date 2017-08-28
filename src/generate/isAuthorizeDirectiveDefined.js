@@ -14,15 +14,8 @@ import { AUTHORIZE_DIRECTIVE } from '../constants';
  */
 
 export function isAuthorizeDirectiveDefined(inputSchema: any): boolean {
-  const authorized =
-    (inputSchema.definitions &&
-      inputSchema.definitions[0] &&
-      inputSchema.definitions[0].directives &&
-      inputSchema.definitions[0].directives[0] &&
-      inputSchema.definitions[0].directives[0].name &&
-      inputSchema.definitions[0].directives[0].name.value ===
-        AUTHORIZE_DIRECTIVE) ||
-    false;
-
-  return authorized;
+  return (
+    inputSchema.definitions[0].directives[0].name.value ===
+      AUTHORIZE_DIRECTIVE || false
+  );
 }

@@ -1,7 +1,7 @@
 // @flow
 /* eslint-disable max-len */
 
-import { USER, USER_MODEL } from '../constants';
+import { USER_LITERAL, USER_MODEL } from '../constants';
 import { prep } from './prep';
 
 /**
@@ -58,8 +58,8 @@ export function generateAuthCodeModeCreate(
       });
       checkAuthDoc(docToInsert, me, ${prep(userRoles)}, ${prep(
         docRoles
-      )}, { ${USER}: this.context.${USER} }, authlog(resolver, 'create', me));
-      docToInsert = protectFields(me, [${firstUserRole}], [${roleField}], docToInsert, { ${USER}: this.context.${USER} });`;
+      )}, { ${USER_LITERAL}: this.context.${USER_LITERAL} }, authlog(resolver, 'create', me));
+      docToInsert = protectFields(me, [${firstUserRole}], [${roleField}], docToInsert, { ${USER_LITERAL}: this.context.${USER_LITERAL} });`;
     } else {
       // without protectFields
       generatedCode = `let docToInsert = Object.assign({}, doc, {
@@ -70,7 +70,7 @@ export function generateAuthCodeModeCreate(
       });
       checkAuthDoc(docToInsert, me, ${prep(userRoles)}, ${prep(
         docRoles
-      )}, { ${USER}: this.context.${USER} }, authlog(resolver, 'create', me));`;
+      )}, { ${USER_LITERAL}: this.context.${USER_LITERAL} }, authlog(resolver, 'create', me));`;
     }
   }
 

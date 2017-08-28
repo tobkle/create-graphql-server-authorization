@@ -1,7 +1,7 @@
 // @flow
 /* eslint-disable max-len */
 
-import { USER, USER_MODEL } from '../constants';
+import { USER_LITERAL, USER_MODEL } from '../constants';
 import { prep } from './prep';
 
 /**
@@ -31,14 +31,14 @@ export function generateAuthCodeModeReadOne(
       generatedCode = `const { me } = context;
       const authQuery = queryForRoles(me, ${prep(userRoles)}, ${prep(
         docRoles
-      )}, { ${USER} }, authlog('${typeName} findOneById', 'readOne', me));
+      )}, { ${USER_LITERAL} }, authlog('${typeName} findOneById', 'readOne', me));
       that.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));`;
     } else {
-      // User has to come from this.context.${USER}
-      generatedCode = `const { me, ${USER} } = context;
+      // User has to come from this.context.${USER_LITERAL}
+      generatedCode = `const { me, ${USER_LITERAL} } = context;
       const authQuery = queryForRoles(me, ${prep(userRoles)}, ${prep(
         docRoles
-      )}, { ${USER} }, authlog('${typeName} findOneById', 'readOne', me));
+      )}, { ${USER_LITERAL} }, authlog('${typeName} findOneById', 'readOne', me));
       that.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));`;
     }
   }

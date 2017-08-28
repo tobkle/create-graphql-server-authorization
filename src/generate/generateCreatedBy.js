@@ -1,7 +1,7 @@
 // @flow
 /* eslint-disable max-len */
 
-import { USER } from '../constants';
+import { USER_LITERAL } from '../constants';
 
 /**
  * generate createdBy method
@@ -21,7 +21,7 @@ export function generateCreatedBy(
   // with @authorize directive: means there must be a User type
   if (authorize) {
     generatedCode = `createdBy(${typeName}, me, resolver) {
-    return this.context.${USER}.findOneById(${typeName}.createdById, me, resolver);
+    return this.context.${USER_LITERAL}.findOneById(${typeName}.createdById, me, resolver);
   }`;
   }
 

@@ -1,7 +1,7 @@
 // @flow
 /* eslint-disable max-len */
 
-import { USER } from '../constants';
+import { USER_LITERAL } from '../constants';
 
 /**
  * generate updatedBy method
@@ -21,7 +21,7 @@ export function generateUpdatedBy(
   // with @authorize directive: means there must be a User type
   if (authorize) {
     generatedCode = `updatedBy(${typeName}, me, resolver) {
-    return this.context.${USER}.findOneById(${typeName}.updatedById, me, resolver);
+    return this.context.${USER_LITERAL}.findOneById(${typeName}.updatedById, me, resolver);
   }`;
   }
 

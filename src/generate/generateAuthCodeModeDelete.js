@@ -1,6 +1,7 @@
 // @flow
+/* eslint-disable max-len */
 
-import { USER } from '../constants';
+import { USER_LITERAL } from '../constants';
 import { prep } from './prep';
 
 /**
@@ -26,7 +27,7 @@ export function generateAuthCodeModeDelete(
       userRoles
     )}, ${prep(
       docRoles
-    )}, { ${USER}: this.context.${USER} }, authlog(resolver, 'delete', me));
+    )}, { ${USER_LITERAL}: this.context.${USER_LITERAL} }, authlog(resolver, 'delete', me));
       const finalQuery = {...baseQuery, ...authQuery};`;
   }
 

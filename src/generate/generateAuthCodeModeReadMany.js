@@ -1,7 +1,7 @@
 // @flow
 /* eslint-disable max-len */
 
-import { USER } from '../constants';
+import { USER_LITERAL } from '../constants';
 import { prep } from './prep';
 
 /**
@@ -27,7 +27,7 @@ export function generateAuthCodeModeReadMany(
       userRoles
     )}, ${prep(
       docRoles
-    )}, { ${USER}: this.context.${USER} }, authlog(resolver, 'readMany', me));
+    )}, { ${USER_LITERAL}: this.context.${USER_LITERAL} }, authlog(resolver, 'readMany', me));
       const finalQuery = {...baseQuery, ...authQuery, createdAt: { $gt: lastCreatedAt } };`;
   }
 

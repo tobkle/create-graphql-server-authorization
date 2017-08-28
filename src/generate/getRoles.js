@@ -18,22 +18,29 @@ import { extractRoles } from './extractRoles';
 export function getRoles(authorize: boolean, inputSchema: any) {
   // create empty userRoles and docRoles objects
   // as default values, which are used
-  // if there is not @authorize directive
+  // if there is no @authorize directive
   const userRoles = {};
   const docRoles = {};
   const roleFieldNamesFound = [];
+
+  // initialize
   CODE_MODES.forEach(mode => (userRoles[mode] = []));
   CODE_MODES.forEach(mode => (docRoles[mode] = []));
 
   // check if there is an @authorize directive
   if (authorize) {
+
     // then re-determine the userRoles and docRoles
     // from the @authorize tag of the type definition
     const allRolesArguments =
       inputSchema.definitions[0].directives[0].arguments || {};
+
     const allRoles = extractRoles(allRolesArguments, inputSchema);
+
     allRoles.forEach(role => {
+
       switch (role.type) {
+
         case USER_ROLE:
           // check, if there is already another userRole field
           if (
@@ -41,7 +48,7 @@ export function getRoles(authorize: boolean, inputSchema: any) {
             role.roleFieldName !== '' &&
             roleFieldNamesFound.indexOf(role.roleFieldName) < 0
           ) {
-            // We allow only one field which keeps all userRoles
+            // We allow only one field, which stores all userRoles
             throw new Error(`Please adjust type definition, that there is 
               only ONE field, which keeps all user roles. You've tried to 
               add a second userRole field: '${role.roleFieldName}',
@@ -70,6 +77,7 @@ export function getRoles(authorize: boolean, inputSchema: any) {
           break;
       }
     });
+
   }
 
   return {
@@ -77,4 +85,5 @@ export function getRoles(authorize: boolean, inputSchema: any) {
     docRoles,
     roleFieldName: roleFieldNamesFound.length > 0 ? roleFieldNamesFound[0] : ''
   };
+
 }

@@ -3,12 +3,12 @@
 import {
   NAMED_TYPE,
   NAME,
-  STRING,
-  USER,
+  STRING_LITERAL,
+  USER_LITERAL,
   NON_NULL_TYPE,
   LIST_TYPE,
-  LIST_OF_STRINGS,
-  LIST_OF_USERS
+  STRING_LIST,
+  USER_LIST
 } from '../constants';
 
 /**
@@ -25,140 +25,80 @@ import {
  */
 
 export function getFieldType(field: any): string | null {
+  
   // pattern: 'role: String'
-  if (
-    field.type &&
-    field.type.kind &&
-    field.type.kind === NAMED_TYPE &&
-    field.type.name &&
-    field.type.name.kind &&
-    field.type.name.kind === NAME &&
-    field.type.name.value
-  ) {
-    if (field.type.name.value === STRING) {
-      return STRING;
+  if (field.type.kind === NAMED_TYPE && field.type.name.kind === NAME) {
+    if (field.type.name.value === STRING_LITERAL) {
+      return STRING_LITERAL;
     }
-
-    if (field.type.name.value === USER) {
-      return USER;
+    if (field.type.name.value === USER_LITERAL) {
+      return USER_LITERAL;
     }
   }
 
   // pattern: 'role: String!'
-  if (
-    field.type &&
-    field.type.kind &&
-    field.type.kind === NON_NULL_TYPE &&
-    field.type.type &&
-    field.type.type.name &&
-    field.type.type.name.kind &&
-    field.type.type.name.kind === NAME &&
-    field.type.type.name.value
-  ) {
-    if (field.type.type.name.value === STRING) {
-      return STRING;
+  if (field.type.kind === NON_NULL_TYPE && field.type.type.name.kind === NAME) {
+    if (field.type.type.name.value === STRING_LITERAL) {
+      return STRING_LITERAL;
     }
-
-    if (field.type.type.name.value === USER) {
-      return USER;
+    if (field.type.type.name.value === USER_LITERAL) {
+      return USER_LITERAL;
     }
   }
 
   // pattern: 'coauthors: [User]'
-  if (
-    field.type &&
-    field.type.kind &&
-    field.type.kind === LIST_TYPE &&
-    field.type.type &&
-    field.type.type.name &&
-    field.type.type.name.kind &&
-    field.type.type.name.kind === NAME &&
-    field.type.type.name.value
-  ) {
-    if (field.type.type.name.value === STRING) {
-      return LIST_OF_STRINGS;
+  if (field.type.kind === LIST_TYPE && field.type.type.name.kind === NAME) {
+    if (field.type.type.name.value === STRING_LITERAL) {
+      return STRING_LIST;
     }
-
-    if (field.type.type.name.value === USER) {
-      return LIST_OF_USERS;
+    if (field.type.type.name.value === USER_LITERAL) {
+      return USER_LIST;
     }
   }
 
   // pattern: 'coauthors: [User]!'
   if (
-    field.type &&
-    field.type.kind &&
     field.type.kind === NON_NULL_TYPE &&
-    field.type.type &&
-    field.type.type.kind &&
     field.type.type.kind === LIST_TYPE &&
-    field.type.type.type &&
-    field.type.type.type.kind &&
     field.type.type.type.kind === NAMED_TYPE &&
-    field.type.type.type.name &&
-    field.type.type.type.name.kind &&
-    field.type.type.type.name.kind === NAME &&
-    field.type.type.type.name.value
+    field.type.type.type.name.kind === NAME
   ) {
-    if (field.type.type.type.name.value === STRING) {
-      return LIST_OF_STRINGS;
+    if (field.type.type.type.name.value === STRING_LITERAL) {
+      return STRING_LIST;
     }
-
-    if (field.type.type.type.name.value === USER) {
-      return LIST_OF_USERS;
+    if (field.type.type.type.name.value === USER_LITERAL) {
+      return USER_LIST;
     }
   }
 
   // pattern: 'coauthors: [User!]'
   if (
-    field.type &&
-    field.type.kind &&
     field.type.kind === LIST_TYPE &&
-    field.type.type &&
-    field.type.type.kind &&
     field.type.type.kind === NON_NULL_TYPE &&
-    field.type.type.type &&
-    field.type.type.type.kind &&
     field.type.type.type.kind === NAMED_TYPE &&
-    field.type.type.type.name &&
-    field.type.type.type.name.kind &&
-    field.type.type.type.name.kind === NAME &&
-    field.type.type.type.name.value
+    field.type.type.type.name.kind === NAME
   ) {
-    if (field.type.type.type.name.value === STRING) {
-      return LIST_OF_STRINGS;
+    if (field.type.type.type.name.value === STRING_LITERAL) {
+      return STRING_LIST;
     }
-
-    if (field.type.type.type.name.value === USER) {
-      return LIST_OF_USERS;
+    if (field.type.type.type.name.value === USER_LITERAL) {
+      return USER_LIST;
     }
   }
 
   // pattern: 'coauthors: [User!]!'
   if (
-    field.type &&
-    field.type.kind &&
     field.type.kind === NON_NULL_TYPE &&
-    field.type.type &&
-    field.type.type.kind &&
     field.type.type.kind === LIST_TYPE &&
-    field.type.type.type &&
-    field.type.type.type.kind &&
     field.type.type.type.kind === NON_NULL_TYPE &&
-    field.type.type.type.type &&
-    field.type.type.type.type.kind &&
     field.type.type.type.type.kind === NAMED_TYPE &&
-    field.type.type.type.type.name &&
-    field.type.type.type.type.name.kind &&
-    field.type.type.type.type.name.kind === NAME &&
-    field.type.type.type.type.name.value
+    field.type.type.type.type.name.kind === NAME
   ) {
-    if (field.type.type.type.type.name.value === STRING) {
-      return LIST_OF_STRINGS;
+    if (field.type.type.type.type.name.value === STRING_LITERAL) {
+      return STRING_LIST;
     }
-
-    if (field.type.type.type.type.name.value === USER) {
-      return LIST_OF_USERS;
+    if (field.type.type.type.type.name.value === USER_LITERAL) {
+      return USER_LIST;
     }
   }
 

@@ -1,7 +1,7 @@
 // @flow
 /* eslint-disable max-len */
 
-import { USER, USER_MODEL } from '../constants';
+import { USER_LITERAL, USER_MODEL } from '../constants';
 import { prep } from './prep';
 
 /**
@@ -45,16 +45,16 @@ export function generateAuthCodeModeUpdate(
         userRoles
       )}, ${prep(
         docRoles
-      )}, { ${USER}: this.context.${USER} }, authlog(resolver, 'update', me));
+      )}, { ${USER_LITERAL}: this.context.${USER_LITERAL} }, authlog(resolver, 'update', me));
       const finalQuery = {...baseQuery, ...authQuery};
-      docToUpdate.$set = protectFields(me, [${firstUserRole}], [${roleField}], docToUpdate.$set, { ${USER}: this.context.${USER} });`;
+      docToUpdate.$set = protectFields(me, [${firstUserRole}], [${roleField}], docToUpdate.$set, { ${USER_LITERAL}: this.context.${USER_LITERAL} });`;
     } else {
       // without protectFields
       generatedCode = `const authQuery = queryForRoles(me, ${prep(
         userRoles
       )}, ${prep(
         docRoles
-      )}, { ${USER}: this.context.${USER} }, authlog(resolver, 'update', me));
+      )}, { ${USER_LITERAL}: this.context.${USER_LITERAL} }, authlog(resolver, 'update', me));
       const finalQuery = {...baseQuery, ...authQuery};`;
     }
   }

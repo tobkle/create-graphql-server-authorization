@@ -1,6 +1,6 @@
 // @flow
 
-import { CREATE, READ, USER, USER_MODEL } from '../constants';
+import { CREATE, READ, USER_LITERAL, USER_MODEL } from '../constants';
 import { isAuthorizeDirectiveDefined } from './isAuthorizeDirectiveDefined';
 /**
  * generate authorization related fields for schema of the type
@@ -19,38 +19,38 @@ export function adjustSchemaForAuthorization(
 
   // only if authorization directive is defined for this type
   if (authorize) {
-    switch (typeName) {
-      case USER_MODEL:
-        // for type User: add field 'password' only for mode 'create'
-        adjustments.push({
+
+    // for type User: add field 'password' for mode 'create'
+    if (typeName === USER_MODEL) adjustments.push({
           mode: CREATE,
           name: 'password',
           type: 'String!'
         });
-        break;
-    }
 
-    // for all typeNames: add 'createdBy' and 'updatedBy' fields
+    // for all typeNames with authorization: add 'createdBy'
     adjustments.push({
       mode: READ,
       name: 'createdBy',
-      type: USER
+      type: USER_LITERAL
     });
 
+    // for all typeNames with authorization: add 'updatedBy'
     adjustments.push({
       mode: READ,
       name: 'updatedBy',
-      type: USER
+      type: USER_LITERAL
     });
+
   }
 
-  // for all typeNames: add 'createdBy' and 'updatedBy' fields
+  // for all typeNames: add 'createdBy'
   adjustments.push({
     mode: READ,
     name: 'createdAt',
     type: 'Float!'
   });
 
+  // for all typeNames: add 'updatedBy'
   adjustments.push({
     mode: READ,
     name: 'updatedAt',
