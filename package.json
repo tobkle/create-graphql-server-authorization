@@ -1,6 +1,6 @@
 {
   "name": "create-graphql-server-authorization",
-  "version": "0.0.39",
+  "version": "0.0.40",
   "description": "Authorization package for create-graphql-server",
   "contributors": [
     "Tobias Klemmer <tobias@klemmer.info> (https://www.klemmer.info)"
@@ -93,12 +93,11 @@
     "global": "^4.3.2",
     "graphql": "^0.11.1",
     "handlebars": "^4.0.10",
-    "lodash": "^4.17.4",
+    "lodash": "4.16.4",
     "lodash.clonedeep": "^4.5.0",
     "lodash.includes": "^4.3.0",
-    "lodash.merge": "^4.6.0",    
+    "lodash.merge": "^4.6.0",
     "iterall": "^1.1.0",
-    "lodash": "4.16.4",
     "mongodb": "^2.2.31",
     "recast": "^0.12.6",
     "winston": "^2.3.1"
