@@ -1,0 +1,9 @@
+type Tweet 
+
+{
+  author: User @unmodifiable @belongsTo
+  coauthors: [User] @belongsToMany
+  body: String
+
+  likers: [User] @hasAndBelongsToMany(as: "liked")
+}

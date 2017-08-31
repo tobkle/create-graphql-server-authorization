@@ -1,0 +1,134 @@
+import DataLoader from 'dataloader';
+import {
+  findByIds,
+  queryForRoles,
+  getLogFilename,
+  logger,
+  authlog,
+  checkAuthDoc
+} from 'create-graphql-server-authorization';
+const log = logger(getLogFilename());
+
+export default class {{TypeName}} {
+  constructor(context) {
+    this.context = context;
+    this.collection = context.db.collection('{{typeName}}');
+    this.pubsub = context.pubsub;
+    const { me, {{User}} } = context;
+    const authQuery = queryForRoles(
+      me,
+      {{{userRoles.readOne}}},
+      {{{docRoles.readOne}}},
+      { {{User}} },
+      authlog('{{typeName}} findOneById', 'readOne', me)
+    );
+    this.authorizedLoader = new DataLoader(ids =>
+      findByIds(this.collection, ids, authQuery)
+    );
+  }
+
+  async findOneById(id) {
+    if (!this.authorizedLoader) {
+      return null;
+    }
+    return await this.authorizedLoader.load(id);
+  }
+
+  find({ lastCreatedAt = 0, limit = 10, baseQuery = {} }, me, resolver) {
+    const authQuery = queryForRoles(
+      me,
+      {{{userRoles.readMany}}},
+      {{{docRoles.readMany}}},
+      { {{User}}: this.context.{{User}} },
+      authlog(resolver, 'readMany', me)
+    );
+    const finalQuery = {
+      ...baseQuery,
+      ...authQuery,
+      createdAt: { $gt: lastCreatedAt }
+    };
+    return this.collection
+      .find(finalQuery)
+      .sort({ createdAt: 1 })
+      .limit(limit)
+      .toArray();
+  }
+
+  createdBy({{typeName}}, me, resolver) {
+    return this.context.{{User}}.findOneById({{typeName}}.createdById, me, resolver);
+  }
+
+  updatedBy({{typeName}}, me, resolver) {
+    return this.context.{{User}}.findOneById({{typeName}}.updatedById, me, resolver);
+  }
+
+  async insert(doc{{#if authorize}}, me, resolver{{/if}}) {
+    const docToInsert = Object.assign({}, doc, {
+      createdAt: Date.now(),
+      updatedAt: Date.now()
+    });
+    checkAuthDoc(
+      docToInsert,
+      me,
+      {{{userRoles.create}}},
+      {{{docRoles.create}}},
+      { {{User}}: this.context.{{User}} },
+      authlog(resolver, 'create', me)
+    );
+    const id = (await this.collection.insertOne(docToInsert)).insertedId;
+    if (!id) {
+      throw new Error(`insert {{typeName}} not possible.`);
+    }
+    log.debug(`inserted {{typeName}} ${id}.`);
+    const insertedDoc = this.findOneById(id);
+    this.pubsub.publish('{{typeName}}Inserted', insertedDoc);
+    return insertedDoc;
+  }
+
+  async updateById(id, doc, me, resolver) {
+    const docToUpdate = {
+      $set: Object.assign({}, doc, {
+        updatedAt: Date.now(),
+        updatedById: me && me._id ? me._id : 'unknown'
+      })
+    };
+    const baseQuery = { _id: id };
+    const authQuery = queryForRoles(
+      me,
+      {{{userRoles.update}}},
+      {{{docRoles.update}}},
+      { {{User}}: this.context.{{User}} },
+      authlog(resolver, 'update', me)
+    );
+    const finalQuery = { ...baseQuery, ...authQuery };
+    const result = await this.collection.updateOne(finalQuery, docToUpdate);
+    if (result.result.ok !== 1 || result.result.n !== 1) {
+      throw new Error(`update {{typeName}} not possible for ${id}.`);
+    }
+    log.debug(`updated {{typeName}} ${id}.`);
+    this.authorizedLoader.clear(id);
+    const updatedDoc = this.findOneById(id);
+    this.pubsub.publish('{{typeName}}Updated', updatedDoc);
+    return updatedDoc;
+  }
+
+  async removeById(id, me, resolver) {
+    const baseQuery = { _id: id };
+    const authQuery = queryForRoles(
+      me,
+      {{{userRoles.delete}}},
+      {{{docRoles.delete}}},
+      { {{User}}: this.context.{{User}} },
+      authlog(resolver, 'delete', me)
+    );
+    const finalQuery = { ...baseQuery, ...authQuery };
+    const result = await this.collection.remove(finalQuery);
+    if (result.result.ok !== 1 || result.result.n !== 1) {
+      throw new Error(`remove {{typeName}} not possible for ${id}.`);
+    }
+    log.debug(`removed {{typeName}} ${id}.`);
+    this.authorizedLoader.clear(id);
+    this.pubsub.publish('{{typeName}}Removed', id);
+    return result;
+  }
+}

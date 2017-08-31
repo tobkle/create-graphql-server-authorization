@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import ObjectId from 'bson-objectid';
 
 import { loggedIn } from '../lib/loggedIn';

@@ -18,6 +18,7 @@ node -e "var package = require('./package.json'); \
 
 cp README.md npm/
 cp LICENSE npm/
+cp -r templates npm/
 cp -r docs npm/
 
 cd npm

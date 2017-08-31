@@ -1,5 +1,6 @@
 // @flow
 /* eslint-disable max-len */
+/* eslint-disable flowtype/no-weak-types */
 
 // kinds from graphql language
 export {
@@ -13,6 +14,93 @@ export {
   LIST,
   STRING
 } from 'graphql/language/kinds';
+
+// template context type
+export type templateContextType = {
+  authorize: boolean,
+  isUserType: boolean,
+  typeName: string,
+  TypeName: string,
+  User: string,
+  userRoles: any,
+  docRoles: any,
+  firstUserRole: string,
+  roleField: string
+};
+
+// generator configuration type
+export type configCodeType = {
+  // getting the context
+  inputSchema: any,
+  userType: string,
+
+  // default template as starting point
+  defaultTemplate: string,
+
+  // getting the default templates
+  basePath: Array<string>,
+  baseExtension?: string,
+  baseEncoding?: string,
+  baseCommonDir?: string,
+  baseDefaultDir?: string,
+  baseGetNameFunc?: Function,
+
+  // getting the auth templates
+  authPath?: Array<string>,
+  authExtension?: string,
+  authEncoding?: string,
+  authCommonDir?: string,
+  authDefaultDir?: string,
+  authGetNameFunc?: Function
+};
+
+export type configPartialType = {
+  basePath: Array<string>,
+  directoryPath: Array<string>,
+  extension?: string,
+  encoding?: string,
+  getNameFunc?: Function
+};
+
+// files encoding
+export const ENCODING = 'utf8';
+
+// templates naming
+export const TEMPLATE_EXTENSION = '.template';
+export const TEMPLATES_DIR = 'templates';
+export const TEMPLATES_MODEL_DIR = 'model';
+export const TEMPLATES_RESOLVER_DIR = 'resolver';
+export const TEMPLATES_AUTH_DIR = 'auth';
+export const TEMPLATES_COMMON_DIR = 'common';
+export const TEMPLATES_DEFAULT_DIR = 'default';
+export const TEMPLATES_DEFAULT_TEMPLATE = 'default';
+
+// export const HEADER = 'header';
+// export const BODY = 'body';
+// export const CONSTRUCTOR = 'constructor';
+// export const FIND_ONE_BY_ID = 'findOneById';
+// export const FIND = 'find';
+// export const INSERT = 'insert';
+// export const UPDATE_BY_ID = 'updateById';
+// export const REMOVE_BY_ID = 'removeById';
+// export const CREATED_BY = 'createdBy';
+// export const UPDATED_BY = 'updatedBy';
+// export const DELIMITER = '-';
+
+// test directories
+export const SRC_DIR = 'src';
+export const TEST_DIR = '__tests__';
+export const TEST_GQL_DATA = 'data';
+export const TEST_CODE = 'code';
+export const TEST_MODEL = 'model';
+export const TEST_RESOLVER = 'resolver';
+export const TEST_GQL_EXTENSION = '.graphql';
+export const TEST_EXPECTED_CODE = 'expected';
+export const TEST_GENERATED_CODE = 'generated';
+export const TEST_MODEL_EXTENSION = '.js';
+export const TEST_MODEL_EXTENSION2 = 'model';
+export const TEST_RESOLVER_EXTENSION = '.js';
+export const TEST_RESOLVER_EXTENSION2 = 'resolver';
 
 // name of the @authorize directive, which triggers authorization logic
 export const AUTHORIZE_DIRECTIVE = 'authorize';
@@ -41,6 +129,7 @@ export const STRING_LITERAL = 'String';
 export const STRING_LIST = '[String]';
 export const USER_LITERAL = 'User';
 export const USER_LIST = '[User]';
+export const ROLE_FIELD_DEFAULT = 'role';
 
 // handling of id
 export const ID_FIELD = '_id';

@@ -60,5 +60,8 @@ typings/
 
 dist
 log
+src/__tests__/debug
 
 .DS_Store
+
+src/__tests__/code/generated/*.js

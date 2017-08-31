@@ -1,0 +1,15 @@
+type User
+{
+  role: String
+  email: String!
+  username: String
+
+  bio: String
+  notify: Boolean
+
+  tweets(minLikes: Int): [Tweet] @hasMany(as: "author")
+  liked: [Tweet] @belongsToMany
+
+  following: [User] @belongsToMany
+  followers: [User] @hasAndBelongsToMany(as: "following")
+}

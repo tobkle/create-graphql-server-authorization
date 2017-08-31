@@ -15,7 +15,7 @@
  * @param {function} protectFields - protects fields for authorized users
  * @param {function} queryForRoles - creates authQuery for later data operations
  * @param {function} userRoleAuthorized - checks, if a user's role is authorized
- * @param {function} generateAuthorizationCode - generates authorization code during add-type
+ * @param {function} getCode - generates authorization code for models and resolvers during add-type
  * @param {function} isAuthorizeDirectiveDefined - returns true, if authorization logic is defined
  * @param {function} adjustSchemaForAuthorization - returns an array of fields for schema
  */
@@ -35,11 +35,13 @@ export { userRoleAuthorized } from './lib/userRoleAuthorized.js';
 
 /* for the code generator */
 export {
-  generateAuthorizationCode
-} from './generate/generateAuthorizationCode.js';
+  getCode
+} from './generator/getCode.js';
+
 export {
   isAuthorizeDirectiveDefined
-} from './generate/isAuthorizeDirectiveDefined.js';
+} from './generator/authorize/isAuthorizeDirectiveDefined.js';
+
 export {
   adjustSchemaForAuthorization
-} from './generate/adjustSchemaForAuthorization.js';
+} from './generator/schema/adjustSchemaForAuthorization.js';

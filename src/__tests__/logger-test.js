@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { getLogFilename } from '../lib/getLogFilename';
 import { logger } from '../lib/logger';
 
