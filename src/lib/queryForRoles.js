@@ -38,7 +38,14 @@ export function queryForRoles(
   // Build query for the case: The logged in user's role is authorized
   if (userRoleAuthorized(me, userRoles, { User }, logger)) {
     // empty authQuery means, do operation with no access restrictions
-    return {};
+    const authQuery = {};
+    if (logger.registerLoader) {
+      // on authorization, register authorizedLoader (dataloader) method
+      // in the model's context, is only used in constructors
+      // with the alternative logging function 'onAuthRegisterLoader'
+      logger.registerLoader(authQuery);
+    }
+    return authQuery;
   }
 
   // Build query for the case: The user is listed in any document field
@@ -57,6 +64,12 @@ export function queryForRoles(
     // return this authQuery only, if there was at least 1 field added
     // otherwise it will result in an unlimited access
     if (query.$or.length > 0) {
+      if (logger.registerLoader) {
+        // on authorization, register authorizedLoader (dataloader) method
+        // in the model's context, is only used in constructors
+        // with the alternative logging function 'onAuthRegisterLoader'
+        logger.registerLoader(query);
+      }
       // for easier debugging write into the authorzation logs
       logger.debug(
         `and role: '${role ? role : NO_ROLE}' with 
@@ -67,7 +80,16 @@ export function queryForRoles(
     }
   }
 
+  // Whether...
+  // if the logger = authLog as the transferred logger, then:
   // Not Authorized - throw exception in logger.error
+
+  // ...or...
+
+  // if the logger = onAuthRegisterLoader as the transferred logger, then:
+  // Not Authorized - write only message in logger.error
+  // This one is only used in constructors,
+  // avoiding errors during initial graphql setup
   const message = `and role: '${role}' is not authorized.`;
   logger.error(message);
 }

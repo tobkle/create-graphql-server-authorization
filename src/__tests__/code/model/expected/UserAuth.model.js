@@ -1,16 +1,12 @@
-import DataLoader from 'dataloader';
 import {
-  findByIds,
   queryForRoles,
-  getLogFilename,
-  logger,
+  onAuthRegisterLoader,
   authlog,
   checkAuthDoc,
   protectFields
 } from 'create-graphql-server-authorization';
 import bcrypt from 'bcrypt';
 const SALT_ROUNDS = 10;
-const log = logger(getLogFilename());
 
 export default class User {
   constructor(context) {
@@ -19,15 +15,12 @@ export default class User {
     this.pubsub = context.pubsub;
     this.authRole = User.authRole;
     const { me } = context;
-    const authQuery = queryForRoles(
+    queryForRoles(
       me,
       ['admin'],
       ['_id'],
       { User },
-      authlog('user findOneById', 'readOne', me)
-    );
-    this.authorizedLoader = new DataLoader(ids =>
-      findByIds(this.collection, ids, authQuery)
+      onAuthRegisterLoader('user findOneById', 'readOne', me, this)
     );
   }
 
@@ -35,8 +28,10 @@ export default class User {
     return user && user.role ? user.role : null;
   }
 
-  async findOneById(id) {
+  async findOneById(id, me, resolver) {
+    const log = authlog(resolver, 'readOne', me);
     if (!this.authorizedLoader) {
+      log.error('not authorized');
       return null;
     }
     return await this.authorizedLoader.load(id);
@@ -96,7 +91,7 @@ export default class User {
     if (!id) {
       throw new Error(`insert user not possible.`);
     }
-    log.debug(`inserted user ${id}.`);
+    this.log.debug(`inserted user ${id}.`);
     const insertedDoc = this.findOneById(id);
     this.pubsub.publish('userInserted', insertedDoc);
     return insertedDoc;
@@ -129,7 +124,7 @@ export default class User {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`update user not possible for ${id}.`);
     }
-    log.debug(`updated user ${id}.`);
+    this.log.debug(`updated user ${id}.`);
     this.authorizedLoader.clear(id);
     const updatedDoc = this.findOneById(id);
     this.pubsub.publish('userUpdated', updatedDoc);
@@ -150,7 +145,7 @@ export default class User {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`remove user not possible for ${id}.`);
     }
-    log.debug(`removed user ${id}.`);
+    this.log.debug(`removed user ${id}.`);
     this.authorizedLoader.clear(id);
     this.pubsub.publish('userRemoved', id);
     return result;

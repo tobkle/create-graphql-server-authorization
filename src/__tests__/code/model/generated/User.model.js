@@ -1,12 +1,7 @@
 import DataLoader from 'dataloader';
-import {
-  findByIds,
-  getLogFilename,
-  logger
-} from 'create-graphql-server-authorization';
+import { findByIds } from 'create-graphql-server-authorization';
 import bcrypt from 'bcrypt';
 const SALT_ROUNDS = 10;
-const log = logger(getLogFilename());
 
 export default class User {
   constructor(context) {
@@ -19,9 +14,6 @@ export default class User {
   }
 
   async findOneById(id) {
-    if (!this.authorizedLoader) {
-      return null;
-    }
     return await this.authorizedLoader.load(id);
   }
 
@@ -47,7 +39,7 @@ export default class User {
     if (!id) {
       throw new Error(`insert user not possible.`);
     }
-    log.debug(`inserted user ${id}.`);
+    this.log.debug(`inserted user ${id}.`);
     const insertedDoc = this.findOneById(id);
     this.pubsub.publish('userInserted', insertedDoc);
     return insertedDoc;
@@ -65,7 +57,7 @@ export default class User {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`update user not possible for ${id}.`);
     }
-    log.debug(`updated user ${id}.`);
+    this.log.debug(`updated user ${id}.`);
     this.authorizedLoader.clear(id);
     const updatedDoc = this.findOneById(id);
     this.pubsub.publish('userUpdated', updatedDoc);
@@ -79,7 +71,7 @@ export default class User {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`remove user not possible for ${id}.`);
     }
-    log.debug(`removed user ${id}.`);
+    this.log.debug(`removed user ${id}.`);
     this.authorizedLoader.clear(id);
     this.pubsub.publish('userRemoved', id);
     return result;

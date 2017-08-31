@@ -102,6 +102,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLogFilename">getLogFilename</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loggedIn">loggedIn</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logger">logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onAuthRegisterLoader">onAuthRegisterLoader</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-protectFields">protectFields</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-queryForRoles">queryForRoles</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-userRoleAuthorized">userRoleAuthorized</a></span></span></li>
@@ -121,6 +122,7 @@
  * @param {function} dummyUserContext - get user.role
  * @param {function} logger - write to authorization log file
  * @param {function} authlog - how to log
+ * @param {function} onAuthRegisterLoader - registers dataloader on successfull authorization
  * @param {function} checkAuthDoc - checks, if authorized for document
  * @param {function} fieldContainsUserId - checks, if field contains user id
  * @param {function} findByIds - find documents with their ids, cached
@@ -138,6 +140,7 @@ export { getLogFilename } from &apos;./lib/getLogFilename.js&apos;;
 export { dummyUserContext } from &apos;./lib/dummyUserContext.js&apos;;
 export { logger } from &apos;./lib/logger.js&apos;;
 export { authlog } from &apos;./lib/authlog.js&apos;;
+export { onAuthRegisterLoader } from &apos;./lib/onAuthRegisterLoader.js&apos;;
 export { checkAuthDoc } from &apos;./lib/checkAuthDoc.js&apos;;
 export { fieldContainsUserId } from &apos;./lib/fieldContainsUserId.js&apos;;
 export { findByIds } from &apos;./lib/findByIds.js&apos;;
@@ -147,9 +150,7 @@ export { queryForRoles } from &apos;./lib/queryForRoles.js&apos;;
 export { userRoleAuthorized } from &apos;./lib/userRoleAuthorized.js&apos;;
 
 /* for the code generator */
-export {
-  getCode
-} from &apos;./generator/getCode.js&apos;;
+export { getCode } from &apos;./generator/getCode.js&apos;;
 
 export {
   isAuthorizeDirectiveDefined

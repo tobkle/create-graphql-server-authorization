@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">src/generator/authorize/isRoleField.js | create-graphql-server-authorization</title>
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/lib/onAuthRegisterLoader.js | create-graphql-server-authorization</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -111,67 +111,75 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/generator/authorize/isRoleField.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">src/lib/onAuthRegisterLoader.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// @flow
 
-import { DIRECTIVE, FOR, NAME, AUTH_ROLE, STRING, LIST } from &apos;../../constants&apos;;
+import DataLoader from &apos;dataloader&apos;;
+import { findByIds } from &apos;./findByIds&apos;;
+import { logger } from &apos;./logger&apos;;
+import { getLogFilename } from &apos;./getLogFilename&apos;;
 
-/*
- * is this field a roleField
- * check, if this field has the authRole directive
- * @private
- * @param {string} roleName - name of the role
- * @param {array} fieldDirectives  - AST with field directives
- * @return {boolean} isRoleField - true, if it is a field with a role
+import { NO_USER } from &apos;../constants&apos;;
+
+/**
+ * similiar to authLog, registers dataloader on successfull authorization
+ * and doesn&apos;t throw exception in error case  
+ * @public
+ * @param {string} resolver - log name of a resolver
+ * @param {string} mode - crud operation name
+ * @param {object} me - current user
+ * @param {object} that - it is the &apos;this&apos; context from a model&apos;s constructor
+ * @return {Object} return - Object with two functions
+ * @property {function} registerLoader - registers the dataloader in the model
+ * @property {function} debug - debug() function
+ * @property {function} error - error() function
+ * }
  */
 
-export function isRoleField(roleName: string, fieldDirectives: any): boolean {
-  let found = false;
+export function onAuthRegisterLoader(
+  resolver: string = &apos;&apos;,
+  mode: string = &apos;&apos;,
+  me?: any = {},
+  that?: any = {}
+): {
+  registerLoader: any,
+  debug: any,
+  error: any
+} {
+  // store the &apos;this&apos; context of a model&apos;s constructor
+  const model = that;
 
-  // loop over all field directives for an &apos;authRole&apos;
-  fieldDirectives.forEach(fieldDirective =&gt; {
-    if (
-      fieldDirective.kind === DIRECTIVE &amp;&amp;
-      fieldDirective.name.kind === NAME &amp;&amp;
-      fieldDirective.name.value === AUTH_ROLE &amp;&amp;
-      fieldDirective.arguments.length &gt; 0
-    ) {
-      // loop over all arguments, if it is for our roleName
-      // e.g. roleName: &apos;admin&apos; find @authRole(for: [&quot;admin&quot;])
-      fieldDirective.arguments.forEach(fieldDirectiveArgument =&gt; {
-        // check, if there is a &apos;for&apos;
-        if (
-          fieldDirectiveArgument.name.kind === NAME &amp;&amp;
-          fieldDirectiveArgument.name.value === FOR
-        ) {
-          // check, if it is a list value:
-          if (
-            fieldDirectiveArgument.value.kind === LIST &amp;&amp;
-            fieldDirectiveArgument.value.values.length &gt; 0
-          ) {
-            // loop over all values, if there is one with our roleName
-            const fieldRoles = fieldDirectiveArgument.value.values;
-            fieldRoles.forEach(fieldRole =&gt; {
-              // check, if it is our roleName
-              if (fieldRole.kind === STRING &amp;&amp; fieldRole.value === roleName) {
-                // we found it!
-                found = true;
-              }
-            });
+  // procedure like in authLog
+  const logFilename = getLogFilename();
+  const log = logger(logFilename);
 
-            // check, if it is a single value:
-          } else if (
-            fieldDirectiveArgument.value.kind === STRING &amp;&amp;
-            fieldDirectiveArgument.value.value === roleName
-          ) {
-            // we found it!
-            found = true;
-          }
-        }
-      });
+  const makeMessage = message =&gt;
+    `Authorize ${mode} &apos;${resolver}&apos; with user &apos;${me.username
+      ? me.username
+      : NO_USER}&apos; ${message}`;
+
+  return {
+    registerLoader: authQuery =&gt; {
+      model.authorizedLoader = new DataLoader(ids =&gt;
+        findByIds(model.collection, ids, authQuery)
+      );
+      const resultMessage = `registered authorizedLoader successfully`;
+      log.debug(resultMessage);
+      return resultMessage;
+    },
+
+    debug: message =&gt; {
+      const resultMessage = makeMessage(message);
+      log.debug(resultMessage);
+      return resultMessage;
+    },
+
+    error: message =&gt; {
+      const resultMessage = makeMessage(message);
+      log.error(resultMessage);
+      return resultMessage;
     }
-  });
-  return found;
+  };
 }
 </code></pre>
 

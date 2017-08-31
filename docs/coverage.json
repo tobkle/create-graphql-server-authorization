@@ -1,7 +1,7 @@
 {
-  "coverage": "34.11%",
-  "expectCount": 85,
-  "actualCount": 29,
+  "coverage": "34.88%",
+  "expectCount": 86,
+  "actualCount": 30,
   "files": {
     "src/constants.js": {
       "expectCount": 51,
@@ -157,6 +157,11 @@
     "src/lib/logger.js": {
       "expectCount": 3,
       "actualCount": 3,
+      "undocumentLines": []
+    },
+    "src/lib/onAuthRegisterLoader.js": {
+      "expectCount": 1,
+      "actualCount": 1,
       "undocumentLines": []
     },
     "src/lib/protectFields.js": {

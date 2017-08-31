@@ -426,6 +426,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "create-graphql-server-authorization/src/lib/onauthregisterloader.js~onauthregisterloader",
+    "function/index.html#static-function-onAuthRegisterLoader",
+    "<span>onAuthRegisterLoader</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/onAuthRegisterLoader.js</span>",
+    "function"
+  ],
+  [
     "create-graphql-server-authorization/src/utilities.js~parsecode",
     "function/index.html#static-function-parseCode",
     "<span>parseCode</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/utilities.js</span>",
@@ -867,6 +873,12 @@ window.esdocSearchIndex = [
     "src/lib/logger.js",
     "file/src/lib/logger.js.html",
     "src/lib/logger.js",
+    "file"
+  ],
+  [
+    "src/lib/onauthregisterloader.js",
+    "file/src/lib/onAuthRegisterLoader.js.html",
+    "src/lib/onAuthRegisterLoader.js",
     "file"
   ],
   [

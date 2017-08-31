@@ -8,6 +8,7 @@
  * @param {function} dummyUserContext - get user.role
  * @param {function} logger - write to authorization log file
  * @param {function} authlog - how to log
+ * @param {function} onAuthRegisterLoader - registers dataloader on successfull authorization
  * @param {function} checkAuthDoc - checks, if authorized for document
  * @param {function} fieldContainsUserId - checks, if field contains user id
  * @param {function} findByIds - find documents with their ids, cached
@@ -25,6 +26,7 @@ export { getLogFilename } from './lib/getLogFilename.js';
 export { dummyUserContext } from './lib/dummyUserContext.js';
 export { logger } from './lib/logger.js';
 export { authlog } from './lib/authlog.js';
+export { onAuthRegisterLoader } from './lib/onAuthRegisterLoader.js';
 export { checkAuthDoc } from './lib/checkAuthDoc.js';
 export { fieldContainsUserId } from './lib/fieldContainsUserId.js';
 export { findByIds } from './lib/findByIds.js';
@@ -34,9 +36,7 @@ export { queryForRoles } from './lib/queryForRoles.js';
 export { userRoleAuthorized } from './lib/userRoleAuthorized.js';
 
 /* for the code generator */
-export {
-  getCode
-} from './generator/getCode.js';
+export { getCode } from './generator/getCode.js';
 
 export {
   isAuthorizeDirectiveDefined

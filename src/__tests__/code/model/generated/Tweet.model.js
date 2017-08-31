@@ -1,10 +1,5 @@
 import DataLoader from 'dataloader';
-import {
-  findByIds,
-  getLogFilename,
-  logger
-} from 'create-graphql-server-authorization';
-const log = logger(getLogFilename());
+import { findByIds } from 'create-graphql-server-authorization';
 
 export default class Tweet {
   constructor(context) {
@@ -17,9 +12,6 @@ export default class Tweet {
   }
 
   async findOneById(id) {
-    if (!this.authorizedLoader) {
-      return null;
-    }
     return await this.authorizedLoader.load(id);
   }
 
@@ -41,7 +33,7 @@ export default class Tweet {
     if (!id) {
       throw new Error(`insert tweet not possible.`);
     }
-    log.debug(`inserted tweet ${id}.`);
+    this.log.debug(`inserted tweet ${id}.`);
     const insertedDoc = this.findOneById(id);
     this.pubsub.publish('tweetInserted', insertedDoc);
     return insertedDoc;
@@ -59,7 +51,7 @@ export default class Tweet {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`update tweet not possible for ${id}.`);
     }
-    log.debug(`updated tweet ${id}.`);
+    this.log.debug(`updated tweet ${id}.`);
     this.authorizedLoader.clear(id);
     const updatedDoc = this.findOneById(id);
     this.pubsub.publish('tweetUpdated', updatedDoc);
@@ -73,7 +65,7 @@ export default class Tweet {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`remove tweet not possible for ${id}.`);
     }
-    log.debug(`removed tweet ${id}.`);
+    this.log.debug(`removed tweet ${id}.`);
     this.authorizedLoader.clear(id);
     this.pubsub.publish('tweetRemoved', id);
     return result;

@@ -2572,7 +2572,7 @@
     "__docId__": 122,
     "kind": "file",
     "name": "src/index.js",
-    "content": "/* eslint-disable max-len */\n\n/*\n * @desc create-graphql-server-authorization\n * @desc provides access to all public functions\n * @public\n * @param {function} getLogFilename - get name of log file\n * @param {function} dummyUserContext - get user.role\n * @param {function} logger - write to authorization log file\n * @param {function} authlog - how to log\n * @param {function} checkAuthDoc - checks, if authorized for document\n * @param {function} fieldContainsUserId - checks, if field contains user id\n * @param {function} findByIds - find documents with their ids, cached\n * @param {function} loggedIn - checks, if user logged in\n * @param {function} protectFields - protects fields for authorized users\n * @param {function} queryForRoles - creates authQuery for later data operations\n * @param {function} userRoleAuthorized - checks, if a user's role is authorized\n * @param {function} getCode - generates authorization code for models and resolvers during add-type\n * @param {function} isAuthorizeDirectiveDefined - returns true, if authorization logic is defined\n * @param {function} adjustSchemaForAuthorization - returns an array of fields for schema\n */\n\n/* for the authorization logic */\nexport { getLogFilename } from './lib/getLogFilename.js';\nexport { dummyUserContext } from './lib/dummyUserContext.js';\nexport { logger } from './lib/logger.js';\nexport { authlog } from './lib/authlog.js';\nexport { checkAuthDoc } from './lib/checkAuthDoc.js';\nexport { fieldContainsUserId } from './lib/fieldContainsUserId.js';\nexport { findByIds } from './lib/findByIds.js';\nexport { loggedIn } from './lib/loggedIn.js';\nexport { protectFields } from './lib/protectFields.js';\nexport { queryForRoles } from './lib/queryForRoles.js';\nexport { userRoleAuthorized } from './lib/userRoleAuthorized.js';\n\n/* for the code generator */\nexport {\n  getCode\n} from './generator/getCode.js';\n\nexport {\n  isAuthorizeDirectiveDefined\n} from './generator/authorize/isAuthorizeDirectiveDefined.js';\n\nexport {\n  adjustSchemaForAuthorization\n} from './generator/schema/adjustSchemaForAuthorization.js';\n",
+    "content": "/* eslint-disable max-len */\n\n/*\n * @desc create-graphql-server-authorization\n * @desc provides access to all public functions\n * @public\n * @param {function} getLogFilename - get name of log file\n * @param {function} dummyUserContext - get user.role\n * @param {function} logger - write to authorization log file\n * @param {function} authlog - how to log\n * @param {function} onAuthRegisterLoader - registers dataloader on successfull authorization\n * @param {function} checkAuthDoc - checks, if authorized for document\n * @param {function} fieldContainsUserId - checks, if field contains user id\n * @param {function} findByIds - find documents with their ids, cached\n * @param {function} loggedIn - checks, if user logged in\n * @param {function} protectFields - protects fields for authorized users\n * @param {function} queryForRoles - creates authQuery for later data operations\n * @param {function} userRoleAuthorized - checks, if a user's role is authorized\n * @param {function} getCode - generates authorization code for models and resolvers during add-type\n * @param {function} isAuthorizeDirectiveDefined - returns true, if authorization logic is defined\n * @param {function} adjustSchemaForAuthorization - returns an array of fields for schema\n */\n\n/* for the authorization logic */\nexport { getLogFilename } from './lib/getLogFilename.js';\nexport { dummyUserContext } from './lib/dummyUserContext.js';\nexport { logger } from './lib/logger.js';\nexport { authlog } from './lib/authlog.js';\nexport { onAuthRegisterLoader } from './lib/onAuthRegisterLoader.js';\nexport { checkAuthDoc } from './lib/checkAuthDoc.js';\nexport { fieldContainsUserId } from './lib/fieldContainsUserId.js';\nexport { findByIds } from './lib/findByIds.js';\nexport { loggedIn } from './lib/loggedIn.js';\nexport { protectFields } from './lib/protectFields.js';\nexport { queryForRoles } from './lib/queryForRoles.js';\nexport { userRoleAuthorized } from './lib/userRoleAuthorized.js';\n\n/* for the code generator */\nexport { getCode } from './generator/getCode.js';\n\nexport {\n  isAuthorizeDirectiveDefined\n} from './generator/authorize/isAuthorizeDirectiveDefined.js';\n\nexport {\n  adjustSchemaForAuthorization\n} from './generator/schema/adjustSchemaForAuthorization.js';\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/index.js",
     "access": "public",
@@ -3218,6 +3218,115 @@
   {
     "__docId__": 144,
     "kind": "file",
+    "name": "src/lib/onAuthRegisterLoader.js",
+    "content": "// @flow\n\nimport DataLoader from 'dataloader';\nimport { findByIds } from './findByIds';\nimport { logger } from './logger';\nimport { getLogFilename } from './getLogFilename';\n\nimport { NO_USER } from '../constants';\n\n/**\n * similiar to authLog, registers dataloader on successfull authorization\n * and doesn't throw exception in error case  \n * @public\n * @param {string} resolver - log name of a resolver\n * @param {string} mode - crud operation name\n * @param {object} me - current user\n * @param {object} that - it is the 'this' context from a model's constructor\n * @return {Object} return - Object with two functions\n * @property {function} registerLoader - registers the dataloader in the model\n * @property {function} debug - debug() function\n * @property {function} error - error() function\n * }\n */\n\nexport function onAuthRegisterLoader(\n  resolver: string = '',\n  mode: string = '',\n  me?: any = {},\n  that?: any = {}\n): {\n  registerLoader: any,\n  debug: any,\n  error: any\n} {\n  // store the 'this' context of a model's constructor\n  const model = that;\n\n  // procedure like in authLog\n  const logFilename = getLogFilename();\n  const log = logger(logFilename);\n\n  const makeMessage = message =>\n    `Authorize ${mode} '${resolver}' with user '${me.username\n      ? me.username\n      : NO_USER}' ${message}`;\n\n  return {\n    registerLoader: authQuery => {\n      model.authorizedLoader = new DataLoader(ids =>\n        findByIds(model.collection, ids, authQuery)\n      );\n      const resultMessage = `registered authorizedLoader successfully`;\n      log.debug(resultMessage);\n      return resultMessage;\n    },\n\n    debug: message => {\n      const resultMessage = makeMessage(message);\n      log.debug(resultMessage);\n      return resultMessage;\n    },\n\n    error: message => {\n      const resultMessage = makeMessage(message);\n      log.error(resultMessage);\n      return resultMessage;\n    }\n  };\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/onAuthRegisterLoader.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 145,
+    "kind": "function",
+    "name": "onAuthRegisterLoader",
+    "memberof": "src/lib/onAuthRegisterLoader.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/onAuthRegisterLoader.js~onAuthRegisterLoader",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/onAuthRegisterLoader.js",
+    "importStyle": "{onAuthRegisterLoader}",
+    "description": "similiar to authLog, registers dataloader on successfull authorization\nand doesn't throw exception in error case  ",
+    "lineNumber": 25,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "resolver",
+        "description": "log name of a resolver"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "mode",
+        "description": "crud operation name"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "me",
+        "description": "current user"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "that",
+        "description": "it is the 'this' context from a model's constructor"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "registerLoader",
+        "description": "registers the dataloader in the model"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "debug",
+        "description": "debug() function"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "error",
+        "description": "error() function\n}"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "return - Object with two functions"
+    }
+  },
+  {
+    "__docId__": 146,
+    "kind": "file",
     "name": "src/lib/protectFields.js",
     "content": "// @flow\n\nimport { dummyUserContext } from './dummyUserContext';\n\n/**\n * Protects a field based on authorizations\n * @public\n * @param {object} me - current user\n * @param {array} authorizedUserRoles - userRoles with authorization\n * @param {array} protectedFields - list of fields only for these userRoles\n * @param {object} inputObject - document with might contain those fields\n * @param {object} User - model context for type User\n * @return {object} result - document with or without the protected fields\n */\n\nexport function protectFields(\n  me: any = {},\n  authorizedUserRoles: Array<string> = [],\n  protectedFields: Array<string> = [],\n  inputObject: any = {},\n  { User } = { User: dummyUserContext }\n): any {\n  // pure function\n  const result = Object.assign({}, inputObject);\n\n  // getting role of current User\n  const role = User.authRole(me);\n\n  // if user is not allowed to access specific fields,\n  // remove field from object...\n  if (!authorizedUserRoles.includes(role)) {\n    protectedFields.forEach(protectedField => {\n      if (result[protectedField]) {\n        delete result[protectedField];\n      }\n    });\n  }\n\n  return result;\n}\n",
     "static": true,
@@ -3227,7 +3336,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 145,
+    "__docId__": 147,
     "kind": "function",
     "name": "protectFields",
     "memberof": "src/lib/protectFields.js",
@@ -3303,10 +3412,10 @@
     }
   },
   {
-    "__docId__": 146,
+    "__docId__": 148,
     "kind": "file",
     "name": "src/lib/queryForRoles.js",
-    "content": "/* eslint-disable max-len */\n// @flow\n\nimport { NO_ROLE } from '../constants';\nimport { userRoleAuthorized } from './userRoleAuthorized';\nimport { dummyUserContext } from './dummyUserContext';\nimport { loggedIn } from './loggedIn';\nimport { authlog } from './authlog';\n\nconst defaultLogger = authlog();\n\n/**\n * Prepare a query object for mongodb operations with authorization queries\n * creates an authQuery object with additional \n * query arguments, to implement authorization restrictions for mongodb access\n * @public\n * @param {object} me - current user\n * @param {array} userRoles - list of userRoles\n * @param {array} docRoles - list of docRoles\n * @param {object} User - model context for type User\n * @param {object} logger - logger function\n * @return {object} authQuery - authQuery for data operations\n * @example \n *   const authQuery = \n *     queryForRoles(me, userRoles, docRoles, { User }, authlog(resolver, mode, me ) );\n */\n\nexport function queryForRoles(\n  me: any = {},\n  userRoles: Array<string> = [],\n  docRoles: Array<string> = [],\n  { User } = { User: dummyUserContext },\n  logger: any = defaultLogger\n): any {\n  // get current User's role\n  const role = User.authRole(me);\n\n  // Build query for the case: The logged in user's role is authorized\n  if (userRoleAuthorized(me, userRoles, { User }, logger)) {\n    // empty authQuery means, do operation with no access restrictions\n    return {};\n  }\n\n  // Build query for the case: The user is listed in any document field\n  const query = { $or: [] };\n  // makes only sense, if user is logged in - otherwise no userId\n  if (loggedIn(me)) {\n    // prepare selection criterias as 'authQuery' object\n    // for later mongodb 'find(...baseQuery,  ...authQuery)'\n    //                               ...  AND ...{ field1 OR field2}\n    // which will be also considered during the database access\n    // as an '$or: [ { field1: userId}, { field2: userId} ]'\n    // with all document roles as fields for the later selection.\n    // At least one of those fields must match the userId,\n    // otherwise, whether no data found or not authorized to access data\n    docRoles.forEach(docRole => query.$or.push({ [docRole]: me._id }));\n    // return this authQuery only, if there was at least 1 field added\n    // otherwise it will result in an unlimited access\n    if (query.$or.length > 0) {\n      // for easier debugging write into the authorzation logs\n      logger.debug(\n        `and role: '${role ? role : NO_ROLE}' with \n        authQuery: ${JSON.stringify(query, null, 2)}`\n      );\n      // return the query as authQuery for later selection\n      return query;\n    }\n  }\n\n  // Not Authorized - throw exception in logger.error\n  const message = `and role: '${role}' is not authorized.`;\n  logger.error(message);\n}\n",
+    "content": "/* eslint-disable max-len */\n// @flow\n\nimport { NO_ROLE } from '../constants';\nimport { userRoleAuthorized } from './userRoleAuthorized';\nimport { dummyUserContext } from './dummyUserContext';\nimport { loggedIn } from './loggedIn';\nimport { authlog } from './authlog';\n\nconst defaultLogger = authlog();\n\n/**\n * Prepare a query object for mongodb operations with authorization queries\n * creates an authQuery object with additional \n * query arguments, to implement authorization restrictions for mongodb access\n * @public\n * @param {object} me - current user\n * @param {array} userRoles - list of userRoles\n * @param {array} docRoles - list of docRoles\n * @param {object} User - model context for type User\n * @param {object} logger - logger function\n * @return {object} authQuery - authQuery for data operations\n * @example \n *   const authQuery = \n *     queryForRoles(me, userRoles, docRoles, { User }, authlog(resolver, mode, me ) );\n */\n\nexport function queryForRoles(\n  me: any = {},\n  userRoles: Array<string> = [],\n  docRoles: Array<string> = [],\n  { User } = { User: dummyUserContext },\n  logger: any = defaultLogger\n): any {\n  // get current User's role\n  const role = User.authRole(me);\n\n  // Build query for the case: The logged in user's role is authorized\n  if (userRoleAuthorized(me, userRoles, { User }, logger)) {\n    // empty authQuery means, do operation with no access restrictions\n    const authQuery = {};\n    if (logger.registerLoader) {\n      // on authorization, register authorizedLoader (dataloader) method\n      // in the model's context, is only used in constructors\n      // with the alternative logging function 'onAuthRegisterLoader'\n      logger.registerLoader(authQuery);\n    }\n    return authQuery;\n  }\n\n  // Build query for the case: The user is listed in any document field\n  const query = { $or: [] };\n  // makes only sense, if user is logged in - otherwise no userId\n  if (loggedIn(me)) {\n    // prepare selection criterias as 'authQuery' object\n    // for later mongodb 'find(...baseQuery,  ...authQuery)'\n    //                               ...  AND ...{ field1 OR field2}\n    // which will be also considered during the database access\n    // as an '$or: [ { field1: userId}, { field2: userId} ]'\n    // with all document roles as fields for the later selection.\n    // At least one of those fields must match the userId,\n    // otherwise, whether no data found or not authorized to access data\n    docRoles.forEach(docRole => query.$or.push({ [docRole]: me._id }));\n    // return this authQuery only, if there was at least 1 field added\n    // otherwise it will result in an unlimited access\n    if (query.$or.length > 0) {\n      if (logger.registerLoader) {\n        // on authorization, register authorizedLoader (dataloader) method\n        // in the model's context, is only used in constructors\n        // with the alternative logging function 'onAuthRegisterLoader'\n        logger.registerLoader(query);\n      }\n      // for easier debugging write into the authorzation logs\n      logger.debug(\n        `and role: '${role ? role : NO_ROLE}' with \n        authQuery: ${JSON.stringify(query, null, 2)}`\n      );\n      // return the query as authQuery for later selection\n      return query;\n    }\n  }\n\n  // Whether...\n  // if the logger = authLog as the transferred logger, then:\n  // Not Authorized - throw exception in logger.error\n\n  // ...or...\n\n  // if the logger = onAuthRegisterLoader as the transferred logger, then:\n  // Not Authorized - write only message in logger.error\n  // This one is only used in constructors,\n  // avoiding errors during initial graphql setup\n  const message = `and role: '${role}' is not authorized.`;\n  logger.error(message);\n}\n",
     "static": true,
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/queryForRoles.js",
     "access": "public",
@@ -3314,7 +3423,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 147,
+    "__docId__": 149,
     "kind": "variable",
     "name": "defaultLogger",
     "memberof": "src/lib/queryForRoles.js",
@@ -3335,7 +3444,7 @@
     "ignore": true
   },
   {
-    "__docId__": 148,
+    "__docId__": 150,
     "kind": "function",
     "name": "queryForRoles",
     "memberof": "src/lib/queryForRoles.js",
@@ -3414,7 +3523,7 @@
     }
   },
   {
-    "__docId__": 149,
+    "__docId__": 151,
     "kind": "file",
     "name": "src/lib/userRoleAuthorized.js",
     "content": "// @flow\n\nimport { WORLD, NO_ROLE } from '../constants';\nimport { dummyUserContext } from './dummyUserContext';\nimport { authlog } from './authlog';\n\nconst defaultLogger = authlog();\n\n/**\n * Is a user's role authorized for a document\n * You can use also the role 'world', to authorize everyone\n * @public\n * @param {object} me - current user\n * @param {array} userRoles - list of userRoles\n * @param {object} User - model context for type User\n * @param {object} logger - logger function\n * @return {boolean} authorized - true, if userRole is authorized\n */\n\nexport function userRoleAuthorized(\n  me: any = {},\n  userRoles: Array<string> = [],\n  { User } = { User: dummyUserContext },\n  logger: any = defaultLogger\n): boolean {\n  // get current User's role\n  const role = User.authRole(me);\n\n  // determine, if the given userRoles authorize the current User by its role\n  if (\n    // userRole: 'world' should authorize everyone - known and unknown users\n    userRoles.includes(WORLD) ||\n    // or there must be a userRole given, and current user must have a role\n    // and the current user's role must be in the given userRoles\n    (role && role !== '' && userRoles.length > 0 && userRoles.includes(role))\n  ) {\n    // => authorized\n    logger.debug(`and role '${role ? role : NO_ROLE}' is authorized`);\n    return true;\n  }\n\n  // => not authorized\n  return false;\n}\n",
@@ -3425,7 +3534,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 150,
+    "__docId__": 152,
     "kind": "variable",
     "name": "defaultLogger",
     "memberof": "src/lib/userRoleAuthorized.js",
@@ -3446,7 +3555,7 @@
     "ignore": true
   },
   {
-    "__docId__": 151,
+    "__docId__": 153,
     "kind": "function",
     "name": "userRoleAuthorized",
     "memberof": "src/lib/userRoleAuthorized.js",
@@ -3512,7 +3621,7 @@
     }
   },
   {
-    "__docId__": 152,
+    "__docId__": 154,
     "kind": "file",
     "name": "src/utilities.js",
     "content": "// @flow\n\nimport { parse as recastParse } from 'recast';\nimport * as babylon from 'babylon';\n\nconst babylonParser = {\n  parse(code) {\n    return babylon.parse(code, {\n      sourceType: 'module',\n      plugins: ['objectRestSpread']\n    });\n  }\n};\n\n/**\n * parses a Code into an abstract syntax tree (AST)\n * @private\n * @param {string} source - source code\n * @return {Object} AST - abstract syntax tree converted source code\n */\n\nexport function parseCode(source: string) {\n  return recastParse(source, { parser: babylonParser });\n}\n\n/**\n * prepare roles for code generator\n * convert array to String value\n * replace \" by '\n * @private\n * @param {array} role - name of role\n * @return {string} roleString - role string\n */\n\nexport function prep(role: any): string {\n  return JSON.stringify(role).replace(/\"/g, \"'\").replace(/,/g, ', ');\n}\n\n/**\n * converts first character of string to lower case\n * @private\n * @param {string} str - string\n * @return {string} converted_string - first character is lower case\n */\n\nexport function lcFirst(str: string): string {\n  return str[0].toLowerCase() + str.substring(1);\n}\n\n/**\n * converts first character of string to upper case\n * @private\n * @param {string} str - string\n * @return {string} converted_string - first character is upper case\n */\n\nexport function ucFirst(str: string): string {\n  return str[0].toUpperCase() + str.substring(1);\n}\n",
@@ -3523,7 +3632,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 153,
+    "__docId__": 155,
     "kind": "variable",
     "name": "babylonParser",
     "memberof": "src/utilities.js",
@@ -3544,7 +3653,7 @@
     "ignore": true
   },
   {
-    "__docId__": 154,
+    "__docId__": 156,
     "kind": "function",
     "name": "parseCode",
     "memberof": "src/utilities.js",
@@ -3580,7 +3689,7 @@
     }
   },
   {
-    "__docId__": 155,
+    "__docId__": 157,
     "kind": "function",
     "name": "prep",
     "memberof": "src/utilities.js",
@@ -3616,7 +3725,7 @@
     }
   },
   {
-    "__docId__": 156,
+    "__docId__": 158,
     "kind": "function",
     "name": "lcFirst",
     "memberof": "src/utilities.js",
@@ -3652,7 +3761,7 @@
     }
   },
   {
-    "__docId__": 157,
+    "__docId__": 159,
     "kind": "function",
     "name": "ucFirst",
     "memberof": "src/utilities.js",
@@ -3697,7 +3806,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"create-graphql-server-authorization\",\n  \"version\": \"0.0.37\",\n  \"description\": \"Authorization package for create-graphql-server\",\n  \"contributors\": [\n    \"Tobias Klemmer <tobias@klemmer.info> (https://www.klemmer.info)\"\n  ],\n  \"main\": \"index.js\",\n  \"author\": \"Tobias Klemmer <tobias@klemmer.info> (https://www.klemmer.info)\",\n  \"license\": \"MIT\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/tobkle/create-graphql-server-authorization.git\"\n  },\n  \"keywords\": [\n    \"create-graphql-server\",\n    \"authorization\"\n  ],\n  \"bugs\": {\n    \"url\": \"https://github.com/tobkle/create-graphql-server-authorization/issues\"\n  },\n  \"config\": {\n    \"logfile\": \"log/all-logs-readable.log\",\n    \"loglevel\": \"debug\",\n    \"maxsize\": 5,\n    \"maxfiles\": 5\n  },\n  \"options\": {\n    \"mocha\": \"--require ./resources/mocha-bootload --check-leaks --full-trace src/**/__tests__/**/*-test.js\"\n  },\n  \"scripts\": {\n    \"test\": \"npm run lint && npm run check && npm run testonly\",\n    \"testonly\": \"babel-node ./node_modules/.bin/_mocha $npm_package_options_mocha\",\n    \"t\": \"babel-node ./node_modules/.bin/_mocha --require ./resources/mocha-bootload\",\n    \"lint\": \"eslint --fix src || (printf '\\\\033[33mTry: \\\\033[7m npm run lint -- --fix \\\\033[0m\\\\n' && exit 1)\",\n    \"check\": \"flow check\",\n    \"check-cover\": \"for file in {src/*.js,src/**/*.js}; do echo $file; flow coverage $file; done\",\n    \"build\": \"babel src --optional runtime --ignore __tests__ --out-dir dist/ && cp package.json dist/ && npm run build-dot-flow\",\n    \"build-dot-flow\": \"find ./src -name '*.js' -not -path '*/__tests__*' | while read filepath; do cp $filepath `echo $filepath | sed 's/\\\\/src\\\\//\\\\/dist\\\\//g'`.flow; done\",\n    \"watch\": \"babel-node ./resources/watch.js\",\n    \"cover\": \"babel-node ./node_modules/.bin/isparta cover --root src --report html _mocha -- $npm_package_options_mocha\",\n    \"cover:lcov\": \"babel-node ./node_modules/.bin/isparta cover --root src --report lcovonly _mocha -- $npm_package_options_mocha\",\n    \"preversion\": \". ./resources/checkgit.sh && npm test\",\n    \"prepublish\": \". ./resources/prepublish.sh\",\n    \"gitpublish\": \". ./resources/gitpublish.sh\",\n    \"prettier\": \"node_modules/.bin/prettier src/**/**/*.js --write\",\n    \"esdoc\": \"node_modules/.bin/esdoc -c .esdoc.json\",\n    \"debug-model\": \"babel-node --inspect src/__tests__/debug/getModelCode-debug.js\",\n    \"debug-resolver\": \"babel-node --inspect src/__tests__/debug/getResolverCode-debug.js\",\n    \"nodemon\": \"nodemon -L --watch src --watch templates src/__tests__/debug/getModelCode-debug.js --exec babel-node\"\n  },\n  \"homepage\": \"https://github.com/tobkle/create-graphql-server-authorization#readme\",\n  \"devDependencies\": {\n    \"babel-cli\": \"6.24.1\",\n    \"babel-eslint\": \"7.2.3\",\n    \"babel-plugin-syntax-async-functions\": \"6.13.0\",\n    \"babel-plugin-syntax-async-generators\": \"6.13.0\",\n    \"babel-plugin-transform-class-properties\": \"6.24.1\",\n    \"babel-plugin-transform-flow-strip-types\": \"6.22.0\",\n    \"babel-plugin-transform-object-rest-spread\": \"6.23.0\",\n    \"babel-preset-env\": \"^1.5.2\",\n    \"bson-objectid\": \"^1.1.5\",\n    \"chai\": \"4.1.1\",\n    \"chai-fs\": \"^1.0.0\",\n    \"chai-json-equal\": \"0.0.1\",\n    \"chai-spies-next\": \"^0.8.0\",\n    \"chai-subset\": \"1.5.0\",\n    \"coveralls\": \"^2.13.1\",\n    \"cross-env\": \"^5.0.5\",\n    \"dataloader\": \"^1.3.0\",\n    \"esdoc\": \"^1.0.1\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-flow-type-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^4.5.0\",\n    \"eslint-config-prettier\": \"^2.3.0\",\n    \"eslint-config-react-app\": \"^2.0.0\",\n    \"eslint-plugin-babel\": \"4.1.2\",\n    \"eslint-plugin-flowtype\": \"2.35.0\",\n    \"eslint-plugin-import\": \"^2.7.0\",\n    \"eslint-plugin-prettier\": \"^2.1.2\",\n    \"eslint-plugin-react\": \"^7.3.0\",\n    \"flow-bin\": \"0.52.0\",\n    \"isparta\": \"4.0.0\",\n    \"mocha\": \"3.5.0\",\n    \"mocha-lcov-reporter\": \"^1.3.0\",\n    \"mongo-mock\": \"^2.4.1\",\n    \"prettier\": \"^1.5.3\",\n    \"sane\": \"2.0.0\"\n  },\n  \"dependencies\": {\n    \"babylon\": \"^6.18.0\",\n    \"global\": \"^4.3.2\",\n    \"graphql\": \"^0.11.1\",\n    \"handlebars\": \"^4.0.10\",\n    \"iterall\": \"^1.1.0\",\n    \"lodash\": \"4.16.4\",\n    \"mongodb\": \"^2.2.31\",\n    \"recast\": \"^0.12.6\",\n    \"winston\": \"^2.3.1\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"create-graphql-server-authorization\",\n  \"version\": \"0.0.38\",\n  \"description\": \"Authorization package for create-graphql-server\",\n  \"contributors\": [\n    \"Tobias Klemmer <tobias@klemmer.info> (https://www.klemmer.info)\"\n  ],\n  \"main\": \"index.js\",\n  \"author\": \"Tobias Klemmer <tobias@klemmer.info> (https://www.klemmer.info)\",\n  \"license\": \"MIT\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/tobkle/create-graphql-server-authorization.git\"\n  },\n  \"keywords\": [\n    \"create-graphql-server\",\n    \"authorization\"\n  ],\n  \"bugs\": {\n    \"url\": \"https://github.com/tobkle/create-graphql-server-authorization/issues\"\n  },\n  \"config\": {\n    \"logfile\": \"log/all-logs-readable.log\",\n    \"loglevel\": \"debug\",\n    \"maxsize\": 5,\n    \"maxfiles\": 5\n  },\n  \"options\": {\n    \"mocha\": \"--require ./resources/mocha-bootload --check-leaks --full-trace src/**/__tests__/**/*-test.js\"\n  },\n  \"scripts\": {\n    \"test\": \"npm run lint && npm run check && npm run testonly\",\n    \"testonly\": \"babel-node ./node_modules/.bin/_mocha $npm_package_options_mocha\",\n    \"t\": \"babel-node ./node_modules/.bin/_mocha --require ./resources/mocha-bootload\",\n    \"lint\": \"eslint --fix src || (printf '\\\\033[33mTry: \\\\033[7m npm run lint -- --fix \\\\033[0m\\\\n' && exit 1)\",\n    \"check\": \"flow check\",\n    \"check-cover\": \"for file in {src/*.js,src/**/*.js}; do echo $file; flow coverage $file; done\",\n    \"build\": \"babel src --optional runtime --ignore __tests__ --out-dir dist/ && cp package.json dist/ && npm run build-dot-flow\",\n    \"build-dot-flow\": \"find ./src -name '*.js' -not -path '*/__tests__*' | while read filepath; do cp $filepath `echo $filepath | sed 's/\\\\/src\\\\//\\\\/dist\\\\//g'`.flow; done\",\n    \"watch\": \"babel-node ./resources/watch.js\",\n    \"cover\": \"babel-node ./node_modules/.bin/isparta cover --root src --report html _mocha -- $npm_package_options_mocha\",\n    \"cover:lcov\": \"babel-node ./node_modules/.bin/isparta cover --root src --report lcovonly _mocha -- $npm_package_options_mocha\",\n    \"preversion\": \". ./resources/checkgit.sh && npm test\",\n    \"prepublish\": \". ./resources/prepublish.sh\",\n    \"gitpublish\": \". ./resources/gitpublish.sh\",\n    \"prettier\": \"node_modules/.bin/prettier src/**/**/*.js --write\",\n    \"esdoc\": \"node_modules/.bin/esdoc -c .esdoc.json\",\n    \"debug-model\": \"babel-node --inspect src/__tests__/debug/getModelCode-debug.js\",\n    \"debug-resolver\": \"babel-node --inspect src/__tests__/debug/getResolverCode-debug.js\",\n    \"nodemon\": \"nodemon -L --watch src --watch templates src/__tests__/debug/getModelCode-debug.js --exec babel-node\"\n  },\n  \"homepage\": \"https://github.com/tobkle/create-graphql-server-authorization#readme\",\n  \"devDependencies\": {\n    \"babel-cli\": \"6.24.1\",\n    \"babel-eslint\": \"7.2.3\",\n    \"babel-plugin-syntax-async-functions\": \"6.13.0\",\n    \"babel-plugin-syntax-async-generators\": \"6.13.0\",\n    \"babel-plugin-transform-class-properties\": \"6.24.1\",\n    \"babel-plugin-transform-flow-strip-types\": \"6.22.0\",\n    \"babel-plugin-transform-object-rest-spread\": \"6.23.0\",\n    \"babel-preset-env\": \"^1.5.2\",\n    \"bson-objectid\": \"^1.1.5\",\n    \"chai\": \"4.1.1\",\n    \"chai-fs\": \"^1.0.0\",\n    \"chai-json-equal\": \"0.0.1\",\n    \"chai-spies-next\": \"^0.8.0\",\n    \"chai-subset\": \"1.5.0\",\n    \"coveralls\": \"^2.13.1\",\n    \"cross-env\": \"^5.0.5\",\n    \"dataloader\": \"^1.3.0\",\n    \"esdoc\": \"^1.0.1\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-flow-type-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^4.5.0\",\n    \"eslint-config-prettier\": \"^2.3.0\",\n    \"eslint-config-react-app\": \"^2.0.0\",\n    \"eslint-plugin-babel\": \"4.1.2\",\n    \"eslint-plugin-flowtype\": \"2.35.0\",\n    \"eslint-plugin-import\": \"^2.7.0\",\n    \"eslint-plugin-prettier\": \"^2.1.2\",\n    \"eslint-plugin-react\": \"^7.3.0\",\n    \"flow-bin\": \"0.52.0\",\n    \"isparta\": \"4.0.0\",\n    \"mocha\": \"3.5.0\",\n    \"mocha-lcov-reporter\": \"^1.3.0\",\n    \"mongo-mock\": \"^2.4.1\",\n    \"prettier\": \"^1.5.3\",\n    \"sane\": \"2.0.0\"\n  },\n  \"dependencies\": {\n    \"babylon\": \"^6.18.0\",\n    \"global\": \"^4.3.2\",\n    \"graphql\": \"^0.11.1\",\n    \"handlebars\": \"^4.0.10\",\n    \"iterall\": \"^1.1.0\",\n    \"lodash\": \"4.16.4\",\n    \"mongodb\": \"^2.2.31\",\n    \"recast\": \"^0.12.6\",\n    \"winston\": \"^2.3.1\"\n  }\n}\n",
     "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/package.json",
     "name": "package.json",
     "static": true,
