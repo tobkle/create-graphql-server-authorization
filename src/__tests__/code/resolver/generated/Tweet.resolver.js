@@ -1,8 +1,22 @@
+/* eslint-disable prettier */
+/* eslint comma-dangle: [2, "only-multiline"] */
 const resolvers = {
   Tweet: {
     id(tweet) {
       return tweet._id;
-    }
+    },
+
+    author(tweet, args, { Tweet, me }) {
+      return Tweet.author(tweet, me, 'tweet author');
+    },
+
+    coauthors(tweet, args, { Tweet, me }) {
+      return Tweet.coauthors(tweet, args, me, 'tweet coauthors');
+    },
+
+    likers(tweet, args, { Tweet, me }) {
+      return Tweet.likers(tweet, args, me, 'tweet likers');
+    },
   },
   Query: {
     tweets(root, { lastCreatedAt, limit }, { Tweet, me }) {

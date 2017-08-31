@@ -1,3 +1,4 @@
+/* eslint-disable prettier */
 import {
   queryForRoles,
   onAuthRegisterLoader,
@@ -13,6 +14,7 @@ export default class {{TypeName}} {
     this.context = context;
     this.collection = context.db.collection('{{typeName}}');
     this.pubsub = context.pubsub;
+    this.log = context.log;
     this.authRole = {{User}}.authRole;
     const { me } = context;
     queryForRoles(
@@ -56,7 +58,13 @@ export default class {{TypeName}} {
       .limit(limit)
       .toArray();
   }
-
+{{#each singularFields}}
+{{> defaultSingularField }}
+{{/each}}
+{{#each paginatedFields}}
+{{> defaultPaginatedField }}
+{{/each}}
+  
   createdBy({{typeName}}, me, resolver) {
     return this.context.{{User}}.findOneById({{typeName}}.createdById, me, resolver);
   }
@@ -92,7 +100,7 @@ export default class {{TypeName}} {
       throw new Error(`insert {{typeName}} not possible.`);
     }
     this.log.debug(`inserted {{typeName}} ${id}.`);
-    const insertedDoc = this.findOneById(id);
+    const insertedDoc = this.findOneById(id, me, 'pubsub {{typeName}}Inserted');
     this.pubsub.publish('{{typeName}}Inserted', insertedDoc);
     return insertedDoc;
   }
@@ -126,7 +134,7 @@ export default class {{TypeName}} {
     }
     this.log.debug(`updated {{typeName}} ${id}.`);
     this.authorizedLoader.clear(id);
-    const updatedDoc = this.findOneById(id);
+    const updatedDoc = this.findOneById(id, me, 'pubsub {{typeName}}Updated');
     this.pubsub.publish('{{typeName}}Updated', updatedDoc);
     return updatedDoc;
   }

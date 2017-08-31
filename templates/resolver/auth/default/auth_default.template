@@ -1,8 +1,16 @@
+/* eslint-disable prettier */
+/* eslint comma-dangle: [2, "only-multiline"] */
 const resolvers = {
   {{TypeName}}: {
     id({{typeName}}) {
       return {{typeName}}._id;
     },
+{{#each singularFields}}
+{{> defaultSingularField }}
+{{/each}}
+{{#each paginatedFields}}
+{{> defaultPaginatedField }}
+{{/each}}
 
     createdBy({{typeName}}, args, { {{TypeName}}, me }) {
       return {{TypeName}}.createdBy({{typeName}}, me, '{{typeName}} createdBy');

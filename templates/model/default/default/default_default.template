@@ -1,5 +1,11 @@
+/* eslint-disable prettier */
 import DataLoader from 'dataloader';
-import { findByIds } from 'create-graphql-server-authorization';
+import {
+  findByIds,
+  getLogFilename,
+  logger
+} from 'create-graphql-server-authorization';
+const log = logger(getLogFilename());
 
 export default class {{TypeName}} {
   constructor(context) {
@@ -12,6 +18,9 @@ export default class {{TypeName}} {
   }
 
   async findOneById(id) {
+    if (!this.authorizedLoader) {
+      return null;
+    }
     return await this.authorizedLoader.load(id);
   }
 
@@ -23,7 +32,13 @@ export default class {{TypeName}} {
       .limit(limit)
       .toArray();
   }
-
+{{#each singularFields }}
+{{> defaultSingularField }}
+{{/each}}
+{{#each paginatedFields }}
+{{> defaultPaginatedField }}
+{{/each}}
+  
   async insert(doc) {
     const docToInsert = Object.assign({}, doc, {
       createdAt: Date.now(),
@@ -33,7 +48,7 @@ export default class {{TypeName}} {
     if (!id) {
       throw new Error(`insert {{typeName}} not possible.`);
     }
-    this.log.debug(`inserted {{typeName}} ${id}.`);
+    log.debug(`inserted {{typeName}} ${id}.`);
     const insertedDoc = this.findOneById(id);
     this.pubsub.publish('{{typeName}}Inserted', insertedDoc);
     return insertedDoc;
@@ -51,7 +66,7 @@ export default class {{TypeName}} {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`update {{typeName}} not possible for ${id}.`);
     }
-    this.log.debug(`updated {{typeName}} ${id}.`);
+    log.debug(`updated {{typeName}} ${id}.`);
     this.authorizedLoader.clear(id);
     const updatedDoc = this.findOneById(id);
     this.pubsub.publish('{{typeName}}Updated', updatedDoc);
@@ -65,7 +80,7 @@ export default class {{TypeName}} {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`remove {{typeName}} not possible for ${id}.`);
     }
-    this.log.debug(`removed {{typeName}} ${id}.`);
+    log.debug(`removed {{typeName}} ${id}.`);
     this.authorizedLoader.clear(id);
     this.pubsub.publish('{{typeName}}Removed', id);
     return result;

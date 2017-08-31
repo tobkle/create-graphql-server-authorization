@@ -1,3 +1,4 @@
+/* eslint-disable prettier */
 import {
   queryForRoles,
   onAuthRegisterLoader,
@@ -10,6 +11,7 @@ export default class {{TypeName}} {
     this.context = context;
     this.collection = context.db.collection('{{typeName}}');
     this.pubsub = context.pubsub;
+    this.log = context.log;
     const { me, {{User}} } = context;
     queryForRoles(
       me,
@@ -48,6 +50,12 @@ export default class {{TypeName}} {
       .limit(limit)
       .toArray();
   }
+{{#each singularFields}}
+{{> defaultSingularField }}
+{{/each}}
+{{#each paginatedFields}}
+{{> defaultPaginatedField }}
+{{/each}}
 
   createdBy({{typeName}}, me, resolver) {
     return this.context.{{User}}.findOneById({{typeName}}.createdById, me, resolver);
@@ -57,10 +65,12 @@ export default class {{TypeName}} {
     return this.context.{{User}}.findOneById({{typeName}}.updatedById, me, resolver);
   }
 
-  async insert(doc{{#if authorize}}, me, resolver{{/if}}) {
+  async insert(doc, me, resolver) {
     const docToInsert = Object.assign({}, doc, {
       createdAt: Date.now(),
-      updatedAt: Date.now()
+      updatedAt: Date.now(),
+      createdById: (me && me._id) ? me._id : 'unknown',
+      updatedById: (me && me._id) ? me._id : 'unknown',
     });
     checkAuthDoc(
       docToInsert,
@@ -75,7 +85,7 @@ export default class {{TypeName}} {
       throw new Error(`insert {{typeName}} not possible.`);
     }
     this.log.debug(`inserted {{typeName}} ${id}.`);
-    const insertedDoc = this.findOneById(id);
+    const insertedDoc = this.findOneById(id, me, 'pubsub {{typeName}}Inserted');
     this.pubsub.publish('{{typeName}}Inserted', insertedDoc);
     return insertedDoc;
   }
@@ -102,7 +112,7 @@ export default class {{TypeName}} {
     }
     this.log.debug(`updated {{typeName}} ${id}.`);
     this.authorizedLoader.clear(id);
-    const updatedDoc = this.findOneById(id);
+    const updatedDoc = this.findOneById(id, me, 'pubsub {{typeName}}Updated');
     this.pubsub.publish('{{typeName}}Updated', updatedDoc);
     return updatedDoc;
   }

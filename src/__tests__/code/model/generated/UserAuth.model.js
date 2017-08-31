@@ -1,3 +1,4 @@
+/* eslint-disable prettier */
 import {
   queryForRoles,
   onAuthRegisterLoader,
@@ -13,6 +14,7 @@ export default class User {
     this.context = context;
     this.collection = context.db.collection('user');
     this.pubsub = context.pubsub;
+    this.log = context.log;
     this.authRole = User.authRole;
     const { me } = context;
     queryForRoles(
@@ -57,6 +59,42 @@ export default class User {
       .toArray();
   }
 
+  tweets(user, { minLikes, lastCreatedAt = 0, limit = 10 }, me, resolver) {
+    const baseQuery = { authorId: user._id };
+    return this.context.Tweet.find(
+      { baseQuery, minLikes, lastCreatedAt, limit },
+      me,
+      resolver
+    );
+  }
+
+  liked(user, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
+    const baseQuery = { _id: { $in: user.likedIds || [] } };
+    return this.context.Tweet.find(
+      { baseQuery, lastCreatedAt, limit },
+      me,
+      resolver
+    );
+  }
+
+  following(user, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
+    const baseQuery = { _id: { $in: user.followingIds || [] } };
+    return this.context.User.find(
+      { baseQuery, lastCreatedAt, limit },
+      me,
+      resolver
+    );
+  }
+
+  followers(user, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
+    const baseQuery = { followingIds: user._id };
+    return this.context.User.find(
+      { baseQuery, lastCreatedAt, limit },
+      me,
+      resolver
+    );
+  }
+  
   createdBy(user, me, resolver) {
     return this.context.User.findOneById(user.createdById, me, resolver);
   }
@@ -92,7 +130,7 @@ export default class User {
       throw new Error(`insert user not possible.`);
     }
     this.log.debug(`inserted user ${id}.`);
-    const insertedDoc = this.findOneById(id);
+    const insertedDoc = this.findOneById(id, me, 'pubsub userInserted');
     this.pubsub.publish('userInserted', insertedDoc);
     return insertedDoc;
   }
@@ -126,7 +164,7 @@ export default class User {
     }
     this.log.debug(`updated user ${id}.`);
     this.authorizedLoader.clear(id);
-    const updatedDoc = this.findOneById(id);
+    const updatedDoc = this.findOneById(id, me, 'pubsub userUpdated');
     this.pubsub.publish('userUpdated', updatedDoc);
     return updatedDoc;
   }

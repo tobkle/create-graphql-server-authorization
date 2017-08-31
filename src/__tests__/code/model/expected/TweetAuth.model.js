@@ -1,3 +1,4 @@
+/* eslint-disable prettier */
 import {
   queryForRoles,
   onAuthRegisterLoader,
@@ -10,6 +11,7 @@ export default class Tweet {
     this.context = context;
     this.collection = context.db.collection('tweet');
     this.pubsub = context.pubsub;
+    this.log = context.log;
     const { me, User } = context;
     queryForRoles(
       me,
@@ -49,6 +51,32 @@ export default class Tweet {
       .toArray();
   }
 
+  author(tweet, me, resolver) {
+    return this.context.User.findOneById(
+      tweet.authorId,
+      me,
+      resolver
+    );
+  }
+
+  coauthors(tweet, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
+    const baseQuery = { _id: { $in: tweet.coauthorsIds || [] } };
+    return this.context.User.find(
+      { baseQuery, lastCreatedAt, limit },
+      me,
+      resolver
+    );
+  }
+
+  likers(tweet, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
+    const baseQuery = { likedIds: tweet._id };
+    return this.context.User.find(
+      { baseQuery, lastCreatedAt, limit },
+      me,
+      resolver
+    );
+  }
+
   createdBy(tweet, me, resolver) {
     return this.context.User.findOneById(tweet.createdById, me, resolver);
   }
@@ -60,7 +88,9 @@ export default class Tweet {
   async insert(doc, me, resolver) {
     const docToInsert = Object.assign({}, doc, {
       createdAt: Date.now(),
-      updatedAt: Date.now()
+      updatedAt: Date.now(),
+      createdById: (me && me._id) ? me._id : 'unknown',
+      updatedById: (me && me._id) ? me._id : 'unknown',
     });
     checkAuthDoc(
       docToInsert,
@@ -75,7 +105,7 @@ export default class Tweet {
       throw new Error(`insert tweet not possible.`);
     }
     this.log.debug(`inserted tweet ${id}.`);
-    const insertedDoc = this.findOneById(id);
+    const insertedDoc = this.findOneById(id, me, 'pubsub tweetInserted');
     this.pubsub.publish('tweetInserted', insertedDoc);
     return insertedDoc;
   }
@@ -102,7 +132,7 @@ export default class Tweet {
     }
     this.log.debug(`updated tweet ${id}.`);
     this.authorizedLoader.clear(id);
-    const updatedDoc = this.findOneById(id);
+    const updatedDoc = this.findOneById(id, me, 'pubsub tweetUpdated');
     this.pubsub.publish('tweetUpdated', updatedDoc);
     return updatedDoc;
   }

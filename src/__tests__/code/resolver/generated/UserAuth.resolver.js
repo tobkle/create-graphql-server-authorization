@@ -1,7 +1,25 @@
+/* eslint-disable prettier */
+/* eslint comma-dangle: [2, "only-multiline"] */
 const resolvers = {
   User: {
     id(user) {
       return user._id;
+    },
+
+    tweets(user, args, { User, me }) {
+      return User.tweets(user, args, me, 'user tweets');
+    },
+
+    liked(user, args, { User, me }) {
+      return User.liked(user, args, me, 'user liked');
+    },
+
+    following(user, args, { User, me }) {
+      return User.following(user, args, me, 'user following');
+    },
+
+    followers(user, args, { User, me }) {
+      return User.followers(user, args, me, 'user followers');
     },
 
     createdBy(user, args, { User, me }) {

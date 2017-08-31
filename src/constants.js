@@ -25,7 +25,9 @@ export type templateContextType = {
   userRoles: any,
   docRoles: any,
   firstUserRole: string,
-  roleField: string
+  roleField: string,
+  singularFields: Array<any>,
+  paginatedFields: Array<any>
 };
 
 // generator configuration type
@@ -75,17 +77,8 @@ export const TEMPLATES_COMMON_DIR = 'common';
 export const TEMPLATES_DEFAULT_DIR = 'default';
 export const TEMPLATES_DEFAULT_TEMPLATE = 'default';
 
-// export const HEADER = 'header';
-// export const BODY = 'body';
-// export const CONSTRUCTOR = 'constructor';
-// export const FIND_ONE_BY_ID = 'findOneById';
-// export const FIND = 'find';
-// export const INSERT = 'insert';
-// export const UPDATE_BY_ID = 'updateById';
-// export const REMOVE_BY_ID = 'removeById';
-// export const CREATED_BY = 'createdBy';
-// export const UPDATED_BY = 'updatedBy';
-// export const DELIMITER = '-';
+export const SINGULAR = 'singular';
+export const PAGINATED = 'paginated';
 
 // test directories
 export const SRC_DIR = 'src';

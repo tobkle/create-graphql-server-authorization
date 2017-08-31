@@ -1,7 +1,13 @@
+/* eslint-disable prettier */
 import DataLoader from 'dataloader';
-import { findByIds } from 'create-graphql-server-authorization';
+import {
+  findByIds,
+  getLogFilename,
+  logger
+} from 'create-graphql-server-authorization';
 import bcrypt from 'bcrypt';
 const SALT_ROUNDS = 10;
+const log = logger(getLogFilename());
 
 export default class User {
   constructor(context) {
@@ -14,6 +20,9 @@ export default class User {
   }
 
   async findOneById(id) {
+    if (!this.authorizedLoader) {
+      return null;
+    }
     return await this.authorizedLoader.load(id);
   }
 
@@ -26,6 +35,42 @@ export default class User {
       .toArray();
   }
 
+  tweets(user, { minLikes, lastCreatedAt = 0, limit = 10 }, me, resolver) {
+    const baseQuery = { authorId: user._id };
+    return this.context.Tweet.find(
+      { baseQuery, minLikes, lastCreatedAt, limit },
+      me,
+      resolver
+    );
+  }
+
+  liked(user, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
+    const baseQuery = { _id: { $in: user.likedIds || [] } };
+    return this.context.Tweet.find(
+      { baseQuery, lastCreatedAt, limit },
+      me,
+      resolver
+    );
+  }
+
+  following(user, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
+    const baseQuery = { _id: { $in: user.followingIds || [] } };
+    return this.context.User.find(
+      { baseQuery, lastCreatedAt, limit },
+      me,
+      resolver
+    );
+  }
+
+  followers(user, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
+    const baseQuery = { followingIds: user._id };
+    return this.context.User.find(
+      { baseQuery, lastCreatedAt, limit },
+      me,
+      resolver
+    );
+  }
+  
   async insert(doc) {
     // We don't want to store passwords in plaintext
     const { password, ...rest } = doc;
@@ -39,7 +84,7 @@ export default class User {
     if (!id) {
       throw new Error(`insert user not possible.`);
     }
-    this.log.debug(`inserted user ${id}.`);
+    log.debug(`inserted user ${id}.`);
     const insertedDoc = this.findOneById(id);
     this.pubsub.publish('userInserted', insertedDoc);
     return insertedDoc;
@@ -57,7 +102,7 @@ export default class User {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`update user not possible for ${id}.`);
     }
-    this.log.debug(`updated user ${id}.`);
+    log.debug(`updated user ${id}.`);
     this.authorizedLoader.clear(id);
     const updatedDoc = this.findOneById(id);
     this.pubsub.publish('userUpdated', updatedDoc);
@@ -71,7 +116,7 @@ export default class User {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`remove user not possible for ${id}.`);
     }
-    this.log.debug(`removed user ${id}.`);
+    log.debug(`removed user ${id}.`);
     this.authorizedLoader.clear(id);
     this.pubsub.publish('userRemoved', id);
     return result;

@@ -1,5 +1,5 @@
 {{#if authorize }}
-{{>   auth_user }}
+{{>   authorize_user }}
 {{else }}
 {{>   default_user }}
 {{/if }}
