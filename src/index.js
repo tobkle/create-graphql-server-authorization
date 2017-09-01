@@ -24,6 +24,9 @@
  * @param {function} adjustSchemaForAuthorization - returns an array of fields for schema
  */
 
+/* to find this path from various places, return this modules absolute path: */
+export const modulePath = __dirname;
+
 /* for the authorization logic */
 export { getLogFilename } from './lib/getLogFilename.js';
 export { dummyUserContext } from './lib/dummyUserContext.js';
