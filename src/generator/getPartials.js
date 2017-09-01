@@ -2,12 +2,9 @@
 
 import fs from 'fs';
 import path from 'path';
-
-import type { configPartialType } from '../constants';
-
-import { TEMPLATE_EXTENSION, ENCODING } from '../constants';
-
 import { getName } from './getName';
+import { TEMPLATE_EXTENSION, ENCODING } from '../constants';
+import type { configPartialType } from '../constants';
 
 /**
  * reads all available partials of a template directory
@@ -42,9 +39,13 @@ export function getPartials({
   path: string,
   source: string
 }> {
-  const partialsDirectory = path.join(...basePath, ...directoryPath);
+  // collect all found partials in this partials array
   let partials = [];
 
+  // prepare directory name
+  const partialsDirectory = path.join(...basePath, ...directoryPath);
+
+  // checks if name is an existing directory
   if (
     !fs.existsSync(partialsDirectory) ||
     !fs.statSync(partialsDirectory).isDirectory()
@@ -52,13 +53,15 @@ export function getPartials({
     return partials;
   }
 
+  // for easier reading as function: process directory tree recursively
   function filter_and_recursion_processing(file) {
     const filePath = path.join(...basePath, ...directoryPath, file);
+
     if (path.extname(file) === extension) {
-      // partial file is found, do processing with it later
+      // partial file is found, passing through filter, process it later
       return file;
     } else if (fs.statSync(filePath).isDirectory()) {
-      // directory found, do recursion and get processed results back
+      // directory found, do recursion and get processed partials back
       partials = partials.concat(
         getPartials({
           basePath,
@@ -69,17 +72,22 @@ export function getPartials({
         })
       );
     }
+
     return false;
   }
 
+  // for easier reading as function: process a partial template
   function partial_processing(file) {
     const partial = {};
+
     partial.name = getNameFunc(directoryPath, file, extension);
     partial.path = path.join(...basePath, ...directoryPath, file);
     partial.source = fs.readFileSync(partial.path, encoding);
+
     partials.push(partial);
   }
 
+  // read directory tree, filter for '.template' files, sort them, process them
   fs
     .readdirSync(partialsDirectory)
     .filter(filter_and_recursion_processing)
@@ -88,10 +96,3 @@ export function getPartials({
 
   return partials;
 }
-
-// debugger;
-// const partials = getPartials({
-//   basePath: ['templates', 'model', 'default'],
-//   directoryPath: ['user']
-// });
-// console.log(partials);

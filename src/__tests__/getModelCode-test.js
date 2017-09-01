@@ -1,6 +1,8 @@
 /* eslint-disable prefer-const */
 /* eslint-disable max-len */
 /* eslint-disable no-console */
+let chai = require('chai');
+chai.use(require('chai-string')); // equalIgnoreSpaces
 
 import fs from 'fs';
 import path from 'path';
@@ -23,7 +25,8 @@ import {
   TEMPLATES_DIR,
   TEMPLATES_MODEL_DIR,
   TEMPLATES_DEFAULT_DIR,
-  TEMPLATES_AUTH_DIR
+  TEMPLATES_AUTH_DIR,
+  MODEL
 } from '../constants';
 
 const expect = require('chai').expect;
@@ -97,7 +100,7 @@ describe('getmodelCode', () => {
       // generate model code from .graphql file
       const gqlSource = gqlFilesSources[gqlFile];
       const inputSchema = parse(gqlSource);
-      const generatedSource = getCode({
+      const generatedSource = getCode(MODEL, {
         inputSchema,
         basePath: [TEMPLATES_DIR, TEMPLATES_MODEL_DIR, TEMPLATES_DEFAULT_DIR],
         authPath: [TEMPLATES_DIR, TEMPLATES_MODEL_DIR, TEMPLATES_AUTH_DIR]
@@ -120,7 +123,9 @@ describe('getmodelCode', () => {
       const expectedSource = modelFilesSources[modelFileName];
 
       // compare AST of both sources
-      expect(generatedSource, generateFilename).to.deep.equal(expectedSource);
+      expect(generatedSource, generateFilename).to.equalIgnoreSpaces(
+        expectedSource
+      );
     });
     done();
   });

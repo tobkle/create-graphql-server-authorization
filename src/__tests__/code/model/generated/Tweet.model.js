@@ -58,7 +58,7 @@ export default class Tweet {
       resolver
     );
   }
-  
+
   async insert(doc) {
     const docToInsert = Object.assign({}, doc, {
       createdAt: Date.now(),

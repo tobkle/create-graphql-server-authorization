@@ -2,8 +2,6 @@
 
 import path from 'path';
 
-const expect = require('chai').expect;
-
 /**
  * Get name for the log file
  * reads package.json for config.logfile variable
@@ -12,7 +10,8 @@ const expect = require('chai').expect;
  */
 
 export function getLogFilename(): string {
-  const logFilename = path.normalize(process.env.npm_package_config_logfile);
-  expect(logFilename).be.a('string');
+  const logFilename = path.normalize(
+    process.env.npm_package_config_logfile || 'all-logs-readable.log'
+  );
   return logFilename;
 }

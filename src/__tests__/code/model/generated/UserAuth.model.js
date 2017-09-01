@@ -94,7 +94,7 @@ export default class User {
       resolver
     );
   }
-  
+
   createdBy(user, me, resolver) {
     return this.context.User.findOneById(user.createdById, me, resolver);
   }

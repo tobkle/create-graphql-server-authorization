@@ -64,7 +64,7 @@ export default class {{TypeName}} {
 {{#each paginatedFields}}
 {{> defaultPaginatedField }}
 {{/each}}
-  
+
   createdBy({{typeName}}, me, resolver) {
     return this.context.{{User}}.findOneById({{typeName}}.createdById, me, resolver);
   }

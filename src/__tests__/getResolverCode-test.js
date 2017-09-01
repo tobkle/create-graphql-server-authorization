@@ -1,6 +1,8 @@
 /* eslint-disable prefer-const */
 /* eslint-disable max-len */
 /* eslint-disable no-console */
+let chai = require('chai');
+chai.use(require('chai-string')); // equalIgnoreSpaces
 
 import fs from 'fs';
 import path from 'path';
@@ -23,7 +25,8 @@ import {
   TEMPLATES_DIR,
   TEMPLATES_RESOLVER_DIR,
   TEMPLATES_DEFAULT_DIR,
-  TEMPLATES_AUTH_DIR
+  TEMPLATES_AUTH_DIR,
+  RESOLVER
 } from '../constants';
 
 const expect = require('chai').expect;
@@ -97,7 +100,7 @@ describe('getCode Resolver', () => {
       // generate resolver code from .graphql file
       const gqlSource = gqlFilesSources[gqlFile];
       const inputSchema = parse(gqlSource);
-      const generatedSource = getCode({
+      const generatedSource = getCode(RESOLVER, {
         inputSchema,
         basePath: [
           TEMPLATES_DIR,
@@ -124,7 +127,9 @@ describe('getCode Resolver', () => {
       const expectedSource = resolverFilesSources[resolverFileName];
 
       // compare AST of both sources
-      expect(generatedSource, generateFilename).to.deep.equal(expectedSource);
+      expect(generatedSource, generateFilename).to.equalIgnoreSpaces(
+        expectedSource
+      );
     });
     done();
   });

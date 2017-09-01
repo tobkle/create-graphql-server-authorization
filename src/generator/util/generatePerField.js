@@ -1,4 +1,5 @@
 import cloneDeep from 'lodash.clonedeep';
+import { lcFirst } from './capitalization';
 
 import {
   getBaseType,
@@ -7,7 +8,13 @@ import {
   applyCustomDirectives
 } from './graphql';
 
-import { lcFirst } from './capitalization';
+/**
+ * changes a given string on the first character to lower case
+ * @public
+ * @public {object} type - schema type
+ * @public {object} generators - object with generator methods
+ * @return {object} generatorResults - field context for templates
+ */
 
 export default function generatePerField(type, generators) {
   const TypeName = type.name.value;

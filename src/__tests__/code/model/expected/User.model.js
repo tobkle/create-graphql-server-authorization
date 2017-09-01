@@ -70,7 +70,7 @@ export default class User {
       resolver
     );
   }
-  
+ 
   async insert(doc) {
     // We don't want to store passwords in plaintext
     const { password, ...rest } = doc;
