@@ -330,12 +330,6 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "create-graphql-server-authorization/src/generator/schema/adjustschemaforauthorization.js~adjustschemaforauthorization",
-    "function/index.html#static-function-adjustSchemaForAuthorization",
-    "<span>adjustSchemaForAuthorization</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/schema/adjustSchemaForAuthorization.js</span>",
-    "function"
-  ],
-  [
     "create-graphql-server-authorization/src/generator/util/graphql.js~applycustomdirectives",
     "function/index.html#static-function-applyCustomDirectives",
     "<span>applyCustomDirectives</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/util/graphql.js</span>",
@@ -400,6 +394,12 @@ window.esdocSearchIndex = [
     "variable/index.html#static-variable-dummyUserContext",
     "<span>dummyUserContext</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/dummyUserContext.js</span>",
     "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/generator/schema/enhanceschemaforauthorization.js~enhanceschemaforauthorization",
+    "function/index.html#static-function-enhanceSchemaForAuthorization",
+    "<span>enhanceSchemaForAuthorization</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/schema/enhanceSchemaForAuthorization.js</span>",
+    "function"
   ],
   [
     "create-graphql-server-authorization/src/generator/authorize/extractroles.js~extractroles",
@@ -912,9 +912,9 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/generator/schema/adjustschemaforauthorization.js",
-    "file/src/generator/schema/adjustSchemaForAuthorization.js.html",
-    "src/generator/schema/adjustSchemaForAuthorization.js",
+    "src/generator/schema/enhanceschemaforauthorization.js",
+    "file/src/generator/schema/enhanceSchemaForAuthorization.js.html",
+    "src/generator/schema/enhanceSchemaForAuthorization.js",
     "file"
   ],
   [

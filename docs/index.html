@@ -97,7 +97,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getRoles">getRoles</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isAuthorizeDirectiveDefined">isAuthorizeDirectiveDefined</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isRoleField">isRoleField</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#generator-schema">generator/schema</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-adjustSchemaForAuthorization">adjustSchemaForAuthorization</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#generator-schema">generator/schema</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-enhanceSchemaForAuthorization">enhanceSchemaForAuthorization</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#generator-util">generator/util</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lcFirst">lcFirst</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-ucFirst">ucFirst</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-generatePerField">generatePerField</a></span></span></li>
@@ -149,40 +149,90 @@
   bio: String!
 }</code>
 </code></pre>
+<p>The type &quot;User&quot; is treated as a special type. It adds automatically the input field &quot;password&quot; and &quot;createdBy&quot; and &quot;updatedBy&quot; fields.</p>
 <h2 id="installation">Installation</h2><pre><code class="lang-bash"><code class="source-code prettyprint">git clone git@github.com:tmeasday/create-graphql-server.git
 cd create-graphql-server
 yarn add create-graphql-server-authorization</code>
 </code></pre>
 <p>Add it to the generator files here:</p>
 <ul>
-<li>generate/model/index.js [Mandatory]</li>
-<li>generate/resolver/index.js [Mandatory]</li>
-<li>generate/schema/index.js [Optional]</li>
+<li>generate/index.js</li>
+<li>generate/model/index.js</li>
+<li>generate/resolver/index.js</li>
 </ul>
-<p>In the Model generator you can use it, to generate authorization code which is then injected in the Model methods of the types:</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import { getCode } from &apos;create-graphql-server-authorization&apos;;
-...
+<p>In &quot;generate/index.js&quot;</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">// We are in an intermediate step where we aren&apos;t actually generating files
+// but we are generating code.
+import { parse, print } from &apos;graphql&apos;;
+import { lcFirst } from &apos;./util/capitalization&apos;;
+import generateModel from &apos;./model&apos;;
+import generateResolver from &apos;./resolvers&apos;;
+import generateSchema from &apos;./schema&apos;;
+import { 
+  enhanceSchemaForAuthorization
+} from &apos;create-graphql-server-authorization&apos;;                                    // &lt;=== here
 
-...</code>
+export default function generate(inputSchemaStr) {
+  const inputSchema = parse(inputSchemaStr);
+  const type = inputSchema.definitions[0];
+  const TypeName = type.name.value;
+  const typeName = lcFirst(TypeName);
+  const outputSchema = generateSchema(inputSchema);
+  const outputSchemaWithAuth = enhanceSchemaForAuthorization(outputSchema);       // &lt;=== here
+  const outputSchemaStr = print(outputSchemaWithAuth);                            // &lt;=== here
+  const resolversStr = generateResolver(inputSchema);
+  const modelStr = generateModel(inputSchema);
+
+  return {
+    typeName,
+    TypeName,
+    outputSchemaStr,
+    resolversStr,
+    modelStr,
+  };
+}</code>
 </code></pre>
-<p>Additional references for this module <strong>create-graphql-server-authorization</strong> in the create-graphql-server are here:</p>
-<ul>
-<li>/skel/server/authenticate.js [uses: findByIds]</li>
-<li>/skel/server/index.js [uses: getLogFilename, logger]</li>
-</ul>
-<p>So if you are replacing <strong>create-graphql-server-authorization</strong> by your own forked version of this module, please don&apos;t forget the other two references, or just keep the original version in your package.json.</p>
-<h3 id="option">Option</h3><p>In the Schema generator you can use it as an option for example, to generate two fields createdBy and updatedBy only if there is a user type and authorization setup:</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import { isAuthorizeDirectiveDefined } from &apos;create-graphql-server-authorization&apos;;
-...
-const authorize = isAuthorizeDirectiveDefined(outputSchema);
-...
-// for safety reasons:
-// only with @authorize we know that there is a &quot;User&quot; type defined
-if (authorize){
-  type.fields.push(buildField(&apos;createdBy&apos;, [], &apos;User&apos;));
-  type.fields.push(buildField(&apos;updatedBy&apos;, [], &apos;User&apos;));
-}
-...</code>
+<p>In &quot;generate/model/index.js&quot;</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import { print } from &apos;recast&apos;;
+import { templateToAst } from &apos;../util/read&apos;;
+import getCode from &apos;../util/getCode&apos;;
+import { MODEL } from &apos;../util/constants&apos;;
+import { modulePath } from &apos;create-graphql-server-authorization&apos;;         // &lt;=== here
+
+export default function generateModel(inputSchema) {
+
+  const templateCode = getCode(MODEL, {
+    inputSchema,
+    basePath: [__dirname, &apos;templates&apos;],
+    authPath: [modulePath, &apos;templates&apos;, &apos;model&apos;, &apos;auth&apos;]                  // &lt;=== here
+  });
+
+  // validate syntax of generated template code
+  const replacements = {};
+  const ast = templateToAst(templateCode, replacements);
+  return print(ast, { trailingComma: true }).code;
+}</code>
+</code></pre>
+<p>In &quot;generate/resolver/index.js&quot;</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint"> import { print } from &apos;recast&apos;;
+ import getCode from &apos;../util/getCode&apos;;
+ import { templateToAst } from &apos;../util/read&apos;;
+ import { RESOLVER } from &apos;../util/constants&apos;;
+ import { modulePath } from &apos;create-graphql-server-authorization&apos;;       // &lt;=== here
+
+export default function generateResolver(inputSchema) {
+
+  const templateCode = getCode(RESOLVER, {
+    inputSchema,
+    basePath: [__dirname, &apos;templates&apos;],
+    authPath: [modulePath, &apos;templates&apos;,&apos;resolver&apos;, &apos;auth&apos;]               // &lt;=== here
+  });
+
+  // validate syntax of generated template code
+  const replacements = {};
+  const ast = templateToAst(templateCode, replacements);
+  return print(ast, { trailingComma: true }).code;
+}</code>
 </code></pre>
 <h2 id="documentation">Documentation</h2><p><a href="https://tobkle.github.io/create-graphql-server-authorization/">API Documentation</a></p>
 <h2 id="tests">Tests</h2><pre><code class="lang-bash"><code class="source-code prettyprint">yarn test</code>

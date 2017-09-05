@@ -18,7 +18,7 @@
  * @param {function} getName - required for getCode
  * @param {function} getPartials - required for getCode
  * @param {function} isAuthorizeDirectiveDefined - returns true, if authorization logic is defined
- * @param {function} adjustSchemaForAuthorization - returns an array of fields for schema
+ * @param {function} enhanceSchemaForAuthorization - enhances the schema for authorization
  */
 
 /* to find this path from various places, return this modules absolute path: */
@@ -48,5 +48,5 @@ export {
 } from './generator/authorize/isAuthorizeDirectiveDefined.js';
 
 export {
-  adjustSchemaForAuthorization
-} from './generator/schema/adjustSchemaForAuthorization.js';
+  enhanceSchemaForAuthorization
+} from './generator/schema/enhanceSchemaForAuthorization.js';

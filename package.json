@@ -89,6 +89,7 @@
     "sane": "2.0.0"
   },
   "dependencies": {
+    "assert": "^1.4.1",
     "babylon": "^6.18.0",
     "chai-string": "^1.4.0",
     "create-graphql-server-find-by-ids": "^0.0.4",

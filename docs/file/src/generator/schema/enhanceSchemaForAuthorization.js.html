@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">src/lib/fieldContainsUserId.js | create-graphql-server-authorization</title>
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/generator/schema/enhanceSchemaForAuthorization.js | create-graphql-server-authorization</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -127,104 +127,84 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/lib/fieldContainsUserId.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// @flow
-/* eslint-disable max-len */
+<div class="content" data-ice="content"><h1 data-ice="title">src/generator/schema/enhanceSchemaForAuthorization.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import cloneDeep from &apos;lodash.clonedeep&apos;;
+import includes from &apos;lodash.includes&apos;;
+import { lcFirst } from &apos;../util/capitalization&apos;;
+import { adjustSchemaForAuthorization } from &apos;./adjustSchemaForAuthorization&apos;;
+import { CREATE, READ, USER_LITERAL, USER_MODEL } from &apos;../../constants&apos;;
+import { isAuthorizeDirectiveDefined } from &apos;../authorize/isAuthorizeDirectiveDefined&apos;;
 
-import _ from &apos;lodash&apos;;
+import {
+  getBaseType,
+  buildTypeDefinition,
+  buildField,
+  buildValue,
+  buildArgument,
+  isScalarField,
+  buildTypeExtension,
+  addPaginationArguments,
+  applyCustomDirectives,
+  idArgument,
+  SCALAR_TYPE_NAMES
+} from &apos;../util/graphql&apos;;
+
+import {
+  DOCUMENT,
+  OBJECT_TYPE_DEFINITION,
+  INPUT_OBJECT_TYPE_DEFINITION,
+  ENUM_TYPE_DEFINITION,
+  TYPE_EXTENSION_DEFINITION,
+  LIST_TYPE,
+  FIELD_DEFINITION,
+  NAME
+} from &apos;graphql/language/kinds&apos;;
 
 /**
- * extracts a UserId from an _id object
- * @private
- * @param {object} userIdObject - user object
- * @return {string} newUserId - id of the user
- */
-
-function extractUserId(userIdObject: any): any {
-  let newUserId = &apos;&apos;;
-  if (_.isObject(userIdObject)) {
-    Object.keys(userIdObject).forEach(field =&gt; {
-      newUserId = userIdObject[field];
-    });
-  } else {
-    newUserId = userIdObject;
-  }
-  return newUserId;
-}
-
-/**
- * checks, if a field contains a user&apos;s id
- * returns true, if a field of type array/object/string contains the userId
+ * enhances the schema by additional fields, required for authorization
  * @public
- * @param {object} docRoleField - the field to be checked
- * @param {object} compressedUserId - the user id to test
- * @return {boolean} found - true if it contains the user id
+ * @param {object} inputSchema - the input&apos;s schema with all fields
+ * @return {object} outputSchema - the enhanced output Schema
  */
 
-export function fieldContainsUserId(
-  docRoleField: any,
-  compressedUserId: any
-): boolean {
-  let found = false;
+export function enhanceSchemaForAuthorization(inputSchema) {
+  const outputSchema = cloneDeep(inputSchema);
+  const type = outputSchema.definitions[0];
+  const TypeName = type.name.value;
+  const typeName = lcFirst(TypeName);
 
-  // empty docRoleField is not a valid docRoleField
-  if (!docRoleField || docRoleField === &apos;&apos; || docRoleField.length === 0) {
-    return false;
-  }
+  const authorize = isAuthorizeDirectiveDefined(inputSchema);
+  if (authorize) {
+    const createInputFields = [];
+    
+    // remove @authorize directive from header
+    type.directives = type.directives.filter(directive =&gt; 
+      directive.name.value !== &apos;authorize&apos;
+    );
 
-  // empty (compressed) userId is not a valid userId
-  if (
-    !compressedUserId ||
-    compressedUserId === &apos;&apos; ||
-    compressedUserId.toString() === &apos;&apos;
-  ) {
-    return false;
-  }
+    // for type User: add field &apos;password&apos; for &apos;create&apos;
+    if(TypeName === USER_LITERAL){
+      // get the name of the create&lt;Type&gt;Input
+      const createInputTypeName = `Create${TypeName}Input`;
 
-  // extract userId, if it is a mongoID field
-  const userId = extractUserId(compressedUserId);
-
-  // empty (uncompressed) userId is not a valid userId
-  if (!userId || userId === &apos;&apos;) {
-    return false;
-  }
-
-  // docRoleField of type Array
-  if (_.isArray(docRoleField)) {
-    docRoleField.forEach(field =&gt; {
-      if (fieldContainsUserId(field, userId)) {
-        found = true;
-      }
-    });
-    if (found) {
-      return true;
+      outputSchema
+        .definitions.filter(objType =&gt;
+          objType.kind === INPUT_OBJECT_TYPE_DEFINITION &amp;&amp;
+          objType.name.value === createInputTypeName)
+        .forEach(inputType =&gt; inputType.fields.push(
+          buildField(&apos;password&apos;, [], &apos;String!&apos;)
+        ));
     }
-    return false;
-  }
 
-  // docRoleField of type Object
-  if (_.isObject(docRoleField)) {
-    // For each field in the object
-    Object.keys(docRoleField).forEach(field =&gt; {
-      if (
-        fieldContainsUserId(docRoleField[field], userId) ||
-        fieldContainsUserId(field, userId)
-      ) {
-        found = true;
-      }
-    });
-    if (found) {
-      return true;
-    }
-    return false;
-  }
+    // for all typeNames with authorization: add &apos;createdBy&apos;
+    type.fields.push(buildField(&apos;createdBy&apos;, [], USER_LITERAL));
 
-  // docRoleField of type field
-  if (docRoleField.toString() === userId.toString()) {
-    return true;
+    // for all typeNames with authorization: add &apos;updatedBy&apos;
+    type.fields.push(buildField(&apos;updatedBy&apos;, [], USER_LITERAL));
   }
+  
+  return outputSchema;
 
-  return false;
 }
 </code></pre>
 

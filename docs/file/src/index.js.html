@@ -97,7 +97,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getRoles">getRoles</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isAuthorizeDirectiveDefined">isAuthorizeDirectiveDefined</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isRoleField">isRoleField</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#generator-schema">generator/schema</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-adjustSchemaForAuthorization">adjustSchemaForAuthorization</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#generator-schema">generator/schema</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-enhanceSchemaForAuthorization">enhanceSchemaForAuthorization</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#generator-util">generator/util</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lcFirst">lcFirst</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-ucFirst">ucFirst</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-generatePerField">generatePerField</a></span></span></li>
@@ -139,7 +139,6 @@
  * @param {function} onAuthRegisterLoader - registers dataloader on successfull authorization
  * @param {function} checkAuthDoc - checks, if authorized for document
  * @param {function} fieldContainsUserId - checks, if field contains user id
- * @param {function} findByIds - find documents with their ids, cached
  * @param {function} loggedIn - checks, if user logged in
  * @param {function} protectFields - protects fields for authorized users
  * @param {function} queryForRoles - creates authQuery for later data operations
@@ -149,7 +148,7 @@
  * @param {function} getName - required for getCode
  * @param {function} getPartials - required for getCode
  * @param {function} isAuthorizeDirectiveDefined - returns true, if authorization logic is defined
- * @param {function} adjustSchemaForAuthorization - returns an array of fields for schema
+ * @param {function} enhanceSchemaForAuthorization - enhances the schema for authorization
  */
 
 /* to find this path from various places, return this modules absolute path: */
@@ -161,7 +160,6 @@ export { authlog } from &apos;./lib/authlog.js&apos;;
 export { onAuthRegisterLoader } from &apos;./lib/onAuthRegisterLoader.js&apos;;
 export { checkAuthDoc } from &apos;./lib/checkAuthDoc.js&apos;;
 export { fieldContainsUserId } from &apos;./lib/fieldContainsUserId.js&apos;;
-export { findByIds } from &apos;./lib/findByIds.js&apos;;
 export { loggedIn } from &apos;./lib/loggedIn.js&apos;;
 export { protectFields } from &apos;./lib/protectFields.js&apos;;
 export { queryForRoles } from &apos;./lib/queryForRoles.js&apos;;
@@ -180,8 +178,8 @@ export {
 } from &apos;./generator/authorize/isAuthorizeDirectiveDefined.js&apos;;
 
 export {
-  adjustSchemaForAuthorization
-} from &apos;./generator/schema/adjustSchemaForAuthorization.js&apos;;
+  enhanceSchemaForAuthorization
+} from &apos;./generator/schema/enhanceSchemaForAuthorization.js&apos;;
 </code></pre>
 
 </div>

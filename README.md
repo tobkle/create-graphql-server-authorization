@@ -29,6 +29,8 @@ type User
 }
 ```
 
+The type "User" is treated as a special type. It adds automatically the input field "password" and "createdBy" and "updatedBy" fields.
+
 ## Installation
 ```bash
 git clone git@github.com:tmeasday/create-graphql-server.git
@@ -37,38 +39,90 @@ yarn add create-graphql-server-authorization
 ```
 
 Add it to the generator files here:
-* generate/model/index.js [Mandatory]
-* generate/resolver/index.js [Mandatory]
-* generate/schema/index.js [Optional]
+* generate/index.js
+* generate/model/index.js
+* generate/resolver/index.js
 
-In the Model generator you can use it, to generate authorization code which is then injected in the Model methods of the types:
+In "generate/index.js"
 ```javascript
-import { getCode } from 'create-graphql-server-authorization';
-...
+// We are in an intermediate step where we aren't actually generating files
+// but we are generating code.
+import { parse, print } from 'graphql';
+import { lcFirst } from './util/capitalization';
+import generateModel from './model';
+import generateResolver from './resolvers';
+import generateSchema from './schema';
+import { 
+  enhanceSchemaForAuthorization
+} from 'create-graphql-server-authorization';                                    // <=== here
 
-...
+export default function generate(inputSchemaStr) {
+  const inputSchema = parse(inputSchemaStr);
+  const type = inputSchema.definitions[0];
+  const TypeName = type.name.value;
+  const typeName = lcFirst(TypeName);
+  const outputSchema = generateSchema(inputSchema);
+  const outputSchemaWithAuth = enhanceSchemaForAuthorization(outputSchema);       // <=== here
+  const outputSchemaStr = print(outputSchemaWithAuth);                            // <=== here
+  const resolversStr = generateResolver(inputSchema);
+  const modelStr = generateModel(inputSchema);
+  
+  return {
+    typeName,
+    TypeName,
+    outputSchemaStr,
+    resolversStr,
+    modelStr,
+  };
+}
 ```
 
-Additional references for this module **create-graphql-server-authorization** in the create-graphql-server are here:
-* /skel/server/authenticate.js [uses: findByIds]
-* /skel/server/index.js [uses: getLogFilename, logger]
+In "generate/model/index.js"
+```javascript
+import { print } from 'recast';
+import { templateToAst } from '../util/read';
+import getCode from '../util/getCode';
+import { MODEL } from '../util/constants';
+import { modulePath } from 'create-graphql-server-authorization';         // <=== here
 
-So if you are replacing **create-graphql-server-authorization** by your own forked version of this module, please don't forget the other two references, or just keep the original version in your package.json.
+export default function generateModel(inputSchema) {
 
-### Option
-In the Schema generator you can use it as an option for example, to generate two fields createdBy and updatedBy only if there is a user type and authorization setup:
-```javascript 
-import { isAuthorizeDirectiveDefined } from 'create-graphql-server-authorization';
-...
-const authorize = isAuthorizeDirectiveDefined(outputSchema);
-...
-// for safety reasons:
-// only with @authorize we know that there is a "User" type defined
-if (authorize){
-  type.fields.push(buildField('createdBy', [], 'User'));
-  type.fields.push(buildField('updatedBy', [], 'User'));
+  const templateCode = getCode(MODEL, {
+    inputSchema,
+    basePath: [__dirname, 'templates'],
+    authPath: [modulePath, 'templates', 'model', 'auth']                  // <=== here
+  });
+
+  // validate syntax of generated template code
+  const replacements = {};
+  const ast = templateToAst(templateCode, replacements);
+  return print(ast, { trailingComma: true }).code;
 }
-...
+
+```
+
+In "generate/resolver/index.js"
+```javascript
+ import { print } from 'recast';
+ import getCode from '../util/getCode';
+ import { templateToAst } from '../util/read';
+ import { RESOLVER } from '../util/constants';
+ import { modulePath } from 'create-graphql-server-authorization';       // <=== here
+
+export default function generateResolver(inputSchema) {
+
+  const templateCode = getCode(RESOLVER, {
+    inputSchema,
+    basePath: [__dirname, 'templates'],
+    authPath: [modulePath, 'templates','resolver', 'auth']               // <=== here
+  });
+
+  // validate syntax of generated template code
+  const replacements = {};
+  const ast = templateToAst(templateCode, replacements);
+  return print(ast, { trailingComma: true }).code;
+}
+
 ```
 
 ## Documentation

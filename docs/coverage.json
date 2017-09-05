@@ -112,7 +112,7 @@
       "actualCount": 1,
       "undocumentLines": []
     },
-    "src/generator/schema/adjustSchemaForAuthorization.js": {
+    "src/generator/schema/enhanceSchemaForAuthorization.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
@@ -138,7 +138,7 @@
       "expectCount": 1,
       "actualCount": 0,
       "undocumentLines": [
-        26
+        25
       ]
     },
     "src/lib/authlog.js": {
