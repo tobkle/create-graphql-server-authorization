@@ -1,9 +1,9 @@
 // @flow
 
 import DataLoader from 'dataloader';
-import { findByIds } from './findByIds';
-import { logger } from './logger';
-import { getLogFilename } from './getLogFilename';
+import { findByIds } from 'create-graphql-server-find-by-ids';
+import { logger } from 'create-graphql-server-logging';
+import { getLogFilename } from 'create-graphql-server-logging';
 
 import { NO_USER } from '../constants';
 

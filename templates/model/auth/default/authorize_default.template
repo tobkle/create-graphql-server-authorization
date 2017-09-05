@@ -11,7 +11,6 @@ export default class {{TypeName}} {
     this.context = context;
     this.collection = context.db.collection('{{typeName}}');
     this.pubsub = context.pubsub;
-    this.log = context.log;
     const { me, {{User}} } = context;
     queryForRoles(
       me,
@@ -84,7 +83,7 @@ export default class {{TypeName}} {
     if (!id) {
       throw new Error(`insert {{typeName}} not possible.`);
     }
-    this.log.debug(`inserted {{typeName}} ${id}.`);
+    this.context.log.debug(`inserted {{typeName}} ${id}.`);
     const insertedDoc = this.findOneById(id, me, 'pubsub {{typeName}}Inserted');
     this.pubsub.publish('{{typeName}}Inserted', insertedDoc);
     return insertedDoc;
@@ -110,7 +109,7 @@ export default class {{TypeName}} {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`update {{typeName}} not possible for ${id}.`);
     }
-    this.log.debug(`updated {{typeName}} ${id}.`);
+    this.context.log.debug(`updated {{typeName}} ${id}.`);
     this.authorizedLoader.clear(id);
     const updatedDoc = this.findOneById(id, me, 'pubsub {{typeName}}Updated');
     this.pubsub.publish('{{typeName}}Updated', updatedDoc);
@@ -131,7 +130,7 @@ export default class {{TypeName}} {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`remove {{typeName}} not possible for ${id}.`);
     }
-    this.log.debug(`removed {{typeName}} ${id}.`);
+    this.context.log.debug(`removed {{typeName}} ${id}.`);
     this.authorizedLoader.clear(id);
     this.pubsub.publish('{{typeName}}Removed', id);
     return result;

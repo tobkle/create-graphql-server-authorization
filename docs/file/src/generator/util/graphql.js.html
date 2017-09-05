@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">src/generator/authorize/extractRoles.js | create-graphql-server-authorization</title>
+  <title data-ice="title">src/generator/util/graphql.js | create-graphql-server-authorization</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -127,124 +127,119 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/generator/authorize/extractRoles.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// @flow
+<div class="content" data-ice="content"><h1 data-ice="title">src/generator/util/graphql.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { Kind } from &apos;graphql&apos;;
+import includes from &apos;lodash.includes&apos;;
 
-import {
-  ARGUMENT,
-  NAME,
-  LIST,
-  STRING,
-  MODES,
-  CODE_MODES,
-  READ,
-  READ_ONE,
-  READ_MANY
-} from &apos;../../constants&apos;;
-
-import { getRoleType } from &apos;./getRoleType&apos;;
+export const SCALAR_TYPE_NAMES = [&apos;Int&apos;, &apos;Float&apos;, &apos;String&apos;, &apos;Boolean&apos;, &apos;ID&apos;];
 
 /**
- * extract the roles from the @authorize directive
- * by reading the input schema&apos;s abstract syntax tree
- * to get the roles and their authorized modes
- * @private
- * @param {object} allRolesArguments - AST with role definitions
- * @param {object} inputSchema - the schema of the type
- * @return {array} allRoles - returns the defined roles
- * @example 
- *          @authorize(
- *            admin: [&quot;create&quot;, &quot;read&quot;, &quot;update&quot;, &quot;delete&quot;]
- *            this: [&quot;read&quot;, &quot;update&quot;, &quot;delete&quot;]
- *          )
- *
- * it creates the following array (example):
- *
- * allRoles = [
- *       {
- *           name: &apos;admin&apos;,
- *           type: &apos;userRole&apos; || &apos;docRole&apos;
- *           modes: {
- *            create: &apos;admin&apos;,
- *            readOne: &apos;admin&apos;,
- *            readMany: &apos;admin&apos;,
- *            update: &apos;admin&apos;,,
- *            delete: &apos;admin&apos;,
- *        }
- * ]
+ * helper methods to work with graphql ASTs
  */
 
-export function extractRoles(
-  allRolesArguments: any = [],
-  inputSchema: any
-): Array&lt;any&gt; {
-  const allRoles = [];
+export function getBaseType(type) {
+  if (type.kind === &apos;ListType&apos; || type.kind === &apos;NonNullType&apos;) {
+    return getBaseType(type.type);
+  }
+  return type;
+}
 
-  // get all Roles of the type&apos;s @authorize directives
-  // e.g. &apos;admin&apos;, &apos;this&apos;
-  allRolesArguments.forEach(roleArgument =&gt; {
-    const role = {};
+export function argumentsToObject(argumentsAst) {
+  const result = {};
+  argumentsAst.forEach(argument =&gt; {
+    result[argument.name.value] = argument.value.value;
+  });
+  return result;
+}
 
-    // check if it is a valid role
-    if (roleArgument.kind === ARGUMENT &amp;&amp; roleArgument.name.kind === NAME) {
-      role.name = roleArgument.name.value;
+export function isScalarField(field) {
+  return includes(SCALAR_TYPE_NAMES, getBaseType(field.type).name.value);
+}
 
-      // determine the role type, ==&gt; &apos;userRole&apos; || &apos;docRole&apos;
-      const { roleType, roleName, roleFieldName } = getRoleType(
-        role.name,
-        inputSchema
-      );
-      role.type = roleType;
-      role.roleName = roleName;
-      role.roleFieldName = roleFieldName;
+export function buildName(name) {
+  return { kind: &apos;Name&apos;, value: name };
+}
 
-      // create and initialize default &apos;modes&apos; object
-      role.modes = {};
-      CODE_MODES.forEach(mode =&gt; (role.modes[mode] = &apos;&apos;));
+export function buildTypeDefinition(name, fields, kind) {
+  return {
+    kind: kind || &apos;ObjectTypeDefinition&apos;,
+    name: buildName(name),
+    interfaces: [],
+    directives: [],
+    fields
+  };
+}
 
-      // LIST? e.g. [&apos;create&apos;, &apos;update&apos;, &apos;delete&apos;]
-      if (roleArgument.value.kind === LIST) {
-        // get all authorized modes for that role
-        const roleModes = roleArgument.value.values;
+export function buildTypeExtension(type) {
+  return {
+    kind: Kind.TYPE_EXTENSION_DEFINITION,
+    definition: type
+  };
+}
 
-        roleModes.forEach(mode =&gt; {
-          // check, if it is a valid authorization mode
-          // e.g. &apos;create&apos;, &apos;update&apos;, &apos;delete&apos;, etc.
-          if (mode.kind === STRING &amp;&amp; MODES.indexOf(mode.value) &gt;= 0) {
-            // special case &apos;read&apos; means both, &apos;readOne&apos; and &apos;readMany&apos;
-            if (mode.value === READ) {
-              role.modes[READ_ONE] = role.roleName;
-              role.modes[READ_MANY] = role.roleName;
+export function buildTypeReference(name) {
+  if (name[name.length - 1] === &apos;!&apos;) {
+    return {
+      kind: &apos;NonNullType&apos;,
+      type: buildTypeReference(name.substring(0, name.length - 1))
+    };
+  }
 
-              // all other modes
-            } else {
-              role.modes[mode.value] = role.roleName;
-            }
-          }
-        });
+  if (name[0] === &apos;[&apos; &amp;&amp; name[name.length - 1] === &apos;]&apos;) {
+    return {
+      kind: &apos;ListType&apos;,
+      type: buildTypeReference(name.substring(1, name.length - 1))
+    };
+  }
 
-        // STRING? e.g. &apos;create&apos;
-      } else if (
-        roleArgument.name.value.kind === STRING &amp;&amp;
-        MODES.indexOf(roleArgument.name.value) &gt;= 0
-      ) {
-        // special case &apos;read&apos; means both, &apos;readOne&apos; and &apos;readMany&apos;
-        if (roleArgument.name.value === READ) {
-          role.modes[READ_ONE] = role.roleName;
-          role.modes[READ_MANY] = role.roleName;
+  return {
+    kind: &apos;NamedType&apos;,
+    name: buildName(name)
+  };
+}
 
-          // for all other modes
-        } else {
-          role.modes[roleArgument.name.value] = role.roleName;
-        }
-      }
+export function buildField(name, args, typeName) {
+  return {
+    kind: &apos;FieldDefinition&apos;,
+    name: buildName(name),
+    arguments: args,
+    type: buildTypeReference(typeName)
+  };
+}
 
-      // add it to the list of roles
-      allRoles.push(role);
+export function buildArgument(name, type) {
+  return {
+    kind: &apos;InputValueDefinition&apos;,
+    name: buildName(name),
+    type: buildTypeReference(type),
+    defaultValue: null,
+    directives: []
+  };
+}
+
+export function addPaginationArguments(field) {
+  field.arguments.push(buildArgument(&apos;lastCreatedAt&apos;, &apos;Float&apos;));
+  field.arguments.push(buildArgument(&apos;limit&apos;, &apos;Int&apos;));
+}
+
+// Apply all the directives that modify the field&apos;s schema. At this stage
+// this is simply the pagination directives, which add pagination arguments
+// to the field.
+export function applyCustomDirectives(field) {
+  field.directives.forEach(directive =&gt; {
+    const directiveName = directive.name.value;
+    const isPaginated = includes(
+      [&apos;hasMany&apos;, &apos;hasAndBelongsToMany&apos;, &apos;belongsToMany&apos;],
+      directiveName
+    );
+    if (isPaginated) {
+      addPaginationArguments(field);
     }
   });
+}
 
-  return allRoles;
+export function idArgument() {
+  return buildArgument(&apos;id&apos;, &apos;ObjID!&apos;);
 }
 </code></pre>
 

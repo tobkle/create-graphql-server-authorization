@@ -4,9 +4,7 @@
  * @desc create-graphql-server-authorization
  * @desc provides access to all public functions
  * @public
- * @param {function} getLogFilename - get name of log file
  * @param {function} dummyUserContext - get user.role
- * @param {function} logger - write to authorization log file
  * @param {function} authlog - how to log
  * @param {function} onAuthRegisterLoader - registers dataloader on successfull authorization
  * @param {function} checkAuthDoc - checks, if authorized for document
@@ -28,9 +26,7 @@
 export const modulePath = __dirname;
 
 /* for the authorization logic */
-export { getLogFilename } from './lib/getLogFilename.js';
 export { dummyUserContext } from './lib/dummyUserContext.js';
-export { logger } from './lib/logger.js';
 export { authlog } from './lib/authlog.js';
 export { onAuthRegisterLoader } from './lib/onAuthRegisterLoader.js';
 export { checkAuthDoc } from './lib/checkAuthDoc.js';

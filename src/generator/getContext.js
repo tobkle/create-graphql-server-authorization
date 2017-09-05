@@ -188,18 +188,15 @@ function getFields(
 /**
  * builds a field's context
  *
- * @param {string} fieldtype - SINGULAR or PAGINATED field type
+ * @param {string} fieldType - SINGULAR or PAGINATED field type
  * @param {object} context - context for the template partial
- *
  * @property {string} typeName - name of the type 
  * @property {string} fieldName - name of the field
  * @property {string} argsStr - arguments of the field
  * @property {string} ReturnTypeName - type to build association with
  * @property {string} query - query for the data access to the referenced type
- *
  * @param {string} codeType - to distinguish between MODEL/RESOLVER
  * @return {Object} field - field for an association
- *
  * @property {string} fieldType - SINGULAR or PAGINATED 
  * @property {string} fieldName - name of the field
  * @property {string} typeName - name of the type with first lower character
@@ -211,10 +208,22 @@ function getFields(
  */
 
 function buildFieldContext(
-  fieldType,
-  { typeName, fieldName, argsStr, ReturnTypeName, query },
-  codeType
-) {
+  fieldType: string,
+  {
+    typeName,
+    fieldName,
+    argsStr,
+    ReturnTypeName,
+    query
+  }: {
+    typeName: string,
+    fieldName: string,
+    argsStr: string,
+    ReturnTypeName: string,
+    query: string
+  },
+  codeType: string
+): any {
   // clone the string
   let argFields = (' ' + argsStr).slice(1);
 

@@ -22,7 +22,7 @@
     {
       "name": "esdoc-ecmascript-proposal-plugin",
       "option": {
-        "objectRestSpread": true
+        "all": true
       }
     },
 

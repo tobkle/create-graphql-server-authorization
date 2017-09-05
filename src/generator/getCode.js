@@ -8,6 +8,7 @@ import { getContext } from './getContext';
 import { getPartials } from './getPartials';
 import { getName } from './getName';
 import type { configCodeType } from '../constants';
+
 import {
   ENCODING,
   USER_LITERAL,
@@ -25,7 +26,8 @@ import {
 /**
  * get generated code from template partials
  * @public
- * @param {Object} config - configuration object
+ * @param {string} codeType - MODEL or RESOLVER run
+ * @param {object} config - configuration object
  * @property {object} inputSchema - schema of the type 
  * @property {string} userType - the user type
  * @property {string} defaultTemplate - name of the start template

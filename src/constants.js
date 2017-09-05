@@ -124,11 +124,6 @@ export const WORLD = 'world';
 export const NO_ROLE = '<no-role>';
 export const NO_USER = '<no-user>';
 
-// loglevel, maximum logfile size, maximum number of logfiles
-export const LOG_LEVEL = 'debug';
-export const LOG_MAX_FILES = 5;
-export const LOG_MAX_SIZE = 5;
-
 // test directories
 export const SRC_DIR = 'src';
 export const TEST_DIR = '__tests__';

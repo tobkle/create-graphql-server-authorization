@@ -1,35 +1,39 @@
 {
-  "coverage": "34.88%",
-  "expectCount": 86,
-  "actualCount": 30,
+  "coverage": "42.71%",
+  "expectCount": 103,
+  "actualCount": 44,
   "files": {
     "src/constants.js": {
-      "expectCount": 51,
+      "expectCount": 53,
       "actualCount": 0,
       "undocumentLines": [
-        66,
-        69,
-        70,
+        68,
         71,
         72,
         73,
         74,
         75,
         76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        84,
+        85,
+        88,
         91,
         92,
         93,
         94,
         95,
         96,
-        97,
-        98,
         99,
-        100,
-        101,
         102,
-        103,
+        105,
         106,
+        107,
+        108,
         109,
         110,
         111,
@@ -37,27 +41,25 @@
         113,
         114,
         117,
-        120,
+        118,
+        119,
+        122,
         123,
         124,
         125,
-        126,
-        127,
         128,
         129,
         130,
         131,
         132,
+        133,
+        134,
         135,
         136,
         137,
-        140,
-        141,
-        142,
-        143,
-        146,
-        147,
-        148
+        138,
+        139,
+        140
       ]
     },
     "src/generator/authorize/extractRoles.js": {
@@ -91,13 +93,13 @@
       "undocumentLines": []
     },
     "src/generator/getCode.js": {
-      "expectCount": 1,
-      "actualCount": 1,
+      "expectCount": 2,
+      "actualCount": 2,
       "undocumentLines": []
     },
     "src/generator/getContext.js": {
-      "expectCount": 1,
-      "actualCount": 1,
+      "expectCount": 4,
+      "actualCount": 4,
       "undocumentLines": []
     },
     "src/generator/getName.js": {
@@ -114,6 +116,30 @@
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
+    },
+    "src/generator/util/capitalization.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/generator/util/generatePerField.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generator/util/graphql.js": {
+      "expectCount": 13,
+      "actualCount": 12,
+      "undocumentLines": [
+        4
+      ]
+    },
+    "src/index.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        26
+      ]
     },
     "src/lib/authlog.js": {
       "expectCount": 1,
@@ -137,26 +163,9 @@
       "actualCount": 2,
       "undocumentLines": []
     },
-    "src/lib/findByIds.js": {
-      "expectCount": 1,
-      "actualCount": 1,
-      "undocumentLines": []
-    },
-    "src/lib/getLogFilename.js": {
-      "expectCount": 2,
-      "actualCount": 1,
-      "undocumentLines": [
-        5
-      ]
-    },
     "src/lib/loggedIn.js": {
       "expectCount": 1,
       "actualCount": 1,
-      "undocumentLines": []
-    },
-    "src/lib/logger.js": {
-      "expectCount": 3,
-      "actualCount": 3,
       "undocumentLines": []
     },
     "src/lib/onAuthRegisterLoader.js": {

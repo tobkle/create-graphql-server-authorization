@@ -895,13 +895,17 @@ chai-fs@^1.0.0:
     bit-mask "0.0.2-alpha"
     readdir-enhanced "^1.4.0"
 
-chai-json-equal@0.0.1:
+chai-json-equal@0.0.1, chai-json-equal@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/chai-json-equal/-/chai-json-equal-0.0.1.tgz#338fcbbdaec63349379c7c4278c8a28da3b141a1"
 
 chai-spies-next@^0.8.0:
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/chai-spies-next/-/chai-spies-next-0.8.0.tgz#9f289ec2236f8476aee9fe33571ad0c34ba60309"
+
+chai-spies-next@^0.9.3:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/chai-spies-next/-/chai-spies-next-0.9.3.tgz#672a84f68824af152ea1cbdda5a96f1a066302b9"
 
 chai-string@^1.4.0:
   version "1.4.0"
@@ -910,6 +914,10 @@ chai-string@^1.4.0:
 chai-subset@1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/chai-subset/-/chai-subset-1.5.0.tgz#d03dbcfa8c9daad848643bbde4e63376b7882427"
+
+chai-subset@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/chai-subset/-/chai-subset-1.6.0.tgz#a5d0ca14e329a79596ed70058b6646bd6988cfe9"
 
 chai@4.1.1:
   version "4.1.1"
@@ -1109,6 +1117,22 @@ coveralls@^2.13.1:
     log-driver "1.2.5"
     minimist "1.2.0"
     request "2.79.0"
+
+create-graphql-server-find-by-ids@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/create-graphql-server-find-by-ids/-/create-graphql-server-find-by-ids-0.0.4.tgz#02d35103a55648d5589f0023f242047462396ef6"
+  dependencies:
+    babylon "^6.18.0"
+
+create-graphql-server-logging@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/create-graphql-server-logging/-/create-graphql-server-logging-0.0.3.tgz#8b8b9c44ee5d6a9964696059a26858d57ea3bb79"
+  dependencies:
+    babylon "^6.18.0"
+    chai-json-equal "^0.0.1"
+    chai-spies-next "^0.9.3"
+    chai-subset "^1.6.0"
+    winston "^2.3.1"
 
 cross-env@^5.0.5:
   version "5.0.5"

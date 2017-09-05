@@ -1,8 +1,8 @@
 // @flow
 
 import { NO_USER } from '../constants';
-import { logger } from './logger';
-import { getLogFilename } from './getLogFilename';
+import { logger } from 'create-graphql-server-logging';
+import { getLogFilename } from 'create-graphql-server-logging';
 
 /**
  * Central logger for authorization checks

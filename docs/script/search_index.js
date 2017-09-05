@@ -66,21 +66,9 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
-    "create-graphql-server-authorization/src/constants.js~log_level",
-    "variable/index.html#static-variable-LOG_LEVEL",
-    "<span>LOG_LEVEL</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
-    "variable"
-  ],
-  [
-    "create-graphql-server-authorization/src/constants.js~log_max_files",
-    "variable/index.html#static-variable-LOG_MAX_FILES",
-    "<span>LOG_MAX_FILES</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
-    "variable"
-  ],
-  [
-    "create-graphql-server-authorization/src/constants.js~log_max_size",
-    "variable/index.html#static-variable-LOG_MAX_SIZE",
-    "<span>LOG_MAX_SIZE</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "create-graphql-server-authorization/src/constants.js~model",
+    "variable/index.html#static-variable-MODEL",
+    "<span>MODEL</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
     "variable"
   ],
   [
@@ -102,6 +90,12 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "create-graphql-server-authorization/src/constants.js~paginated",
+    "variable/index.html#static-variable-PAGINATED",
+    "<span>PAGINATED</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
     "create-graphql-server-authorization/src/constants.js~read",
     "variable/index.html#static-variable-READ",
     "<span>READ</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
@@ -120,9 +114,33 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "create-graphql-server-authorization/src/constants.js~resolver",
+    "variable/index.html#static-variable-RESOLVER",
+    "<span>RESOLVER</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
     "create-graphql-server-authorization/src/constants.js~role_field_default",
     "variable/index.html#static-variable-ROLE_FIELD_DEFAULT",
     "<span>ROLE_FIELD_DEFAULT</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/generator/util/graphql.js~scalar_type_names",
+    "variable/index.html#static-variable-SCALAR_TYPE_NAMES",
+    "<span>SCALAR_TYPE_NAMES</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/util/graphql.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~schema",
+    "variable/index.html#static-variable-SCHEMA",
+    "<span>SCHEMA</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
+    "variable"
+  ],
+  [
+    "create-graphql-server-authorization/src/constants.js~singular",
+    "variable/index.html#static-variable-SINGULAR",
+    "<span>SINGULAR</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/constants.js</span>",
     "variable"
   ],
   [
@@ -306,15 +324,69 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "create-graphql-server-authorization/src/generator/util/graphql.js~addpaginationarguments",
+    "function/index.html#static-function-addPaginationArguments",
+    "<span>addPaginationArguments</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/util/graphql.js</span>",
+    "function"
+  ],
+  [
     "create-graphql-server-authorization/src/generator/schema/adjustschemaforauthorization.js~adjustschemaforauthorization",
     "function/index.html#static-function-adjustSchemaForAuthorization",
     "<span>adjustSchemaForAuthorization</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/schema/adjustSchemaForAuthorization.js</span>",
     "function"
   ],
   [
+    "create-graphql-server-authorization/src/generator/util/graphql.js~applycustomdirectives",
+    "function/index.html#static-function-applyCustomDirectives",
+    "<span>applyCustomDirectives</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/util/graphql.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generator/util/graphql.js~argumentstoobject",
+    "function/index.html#static-function-argumentsToObject",
+    "<span>argumentsToObject</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/util/graphql.js</span>",
+    "function"
+  ],
+  [
     "create-graphql-server-authorization/src/lib/authlog.js~authlog",
     "function/index.html#static-function-authlog",
     "<span>authlog</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/authlog.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generator/util/graphql.js~buildargument",
+    "function/index.html#static-function-buildArgument",
+    "<span>buildArgument</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/util/graphql.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generator/util/graphql.js~buildfield",
+    "function/index.html#static-function-buildField",
+    "<span>buildField</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/util/graphql.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generator/util/graphql.js~buildname",
+    "function/index.html#static-function-buildName",
+    "<span>buildName</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/util/graphql.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generator/util/graphql.js~buildtypedefinition",
+    "function/index.html#static-function-buildTypeDefinition",
+    "<span>buildTypeDefinition</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/util/graphql.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generator/util/graphql.js~buildtypeextension",
+    "function/index.html#static-function-buildTypeExtension",
+    "<span>buildTypeExtension</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/util/graphql.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generator/util/graphql.js~buildtypereference",
+    "function/index.html#static-function-buildTypeReference",
+    "<span>buildTypeReference</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/util/graphql.js</span>",
     "function"
   ],
   [
@@ -342,9 +414,15 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "create-graphql-server-authorization/src/lib/findbyids.js~findbyids",
-    "function/index.html#static-function-findByIds",
-    "<span>findByIds</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/findByIds.js</span>",
+    "create-graphql-server-authorization/src/generator/util/generateperfield.js~generateperfield",
+    "function/index.html#static-function-generatePerField",
+    "<span>generatePerField</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/util/generatePerField.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generator/util/graphql.js~getbasetype",
+    "function/index.html#static-function-getBaseType",
+    "<span>getBaseType</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/util/graphql.js</span>",
     "function"
   ],
   [
@@ -363,12 +441,6 @@ window.esdocSearchIndex = [
     "create-graphql-server-authorization/src/generator/authorize/getfieldtype.js~getfieldtype",
     "function/index.html#static-function-getFieldType",
     "<span>getFieldType</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/authorize/getFieldType.js</span>",
-    "function"
-  ],
-  [
-    "create-graphql-server-authorization/src/lib/getlogfilename.js~getlogfilename",
-    "function/index.html#static-function-getLogFilename",
-    "<span>getLogFilename</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/getLogFilename.js</span>",
     "function"
   ],
   [
@@ -396,6 +468,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "create-graphql-server-authorization/src/generator/util/graphql.js~idargument",
+    "function/index.html#static-function-idArgument",
+    "<span>idArgument</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/util/graphql.js</span>",
+    "function"
+  ],
+  [
     "create-graphql-server-authorization/src/generator/authorize/isauthorizedirectivedefined.js~isauthorizedirectivedefined",
     "function/index.html#static-function-isAuthorizeDirectiveDefined",
     "<span>isAuthorizeDirectiveDefined</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/authorize/isAuthorizeDirectiveDefined.js</span>",
@@ -405,6 +483,18 @@ window.esdocSearchIndex = [
     "create-graphql-server-authorization/src/generator/authorize/isrolefield.js~isrolefield",
     "function/index.html#static-function-isRoleField",
     "<span>isRoleField</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/authorize/isRoleField.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generator/util/graphql.js~isscalarfield",
+    "function/index.html#static-function-isScalarField",
+    "<span>isScalarField</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/util/graphql.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generator/util/capitalization.js~lcfirst",
+    "function/index.html#static-function-lcFirst",
+    "<span>lcFirst</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/util/capitalization.js</span>",
     "function"
   ],
   [
@@ -420,10 +510,10 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "create-graphql-server-authorization/src/lib/logger.js~logger",
-    "function/index.html#static-function-logger",
-    "<span>logger</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/logger.js</span>",
-    "function"
+    "create-graphql-server-authorization/src/index.js~modulepath",
+    "variable/index.html#static-variable-modulePath",
+    "<span>modulePath</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/index.js</span>",
+    "variable"
   ],
   [
     "create-graphql-server-authorization/src/lib/onauthregisterloader.js~onauthregisterloader",
@@ -453,6 +543,12 @@ window.esdocSearchIndex = [
     "create-graphql-server-authorization/src/lib/queryforroles.js~queryforroles",
     "function/index.html#static-function-queryForRoles",
     "<span>queryForRoles</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/lib/queryForRoles.js</span>",
+    "function"
+  ],
+  [
+    "create-graphql-server-authorization/src/generator/util/capitalization.js~ucfirst",
+    "function/index.html#static-function-ucFirst",
+    "<span>ucFirst</span> <span class=\"search-result-import-path\">create-graphql-server-authorization/src/generator/util/capitalization.js</span>",
     "function"
   ],
   [
@@ -822,6 +918,24 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/generator/util/capitalization.js",
+    "file/src/generator/util/capitalization.js.html",
+    "src/generator/util/capitalization.js",
+    "file"
+  ],
+  [
+    "src/generator/util/generateperfield.js",
+    "file/src/generator/util/generatePerField.js.html",
+    "src/generator/util/generatePerField.js",
+    "file"
+  ],
+  [
+    "src/generator/util/graphql.js",
+    "file/src/generator/util/graphql.js.html",
+    "src/generator/util/graphql.js",
+    "file"
+  ],
+  [
     "src/index.js",
     "file/src/index.js.html",
     "src/index.js",
@@ -852,27 +966,9 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/lib/findbyids.js",
-    "file/src/lib/findByIds.js.html",
-    "src/lib/findByIds.js",
-    "file"
-  ],
-  [
-    "src/lib/getlogfilename.js",
-    "file/src/lib/getLogFilename.js.html",
-    "src/lib/getLogFilename.js",
-    "file"
-  ],
-  [
     "src/lib/loggedin.js",
     "file/src/lib/loggedIn.js.html",
     "src/lib/loggedIn.js",
-    "file"
-  ],
-  [
-    "src/lib/logger.js",
-    "file/src/lib/logger.js.html",
-    "src/lib/logger.js",
     "file"
   ],
   [

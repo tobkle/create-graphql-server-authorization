@@ -1,27 +1,21 @@
 /* eslint-disable prettier */
 import DataLoader from 'dataloader';
-import {
-  findByIds,
-  getLogFilename,
-  logger
-} from 'create-graphql-server-authorization';
-const log = logger(getLogFilename());
 
 export default class Tweet {
   constructor(context) {
     this.context = context;
     this.collection = context.db.collection('tweet');
     this.pubsub = context.pubsub;
-    this.authorizedLoader = new DataLoader(ids =>
-      findByIds(this.collection, ids)
+    this.loader = new DataLoader(ids =>
+      this.context.findByIds(this.collection, ids)
     );
   }
 
   async findOneById(id) {
-    if (!this.authorizedLoader) {
+    if (!this.loader) {
       return null;
     }
-    return await this.authorizedLoader.load(id);
+    return await this.loader.load(id);
   }
 
   find({ lastCreatedAt = 0, limit = 10, baseQuery = {} }) {
@@ -68,7 +62,7 @@ export default class Tweet {
     if (!id) {
       throw new Error(`insert tweet not possible.`);
     }
-    log.debug(`inserted tweet ${id}.`);
+    this.context.log.debug(`inserted tweet ${id}.`);
     const insertedDoc = this.findOneById(id);
     this.pubsub.publish('tweetInserted', insertedDoc);
     return insertedDoc;
@@ -86,8 +80,8 @@ export default class Tweet {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`update tweet not possible for ${id}.`);
     }
-    log.debug(`updated tweet ${id}.`);
-    this.authorizedLoader.clear(id);
+    this.context.log.debug(`updated tweet ${id}.`);
+    this.loader.clear(id);
     const updatedDoc = this.findOneById(id);
     this.pubsub.publish('tweetUpdated', updatedDoc);
     return updatedDoc;
@@ -100,8 +94,8 @@ export default class Tweet {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`remove tweet not possible for ${id}.`);
     }
-    log.debug(`removed tweet ${id}.`);
-    this.authorizedLoader.clear(id);
+    this.context.log.debug(`removed tweet ${id}.`);
+    this.loader.clear(id);
     this.pubsub.publish('tweetRemoved', id);
     return result;
   }

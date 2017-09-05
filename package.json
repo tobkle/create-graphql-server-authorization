@@ -91,6 +91,8 @@
   "dependencies": {
     "babylon": "^6.18.0",
     "chai-string": "^1.4.0",
+    "create-graphql-server-find-by-ids": "^0.0.4",
+    "create-graphql-server-logging": "^0.0.3",
     "global": "^4.3.2",
     "graphql": "^0.11.1",
     "handlebars": "^4.0.10",

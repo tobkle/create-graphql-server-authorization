@@ -1,29 +1,23 @@
 /* eslint-disable prettier */
 import DataLoader from 'dataloader';
-import {
-  findByIds,
-  getLogFilename,
-  logger
-} from 'create-graphql-server-authorization';
 import bcrypt from 'bcrypt';
 const SALT_ROUNDS = 10;
-const log = logger(getLogFilename());
 
 export default class User {
   constructor(context) {
     this.context = context;
     this.collection = context.db.collection('user');
     this.pubsub = context.pubsub;
-    this.authorizedLoader = new DataLoader(ids =>
-      findByIds(this.collection, ids)
+    this.loader = new DataLoader(ids =>
+      this.context.findByIds(this.collection, ids)
     );
   }
 
   async findOneById(id) {
-    if (!this.authorizedLoader) {
+    if (!this.loader) {
       return null;
     }
-    return await this.authorizedLoader.load(id);
+    return await this.loader.load(id);
   }
 
   find({ lastCreatedAt = 0, limit = 10, baseQuery = {} }) {
@@ -84,7 +78,7 @@ export default class User {
     if (!id) {
       throw new Error(`insert user not possible.`);
     }
-    log.debug(`inserted user ${id}.`);
+    this.context.log.debug(`inserted user ${id}.`);
     const insertedDoc = this.findOneById(id);
     this.pubsub.publish('userInserted', insertedDoc);
     return insertedDoc;
@@ -102,8 +96,8 @@ export default class User {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`update user not possible for ${id}.`);
     }
-    log.debug(`updated user ${id}.`);
-    this.authorizedLoader.clear(id);
+    this.context.log.debug(`updated user ${id}.`);
+    this.loader.clear(id);
     const updatedDoc = this.findOneById(id);
     this.pubsub.publish('userUpdated', updatedDoc);
     return updatedDoc;
@@ -116,8 +110,8 @@ export default class User {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`remove user not possible for ${id}.`);
     }
-    log.debug(`removed user ${id}.`);
-    this.authorizedLoader.clear(id);
+    this.context.log.debug(`removed user ${id}.`);
+    this.loader.clear(id);
     this.pubsub.publish('userRemoved', id);
     return result;
   }

@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 import { onAuthRegisterLoader } from '../lib/onAuthRegisterLoader';
-import { getLogFilename } from '../lib/getLogFilename';
+import { getLogFilename } from 'create-graphql-server-logging';
 
 const assert = require('chai').assert;
 const expect = require('chai').expect;
