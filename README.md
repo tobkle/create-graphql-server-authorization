@@ -43,37 +43,18 @@ Add it to the generator files here:
 * generate/model/index.js
 * generate/resolver/index.js
 
-In "generate/index.js"
+In "generate/schema/index.js"
 ```javascript
-// We are in an intermediate step where we aren't actually generating files
-// but we are generating code.
-import { parse, print } from 'graphql';
-import { lcFirst } from './util/capitalization';
-import generateModel from './model';
-import generateResolver from './resolvers';
-import generateSchema from './schema';
-import { 
+import {
   enhanceSchemaForAuthorization
-} from 'create-graphql-server-authorization';                                    // <=== here
+} from 'create-graphql-server-authorization';
+...
+...
+...
+  // at the end: enhance with Authorization
+  const outputSchemaWithAuth = enhanceSchemaForAuthorization(outputSchema);
 
-export default function generate(inputSchemaStr) {
-  const inputSchema = parse(inputSchemaStr);
-  const type = inputSchema.definitions[0];
-  const TypeName = type.name.value;
-  const typeName = lcFirst(TypeName);
-  const outputSchema = generateSchema(inputSchema);
-  const outputSchemaWithAuth = enhanceSchemaForAuthorization(outputSchema);       // <=== here
-  const outputSchemaStr = print(outputSchemaWithAuth);                            // <=== here
-  const resolversStr = generateResolver(inputSchema);
-  const modelStr = generateModel(inputSchema);
-  
-  return {
-    typeName,
-    TypeName,
-    outputSchemaStr,
-    resolversStr,
-    modelStr,
-  };
+  return outputSchemaWithAuth;
 }
 ```
 
@@ -83,20 +64,26 @@ import { print } from 'recast';
 import { templateToAst } from '../util/read';
 import getCode from '../util/getCode';
 import { MODEL } from '../util/constants';
-import { modulePath } from 'create-graphql-server-authorization';         // <=== here
+import { modulePath } from 'create-graphql-server-authorization';  // <=== here
 
 export default function generateModel(inputSchema) {
+  const ast = generateModelAst(inputSchema);
+  return print(ast, { trailingComma: true }).code;
+}
+
+export function generateModelAst(inputSchema) {
 
   const templateCode = getCode(MODEL, {
     inputSchema,
     basePath: [__dirname, 'templates'],
-    authPath: [modulePath, 'templates', 'model', 'auth']                  // <=== here
+    authPath: [modulePath, 'templates', 'model', 'auth']   // <=== here
   });
 
   // validate syntax of generated template code
   const replacements = {};
   const ast = templateToAst(templateCode, replacements);
-  return print(ast, { trailingComma: true }).code;
+
+  return ast;
 }
 
 ```
@@ -107,21 +94,27 @@ In "generate/resolver/index.js"
  import getCode from '../util/getCode';
  import { templateToAst } from '../util/read';
  import { RESOLVER } from '../util/constants';
- import { modulePath } from 'create-graphql-server-authorization';       // <=== here
+ import { modulePath } from 'create-graphql-server-authorization';   // <=== here
 
-export default function generateResolver(inputSchema) {
+export default function generateResolvers(inputSchema) {
+  const ast = generateResolversAst(inputSchema)
+  return print(ast, { trailingComma: true }).code;
+}
 
+export function generateResolversAst(inputSchema) {
   const templateCode = getCode(RESOLVER, {
     inputSchema,
     basePath: [__dirname, 'templates'],
-    authPath: [modulePath, 'templates','resolver', 'auth']               // <=== here
+    authPath: [modulePath, 'templates','resolver', 'auth']   // <=== here
   });
 
   // validate syntax of generated template code
   const replacements = {};
   const ast = templateToAst(templateCode, replacements);
-  return print(ast, { trailingComma: true }).code;
+
+  return ast;
 }
+
 
 ```
 

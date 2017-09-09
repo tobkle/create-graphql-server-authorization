@@ -3,13 +3,9 @@ import cloneDeep from 'lodash.clonedeep';
 import { USER_LITERAL } from '../../constants';
 import { isAuthorizeDirectiveDefined } from '../authorize/isAuthorizeDirectiveDefined';
 
-import {
-  buildField,
-} from '../util/graphql';
+import { buildField } from '../util/graphql';
 
-import {
-  INPUT_OBJECT_TYPE_DEFINITION
-} from 'graphql/language/kinds';
+import { INPUT_OBJECT_TYPE_DEFINITION } from 'graphql/language/kinds';
 
 /**
  * enhances the schema by additional fields, required for authorization
@@ -25,7 +21,6 @@ export function enhanceSchemaForAuthorization(inputSchema) {
 
   const authorize = isAuthorizeDirectiveDefined(inputSchema);
   if (authorize) {
-
     // remove @authorize directive from header
     type.directives = type.directives.filter(
       directive => directive.name.value !== 'authorize'

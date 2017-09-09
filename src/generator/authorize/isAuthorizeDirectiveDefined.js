@@ -1,6 +1,9 @@
 // @flow
 
-import { AUTHORIZE_DIRECTIVE } from '../../constants';
+import {
+  OBJECT_TYPE_DEFINITION,
+  AUTHORIZE_DIRECTIVE
+} from '../../constants';
 
 /**
  * checks, if there is authorization logic defined
@@ -14,11 +17,17 @@ import { AUTHORIZE_DIRECTIVE } from '../../constants';
  */
 
 export function isAuthorizeDirectiveDefined(inputSchema: any): boolean {
-  return (
-    (inputSchema.definitions[0].directives.length > 0 &&
-      inputSchema.definitions[0].directives[0].name &&
-      inputSchema.definitions[0].directives[0].name.value ===
-        AUTHORIZE_DIRECTIVE) ||
-    false
-  );
+  let authorize = false;
+
+  inputSchema.definitions
+    .filter(def => def.kind === OBJECT_TYPE_DEFINITION)
+    .some(def => {
+      def.directives.some(directive => {
+        if (directive.name.value === AUTHORIZE_DIRECTIVE) {
+          authorize = true;
+        }
+      })
+    })
+
+  return authorize;
 }
