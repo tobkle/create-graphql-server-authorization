@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/generator/getCode.js | create-graphql-server-authorization</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Adds authorization to create-graphql-server"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="create-graphql-server-authorization"><meta property="twitter:description" content="Adds authorization to create-graphql-server"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/tobkle/create-graphql-server-authorization"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lcFirst">lcFirst</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-parseCode">parseCode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-prep">prep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-ucFirst">ucFirst</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AUTHORIZE_DIRECTIVE">AUTHORIZE_DIRECTIVE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AUTH_ROLE">AUTH_ROLE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CODE_MODES">CODE_MODES</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CREATE">CREATE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DELETE">DELETE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DOC_ROLE">DOC_ROLE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ENCODING">ENCODING</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FOR">FOR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ID_FIELD">ID_FIELD</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ID_PLURAL">ID_PLURAL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ID_SINGULAR">ID_SINGULAR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-MODEL">MODEL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-MODES">MODES</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NO_ROLE">NO_ROLE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NO_USER">NO_USER</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PAGINATED">PAGINATED</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-READ">READ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-READ_MANY">READ_MANY</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-READ_ONE">READ_ONE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-RESOLVER">RESOLVER</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ROLE_FIELD_DEFAULT">ROLE_FIELD_DEFAULT</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SCHEMA">SCHEMA</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SINGULAR">SINGULAR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SRC_DIR">SRC_DIR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-STRING_LIST">STRING_LIST</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-STRING_LITERAL">STRING_LITERAL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEMPLATES_AUTH_DIR">TEMPLATES_AUTH_DIR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEMPLATES_COMMON_DIR">TEMPLATES_COMMON_DIR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEMPLATES_DEFAULT_DIR">TEMPLATES_DEFAULT_DIR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEMPLATES_DEFAULT_TEMPLATE">TEMPLATES_DEFAULT_TEMPLATE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEMPLATES_DIR">TEMPLATES_DIR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEMPLATES_MODEL_DIR">TEMPLATES_MODEL_DIR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEMPLATES_RESOLVER_DIR">TEMPLATES_RESOLVER_DIR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEMPLATE_EXTENSION">TEMPLATE_EXTENSION</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEST_CODE">TEST_CODE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEST_DIR">TEST_DIR</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEST_EXPECTED_CODE">TEST_EXPECTED_CODE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEST_GENERATED_CODE">TEST_GENERATED_CODE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEST_GQL_DATA">TEST_GQL_DATA</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEST_GQL_EXTENSION">TEST_GQL_EXTENSION</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEST_MODEL">TEST_MODEL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEST_MODEL_EXTENSION">TEST_MODEL_EXTENSION</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEST_MODEL_EXTENSION2">TEST_MODEL_EXTENSION2</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEST_RESOLVER">TEST_RESOLVER</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEST_RESOLVER_EXTENSION">TEST_RESOLVER_EXTENSION</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TEST_RESOLVER_EXTENSION2">TEST_RESOLVER_EXTENSION2</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-THIS">THIS</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-UPDATE">UPDATE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-USER_LIST">USER_LIST</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-USER_LITERAL">USER_LITERAL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-USER_MODEL">USER_MODEL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-USER_ROLE">USER_ROLE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-WORLD">WORLD</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-modulePath">modulePath</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#generator">generator</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCode">getCode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getContext">getContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getName">getName</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPartials">getPartials</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#generator-authorize">generator/authorize</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-extractRoles">extractRoles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getFieldType">getFieldType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getRoleType">getRoleType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getRoles">getRoles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isAuthorizeDirectiveDefined">isAuthorizeDirectiveDefined</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isRoleField">isRoleField</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#generator-schema">generator/schema</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-enhanceSchemaForAuthorization">enhanceSchemaForAuthorization</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#generator-util">generator/util</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lcFirst">lcFirst</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-ucFirst">ucFirst</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-generatePerField">generatePerField</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addPaginationArguments">addPaginationArguments</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-applyCustomDirectives">applyCustomDirectives</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-argumentsToObject">argumentsToObject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-buildArgument">buildArgument</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-buildField">buildField</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-buildName">buildName</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-buildTypeDefinition">buildTypeDefinition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-buildTypeExtension">buildTypeExtension</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-buildTypeReference">buildTypeReference</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getBaseType">getBaseType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-idArgument">idArgument</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isScalarField">isScalarField</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SCALAR_TYPE_NAMES">SCALAR_TYPE_NAMES</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib">lib</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-authlog">authlog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-checkAuthDoc">checkAuthDoc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fieldContainsUserId">fieldContainsUserId</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loggedIn">loggedIn</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onAuthRegisterLoader">onAuthRegisterLoader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-protectFields">protectFields</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-queryForRoles">queryForRoles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-userRoleAuthorized">userRoleAuthorized</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dummyUserContext">dummyUserContext</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/generator/getCode.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// @flow
+/* eslint-disable max-len */
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
+
+import Handlebars from &apos;handlebars&apos;;
+import { getContext } from &apos;./getContext&apos;;
+import { getPartials } from &apos;./getPartials&apos;;
+import { getName } from &apos;./getName&apos;;
+import type { configCodeType } from &apos;../constants&apos;;
+
+import {
+  ENCODING,
+  USER_LITERAL,
+  TEMPLATE_EXTENSION,
+  TEMPLATES_DIR,
+  TEMPLATES_MODEL_DIR,
+  TEMPLATES_COMMON_DIR,
+  TEMPLATES_DEFAULT_DIR,
+  TEMPLATES_AUTH_DIR,
+  TEMPLATES_DEFAULT_TEMPLATE,
+  MODEL,
+  RESOLVER
+} from &apos;../constants&apos;;
+
+/**
+ * get generated code from template partials
+ * @public
+ * @param {string} codeType - MODEL or RESOLVER run
+ * @param {object} config - configuration object
+ * @property {object} inputSchema - schema of the type 
+ * @property {string} userType - the user type
+ * @property {string} defaultTemplate - name of the start template
+ * @property {array} basePath - path to the base templates directory
+ * @property {string} baseExtension - file extension &apos;.template&apos;
+ * @property {string} baseEncoding - base file encoding &apos;utf8&apos;
+ * @property {string} baseCommonDir - commonly used template partials
+ * @property {string} baseDefaultDir - default directory for templates
+ * @property {function} baseGetNameFunc - calculate the name of a partial
+ * @property {array} authPath - path to the authorization templates directory
+ * @property {string} authExtension - auth file encoding &apos;utf8&apos;
+ * @property {string} authEncoding - auth file encoding
+ * @property {string} authCommonDir - commonly used auth template partials
+ * @property {string} authDefaultDir - default directory for auth templates
+ * @property {function} authGetNameFunc - calculate tne name of a partial
+ * @return {string} code - generated code for a model
+ */
+
+export function getCode(
+  codeType: string = MODEL,
+  {
+    userType = USER_LITERAL,
+    inputSchema = {},
+    defaultTemplate = TEMPLATES_DEFAULT_TEMPLATE,
+    basePath = [TEMPLATES_DIR, TEMPLATES_MODEL_DIR, TEMPLATES_DEFAULT_DIR],
+    baseExtension = TEMPLATE_EXTENSION,
+    baseEncoding = ENCODING,
+    baseCommonDir = TEMPLATES_COMMON_DIR,
+    baseDefaultDir = TEMPLATES_DEFAULT_DIR,
+    baseGetNameFunc = getName,
+    authPath = [TEMPLATES_DIR, TEMPLATES_MODEL_DIR, TEMPLATES_AUTH_DIR],
+    authExtension = TEMPLATE_EXTENSION,
+    authEncoding = ENCODING,
+    authCommonDir = TEMPLATES_COMMON_DIR,
+    authDefaultDir = TEMPLATES_DEFAULT_DIR,
+    authGetNameFunc = getName
+  }: configCodeType
+): string {
+  // partials dictionary for template resolution
+  const partials = {};
+
+  // adds helpers to handlebars
+  registerHandlebarsHelpers();
+
+  // define the compiler
+  function compile(templates) {
+    templates.forEach(partial =&gt; {
+      partials[partial.name] = Handlebars.compile(partial.source);
+      Handlebars.registerPartial(partial.name, partials[partial.name]);
+    });
+  }
+
+  // getting data context
+  const context = getContext(inputSchema, userType, codeType);
+  const TypeName = context.TypeName;
+  const typeName = context.typeName;
+  let startTemplate = typeName;
+
+  // getting auth common partial templates (might be in an npm module)
+  const authCommonPartials = getPartials({
+    basePath: authPath,
+    directoryPath: [authCommonDir],
+    extension: authExtension,
+    encoding: authEncoding,
+    getNameFunc: authGetNameFunc
+  });
+
+  // getting auth type specific partial templates (might be in an npm module)
+  let authTypePartials = getPartials({
+    basePath: authPath,
+    directoryPath: [typeName],
+    extension: authExtension,
+    encoding: authEncoding,
+    getNameFunc: authGetNameFunc
+  });
+
+  // fallback to auth default partial templates (might be in an npm module)
+  if (authTypePartials.length === 0) {
+    authTypePartials = getPartials({
+      basePath: authPath,
+      directoryPath: [authDefaultDir],
+      extension: authExtension,
+      encoding: authEncoding,
+      getNameFunc: authGetNameFunc
+    });
+  }
+
+  // getting common partial templates
+  const baseCommonPartials = getPartials({
+    basePath,
+    directoryPath: [baseCommonDir],
+    extension: baseExtension,
+    encoding: baseEncoding,
+    getNameFunc: baseGetNameFunc
+  });
+
+  // getting type specific partial templates
+  let baseTypePartials = getPartials({
+    basePath,
+    directoryPath: [typeName],
+    extension: baseExtension,
+    encoding: baseEncoding,
+    getNameFunc: baseGetNameFunc
+  });
+
+  // fallback to default partial templates,
+  // if there are no type specific templates found
+  if (baseTypePartials.length === 0) {
+    baseTypePartials = getPartials({
+      basePath,
+      directoryPath: [baseDefaultDir],
+      extension: baseExtension,
+      encoding: baseEncoding,
+      getNameFunc: baseGetNameFunc
+    });
+    // reset start template to the default template,
+    // as type specific template does not exist
+    startTemplate = defaultTemplate;
+  }
+
+  // compile all auth partials
+  compile(authCommonPartials);
+  compile(authTypePartials);
+
+  // compile all base partials
+  compile(baseCommonPartials);
+  compile(baseTypePartials);
+
+  console.log(
+    `Generating ${codeType} for type &quot;${TypeName}&quot; with template &quot;${startTemplate}&quot;`
+  );
+
+  // run start template with data context
+  const code = partials[startTemplate](context);
+
+  // return the final code
+  return code;
+}
+
+/**
+ * registers a helper, which could be used in the templates
+ * @example
+ * {{#foreach}}
+ *     {{#if $last}} console.log(&apos;this was the last element&apos;) {{/if}}
+ *     {{#if $notLast}} console.log(&apos;this was not the last one&apos;) {{/if}}
+ * {{/foreach}}
+ */
+
+function registerHandlebarsHelpers() {
+  Handlebars.registerHelper(&apos;foreach&apos;, function(arr, options) {
+    if (options.inverse &amp;&amp; !arr.length) {
+      return options.inverse(this);
+    }
+    return arr
+      .map(function(item, index) {
+        item.$index = index;
+        item.$first = index === 0;
+        item.$last = index === arr.length - 1;
+        item.$notFirst = index !== 0;
+        item.$notLast = index !== arr.length - 1;
+        return options.fn(item);
+      })
+      .join(&apos;&apos;);
+  });
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.1)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

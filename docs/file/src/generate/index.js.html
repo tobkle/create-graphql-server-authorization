@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/generate/index.js | create-graphql-server-authorization</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Adds authorization to create-graphql-server"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="create-graphql-server-authorization"><meta property="twitter:description" content="Adds authorization to create-graphql-server"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/tobkle/create-graphql-server-authorization"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#generate">generate</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-generateAuthorizationCode">generateAuthorizationCode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isAuthorizeDirectiveDefined">isAuthorizeDirectiveDefined</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib">lib</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-authlog">authlog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-checkAuthDoc">checkAuthDoc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fieldContainsUserId">fieldContainsUserId</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findByIds">findByIds</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLogFilename">getLogFilename</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loggedIn">loggedIn</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logger">logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-protectFields">protectFields</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-queryForRoles">queryForRoles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-userRoleAuthorized">userRoleAuthorized</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dummyUserContext">dummyUserContext</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/generate/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/* eslint-disable max-len */
+/* eslint-disable no-unused-vars */
+// @flow
+
+// name of the @authorize directive, which triggers authorization logic
+const AUTHORIZE_DIRECTIVE = &apos;authorize&apos;;
+
+// constants to read GraphQL Abstract Syntax Tree (AST)
+const FIELD_DEFINITION = &apos;FieldDefinition&apos;;
+const NON_NULL_TYPE = &apos;NonNullType&apos;;
+const STRING_VALUE = &apos;StringValue&apos;;
+const LIST_TYPE = &apos;ListType&apos;;
+const LIST_VALUE = &apos;ListValue&apos;;
+const DIRECTIVE = &apos;Directive&apos;;
+const ARGUMENT = &apos;Argument&apos;;
+const NAME = &apos;Name&apos;;
+
+// valid authorization mode values:
+const CREATE = &apos;create&apos;;
+const READ = &apos;read&apos;; // which means both: &apos;readOne&apos; and &apos;readMany&apos;
+const READ_ONE = &apos;readOne&apos;;
+const READ_MANY = &apos;readMany&apos;;
+const UPDATE = &apos;update&apos;;
+const DELETE = &apos;delete&apos;;
+
+// for the role definitions
+const USER_ROLE = &apos;userRole&apos;;
+const DOC_ROLE = &apos;docRole&apos;;
+const AUTH_ROLE = &apos;authRole&apos;;
+const FOR = &apos;for&apos;;
+const THIS = &apos;this&apos;;
+const NAMED_TYPE = &apos;NamedType&apos;;
+const STRING = &apos;String&apos;;
+const LIST_OF_STRINGS = &apos;[String]&apos;;
+const USER = &apos;User&apos;;
+const LIST_OF_USERS = &apos;[User]&apos;;
+const ID_FIELD = &apos;_id&apos;;
+const ID_SINGULAR = &apos;Id&apos;;
+const ID_PLURAL = &apos;Ids&apos;;
+
+// valid authorization modes
+const MODES = [CREATE, READ, READ_ONE, READ_MANY, UPDATE, DELETE];
+
+// template for default allRoles, to prepare one role
+const CODE_MODES = [CREATE, READ_ONE, READ_MANY, UPDATE, DELETE];
+
+/**
+ * generates authorization code
+ * @public
+ * @param {string} typeName - the name of the type
+ * @param {object} inputSchema - the schema for that type
+ * @return {Object} generatedCode - generated code
+ * @property {string} generateAuthCodeModeReadOne - code for mode &apos;readOne&apos;
+ * @property {string} generateAuthCodeModeReadMany - code for mode &apos;readMany&apos;
+ * @property {string} generateAuthCodeModeCreate - code for mode &apos;create&apos;
+ * @property {string} generateAuthCodeModeUpdate - code for mode &apos;update&apos;
+ * @property {string} generateAuthCodeModeDelete - code for mode &apos;delete&apos;
+ * @property {string} generateCreatedBy - code for field createdBy
+ * @property {string} generateUpdatedBy - code for field updatedBy
+ * @property {string} generateAuthRoleDefinition - code for authRole definition
+ * @property {string} generateAuthRoleMethod - code for authRole method in type User
+ */
+
+export function generateAuthorizationCode(
+  typeName: string = &apos;&apos;,
+  inputSchema: any = {}
+): {
+  generateAuthCodeModeReadOne: string,
+  generateAuthCodeModeReadMany: string,
+  generateAuthCodeModeCreate: string,
+  generateAuthCodeModeUpdate: string,
+  generateAuthCodeModeDelete: string,
+  generateCreatedBy: string,
+  generateUpdatedBy: string,
+  generateAuthRoleDefinition: string,
+  generateAuthRoleMethod: string
+} {
+  const authorize = isAuthorizeDirectiveDefined(inputSchema);
+  const { userRoles, docRoles, roleFieldName } = getRoles(
+    authorize,
+    inputSchema
+  );
+  return {
+    generateAuthCodeModeReadOne: generateAuthCodeModeReadOne(
+      authorize,
+      typeName,
+      userRoles.readOne,
+      docRoles.readOne
+    ),
+    generateAuthCodeModeReadMany: generateAuthCodeModeReadMany(
+      authorize,
+      typeName,
+      userRoles.readMany,
+      docRoles.readMany
+    ),
+    generateAuthCodeModeCreate: generateAuthCodeModeCreate(
+      authorize,
+      typeName,
+      userRoles.create,
+      docRoles.create,
+      roleFieldName
+    ),
+    generateAuthCodeModeUpdate: generateAuthCodeModeUpdate(
+      authorize,
+      typeName,
+      userRoles.update,
+      docRoles.update,
+      roleFieldName
+    ),
+    generateAuthCodeModeDelete: generateAuthCodeModeDelete(
+      authorize,
+      typeName,
+      userRoles.delete,
+      docRoles.delete
+    ),
+    generateCreatedBy: generateCreatedBy(authorize, typeName),
+    generateUpdatedBy: generateUpdatedBy(authorize, typeName),
+    generateAuthRoleDefinition: generateAuthRoleDefinition(authorize, typeName),
+    generateAuthRoleMethod: generateAuthRoleMethod(
+      authorize,
+      typeName,
+      roleFieldName
+    )
+  };
+}
+
+/**
+ * checks, if there is authorization logic defined
+ * true, if there is an @authorize directive in the header 
+ * in the type&apos;s inputSchema
+ * if there is an @authorize directive =&gt; true
+ * if thers is no @authorize directive =&gt; false
+ * @public
+ * @param {object} inputSchema - schema for the type
+ * @return {boolean} authorized - true, if authorization logic defined
+ */
+
+export function isAuthorizeDirectiveDefined(inputSchema: any): boolean {
+  const authorized =
+    (inputSchema.definitions &amp;&amp;
+      inputSchema.definitions[0] &amp;&amp;
+      inputSchema.definitions[0].directives &amp;&amp;
+      inputSchema.definitions[0].directives[0] &amp;&amp;
+      inputSchema.definitions[0].directives[0].name &amp;&amp;
+      inputSchema.definitions[0].directives[0].name.value ===
+        AUTHORIZE_DIRECTIVE) ||
+    false;
+
+  return authorized;
+}
+
+/**
+ * get userRoles and docRoles
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {object} inputSchema - type&apos;s schema
+ * @return {Object}
+ * @property {object} userRoles - userRoles object with modes
+ * @property {object} docRoles - docRoles object with modes
+ * @property {string} roleFieldName - field containing the roles
+ * }
+ */
+
+function getRoles(authorize: boolean, inputSchema: any) {
+  // create empty userRoles and docRoles objects
+  // as default values, which are used
+  // if there is not @authorize directive
+  const userRoles = {};
+  const docRoles = {};
+  const roleFieldNamesFound = [];
+  CODE_MODES.forEach(mode =&gt; (userRoles[mode] = []));
+  CODE_MODES.forEach(mode =&gt; (docRoles[mode] = []));
+
+  // check if there is an @authorize directive
+  if (authorize) {
+    // then re-determine the userRoles and docRoles
+    // from the @authorize tag of the type definition
+    const allRolesArguments =
+      inputSchema.definitions[0].directives[0].arguments || {};
+    const allRoles = getAllRoles(allRolesArguments, inputSchema);
+    allRoles.forEach(role =&gt; {
+      switch (role.type) {
+        case USER_ROLE:
+          // check, if there is already another userRole field
+          if (
+            roleFieldNamesFound.length &gt; 0 &amp;&amp;
+            role.roleFieldName !== &apos;&apos; &amp;&amp;
+            roleFieldNamesFound.indexOf(role.roleFieldName) &lt; 0
+          ) {
+            // We allow only one field which keeps all userRoles
+            throw new Error(`Please adjust type definition, that there is 
+              only ONE field, which keeps all user roles. You&apos;ve tried to 
+              add a second userRole field: &apos;${role.roleFieldName}&apos;,
+              but there is already another userRole field: 
+              &apos;${roleFieldNamesFound[0]}&apos; defined.
+              Please try instead: &apos;${roleFieldNamesFound[0]}: 
+              String @authRole(for: [&quot;otherRole&quot;, &quot;${role.roleName}&quot;])&apos;`);
+          }
+          if (role.roleFieldName !== &apos;&apos;) {
+            roleFieldNamesFound.push(role.roleFieldName);
+          }
+
+          Object.keys(role.modes).forEach(mode =&gt; {
+            if (role.modes[mode]) {
+              userRoles[mode].push(role.roleName);
+            }
+          });
+          break;
+
+        case DOC_ROLE:
+          Object.keys(role.modes).forEach(mode =&gt; {
+            if (role.modes[mode]) {
+              docRoles[mode].push(role.roleName);
+            }
+          });
+          break;
+      }
+    });
+  }
+
+  return {
+    userRoles,
+    docRoles,
+    roleFieldName: roleFieldNamesFound.length &gt; 0 ? roleFieldNamesFound[0] : &apos;&apos;
+  };
+}
+
+/**
+ * get the roles from the @authorize directive
+ * by reading the input schema&apos;s abstract syntax tree
+ * to get the roles and their authorized modes
+ * @private
+ * @param {object} allRolesArguments - AST with role definitions
+ * @param {object} inputSchema - the schema of the type
+ * @return {array} allRoles - returns the defined roles
+ * @example 
+ *          @authorize(
+ *            admin: [&quot;create&quot;, &quot;read&quot;, &quot;update&quot;, &quot;delete&quot;]
+ *            this: [&quot;read&quot;, &quot;update&quot;, &quot;delete&quot;]
+ *          )
+ */
+
+function getAllRoles(
+  allRolesArguments: any = [],
+  inputSchema: any
+): Array&lt;any&gt; {
+  const allRoles = [];
+  // get all Roles of the type&apos;s @authorize directives
+  // e.g. &apos;admin&apos;, &apos;this&apos;
+  allRolesArguments.forEach(roleArgument =&gt; {
+    // new role found
+    const role = {};
+
+    // check if it is a valid role
+    if (
+      roleArgument.kind === ARGUMENT &amp;&amp;
+      roleArgument.name &amp;&amp;
+      roleArgument.name.kind === NAME &amp;&amp;
+      roleArgument.name.value &amp;&amp;
+      roleArgument.name.value !== &apos;&apos;
+    ) {
+      // define the new role
+      role.name = roleArgument.name.value;
+
+      // determine, if it is a &apos;userRole&apos; or &apos;docRole&apos;
+      const { roleType, roleName, roleFieldName } = getRoleType(
+        role.name,
+        inputSchema
+      );
+      role.type = roleType;
+      role.roleName = roleName;
+      role.roleFieldName = roleFieldName;
+
+      // create a default object, necessary for missing modes
+      role.modes = {};
+      CODE_MODES.forEach(mode =&gt; (role.modes[mode] = &apos;&apos;));
+
+      // check, if it is a list of values
+      if (
+        roleArgument.value.kind &amp;&amp;
+        roleArgument.value.kind === LIST_VALUE &amp;&amp;
+        roleArgument.value.values &amp;&amp;
+        roleArgument.value.values.length &gt; 0
+      ) {
+        // get all authorized modes of the role
+        const roleModes = roleArgument.value.values;
+        roleModes.forEach(mode =&gt; {
+          // check, if it is a valid authorization mode
+          // e.g. &apos;create&apos;, &apos;update&apos;, &apos;delete&apos;, etc.
+          if (
+            mode.kind &amp;&amp;
+            mode.kind === STRING_VALUE &amp;&amp;
+            mode.value &amp;&amp;
+            MODES.indexOf(mode.value) &gt;= 0
+          ) {
+            // it is a valid authorization mode:
+            // e.g.   {
+            //           name: &apos;admin&apos;,
+            //           type: null,      // later: =&gt; &apos;userRole&apos; || &apos;docRole&apos;
+            //           modes: {
+            //            create: &apos;admin&apos;,
+            //            readOne: &apos;admin&apos;,
+            //            readMany: &apos;admin&apos;,
+            //            update: &apos;admin&apos;,,
+            //            delete: &apos;admin&apos;,
+            //        }
+            //            &apos;create&apos; = &apos;admin&apos;
+            // special case &apos;read&apos; means both, &apos;readOne&apos; and &apos;readMany&apos;
+
+            if (mode.value === READ) {
+              role.modes[READ_ONE] = role.roleName;
+              role.modes[READ_MANY] = role.roleName;
+            } else {
+              role.modes[mode.value] = role.roleName;
+            }
+          }
+        });
+
+        // check, if it is a simple string value:
+      } else if (
+        roleArgument.name.value.kind &amp;&amp;
+        roleArgument.name.value.kind === STRING_VALUE &amp;&amp;
+        roleArgument.name.value &amp;&amp;
+        MODES.indexOf(roleArgument.name.value) &gt;= 0
+      ) {
+        //                         &apos;create&apos; = &apos;admin&apos;
+        // special case &apos;read&apos; means both, &apos;readOne&apos; and &apos;readMany&apos;
+        if (roleArgument.name.value === READ) {
+          role.modes[READ_ONE] = role.roleName;
+          role.modes[READ_MANY] = role.roleName;
+        } else {
+          role.modes[roleArgument.name.value] = role.roleName;
+        }
+      }
+      // add it to the list of roles
+      allRoles.push(role);
+    }
+  });
+
+  return allRoles;
+}
+
+/**
+ * decide, if the given role is whether 
+ * a &apos;userRole&apos; or a &apos;docRole&apos;
+ *
+ * Procedure:
+ * 1. Determine, if this field is used as a roleField
+ * 2. Check, if this roleField...
+ *    a) is of type: String or [String] ==&gt; userRole
+ *    b) is of type: User or [User]     ==&gt; docRole
+ *    c) roleName = &apos;this&apos;              ==&gt; docRole
+ * 3. If there is no roleField in this type
+ *    it must be a userRole
+ * 
+ * For 1. is a roleField:
+ *   read the type&apos;s abstract syntax tree
+ *   loop over all provided fields,
+ *   check, if the field has a directive &apos;@authRole&apos;
+ *   and if this authRole is &apos;for&apos; the provided &apos;roleName&apos;
+ *   or the roleName is the special case &apos;this&apos;
+ *   ==&gt; then it is a roleField
+ *
+ * For 2. get it&apos;s fieldType:
+ *   read the type&apos;s abstract syntax tree
+ *   for the roleField and read it&apos;s type
+ *   
+ *   a) if it is a String or List of Strings,
+ *   then the roleType = &apos;userRole&apos;
+ *
+ *   b) if it is a User or List of Users (userIds),
+ *   then the roleType = &apos;docType&apos;
+ *
+ *   c) special case: roleName = &apos;this&apos;
+ *   (it doesn&apos;t look for an authRole for &apos;this&apos;)
+ *   it means the document&apos;s id field is used for this
+ *   meaning the role defines the authorizations,
+ *   a User has upon his own User document
+ *
+ * For 3. none of the above applies
+ *   so the role must be a userRole
+ *   
+ * @private
+ * @param {string} name - name of the role
+ * @param {object} inputSchema - the schema of the type
+ * @return {Object} role - role definitions
+ * @property {string} roleType - type of the role &apos;userRole&apos;, &apos;docRole&apos;
+ * @property {string} roleName - name of the role
+ * @property {string} roleFieldName - field name for the userRole
+ */
+
+function getRoleType(name: string = &apos;&apos;, inputSchema: any = {}): any {
+  // all field definitions of the type
+  const allFields = inputSchema.definitions[0].fields;
+  let roleType = null;
+  let roleName = &apos;&apos;;
+  let roleFieldName = &apos;&apos;;
+
+  // special case &apos;this&apos;
+  if (name === THIS) {
+    return {
+      roleType: DOC_ROLE,
+      roleName: ID_FIELD,
+      roleFieldName: ID_FIELD
+    };
+  }
+
+  // loop over all fields to find authRole directive
+  allFields.forEach(field =&gt; {
+    if (
+      field.kind &amp;&amp;
+      field.kind === FIELD_DEFINITION &amp;&amp;
+      field.name &amp;&amp;
+      field.name.kind &amp;&amp;
+      field.name.kind === NAME &amp;&amp;
+      field.name.value &amp;&amp;
+      field.directives &amp;&amp;
+      field.directives.length &gt; 0
+    ) {
+      // 1. check, if it is a roleField
+      if (isRoleField(name, field.directives)) {
+        // 2. get the type of the field
+        const fieldType = getFieldType(field);
+        // determine the roleType: &apos;userRole&apos; || &apos;docRole&apos;
+        // and the roleName for...
+        // userRoles: &apos;admin&apos;, &apos;user&apos;,...
+        // docRoles: &apos;authorId&apos;, &apos;coAuthorsIds&apos;,...
+        switch (fieldType) {
+          case STRING:
+            // a) userRole
+            roleType = USER_ROLE;
+            roleName = name;
+            roleFieldName = field.name.value;
+            break;
+
+          case LIST_OF_STRINGS:
+            // a) userRole
+            roleType = USER_ROLE;
+            roleName = name;
+            roleFieldName = field.name.value;
+            break;
+
+          case USER:
+            // b) docRole
+            roleType = DOC_ROLE;
+            roleName = `${field.name.value}${ID_SINGULAR}`;
+            roleFieldName = field.name.value;
+            break;
+
+          case LIST_OF_USERS:
+            // b) docRole
+            roleType = DOC_ROLE;
+            roleName = `${field.name.value}${ID_PLURAL}`;
+            roleFieldName = field.name.value;
+            break;
+        }
+      }
+    }
+  });
+
+  if (roleType) {
+    // 2. a) userRole or b) docRole applies
+    return {
+      roleType,
+      roleName,
+      roleFieldName
+    };
+  } else if (name !== &apos;&apos;) {
+    // 3. none of the above applies, so it must be a userRole
+    return {
+      roleType: USER_ROLE,
+      roleName: name,
+      roleFieldName: &apos;&apos;
+    };
+  }
+}
+
+/*
+ * is this field a roleField
+ * check, if this field has the authRole directive
+ * @private
+ * @param {string} roleName - name of the role
+ * @param {array} fieldDirectives  - AST with field directives
+ * @return {boolean} isRoleField - true, if it is a field with a role
+ */
+
+function isRoleField(roleName: string, fieldDirectives: any): boolean {
+  let found = false;
+
+  // loop over all field directives for an &apos;authRole&apos;
+  fieldDirectives.forEach(fieldDirective =&gt; {
+    if (
+      fieldDirective.kind &amp;&amp;
+      fieldDirective.kind === DIRECTIVE &amp;&amp;
+      fieldDirective.name &amp;&amp;
+      fieldDirective.name.kind === NAME &amp;&amp;
+      fieldDirective.name.value === AUTH_ROLE &amp;&amp;
+      fieldDirective.arguments &amp;&amp;
+      fieldDirective.arguments.length &gt; 0
+    ) {
+      // loop over all arguments, if it is for our roleName
+      // e.g. roleName: &apos;admin&apos; find @authRole(for: [&quot;admin&quot;])
+      fieldDirective.arguments.forEach(fieldDirectiveArgument =&gt; {
+        // check, if there is a &apos;for&apos;
+        if (
+          fieldDirectiveArgument.name &amp;&amp;
+          fieldDirectiveArgument.name.kind &amp;&amp;
+          fieldDirectiveArgument.name.kind === NAME &amp;&amp;
+          fieldDirectiveArgument.name.value &amp;&amp;
+          fieldDirectiveArgument.name.value === FOR &amp;&amp;
+          fieldDirectiveArgument.value &amp;&amp;
+          fieldDirectiveArgument.value.kind
+        ) {
+          // check, if it is a list value:
+          if (
+            fieldDirectiveArgument.value.kind === LIST_VALUE &amp;&amp;
+            fieldDirectiveArgument.value.values &amp;&amp;
+            fieldDirectiveArgument.value.values.length &gt; 0
+          ) {
+            // loop over all values, if there is one with our roleName
+            const fieldRoles = fieldDirectiveArgument.value.values;
+            fieldRoles.forEach(fieldRole =&gt; {
+              // check, if it is our roleName
+              if (
+                fieldRole.kind &amp;&amp;
+                fieldRole.kind === STRING_VALUE &amp;&amp;
+                fieldRole.value &amp;&amp;
+                fieldRole.value !== &apos;&apos; &amp;&amp;
+                fieldRole.value === roleName
+              ) {
+                // we found it!
+                found = true;
+              }
+            });
+            // check, if it is a single value:
+          } else if (
+            fieldDirectiveArgument.value.kind === STRING_VALUE &amp;&amp;
+            fieldDirectiveArgument.value.value &amp;&amp;
+            fieldDirectiveArgument.value.value !== &apos;&apos; &amp;&amp;
+            fieldDirectiveArgument.value.value === roleName
+          ) {
+            // we found it!
+            found = true;
+          }
+        }
+      });
+    }
+  });
+  return found;
+}
+
+/**
+ * get the field&apos;s type 
+ * @private
+ * @param {object} field - AST with field definitions
+ * @return {type} fieldType - returns the type of the field
+ * @example &apos;role: String&apos;
+ * @example &apos;role: String!&apos;
+ * @example &apos;coauthors: [User]&apos;
+ * @example &apos;coauthors: [User]!&apos;
+ * @example &apos;coauthors: [User!]&apos;
+ * @example &apos;coauthors: [User!]!&apos;
+ */
+
+function getFieldType(field: any): string | null {
+  // pattern: &apos;role: String&apos;
+  if (
+    field.type &amp;&amp;
+    field.type.kind &amp;&amp;
+    field.type.kind === NAMED_TYPE &amp;&amp;
+    field.type.name &amp;&amp;
+    field.type.name.kind &amp;&amp;
+    field.type.name.kind === NAME &amp;&amp;
+    field.type.name.value
+  ) {
+    if (field.type.name.value === STRING) {
+      return STRING;
+    }
+
+    if (field.type.name.value === USER) {
+      return USER;
+    }
+  }
+
+  // pattern: &apos;role: String!&apos;
+  if (
+    field.type &amp;&amp;
+    field.type.kind &amp;&amp;
+    field.type.kind === NON_NULL_TYPE &amp;&amp;
+    field.type.type &amp;&amp;
+    field.type.type.name &amp;&amp;
+    field.type.type.name.kind &amp;&amp;
+    field.type.type.name.kind === NAME &amp;&amp;
+    field.type.type.name.value
+  ) {
+    if (field.type.type.name.value === STRING) {
+      return STRING;
+    }
+
+    if (field.type.type.name.value === USER) {
+      return USER;
+    }
+  }
+
+  // pattern: &apos;coauthors: [User]&apos;
+  if (
+    field.type &amp;&amp;
+    field.type.kind &amp;&amp;
+    field.type.kind === LIST_TYPE &amp;&amp;
+    field.type.type &amp;&amp;
+    field.type.type.name &amp;&amp;
+    field.type.type.name.kind &amp;&amp;
+    field.type.type.name.kind === NAME &amp;&amp;
+    field.type.type.name.value
+  ) {
+    if (field.type.type.name.value === STRING) {
+      return LIST_OF_STRINGS;
+    }
+
+    if (field.type.type.name.value === USER) {
+      return LIST_OF_USERS;
+    }
+  }
+
+  // pattern: &apos;coauthors: [User]!&apos;
+  if (
+    field.type &amp;&amp;
+    field.type.kind &amp;&amp;
+    field.type.kind === NON_NULL_TYPE &amp;&amp;
+    field.type.type &amp;&amp;
+    field.type.type.kind &amp;&amp;
+    field.type.type.kind === LIST_TYPE &amp;&amp;
+    field.type.type.type &amp;&amp;
+    field.type.type.type.kind &amp;&amp;
+    field.type.type.type.kind === NAMED_TYPE &amp;&amp;
+    field.type.type.type.name &amp;&amp;
+    field.type.type.type.name.kind &amp;&amp;
+    field.type.type.type.name.kind === NAME &amp;&amp;
+    field.type.type.type.name.value
+  ) {
+    if (field.type.type.type.name.value === STRING) {
+      return LIST_OF_STRINGS;
+    }
+
+    if (field.type.type.type.name.value === USER) {
+      return LIST_OF_USERS;
+    }
+  }
+
+  // pattern: &apos;coauthors: [User!]&apos;
+  if (
+    field.type &amp;&amp;
+    field.type.kind &amp;&amp;
+    field.type.kind === LIST_TYPE &amp;&amp;
+    field.type.type &amp;&amp;
+    field.type.type.kind &amp;&amp;
+    field.type.type.kind === NON_NULL_TYPE &amp;&amp;
+    field.type.type.type &amp;&amp;
+    field.type.type.type.kind &amp;&amp;
+    field.type.type.type.kind === NAMED_TYPE &amp;&amp;
+    field.type.type.type.name &amp;&amp;
+    field.type.type.type.name.kind &amp;&amp;
+    field.type.type.type.name.kind === NAME &amp;&amp;
+    field.type.type.type.name.value
+  ) {
+    if (field.type.type.type.name.value === STRING) {
+      return LIST_OF_STRINGS;
+    }
+
+    if (field.type.type.type.name.value === USER) {
+      return LIST_OF_USERS;
+    }
+  }
+
+  // pattern: &apos;coauthors: [User!]!&apos;
+  if (
+    field.type &amp;&amp;
+    field.type.kind &amp;&amp;
+    field.type.kind === NON_NULL_TYPE &amp;&amp;
+    field.type.type &amp;&amp;
+    field.type.type.kind &amp;&amp;
+    field.type.type.kind === LIST_TYPE &amp;&amp;
+    field.type.type.type &amp;&amp;
+    field.type.type.type.kind &amp;&amp;
+    field.type.type.type.kind === NON_NULL_TYPE &amp;&amp;
+    field.type.type.type.type &amp;&amp;
+    field.type.type.type.type.kind &amp;&amp;
+    field.type.type.type.type.kind === NAMED_TYPE &amp;&amp;
+    field.type.type.type.type.name &amp;&amp;
+    field.type.type.type.type.name.kind &amp;&amp;
+    field.type.type.type.type.name.kind === NAME &amp;&amp;
+    field.type.type.type.type.name.value
+  ) {
+    if (field.type.type.type.type.name.value === STRING) {
+      return LIST_OF_STRINGS;
+    }
+
+    if (field.type.type.type.type.name.value === USER) {
+      return LIST_OF_USERS;
+    }
+  }
+
+  return null;
+}
+
+/**
+ * prepare roles for code generator
+ * convert array to String value
+ * replace &quot; by &apos;
+ * @private
+ * @param {array} role - name of role
+ * @return {string} roleString - role string
+ */
+
+function prep(role: any): string {
+  return JSON.stringify(role).replace(/&quot;/g, &quot;&apos;&quot;);
+}
+
+/**
+ * generate authorization code for mode readOne
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @param {string} userRoles - list of userRoles
+ * @param {string} docRoles - list of docRoles
+ * @return {string} generatedCode - generated code to be injected
+ */
+
+function generateAuthCodeModeReadOne(
+  authorize: boolean = false,
+  typeName: string = &apos;&apos;,
+  userRoles: Array&lt;string&gt; = [],
+  docRoles: Array&lt;string&gt; = []
+): string {
+  // default code
+  let generatedCode = `const { me } = context;
+    that.authorizedLoader = new DataLoader(ids =&gt; findByIds(this.collection, ids))`;
+
+  // with @authorize directive
+  if (authorize) {
+    if (typeName === &apos;user&apos;) {
+      // User has to come from current class context
+      generatedCode = `const { me } = context;
+      const authQuery = queryForRoles(me, ${prep(userRoles)}, ${prep(
+        docRoles
+      )}, { User }, authlog(&apos;${typeName} findOneById&apos;, &apos;readOne&apos;, me));
+      that.authorizedLoader = new DataLoader(ids =&gt; findByIds(this.collection, ids, authQuery));`;
+    } else {
+      // User has to come from this.context.User
+      generatedCode = `const { me, User } = context;
+      const authQuery = queryForRoles(me, ${prep(userRoles)}, ${prep(
+        docRoles
+      )}, { User }, authlog(&apos;${typeName} findOneById&apos;, &apos;readOne&apos;, me));
+      that.authorizedLoader = new DataLoader(ids =&gt; findByIds(this.collection, ids, authQuery));`;
+    }
+  }
+
+  return generatedCode;
+}
+
+/**
+ * generate authorization code for mode readMany
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @param {string} userRoles - list of userRoles
+ * @param {string} docRoles - list of docRoles
+ * @return {string} generatedCode - generated code to be injected
+ */
+
+function generateAuthCodeModeReadMany(
+  authorize: boolean = false,
+  typeName: string = &apos;&apos;,
+  userRoles: Array&lt;string&gt; = [],
+  docRoles: Array&lt;string&gt; = []
+) {
+  // default code
+  let generatedCode = `const finalQuery = {...baseQuery, createdAt: { $gt: lastCreatedAt } };`;
+
+  // with @authorize directive
+  if (authorize) {
+    generatedCode = `const authQuery = queryForRoles(me, ${prep(
+      userRoles
+    )}, ${prep(
+      docRoles
+    )}, { User: this.context.User }, authlog(resolver, &apos;readMany&apos;, me));
+      const finalQuery = {...baseQuery, ...authQuery, createdAt: { $gt: lastCreatedAt } };`;
+  }
+
+  return generatedCode;
+}
+
+/**
+ * generate authorization code for mode create
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @param {array} userRoles - list of userRoles
+ * @param {array} docRoles - list of docRoles
+ * @param {string} roleFieldName - field name for the role
+ * @return {string} generatedCode - generated code to be injected
+ */
+
+function generateAuthCodeModeCreate(
+  authorize: boolean = false,
+  typeName: string = &apos;&apos;,
+  userRoles: Array&lt;string&gt; = [],
+  docRoles: Array&lt;string&gt; = [],
+  roleFieldName?: string = &apos;&apos;
+) {
+  // default code
+  let generatedCode = ``;
+
+  // with @authorize directive
+  if (authorize) {
+    if (typeName === &apos;user&apos;) {
+      // protectFields only on the user type
+      // if the fields are filled, than convert them to proper strings,
+      // otherwise set them to null
+      // take the first userRole into the protectFields as a suggestion
+      // to the programmer, assuming this is the most important role,
+      // with higher authorization (see in README.md)
+      const firstUserRole =
+        userRoles.length &gt; 0 &amp;&amp; userRoles[0] ? `&apos;${userRoles[0]}&apos;` : ``;
+      const roleField = roleFieldName ? `&apos;${roleFieldName}&apos;` : ``;
+      generatedCode = `checkAuthDoc(docToInsert, me, ${prep(userRoles)}, ${prep(
+        docRoles
+      )}, { User: this.context.User }, authlog(resolver, &apos;create&apos;, me));
+      docToInsert = protectFields(me, [${firstUserRole}], [${roleField}], docToInsert, { User: this.context.User });`;
+    } else {
+      // without protectFields
+      generatedCode = `checkAuthDoc(docToInsert, me, ${prep(userRoles)}, ${prep(
+        docRoles
+      )}, { User: this.context.User }, authlog(resolver, &apos;create&apos;, me));`;
+    }
+  }
+
+  return generatedCode;
+}
+
+/**
+ * generate authorization code for mode update
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @param {array} userRoles - list of userRoles
+ * @param {array} docRoles - list of docRoles
+ * @param {string} roleFieldName - field name for the role
+ * @return {string} generatedCode - generated code to be injected
+ */
+
+function generateAuthCodeModeUpdate(
+  authorize: boolean = false,
+  typeName: string = &apos;&apos;,
+  userRoles?: Array&lt;string&gt; = [],
+  docRoles?: Array&lt;string&gt; = [],
+  roleFieldName?: string = &apos;&apos;
+) {
+  // default code
+  let generatedCode = `const finalQuery = {...baseQuery};`;
+
+  // with @authorize directive
+  if (authorize) {
+    if (typeName === &apos;user&apos;) {
+      // protectFields only on the user type
+      // if the fields are filled, than convert them to proper strings,
+      // otherwise set them to null
+      // take the first userRole into the protectFields
+      // as a suggestion to the programmer,
+      // assuming this is the most important role,
+      // with higher authorization (see in README.md)
+      const firstUserRole =
+        userRoles.length &gt; 0 &amp;&amp; userRoles[0] ? `&apos;${userRoles[0]}&apos;` : ``;
+      const roleField = roleFieldName ? `&apos;${roleFieldName}&apos;` : ``;
+      generatedCode = `const authQuery = queryForRoles(me, ${prep(
+        userRoles
+      )}, ${prep(
+        docRoles
+      )}, { User: this.context.User }, authlog(resolver, &apos;update&apos;, me));
+      const finalQuery = {...baseQuery, ...authQuery};
+      docToUpdate.$set = protectFields(me, [${firstUserRole}], [${roleField}], docToUpdate.$set, { User: this.context.User });`;
+    } else {
+      // without protectFields
+      generatedCode = `const authQuery = queryForRoles(me, ${prep(
+        userRoles
+      )}, ${prep(
+        docRoles
+      )}, { User: this.context.User }, authlog(resolver, &apos;update&apos;, me));
+      const finalQuery = {...baseQuery, ...authQuery};`;
+    }
+  }
+
+  return generatedCode;
+}
+
+/**
+ * generate authorization code for mode delete
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @param {string} userRoles - list of userRoles
+ * @param {string} docRoles - list of docRoles
+ * @return {string} generatedCode - generated code to be injected
+ */
+
+function generateAuthCodeModeDelete(
+  authorize: boolean = false,
+  typeName: string = &apos;&apos;,
+  userRoles?: Array&lt;string&gt; = [],
+  docRoles?: Array&lt;string&gt; = []
+) {
+  // default code
+  let generatedCode = `const finalQuery = {...baseQuery};`;
+
+  // with @authorize directive
+  if (authorize) {
+    generatedCode = `const authQuery = queryForRoles(me, ${prep(
+      userRoles
+    )}, ${prep(
+      docRoles
+    )}, { User: this.context.User }, authlog(resolver, &apos;delete&apos;, me));
+      const finalQuery = {...baseQuery, ...authQuery};`;
+  }
+
+  return generatedCode;
+}
+
+/**
+ * generate createdBy method
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @return {string} generatedCode - generated code to be injected
+ */
+
+function generateCreatedBy(
+  authorize: boolean = false,
+  typeName: string = &apos;&apos;
+): string {
+  // default code
+  let generatedCode = ``;
+
+  // with @authorize directive: means there must be a User type
+  if (authorize) {
+    generatedCode = `createdBy(${typeName}, me, resolver) {
+    return this.context.User.findOneById(${typeName}.createdById, me, resolver);
+  }`;
+  }
+
+  return generatedCode;
+}
+
+/**
+ * generate updatedBy method
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @return {string} generatedCode - generated code to be injected
+ */
+
+function generateUpdatedBy(
+  authorize: boolean = false,
+  typeName: string = &apos;&apos;
+): string {
+  // default code
+  let generatedCode = ``;
+
+  // with @authorize directive: means there must be a User type
+  if (authorize) {
+    generatedCode = `updatedBy(${typeName}, me, resolver) {
+    return this.context.User.findOneById(${typeName}.updatedById, me, resolver);
+  }`;
+  }
+
+  return generatedCode;
+}
+
+/**
+ * generate updatedBy method
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @return {string} generatedCode - generated code to be injected
+ */
+
+function generateAuthRoleDefinition(
+  authorize: boolean = false,
+  typeName: string = &apos;&apos;
+): string {
+  // default code
+  let generatedCode = ``;
+
+  // with @authorize directive: means there must be a User type
+  if (authorize &amp;&amp; typeName === &apos;user&apos;) {
+    generatedCode = `
+    this.authRole = User.authRole;`;
+  }
+
+  return generatedCode;
+}
+
+/**
+ * generate authRole() method only in type User
+ * @private
+ * @param {boolean} authorize - flag for authorization logic
+ * @param {string} typeName - name of the type
+ * @param {string} roleFieldName - field name, where userRole is stored on type User
+ * @return {string} generatedCode - generated code to be injected
+ */
+
+function generateAuthRoleMethod(
+  authorize: boolean = false,
+  typeName: string = &apos;&apos;,
+  roleFieldName: string = &apos;&apos;
+): string {
+  // default code
+  let generatedCode = ``;
+
+  // with @authorize directive: means there must be a User type
+  if (authorize &amp;&amp; roleFieldName !== &apos;&apos; &amp;&amp; typeName === &apos;user&apos;) {
+    generatedCode = `
+  static authRole(${typeName}){
+    return (${typeName} &amp;&amp; ${typeName}.${roleFieldName}) ? ${typeName}.${roleFieldName} : null;
+  }
+  `;
+  }
+
+  return generatedCode;
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.1)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

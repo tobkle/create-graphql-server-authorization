@@ -1,0 +1,47 @@
+{
+  "name": "create-graphql-server-authorization",
+  "version": "0.0.46",
+  "description": "Authorization package for create-graphql-server",
+  "contributors": [
+    "Tobias Klemmer <tobias@klemmer.info> (https://www.klemmer.info)"
+  ],
+  "main": "index.js",
+  "author": "Tobias Klemmer <tobias@klemmer.info> (https://www.klemmer.info)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tobkle/create-graphql-server-authorization.git"
+  },
+  "keywords": [
+    "create-graphql-server",
+    "authorization"
+  ],
+  "bugs": {
+    "url": "https://github.com/tobkle/create-graphql-server-authorization/issues"
+  },
+  "config": {
+    "logfile": "log/all-logs-readable.log",
+    "loglevel": "debug",
+    "maxsize": 5,
+    "maxfiles": 5
+  },
+  "homepage": "https://github.com/tobkle/create-graphql-server-authorization#readme",
+  "dependencies": {
+    "assert": "^1.4.1",
+    "babylon": "^6.18.0",
+    "chai-string": "^1.4.0",
+    "create-graphql-server-find-by-ids": "^0.0.4",
+    "create-graphql-server-logging": "^0.0.3",
+    "global": "^4.3.2",
+    "graphql": "^0.11.1",
+    "handlebars": "^4.0.10",
+    "iterall": "^1.1.0",
+    "lodash": "4.16.4",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.includes": "^4.3.0",
+    "lodash.merge": "^4.6.0",
+    "mongodb": "^2.2.31",
+    "recast": "^0.12.6",
+    "winston": "^2.3.1"
+  }
+}

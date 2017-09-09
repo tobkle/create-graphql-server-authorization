@@ -1,0 +1,203 @@
+{
+  "coverage": "42.71%",
+  "expectCount": 103,
+  "actualCount": 44,
+  "files": {
+    "src/constants.js": {
+      "expectCount": 53,
+      "actualCount": 0,
+      "undocumentLines": [
+        68,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        84,
+        85,
+        88,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        99,
+        102,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        117,
+        118,
+        119,
+        122,
+        123,
+        124,
+        125,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140
+      ]
+    },
+    "src/generator/authorize/extractRoles.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generator/authorize/getFieldType.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generator/authorize/getRoleType.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generator/authorize/getRoles.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generator/authorize/isAuthorizeDirectiveDefined.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generator/authorize/isRoleField.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generator/getCode.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/generator/getContext.js": {
+      "expectCount": 4,
+      "actualCount": 4,
+      "undocumentLines": []
+    },
+    "src/generator/getName.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generator/getPartials.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generator/schema/enhanceSchemaForAuthorization.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generator/util/capitalization.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/generator/util/generatePerField.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/generator/util/graphql.js": {
+      "expectCount": 13,
+      "actualCount": 12,
+      "undocumentLines": [
+        4
+      ]
+    },
+    "src/index.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        25
+      ]
+    },
+    "src/lib/authlog.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/lib/checkAuthDoc.js": {
+      "expectCount": 2,
+      "actualCount": 1,
+      "undocumentLines": [
+        8
+      ]
+    },
+    "src/lib/dummyUserContext.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/lib/fieldContainsUserId.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/lib/loggedIn.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/lib/onAuthRegisterLoader.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/lib/protectFields.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/lib/queryForRoles.js": {
+      "expectCount": 2,
+      "actualCount": 1,
+      "undocumentLines": [
+        10
+      ]
+    },
+    "src/lib/userRoleAuthorized.js": {
+      "expectCount": 2,
+      "actualCount": 1,
+      "undocumentLines": [
+        7
+      ]
+    },
+    "src/utilities.js": {
+      "expectCount": 5,
+      "actualCount": 4,
+      "undocumentLines": [
+        6
+      ]
+    }
+  }
+}

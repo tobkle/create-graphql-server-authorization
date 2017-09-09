@@ -1,0 +1,4584 @@
+[
+  {
+    "__docId__": 1,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Infinity",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 2,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~NaN",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 3,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~undefined",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 4,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~null",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 5,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 6,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 7,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 8,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 9,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 10,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 11,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Symbol",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 12,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Error",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 13,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~EvalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 14,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~InternalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 15,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RangeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 16,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ReferenceError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 17,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~SyntaxError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 18,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~TypeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 19,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~URIError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 20,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 21,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 22,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Date",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 23,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~String",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 24,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~string",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 25,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RegExp",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 26,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 27,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 28,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 29,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8ClampedArray",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 30,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 31,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 32,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 33,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 34,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 35,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float64Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 36,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Map",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 37,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Set",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 38,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakMap",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 39,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakSet",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 40,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ArrayBuffer",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 41,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~DataView",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 42,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~JSON",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 43,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Promise",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 44,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Generator",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 45,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~GeneratorFunction",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 46,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Reflect",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 47,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Proxy",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 48,
+    "kind": "file",
+    "name": "src/constants.js",
+    "content": "// @flow\n/* eslint-disable max-len */\n/* eslint-disable flowtype/no-weak-types */\n\n// kinds from graphql language\nexport {\n  NAME,\n  ARGUMENT,\n  NAMED_TYPE,\n  LIST_TYPE,\n  NON_NULL_TYPE,\n  FIELD_DEFINITION,\n  DIRECTIVE,\n  LIST,\n  STRING\n} from 'graphql/language/kinds';\n\n// template context type\nexport type templateContextType = {\n  authorize: boolean,\n  isUserType: boolean,\n  typeName: string,\n  TypeName: string,\n  User: string,\n  userRoles: any,\n  docRoles: any,\n  firstUserRole: string,\n  roleField: string,\n  singularFields: Array<any>,\n  paginatedFields: Array<any>\n};\n\n// generator configuration type\nexport type configCodeType = {\n  // getting the context\n  inputSchema: any,\n  userType: string,\n\n  // default template as starting point\n  defaultTemplate: string,\n\n  // getting the default templates\n  basePath: Array<string>,\n  baseExtension?: string,\n  baseEncoding?: string,\n  baseCommonDir?: string,\n  baseDefaultDir?: string,\n  baseGetNameFunc?: Function,\n\n  // getting the auth templates\n  authPath?: Array<string>,\n  authExtension?: string,\n  authEncoding?: string,\n  authCommonDir?: string,\n  authDefaultDir?: string,\n  authGetNameFunc?: Function\n};\n\nexport type configPartialType = {\n  basePath: Array<string>,\n  directoryPath: Array<string>,\n  extension?: string,\n  encoding?: string,\n  getNameFunc?: Function\n};\n\n// files encoding\nexport const ENCODING = 'utf8';\n\n// templates naming\nexport const TEMPLATE_EXTENSION = '.template';\nexport const TEMPLATES_DIR = 'templates';\nexport const TEMPLATES_MODEL_DIR = 'model';\nexport const TEMPLATES_RESOLVER_DIR = 'resolver';\nexport const TEMPLATES_AUTH_DIR = 'auth';\nexport const TEMPLATES_COMMON_DIR = 'common';\nexport const TEMPLATES_DEFAULT_DIR = 'default';\nexport const TEMPLATES_DEFAULT_TEMPLATE = 'default';\nexport const MODEL = 'model';\nexport const RESOLVER = 'resolver';\nexport const SCHEMA = 'schema';\n\n// for field associations\nexport const SINGULAR = 'singular';\nexport const PAGINATED = 'paginated';\n\n// name of the @authorize directive, which triggers authorization logic\nexport const AUTHORIZE_DIRECTIVE = 'authorize';\n\n// authorization modes\nexport const CREATE = 'create';\nexport const READ = 'read'; // 'read' means both, 'readOne' and 'readMany'\nexport const READ_ONE = 'readOne';\nexport const READ_MANY = 'readMany';\nexport const UPDATE = 'update';\nexport const DELETE = 'delete';\n\n// valid input modes from @authorize directive\nexport const MODES = [CREATE, READ, READ_ONE, READ_MANY, UPDATE, DELETE];\n\n// valid output mode for code generator\nexport const CODE_MODES = [CREATE, READ_ONE, READ_MANY, UPDATE, DELETE];\n\n// for the role definitions\nexport const AUTH_ROLE = 'authRole';\nexport const USER_ROLE = 'userRole';\nexport const DOC_ROLE = 'docRole';\nexport const FOR = 'for';\nexport const USER_MODEL = 'user';\nexport const STRING_LITERAL = 'String';\nexport const STRING_LIST = '[String]';\nexport const USER_LITERAL = 'User';\nexport const USER_LIST = '[User]';\nexport const ROLE_FIELD_DEFAULT = 'role';\n\n// handling of id\nexport const ID_FIELD = '_id';\nexport const ID_SINGULAR = 'Id';\nexport const ID_PLURAL = 'Ids';\n\n// special roles\nexport const THIS = 'this';\nexport const WORLD = 'world';\nexport const NO_ROLE = '<no-role>';\nexport const NO_USER = '<no-user>';\n\n// test directories\nexport const SRC_DIR = 'src';\nexport const TEST_DIR = '__tests__';\nexport const TEST_GQL_DATA = 'data';\nexport const TEST_CODE = 'code';\nexport const TEST_MODEL = 'model';\nexport const TEST_RESOLVER = 'resolver';\nexport const TEST_GQL_EXTENSION = '.graphql';\nexport const TEST_EXPECTED_CODE = 'expected';\nexport const TEST_GENERATED_CODE = 'generated';\nexport const TEST_MODEL_EXTENSION = '.js';\nexport const TEST_MODEL_EXTENSION2 = 'model';\nexport const TEST_RESOLVER_EXTENSION = '.js';\nexport const TEST_RESOLVER_EXTENSION2 = 'resolver';\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/constants.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 49,
+    "kind": "variable",
+    "name": "ENCODING",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~ENCODING",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{ENCODING}",
+    "description": null,
+    "lineNumber": 68,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 50,
+    "kind": "variable",
+    "name": "TEMPLATE_EXTENSION",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEMPLATE_EXTENSION",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEMPLATE_EXTENSION}",
+    "description": null,
+    "lineNumber": 71,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 51,
+    "kind": "variable",
+    "name": "TEMPLATES_DIR",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEMPLATES_DIR",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEMPLATES_DIR}",
+    "description": null,
+    "lineNumber": 72,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 52,
+    "kind": "variable",
+    "name": "TEMPLATES_MODEL_DIR",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEMPLATES_MODEL_DIR",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEMPLATES_MODEL_DIR}",
+    "description": null,
+    "lineNumber": 73,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 53,
+    "kind": "variable",
+    "name": "TEMPLATES_RESOLVER_DIR",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEMPLATES_RESOLVER_DIR",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEMPLATES_RESOLVER_DIR}",
+    "description": null,
+    "lineNumber": 74,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 54,
+    "kind": "variable",
+    "name": "TEMPLATES_AUTH_DIR",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEMPLATES_AUTH_DIR",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEMPLATES_AUTH_DIR}",
+    "description": null,
+    "lineNumber": 75,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 55,
+    "kind": "variable",
+    "name": "TEMPLATES_COMMON_DIR",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEMPLATES_COMMON_DIR",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEMPLATES_COMMON_DIR}",
+    "description": null,
+    "lineNumber": 76,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 56,
+    "kind": "variable",
+    "name": "TEMPLATES_DEFAULT_DIR",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEMPLATES_DEFAULT_DIR",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEMPLATES_DEFAULT_DIR}",
+    "description": null,
+    "lineNumber": 77,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 57,
+    "kind": "variable",
+    "name": "TEMPLATES_DEFAULT_TEMPLATE",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEMPLATES_DEFAULT_TEMPLATE",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEMPLATES_DEFAULT_TEMPLATE}",
+    "description": null,
+    "lineNumber": 78,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 58,
+    "kind": "variable",
+    "name": "MODEL",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~MODEL",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{MODEL}",
+    "description": null,
+    "lineNumber": 79,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 59,
+    "kind": "variable",
+    "name": "RESOLVER",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~RESOLVER",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{RESOLVER}",
+    "description": null,
+    "lineNumber": 80,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 60,
+    "kind": "variable",
+    "name": "SCHEMA",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~SCHEMA",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{SCHEMA}",
+    "description": null,
+    "lineNumber": 81,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 61,
+    "kind": "variable",
+    "name": "SINGULAR",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~SINGULAR",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{SINGULAR}",
+    "description": null,
+    "lineNumber": 84,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 62,
+    "kind": "variable",
+    "name": "PAGINATED",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~PAGINATED",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{PAGINATED}",
+    "description": null,
+    "lineNumber": 85,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 63,
+    "kind": "variable",
+    "name": "AUTHORIZE_DIRECTIVE",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~AUTHORIZE_DIRECTIVE",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{AUTHORIZE_DIRECTIVE}",
+    "description": null,
+    "lineNumber": 88,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 64,
+    "kind": "variable",
+    "name": "CREATE",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~CREATE",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{CREATE}",
+    "description": null,
+    "lineNumber": 91,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 65,
+    "kind": "variable",
+    "name": "READ",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~READ",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{READ}",
+    "description": null,
+    "lineNumber": 92,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 66,
+    "kind": "variable",
+    "name": "READ_ONE",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~READ_ONE",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{READ_ONE}",
+    "description": null,
+    "lineNumber": 93,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 67,
+    "kind": "variable",
+    "name": "READ_MANY",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~READ_MANY",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{READ_MANY}",
+    "description": null,
+    "lineNumber": 94,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 68,
+    "kind": "variable",
+    "name": "UPDATE",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~UPDATE",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{UPDATE}",
+    "description": null,
+    "lineNumber": 95,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 69,
+    "kind": "variable",
+    "name": "DELETE",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~DELETE",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{DELETE}",
+    "description": null,
+    "lineNumber": 96,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 70,
+    "kind": "variable",
+    "name": "MODES",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~MODES",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{MODES}",
+    "description": null,
+    "lineNumber": 99,
+    "undocument": true,
+    "type": {
+      "types": [
+        "undefined[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 71,
+    "kind": "variable",
+    "name": "CODE_MODES",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~CODE_MODES",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{CODE_MODES}",
+    "description": null,
+    "lineNumber": 102,
+    "undocument": true,
+    "type": {
+      "types": [
+        "undefined[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 72,
+    "kind": "variable",
+    "name": "AUTH_ROLE",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~AUTH_ROLE",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{AUTH_ROLE}",
+    "description": null,
+    "lineNumber": 105,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 73,
+    "kind": "variable",
+    "name": "USER_ROLE",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~USER_ROLE",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{USER_ROLE}",
+    "description": null,
+    "lineNumber": 106,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 74,
+    "kind": "variable",
+    "name": "DOC_ROLE",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~DOC_ROLE",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{DOC_ROLE}",
+    "description": null,
+    "lineNumber": 107,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 75,
+    "kind": "variable",
+    "name": "FOR",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~FOR",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{FOR}",
+    "description": null,
+    "lineNumber": 108,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 76,
+    "kind": "variable",
+    "name": "USER_MODEL",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~USER_MODEL",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{USER_MODEL}",
+    "description": null,
+    "lineNumber": 109,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 77,
+    "kind": "variable",
+    "name": "STRING_LITERAL",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~STRING_LITERAL",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{STRING_LITERAL}",
+    "description": null,
+    "lineNumber": 110,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 78,
+    "kind": "variable",
+    "name": "STRING_LIST",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~STRING_LIST",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{STRING_LIST}",
+    "description": null,
+    "lineNumber": 111,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 79,
+    "kind": "variable",
+    "name": "USER_LITERAL",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~USER_LITERAL",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{USER_LITERAL}",
+    "description": null,
+    "lineNumber": 112,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 80,
+    "kind": "variable",
+    "name": "USER_LIST",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~USER_LIST",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{USER_LIST}",
+    "description": null,
+    "lineNumber": 113,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 81,
+    "kind": "variable",
+    "name": "ROLE_FIELD_DEFAULT",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~ROLE_FIELD_DEFAULT",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{ROLE_FIELD_DEFAULT}",
+    "description": null,
+    "lineNumber": 114,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 82,
+    "kind": "variable",
+    "name": "ID_FIELD",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~ID_FIELD",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{ID_FIELD}",
+    "description": null,
+    "lineNumber": 117,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 83,
+    "kind": "variable",
+    "name": "ID_SINGULAR",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~ID_SINGULAR",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{ID_SINGULAR}",
+    "description": null,
+    "lineNumber": 118,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 84,
+    "kind": "variable",
+    "name": "ID_PLURAL",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~ID_PLURAL",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{ID_PLURAL}",
+    "description": null,
+    "lineNumber": 119,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 85,
+    "kind": "variable",
+    "name": "THIS",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~THIS",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{THIS}",
+    "description": null,
+    "lineNumber": 122,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 86,
+    "kind": "variable",
+    "name": "WORLD",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~WORLD",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{WORLD}",
+    "description": null,
+    "lineNumber": 123,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 87,
+    "kind": "variable",
+    "name": "NO_ROLE",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~NO_ROLE",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{NO_ROLE}",
+    "description": null,
+    "lineNumber": 124,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 88,
+    "kind": "variable",
+    "name": "NO_USER",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~NO_USER",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{NO_USER}",
+    "description": null,
+    "lineNumber": 125,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 89,
+    "kind": "variable",
+    "name": "SRC_DIR",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~SRC_DIR",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{SRC_DIR}",
+    "description": null,
+    "lineNumber": 128,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 90,
+    "kind": "variable",
+    "name": "TEST_DIR",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEST_DIR",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEST_DIR}",
+    "description": null,
+    "lineNumber": 129,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 91,
+    "kind": "variable",
+    "name": "TEST_GQL_DATA",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEST_GQL_DATA",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEST_GQL_DATA}",
+    "description": null,
+    "lineNumber": 130,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 92,
+    "kind": "variable",
+    "name": "TEST_CODE",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEST_CODE",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEST_CODE}",
+    "description": null,
+    "lineNumber": 131,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 93,
+    "kind": "variable",
+    "name": "TEST_MODEL",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEST_MODEL",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEST_MODEL}",
+    "description": null,
+    "lineNumber": 132,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 94,
+    "kind": "variable",
+    "name": "TEST_RESOLVER",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEST_RESOLVER",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEST_RESOLVER}",
+    "description": null,
+    "lineNumber": 133,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 95,
+    "kind": "variable",
+    "name": "TEST_GQL_EXTENSION",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEST_GQL_EXTENSION",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEST_GQL_EXTENSION}",
+    "description": null,
+    "lineNumber": 134,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 96,
+    "kind": "variable",
+    "name": "TEST_EXPECTED_CODE",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEST_EXPECTED_CODE",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEST_EXPECTED_CODE}",
+    "description": null,
+    "lineNumber": 135,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 97,
+    "kind": "variable",
+    "name": "TEST_GENERATED_CODE",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEST_GENERATED_CODE",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEST_GENERATED_CODE}",
+    "description": null,
+    "lineNumber": 136,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 98,
+    "kind": "variable",
+    "name": "TEST_MODEL_EXTENSION",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEST_MODEL_EXTENSION",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEST_MODEL_EXTENSION}",
+    "description": null,
+    "lineNumber": 137,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 99,
+    "kind": "variable",
+    "name": "TEST_MODEL_EXTENSION2",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEST_MODEL_EXTENSION2",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEST_MODEL_EXTENSION2}",
+    "description": null,
+    "lineNumber": 138,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 100,
+    "kind": "variable",
+    "name": "TEST_RESOLVER_EXTENSION",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEST_RESOLVER_EXTENSION",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEST_RESOLVER_EXTENSION}",
+    "description": null,
+    "lineNumber": 139,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 101,
+    "kind": "variable",
+    "name": "TEST_RESOLVER_EXTENSION2",
+    "memberof": "src/constants.js",
+    "static": true,
+    "longname": "src/constants.js~TEST_RESOLVER_EXTENSION2",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/constants.js",
+    "importStyle": "{TEST_RESOLVER_EXTENSION2}",
+    "description": null,
+    "lineNumber": 140,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 102,
+    "kind": "file",
+    "name": "src/generator/authorize/extractRoles.js",
+    "content": "// @flow\n\nimport {\n  ARGUMENT,\n  NAME,\n  LIST,\n  STRING,\n  MODES,\n  CODE_MODES,\n  READ,\n  READ_ONE,\n  READ_MANY\n} from '../../constants';\n\nimport { getRoleType } from './getRoleType';\n\n/**\n * extract the roles from the @authorize directive\n * by reading the input schema's abstract syntax tree\n * to get the roles and their authorized modes\n * @private\n * @param {object} allRolesArguments - AST with role definitions\n * @param {object} inputSchema - the schema of the type\n * @return {array} allRoles - returns the defined roles\n * @example \n *          @authorize(\n *            admin: [\"create\", \"read\", \"update\", \"delete\"]\n *            this: [\"read\", \"update\", \"delete\"]\n *          )\n *\n * it creates the following array (example):\n *\n * allRoles = [\n *       {\n *           name: 'admin',\n *           type: 'userRole' || 'docRole'\n *           modes: {\n *            create: 'admin',\n *            readOne: 'admin',\n *            readMany: 'admin',\n *            update: 'admin',,\n *            delete: 'admin',\n *        }\n * ]\n */\n\nexport function extractRoles(\n  allRolesArguments: any = [],\n  inputSchema: any\n): Array<any> {\n  const allRoles = [];\n\n  // get all Roles of the type's @authorize directives\n  // e.g. 'admin', 'this'\n  allRolesArguments.forEach(roleArgument => {\n    const role = {};\n\n    // check if it is a valid role\n    if (roleArgument.kind === ARGUMENT && roleArgument.name.kind === NAME) {\n      role.name = roleArgument.name.value;\n\n      // determine the role type, ==> 'userRole' || 'docRole'\n      const { roleType, roleName, roleFieldName } = getRoleType(\n        role.name,\n        inputSchema\n      );\n      role.type = roleType;\n      role.roleName = roleName;\n      role.roleFieldName = roleFieldName;\n\n      // create and initialize default 'modes' object\n      role.modes = {};\n      CODE_MODES.forEach(mode => (role.modes[mode] = ''));\n\n      // LIST? e.g. ['create', 'update', 'delete']\n      if (roleArgument.value.kind === LIST) {\n        // get all authorized modes for that role\n        const roleModes = roleArgument.value.values;\n\n        roleModes.forEach(mode => {\n          // check, if it is a valid authorization mode\n          // e.g. 'create', 'update', 'delete', etc.\n          if (mode.kind === STRING && MODES.indexOf(mode.value) >= 0) {\n            // special case 'read' means both, 'readOne' and 'readMany'\n            if (mode.value === READ) {\n              role.modes[READ_ONE] = role.roleName;\n              role.modes[READ_MANY] = role.roleName;\n\n              // all other modes\n            } else {\n              role.modes[mode.value] = role.roleName;\n            }\n          }\n        });\n\n        // STRING? e.g. 'create'\n      } else if (\n        roleArgument.name.value.kind === STRING &&\n        MODES.indexOf(roleArgument.name.value) >= 0\n      ) {\n        // special case 'read' means both, 'readOne' and 'readMany'\n        if (roleArgument.name.value === READ) {\n          role.modes[READ_ONE] = role.roleName;\n          role.modes[READ_MANY] = role.roleName;\n\n          // for all other modes\n        } else {\n          role.modes[roleArgument.name.value] = role.roleName;\n        }\n      }\n\n      // add it to the list of roles\n      allRoles.push(role);\n    }\n  });\n\n  return allRoles;\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/generator/authorize/extractRoles.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 103,
+    "kind": "function",
+    "name": "extractRoles",
+    "memberof": "src/generator/authorize/extractRoles.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/authorize/extractRoles.js~extractRoles",
+    "access": "private",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/authorize/extractRoles.js",
+    "importStyle": "{extractRoles}",
+    "description": "extract the roles from the @authorize directive\nby reading the input schema's abstract syntax tree\nto get the roles and their authorized modes",
+    "examples": [
+      "         @authorize(\n           admin: [\"create\", \"read\", \"update\", \"delete\"]\n           this: [\"read\", \"update\", \"delete\"]\n         )\n\nit creates the following array (example):\n\nallRoles = [\n      {\n          name: 'admin',\n          type: 'userRole' || 'docRole'\n          modes: {\n           create: 'admin',\n           readOne: 'admin',\n           readMany: 'admin',\n           update: 'admin',,\n           delete: 'admin',\n       }\n]"
+    ],
+    "lineNumber": 47,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "allRolesArguments",
+        "description": "AST with role definitions"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "inputSchema",
+        "description": "the schema of the type"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "array"
+      ],
+      "spread": false,
+      "description": "allRoles - returns the defined roles"
+    }
+  },
+  {
+    "__docId__": 104,
+    "kind": "file",
+    "name": "src/generator/authorize/getFieldType.js",
+    "content": "// @flow\n\nimport {\n  NAMED_TYPE,\n  NAME,\n  STRING_LITERAL,\n  USER_LITERAL,\n  NON_NULL_TYPE,\n  LIST_TYPE,\n  STRING_LIST,\n  USER_LIST\n} from '../../constants';\n\n/**\n * get the field's type \n * @private\n * @param {object} field - AST with field definitions\n * @return {type} fieldType - returns the type of the field\n * @example 'role: String'\n * @example 'role: String!'\n * @example 'coauthors: [User]'\n * @example 'coauthors: [User]!'\n * @example 'coauthors: [User!]'\n * @example 'coauthors: [User!]!'\n */\n\nexport function getFieldType(field: any): string | null {\n  // pattern: 'role: String'\n  if (field.type.kind === NAMED_TYPE && field.type.name.kind === NAME) {\n    if (field.type.name.value === STRING_LITERAL) {\n      return STRING_LITERAL;\n    }\n    if (field.type.name.value === USER_LITERAL) {\n      return USER_LITERAL;\n    }\n  }\n\n  // pattern: 'role: String!'\n  if (field.type.kind === NON_NULL_TYPE && field.type.type.name.kind === NAME) {\n    if (field.type.type.name.value === STRING_LITERAL) {\n      return STRING_LITERAL;\n    }\n    if (field.type.type.name.value === USER_LITERAL) {\n      return USER_LITERAL;\n    }\n  }\n\n  // pattern: 'coauthors: [User]'\n  if (field.type.kind === LIST_TYPE && field.type.type.name.kind === NAME) {\n    if (field.type.type.name.value === STRING_LITERAL) {\n      return STRING_LIST;\n    }\n    if (field.type.type.name.value === USER_LITERAL) {\n      return USER_LIST;\n    }\n  }\n\n  // pattern: 'coauthors: [User]!'\n  if (\n    field.type.kind === NON_NULL_TYPE &&\n    field.type.type.kind === LIST_TYPE &&\n    field.type.type.type.kind === NAMED_TYPE &&\n    field.type.type.type.name.kind === NAME\n  ) {\n    if (field.type.type.type.name.value === STRING_LITERAL) {\n      return STRING_LIST;\n    }\n    if (field.type.type.type.name.value === USER_LITERAL) {\n      return USER_LIST;\n    }\n  }\n\n  // pattern: 'coauthors: [User!]'\n  if (\n    field.type.kind === LIST_TYPE &&\n    field.type.type.kind === NON_NULL_TYPE &&\n    field.type.type.type.kind === NAMED_TYPE &&\n    field.type.type.type.name.kind === NAME\n  ) {\n    if (field.type.type.type.name.value === STRING_LITERAL) {\n      return STRING_LIST;\n    }\n    if (field.type.type.type.name.value === USER_LITERAL) {\n      return USER_LIST;\n    }\n  }\n\n  // pattern: 'coauthors: [User!]!'\n  if (\n    field.type.kind === NON_NULL_TYPE &&\n    field.type.type.kind === LIST_TYPE &&\n    field.type.type.type.kind === NON_NULL_TYPE &&\n    field.type.type.type.type.kind === NAMED_TYPE &&\n    field.type.type.type.type.name.kind === NAME\n  ) {\n    if (field.type.type.type.type.name.value === STRING_LITERAL) {\n      return STRING_LIST;\n    }\n    if (field.type.type.type.type.name.value === USER_LITERAL) {\n      return USER_LIST;\n    }\n  }\n\n  return null;\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/generator/authorize/getFieldType.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 105,
+    "kind": "function",
+    "name": "getFieldType",
+    "memberof": "src/generator/authorize/getFieldType.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/authorize/getFieldType.js~getFieldType",
+    "access": "private",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/authorize/getFieldType.js",
+    "importStyle": "{getFieldType}",
+    "description": "get the field's type ",
+    "examples": [
+      "'role: String'",
+      "'role: String!'",
+      "'coauthors: [User]'",
+      "'coauthors: [User]!'",
+      "'coauthors: [User!]'",
+      "'coauthors: [User!]!'"
+    ],
+    "lineNumber": 27,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "field",
+        "description": "AST with field definitions"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "type"
+      ],
+      "spread": false,
+      "description": "fieldType - returns the type of the field"
+    }
+  },
+  {
+    "__docId__": 106,
+    "kind": "file",
+    "name": "src/generator/authorize/getRoleType.js",
+    "content": "// @flow\n\nimport {\n  USER_ROLE,\n  DOC_ROLE,\n  THIS,\n  FIELD_DEFINITION,\n  NAME,\n  STRING_LITERAL,\n  USER_LITERAL,\n  STRING_LIST,\n  USER_LIST,\n  ID_FIELD,\n  ID_SINGULAR,\n  ID_PLURAL\n} from '../../constants';\nimport { isRoleField } from './isRoleField';\nimport { getFieldType } from './getFieldType';\n\n/**\n * decide, if the given role is whether \n * a 'userRole' or a 'docRole'\n *\n * Procedure:\n * 1. Determine, if this field is used as a roleField\n * 2. Check, if this roleField...\n *    a) is of type: String or [String] ==> userRole\n *    b) is of type: User or [User]     ==> docRole\n *    c) roleName = 'this'              ==> docRole\n * 3. If there is no roleField in this type\n *    it must be a userRole\n * \n * For 1. is a roleField:\n *   read the type's abstract syntax tree\n *   loop over all provided fields,\n *   check, if the field has a directive '@authRole'\n *   and if this authRole is 'for' the provided 'roleName'\n *   or the roleName is the special case 'this'\n *   ==> then it is a roleField\n *\n * For 2. get it's fieldType:\n *   read the type's abstract syntax tree\n *   for the roleField and read it's type\n *   \n *   a) if it is a String or List of Strings,\n *   then the roleType = 'userRole'\n *\n *   b) if it is a User or List of Users (userIds),\n *   then the roleType = 'docType'\n *\n *   c) special case: roleName = 'this'\n *   (it doesn't look for an authRole for 'this')\n *   it means the document's id field is used for this\n *   meaning the role defines the authorizations,\n *   a User has upon his own User document\n *\n * For 3. none of the above applies\n *   so the role must be a userRole\n *   \n * @private\n * @param {string} name - name of the role\n * @param {object} inputSchema - the schema of the type\n * @return {Object} role - role definitions\n * @property {string} roleType - type of the role 'userRole', 'docRole'\n * @property {string} roleName - name of the role\n * @property {string} roleFieldName - field name for the userRole\n */\n\nexport function getRoleType(name: string = '', inputSchema: any = {}): any {\n  // all field definitions of the type\n  const allFields = inputSchema.definitions[0].fields;\n  let roleType = null;\n  let roleName = '';\n  let roleFieldName = '';\n\n  // special case 'this'\n  if (name === THIS) {\n    return {\n      roleType: DOC_ROLE,\n      roleName: ID_FIELD,\n      roleFieldName: ID_FIELD\n    };\n  }\n\n  // loop over all fields to find authRole directive\n  allFields.forEach(field => {\n    if (\n      field.kind === FIELD_DEFINITION &&\n      field.name.kind === NAME &&\n      field.directives.length > 0\n    ) {\n      // 1. check, if it is a roleField\n      if (isRoleField(name, field.directives)) {\n        // 2. get the type of the field\n        const fieldType = getFieldType(field);\n\n        // determine the roleType: 'userRole' || 'docRole'\n        // and the roleName for...\n        // userRoles: 'admin', 'user',...\n        // docRoles: 'authorId', 'coAuthorsIds',...\n        switch (fieldType) {\n          case STRING_LITERAL:\n            // ==> a) userRole\n            roleType = USER_ROLE;\n            roleName = name;\n            roleFieldName = field.name.value;\n            break;\n\n          case STRING_LIST:\n            // ==> a) userRole\n            roleType = USER_ROLE;\n            roleName = name;\n            roleFieldName = field.name.value;\n            break;\n\n          case USER_LITERAL:\n            // ==> b) docRole\n            roleType = DOC_ROLE;\n            roleName = `${field.name.value}${ID_SINGULAR}`;\n            roleFieldName = field.name.value;\n            break;\n\n          case USER_LIST:\n            // ==> b) docRole\n            roleType = DOC_ROLE;\n            roleName = `${field.name.value}${ID_PLURAL}`;\n            roleFieldName = field.name.value;\n            break;\n        }\n      }\n    }\n  });\n\n  if (roleType) {\n    // 2. a) userRole or b) docRole applies\n    return {\n      roleType,\n      roleName,\n      roleFieldName\n    };\n  } else if (name !== '') {\n    // 3. none of the above, so it must be a userRole\n    return {\n      roleType: USER_ROLE,\n      roleName: name,\n      roleFieldName: ''\n    };\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/generator/authorize/getRoleType.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 107,
+    "kind": "function",
+    "name": "getRoleType",
+    "memberof": "src/generator/authorize/getRoleType.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/authorize/getRoleType.js~getRoleType",
+    "access": "private",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/authorize/getRoleType.js",
+    "importStyle": "{getRoleType}",
+    "description": "decide, if the given role is whether \na 'userRole' or a 'docRole'\n\nProcedure:\n1. Determine, if this field is used as a roleField\n2. Check, if this roleField...\n   a) is of type: String or [String] ==> userRole\n   b) is of type: User or [User]     ==> docRole\n   c) roleName = 'this'              ==> docRole\n3. If there is no roleField in this type\n   it must be a userRole\n\nFor 1. is a roleField:\n  read the type's abstract syntax tree\n  loop over all provided fields,\n  check, if the field has a directive '@authRole'\n  and if this authRole is 'for' the provided 'roleName'\n  or the roleName is the special case 'this'\n  ==> then it is a roleField\n\nFor 2. get it's fieldType:\n  read the type's abstract syntax tree\n  for the roleField and read it's type\n  \n  a) if it is a String or List of Strings,\n  then the roleType = 'userRole'\n\n  b) if it is a User or List of Users (userIds),\n  then the roleType = 'docType'\n\n  c) special case: roleName = 'this'\n  (it doesn't look for an authRole for 'this')\n  it means the document's id field is used for this\n  meaning the role defines the authorizations,\n  a User has upon his own User document\n\nFor 3. none of the above applies\n  so the role must be a userRole\n  ",
+    "lineNumber": 69,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": "name of the role"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "inputSchema",
+        "description": "the schema of the type"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "roleType",
+        "description": "type of the role 'userRole', 'docRole'"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "roleName",
+        "description": "name of the role"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "roleFieldName",
+        "description": "field name for the userRole"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "role - role definitions"
+    }
+  },
+  {
+    "__docId__": 108,
+    "kind": "file",
+    "name": "src/generator/authorize/getRoles.js",
+    "content": "// @flow\n\nimport { CODE_MODES, USER_ROLE, DOC_ROLE } from '../../constants';\nimport { extractRoles } from './extractRoles';\n\n/**\n * get userRoles and docRoles\n * @private\n * @param {boolean} authorize - flag for authorization logic\n * @param {object} inputSchema - type's schema\n * @return {Object}\n * @property {object} userRoles - userRoles object with modes\n * @property {object} docRoles - docRoles object with modes\n * @property {string} roleFieldName - field containing the roles\n * }\n */\n\nexport function getRoles(authorize: boolean, inputSchema: any) {\n  // create empty userRoles and docRoles objects\n  // as default values, which are used\n  // if there is no @authorize directive\n  const userRoles = {};\n  const docRoles = {};\n  const roleFieldNamesFound = [];\n\n  // initialize\n  CODE_MODES.forEach(mode => (userRoles[mode] = []));\n  CODE_MODES.forEach(mode => (docRoles[mode] = []));\n\n  // check if there is an @authorize directive\n  if (authorize) {\n    // then re-determine the userRoles and docRoles\n    // from the @authorize tag of the type definition\n    const allRolesArguments =\n      inputSchema.definitions[0].directives[0].arguments || {};\n\n    const allRoles = extractRoles(allRolesArguments, inputSchema);\n\n    allRoles.forEach(role => {\n      switch (role.type) {\n        case USER_ROLE:\n          // check, if there is already another userRole field\n          if (\n            roleFieldNamesFound.length > 0 &&\n            role.roleFieldName !== '' &&\n            roleFieldNamesFound.indexOf(role.roleFieldName) < 0\n          ) {\n            // We allow only one field, which stores all userRoles\n            throw new Error(`Please adjust type definition, that there is \n              only ONE field, which keeps all user roles. You've tried to \n              add a second userRole field: '${role.roleFieldName}',\n              but there is already another userRole field: \n              '${roleFieldNamesFound[0]}' defined.\n              Please try instead: '${roleFieldNamesFound[0]}: \n              String @authRole(for: [\"otherRole\", \"${role.roleName}\"])'`);\n          }\n          if (role.roleFieldName !== '') {\n            roleFieldNamesFound.push(role.roleFieldName);\n          }\n\n          Object.keys(role.modes).forEach(mode => {\n            if (role.modes[mode]) {\n              userRoles[mode].push(role.roleName);\n            }\n          });\n          break;\n\n        case DOC_ROLE:\n          Object.keys(role.modes).forEach(mode => {\n            if (role.modes[mode]) {\n              docRoles[mode].push(role.roleName);\n            }\n          });\n          break;\n      }\n    });\n  }\n\n  return {\n    userRoles,\n    docRoles,\n    roleFieldName: roleFieldNamesFound.length > 0 ? roleFieldNamesFound[0] : ''\n  };\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/generator/authorize/getRoles.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 109,
+    "kind": "function",
+    "name": "getRoles",
+    "memberof": "src/generator/authorize/getRoles.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/authorize/getRoles.js~getRoles",
+    "access": "private",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/authorize/getRoles.js",
+    "importStyle": "{getRoles}",
+    "description": "get userRoles and docRoles",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "authorize",
+        "description": "flag for authorization logic"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "inputSchema",
+        "description": "type's schema"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "userRoles",
+        "description": "userRoles object with modes"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "docRoles",
+        "description": "docRoles object with modes"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "roleFieldName",
+        "description": "field containing the roles\n}"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 110,
+    "kind": "file",
+    "name": "src/generator/authorize/isAuthorizeDirectiveDefined.js",
+    "content": "// @flow\n\nimport { AUTHORIZE_DIRECTIVE } from '../../constants';\n\n/**\n * checks, if there is authorization logic defined\n * true, if there is an @authorize directive in the header \n * in the type's inputSchema\n * if there is an @authorize directive => true\n * if thers is no @authorize directive => false\n * @public\n * @param {object} inputSchema - schema for the type\n * @return {boolean} authorized - true, if authorization logic defined\n */\n\nexport function isAuthorizeDirectiveDefined(inputSchema: any): boolean {\n  return (\n    (inputSchema.definitions[0].directives.length > 0 &&\n      inputSchema.definitions[0].directives[0].name &&\n      inputSchema.definitions[0].directives[0].name.value ===\n        AUTHORIZE_DIRECTIVE) ||\n    false\n  );\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/generator/authorize/isAuthorizeDirectiveDefined.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 111,
+    "kind": "function",
+    "name": "isAuthorizeDirectiveDefined",
+    "memberof": "src/generator/authorize/isAuthorizeDirectiveDefined.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/authorize/isAuthorizeDirectiveDefined.js~isAuthorizeDirectiveDefined",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/authorize/isAuthorizeDirectiveDefined.js",
+    "importStyle": "{isAuthorizeDirectiveDefined}",
+    "description": "checks, if there is authorization logic defined\ntrue, if there is an @authorize directive in the header \nin the type's inputSchema\nif there is an @authorize directive => true\nif thers is no @authorize directive => false",
+    "lineNumber": 16,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "inputSchema",
+        "description": "schema for the type"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": "authorized - true, if authorization logic defined"
+    }
+  },
+  {
+    "__docId__": 112,
+    "kind": "file",
+    "name": "src/generator/authorize/isRoleField.js",
+    "content": "// @flow\n\nimport { DIRECTIVE, FOR, NAME, AUTH_ROLE, STRING, LIST } from '../../constants';\n\n/*\n * is this field a roleField\n * check, if this field has the authRole directive\n * @private\n * @param {string} roleName - name of the role\n * @param {array} fieldDirectives  - AST with field directives\n * @return {boolean} isRoleField - true, if it is a field with a role\n */\n\nexport function isRoleField(roleName: string, fieldDirectives: any): boolean {\n  let found = false;\n\n  // loop over all field directives for an 'authRole'\n  fieldDirectives.forEach(fieldDirective => {\n    if (\n      fieldDirective.kind === DIRECTIVE &&\n      fieldDirective.name.kind === NAME &&\n      fieldDirective.name.value === AUTH_ROLE &&\n      fieldDirective.arguments.length > 0\n    ) {\n      // loop over all arguments, if it is for our roleName\n      // e.g. roleName: 'admin' find @authRole(for: [\"admin\"])\n      fieldDirective.arguments.forEach(fieldDirectiveArgument => {\n        // check, if there is a 'for'\n        if (\n          fieldDirectiveArgument.name.kind === NAME &&\n          fieldDirectiveArgument.name.value === FOR\n        ) {\n          // check, if it is a list value:\n          if (\n            fieldDirectiveArgument.value.kind === LIST &&\n            fieldDirectiveArgument.value.values.length > 0\n          ) {\n            // loop over all values, if there is one with our roleName\n            const fieldRoles = fieldDirectiveArgument.value.values;\n            fieldRoles.forEach(fieldRole => {\n              // check, if it is our roleName\n              if (fieldRole.kind === STRING && fieldRole.value === roleName) {\n                // we found it!\n                found = true;\n              }\n            });\n\n            // check, if it is a single value:\n          } else if (\n            fieldDirectiveArgument.value.kind === STRING &&\n            fieldDirectiveArgument.value.value === roleName\n          ) {\n            // we found it!\n            found = true;\n          }\n        }\n      });\n    }\n  });\n  return found;\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/generator/authorize/isRoleField.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 113,
+    "kind": "function",
+    "name": "isRoleField",
+    "memberof": "src/generator/authorize/isRoleField.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/authorize/isRoleField.js~isRoleField",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/authorize/isRoleField.js",
+    "importStyle": "{isRoleField}",
+    "description": " ",
+    "lineNumber": 14,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "roleName",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "any"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "fieldDirectives",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 114,
+    "kind": "file",
+    "name": "src/generator/getCode.js",
+    "content": "// @flow\n/* eslint-disable max-len */\n/* eslint-disable no-console */\n/* eslint-disable no-unused-vars */\n\nimport Handlebars from 'handlebars';\nimport { getContext } from './getContext';\nimport { getPartials } from './getPartials';\nimport { getName } from './getName';\nimport type { configCodeType } from '../constants';\n\nimport {\n  ENCODING,\n  USER_LITERAL,\n  TEMPLATE_EXTENSION,\n  TEMPLATES_DIR,\n  TEMPLATES_MODEL_DIR,\n  TEMPLATES_COMMON_DIR,\n  TEMPLATES_DEFAULT_DIR,\n  TEMPLATES_AUTH_DIR,\n  TEMPLATES_DEFAULT_TEMPLATE,\n  MODEL,\n  RESOLVER\n} from '../constants';\n\n/**\n * get generated code from template partials\n * @public\n * @param {string} codeType - MODEL or RESOLVER run\n * @param {object} config - configuration object\n * @property {object} inputSchema - schema of the type \n * @property {string} userType - the user type\n * @property {string} defaultTemplate - name of the start template\n * @property {array} basePath - path to the base templates directory\n * @property {string} baseExtension - file extension '.template'\n * @property {string} baseEncoding - base file encoding 'utf8'\n * @property {string} baseCommonDir - commonly used template partials\n * @property {string} baseDefaultDir - default directory for templates\n * @property {function} baseGetNameFunc - calculate the name of a partial\n * @property {array} authPath - path to the authorization templates directory\n * @property {string} authExtension - auth file encoding 'utf8'\n * @property {string} authEncoding - auth file encoding\n * @property {string} authCommonDir - commonly used auth template partials\n * @property {string} authDefaultDir - default directory for auth templates\n * @property {function} authGetNameFunc - calculate tne name of a partial\n * @return {string} code - generated code for a model\n */\n\nexport function getCode(\n  codeType: string = MODEL,\n  {\n    userType = USER_LITERAL,\n    inputSchema = {},\n    defaultTemplate = TEMPLATES_DEFAULT_TEMPLATE,\n    basePath = [TEMPLATES_DIR, TEMPLATES_MODEL_DIR, TEMPLATES_DEFAULT_DIR],\n    baseExtension = TEMPLATE_EXTENSION,\n    baseEncoding = ENCODING,\n    baseCommonDir = TEMPLATES_COMMON_DIR,\n    baseDefaultDir = TEMPLATES_DEFAULT_DIR,\n    baseGetNameFunc = getName,\n    authPath = [TEMPLATES_DIR, TEMPLATES_MODEL_DIR, TEMPLATES_AUTH_DIR],\n    authExtension = TEMPLATE_EXTENSION,\n    authEncoding = ENCODING,\n    authCommonDir = TEMPLATES_COMMON_DIR,\n    authDefaultDir = TEMPLATES_DEFAULT_DIR,\n    authGetNameFunc = getName\n  }: configCodeType\n): string {\n  // partials dictionary for template resolution\n  const partials = {};\n\n  // adds helpers to handlebars\n  registerHandlebarsHelpers();\n\n  // define the compiler\n  function compile(templates) {\n    templates.forEach(partial => {\n      partials[partial.name] = Handlebars.compile(partial.source);\n      Handlebars.registerPartial(partial.name, partials[partial.name]);\n    });\n  }\n\n  // getting data context\n  const context = getContext(inputSchema, userType, codeType);\n  const TypeName = context.TypeName;\n  const typeName = context.typeName;\n  let startTemplate = typeName;\n\n  // getting auth common partial templates (might be in an npm module)\n  const authCommonPartials = getPartials({\n    basePath: authPath,\n    directoryPath: [authCommonDir],\n    extension: authExtension,\n    encoding: authEncoding,\n    getNameFunc: authGetNameFunc\n  });\n\n  // getting auth type specific partial templates (might be in an npm module)\n  let authTypePartials = getPartials({\n    basePath: authPath,\n    directoryPath: [typeName],\n    extension: authExtension,\n    encoding: authEncoding,\n    getNameFunc: authGetNameFunc\n  });\n\n  // fallback to auth default partial templates (might be in an npm module)\n  if (authTypePartials.length === 0) {\n    authTypePartials = getPartials({\n      basePath: authPath,\n      directoryPath: [authDefaultDir],\n      extension: authExtension,\n      encoding: authEncoding,\n      getNameFunc: authGetNameFunc\n    });\n  }\n\n  // getting common partial templates\n  const baseCommonPartials = getPartials({\n    basePath,\n    directoryPath: [baseCommonDir],\n    extension: baseExtension,\n    encoding: baseEncoding,\n    getNameFunc: baseGetNameFunc\n  });\n\n  // getting type specific partial templates\n  let baseTypePartials = getPartials({\n    basePath,\n    directoryPath: [typeName],\n    extension: baseExtension,\n    encoding: baseEncoding,\n    getNameFunc: baseGetNameFunc\n  });\n\n  // fallback to default partial templates,\n  // if there are no type specific templates found\n  if (baseTypePartials.length === 0) {\n    baseTypePartials = getPartials({\n      basePath,\n      directoryPath: [baseDefaultDir],\n      extension: baseExtension,\n      encoding: baseEncoding,\n      getNameFunc: baseGetNameFunc\n    });\n    // reset start template to the default template,\n    // as type specific template does not exist\n    startTemplate = defaultTemplate;\n  }\n\n  // compile all auth partials\n  compile(authCommonPartials);\n  compile(authTypePartials);\n\n  // compile all base partials\n  compile(baseCommonPartials);\n  compile(baseTypePartials);\n\n  console.log(\n    `Generating ${codeType} for type \"${TypeName}\" with template \"${startTemplate}\"`\n  );\n\n  // run start template with data context\n  const code = partials[startTemplate](context);\n\n  // return the final code\n  return code;\n}\n\n/**\n * registers a helper, which could be used in the templates\n * @example\n * {{#foreach}}\n *     {{#if $last}} console.log('this was the last element') {{/if}}\n *     {{#if $notLast}} console.log('this was not the last one') {{/if}}\n * {{/foreach}}\n */\n\nfunction registerHandlebarsHelpers() {\n  Handlebars.registerHelper('foreach', function(arr, options) {\n    if (options.inverse && !arr.length) {\n      return options.inverse(this);\n    }\n    return arr\n      .map(function(item, index) {\n        item.$index = index;\n        item.$first = index === 0;\n        item.$last = index === arr.length - 1;\n        item.$notFirst = index !== 0;\n        item.$notLast = index !== arr.length - 1;\n        return options.fn(item);\n      })\n      .join('');\n  });\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/generator/getCode.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 115,
+    "kind": "function",
+    "name": "getCode",
+    "memberof": "src/generator/getCode.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/getCode.js~getCode",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/getCode.js",
+    "importStyle": "{getCode}",
+    "description": "get generated code from template partials",
+    "lineNumber": 49,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "codeType",
+        "description": "MODEL or RESOLVER run"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "config",
+        "description": "configuration object"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "inputSchema",
+        "description": "schema of the type"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "userType",
+        "description": "the user type"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "defaultTemplate",
+        "description": "name of the start template"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "basePath",
+        "description": "path to the base templates directory"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "baseExtension",
+        "description": "file extension '.template'"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "baseEncoding",
+        "description": "base file encoding 'utf8'"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "baseCommonDir",
+        "description": "commonly used template partials"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "baseDefaultDir",
+        "description": "default directory for templates"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "baseGetNameFunc",
+        "description": "calculate the name of a partial"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "authPath",
+        "description": "path to the authorization templates directory"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "authExtension",
+        "description": "auth file encoding 'utf8'"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "authEncoding",
+        "description": "auth file encoding"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "authCommonDir",
+        "description": "commonly used auth template partials"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "authDefaultDir",
+        "description": "default directory for auth templates"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "authGetNameFunc",
+        "description": "calculate tne name of a partial"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "code - generated code for a model"
+    }
+  },
+  {
+    "__docId__": 116,
+    "kind": "function",
+    "name": "registerHandlebarsHelpers",
+    "memberof": "src/generator/getCode.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/getCode.js~registerHandlebarsHelpers",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/generator/getCode.js",
+    "importStyle": null,
+    "description": "registers a helper, which could be used in the templates ",
+    "examples": [
+      "{{#foreach}}\n    {{#if $last}} console.log('this was the last element') {{/if}}\n    {{#if $notLast}} console.log('this was not the last one') {{/if}}\n{{/foreach}} "
+    ],
+    "lineNumber": 179,
+    "params": [],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 117,
+    "kind": "file",
+    "name": "src/generator/getContext.js",
+    "content": "// @flow\n/* eslint-disable max-len */\n/* eslint-disable no-unused-vars */\n\nimport { getRoles } from './authorize/getRoles';\nimport { isAuthorizeDirectiveDefined } from './authorize/isAuthorizeDirectiveDefined';\n\nimport { lcFirst, ucFirst } from './util/capitalization';\nimport { prep } from '../utilities';\nimport generatePerField from './util/generatePerField';\n\nimport type { templateContextType } from '../constants';\n\nimport {\n  CREATE,\n  USER_LITERAL,\n  ROLE_FIELD_DEFAULT,\n  SINGULAR,\n  PAGINATED,\n  MODEL,\n  RESOLVER,\n  SCHEMA\n} from '../constants';\n\n/**\n * gets context for later template compilation\n * reads schema and determines data context for code replacements\n * @public\n * @param {Object} inputSchema - schema of the type\n * @param {string} User - name of the user model for User model context\n * @param {string} codeType - to distinguish MODEL/RESOLVER runs\n * @return {Object} templateContext - data context for template compilation\n *\n * @property {boolean} authorize - if authorization logic is there\n * @property {boolean} isUserType- if it is the User type\n * @property {string} typeName - name of the type with starting lower case\n * @property {string} TypeName - name of the type with starting upper case\n * @property {string} User - name of the user model\n * @property {Object} userRoles - authorizations matrix for userRole\n * @property {Object} docRoles - authorization matrix for docRole\n * @property {string} firstUserRole - the role for protectFields\n * @property {string} roleField - field name where the userRole is stored\n * @property {array} singularFields - fields array\n * @property {array} paginatedFields - fields array\n * @property {object} schema - schema definition\n */\n\nexport function getContext(\n  inputSchema: any = {},\n  User: string = USER_LITERAL,\n  codeType: string = MODEL\n): templateContextType {\n  // for field generation\n  // prepare template context for later compilation\n  const authorize = isAuthorizeDirectiveDefined(inputSchema);\n\n  // read TypeName out of inputSchema\n  const TypeName = inputSchema.definitions[0].name.value;\n  const typeName = lcFirst(TypeName);\n  const isUserType = TypeName === User;\n\n  // getting the role definitions out of the @authorize directive\n  const { userRoles, docRoles, roleFieldName } = getRoles(\n    authorize,\n    inputSchema\n  );\n\n  // get generated fields for resolvers and models\n  const { singularFields, paginatedFields } = getFields(inputSchema, codeType);\n\n  // prepare protectFields only on for the \"User\" type as an example\n  // roleField shouldn't be empty\n  // it checks, if the field is there\n  // it takes the first found userRole into the protectFields as a suggestion\n  // to the programmer, assuming this is the most important role,\n  // with higher authorization (see in README.md)\n  const firstUserRole = userRoles[CREATE][0] ? userRoles[CREATE][0] : ``;\n  const roleField = roleFieldName\n    ? `${roleFieldName}`\n    : `${ROLE_FIELD_DEFAULT}`;\n\n  // create proper strings for the roles, for template injection\n  Object.keys(userRoles).forEach(mode => {\n    userRoles[mode] = prepareString(userRoles[mode]);\n  });\n  Object.keys(userRoles).forEach(mode => {\n    docRoles[mode] = prepareString(docRoles[mode]);\n  });\n\n  // this is the returned data context for the later template processing\n  return {\n    authorize,\n    isUserType,\n    typeName,\n    TypeName,\n    User,\n    userRoles,\n    docRoles,\n    firstUserRole,\n    roleField,\n    singularFields,\n    paginatedFields\n  };\n}\n\n/**\n * prepares contexts for singular and paginated field associations\n * @param {Object} inputSchema - schema of the type\n * @param {string} codeType - to distinguish between MODEL/RESOLVER\n * @return {Object} fields - fields for associations\n * @property singularFields - fields for singular associations\n * @property paginatedFields - fields for paginated associations\n */\n\nfunction getFields(\n  inputSchema: any,\n  codeType: string\n): {\n  singularFields: any,\n  paginatedFields: any\n} {\n  const type = inputSchema.definitions[0];\n\n  // prepare singular and paginated field arrays for the field templates\n  const singularFields = [];\n  const paginatedFields = [];\n\n  // generators for the different field association types:\n  const generators = {\n    // singular association @belongsTo\n    belongsTo(replacements) {\n      const field = buildFieldContext(SINGULAR, replacements, codeType);\n      singularFields.push(field);\n      return field;\n    },\n\n    // paginated association @belongsToMany\n    belongsToMany(replacements) {\n      const { typeName, fieldName } = replacements;\n      const field = buildFieldContext(\n        PAGINATED,\n        {\n          ...replacements,\n          query: `_id: { $in: ${typeName}.${fieldName}Ids || [] }`\n        },\n        codeType\n      );\n      paginatedFields.push(field);\n      return field;\n    },\n\n    // paginated association @hasMany\n    hasMany(replacements, { as }) {\n      const { typeName } = replacements;\n      const field = buildFieldContext(\n        PAGINATED,\n        {\n          ...replacements,\n          query: `${as || typeName}Id: ${typeName}._id`\n        },\n        codeType\n      );\n      paginatedFields.push(field);\n      return field;\n    },\n\n    // paginated association @hasAndBelongsToMany\n    hasAndBelongsToMany(replacements, { as }) {\n      const { typeName } = replacements;\n      const field = buildFieldContext(\n        PAGINATED,\n        {\n          ...replacements,\n          query: `${as || typeName}Ids: ${typeName}._id`\n        },\n        codeType\n      );\n      paginatedFields.push(field);\n      return field;\n    }\n  };\n\n  generatePerField(type, generators);\n\n  return { singularFields, paginatedFields };\n}\n\n/**\n * builds a field's context\n *\n * @param {string} fieldType - SINGULAR or PAGINATED field type\n * @param {object} context - context for the template partial\n * @property {string} typeName - name of the type \n * @property {string} fieldName - name of the field\n * @property {string} argsStr - arguments of the field\n * @property {string} ReturnTypeName - type to build association with\n * @property {string} query - query for the data access to the referenced type\n * @param {string} codeType - to distinguish between MODEL/RESOLVER\n * @return {Object} field - field for an association\n * @property {string} fieldType - SINGULAR or PAGINATED \n * @property {string} fieldName - name of the field\n * @property {string} typeName - name of the type with first lower character\n * @property {string} TypeName -  name of the type with first upper character\n * @property {string} ReturnTypeName - name of the type to associate\n * @property {string} argsString - argument string for parameters\n * @property {string} argsFields - fields to pass on to the association\n * @property {string} query - which fields to query during association\n */\n\nfunction buildFieldContext(\n  fieldType: string,\n  {\n    typeName,\n    fieldName,\n    argsStr,\n    ReturnTypeName,\n    query\n  }: {\n    typeName: string,\n    fieldName: string,\n    argsStr: string,\n    ReturnTypeName: string,\n    query: string\n  },\n  codeType: string\n): any {\n  // clone the string\n  let argFields = (' ' + argsStr).slice(1);\n\n  // populate some arguments with defaults\n  const argsWithDefaultsStr = argsStr\n    .replace('lastCreatedAt', 'lastCreatedAt = 0')\n    .replace('limit', 'limit = 10');\n\n  // prepares a fields string to pass on to the referenced type\n  if (fieldType === PAGINATED && argFields !== '') {\n    argFields = argFields.replace('{ ', '{ baseQuery, ');\n  }\n\n  // returns the build field context\n  return {\n    fieldType: fieldType || '',\n    fieldName: fieldName || '',\n    typeName: typeName || '',\n    TypeName: ucFirst(typeName) || '',\n    ReturnTypeName: ReturnTypeName || '',\n    argsString: argsWithDefaultsStr || '',\n    argsFields: argFields || '',\n    query: query || ''\n  };\n}\n\n/**\n * prepare roles for code generator\n * convert array to String value\n * replace \" by '\n * @private\n * @param {array} role - name of role\n * @return {string} roleString - role string\n */\n\nfunction prepareString(role: string): string {\n  return JSON.stringify(role).replace(/\"/g, \"'\").replace(/,/g, ', ');\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/generator/getContext.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 118,
+    "kind": "function",
+    "name": "getContext",
+    "memberof": "src/generator/getContext.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/getContext.js~getContext",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/getContext.js",
+    "importStyle": "{getContext}",
+    "description": "gets context for later template compilation\nreads schema and determines data context for code replacements",
+    "lineNumber": 48,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "inputSchema",
+        "description": "schema of the type"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "User",
+        "description": "name of the user model for User model context"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "codeType",
+        "description": "to distinguish MODEL/RESOLVER runs"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "authorize",
+        "description": "if authorization logic is there"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "isUserType-",
+        "description": "if it is the User type"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "typeName",
+        "description": "name of the type with starting lower case"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "TypeName",
+        "description": "name of the type with starting upper case"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "User",
+        "description": "name of the user model"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "userRoles",
+        "description": "authorizations matrix for userRole"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "docRoles",
+        "description": "authorization matrix for docRole"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "firstUserRole",
+        "description": "the role for protectFields"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "roleField",
+        "description": "field name where the userRole is stored"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "singularFields",
+        "description": "fields array"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "paginatedFields",
+        "description": "fields array"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "schema",
+        "description": "schema definition"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "templateContext - data context for template compilation"
+    }
+  },
+  {
+    "__docId__": 119,
+    "kind": "function",
+    "name": "getFields",
+    "memberof": "src/generator/getContext.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/getContext.js~getFields",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/generator/getContext.js",
+    "importStyle": null,
+    "description": "prepares contexts for singular and paginated field associations  ",
+    "lineNumber": 115,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "inputSchema",
+        "description": "schema of the type"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "codeType",
+        "description": "to distinguish between MODEL/RESOLVER"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "singularFields",
+        "description": "fields for singular associations"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "paginatedFields",
+        "description": "fields for paginated associations"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 120,
+    "kind": "function",
+    "name": "buildFieldContext",
+    "memberof": "src/generator/getContext.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/getContext.js~buildFieldContext",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/generator/getContext.js",
+    "importStyle": null,
+    "description": "builds a field's context  ",
+    "lineNumber": 210,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "fieldType",
+        "description": "SINGULAR or PAGINATED field type"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "context",
+        "description": "context for the template partial"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "codeType",
+        "description": "to distinguish between MODEL/RESOLVER"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "typeName",
+        "description": "name of the type"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "fieldName",
+        "description": "name of the field"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "argsStr",
+        "description": "arguments of the field"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "ReturnTypeName",
+        "description": "type to build association with"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "query",
+        "description": "query for the data access to the referenced type"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "fieldType",
+        "description": "SINGULAR or PAGINATED"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "fieldName",
+        "description": "name of the field"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "typeName",
+        "description": "name of the type with first lower character"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "TypeName",
+        "description": "name of the type with first upper character"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "ReturnTypeName",
+        "description": "name of the type to associate"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "argsString",
+        "description": "argument string for parameters"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "argsFields",
+        "description": "fields to pass on to the association"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "query",
+        "description": "which fields to query during association"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "any"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 121,
+    "kind": "function",
+    "name": "prepareString",
+    "memberof": "src/generator/getContext.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/getContext.js~prepareString",
+    "access": "private",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/generator/getContext.js",
+    "importStyle": null,
+    "description": "prepare roles for code generator\nconvert array to String value\nreplace \" by '  ",
+    "lineNumber": 262,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "role",
+        "description": "name of role"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 122,
+    "kind": "file",
+    "name": "src/generator/getName.js",
+    "content": "// @flow\n\nimport path from 'path';\n\n/**\n * get the name of the partial template according to default naming convention\n * defines the name of the partial template in its directory structure\n * prepare name prefix: take just partial name on root template directory\n * on deeper directory structures, prefix directory name to partial name\n * @private\n * @param {array} directoryPath - partials directory name parts\n * @param {string} filename - file name of the partial template\n * @param {string} extension - file extension\n * @return {string} name - name of the partial\n * \n * @example\n * name = hello               {base}/hello.template\n * name = auth_hello          {base}/auth/hello.template\n * name = auth_special_hello  {base}/auth/special/hello.template\n */\n\nexport function getName(\n  directoryPath: Array<string>,\n  filename: string,\n  extension: string\n): string {\n  const dirClone = [...directoryPath];\n  let prefix = '';\n  if (dirClone.length > 1) {\n    dirClone.shift();\n    prefix = dirClone.reduce((str, dir) => str.concat(dir, '_'), '');\n  }\n  return prefix.concat(path.basename(filename, extension));\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/generator/getName.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 123,
+    "kind": "function",
+    "name": "getName",
+    "memberof": "src/generator/getName.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/getName.js~getName",
+    "access": "private",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/getName.js",
+    "importStyle": "{getName}",
+    "description": "get the name of the partial template according to default naming convention\ndefines the name of the partial template in its directory structure\nprepare name prefix: take just partial name on root template directory\non deeper directory structures, prefix directory name to partial name",
+    "examples": [
+      "name = hello               {base}/hello.template\nname = auth_hello          {base}/auth/hello.template\nname = auth_special_hello  {base}/auth/special/hello.template"
+    ],
+    "lineNumber": 22,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "directoryPath",
+        "description": "partials directory name parts"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "filename",
+        "description": "file name of the partial template"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "extension",
+        "description": "file extension"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "name - name of the partial"
+    }
+  },
+  {
+    "__docId__": 124,
+    "kind": "file",
+    "name": "src/generator/getPartials.js",
+    "content": "// @flow\n\nimport fs from 'fs';\nimport path from 'path';\nimport { getName } from './getName';\nimport { TEMPLATE_EXTENSION, ENCODING } from '../constants';\nimport type { configPartialType } from '../constants';\n\n/**\n * reads all available partials of a template directory\n * @public\n * @param {Object} configPartial - configuration object\n * @property {array} basePath - base directory to start reading\n * @property {array} directoryPath - partials directory name parts\n * @property {array} extension - extension name for template files '.template'\n * @property {array} encoding - encoding of template files 'utf8'\n * @property {Function} getNameFunc - optional, \n * otherwise getDefaultName function is used\n * @return {array} partials - repository with all partials\n *\n * @example\n *  partials = [\n *    {\n *      \"name\": \"hello\",\n *      \"path\": \"templates/default/hello.template\",\n *      \"source\": \"console.log('Hello World')\"\n *    }\n *  ]\n */\n\nexport function getPartials({\n  basePath = [],\n  directoryPath = [],\n  extension = TEMPLATE_EXTENSION,\n  encoding = ENCODING,\n  getNameFunc = getName\n}: configPartialType): Array<{\n  name: string,\n  path: string,\n  source: string\n}> {\n  // collect all found partials in this partials array\n  let partials = [];\n\n  // prepare directory name\n  const partialsDirectory = path.join(...basePath, ...directoryPath);\n\n  // checks if name is an existing directory\n  if (\n    !fs.existsSync(partialsDirectory) ||\n    !fs.statSync(partialsDirectory).isDirectory()\n  ) {\n    return partials;\n  }\n\n  // for easier reading as function: process directory tree recursively\n  function filter_and_recursion_processing(file) {\n    const filePath = path.join(...basePath, ...directoryPath, file);\n\n    if (path.extname(file) === extension) {\n      // partial file is found, passing through filter, process it later\n      return file;\n    } else if (fs.statSync(filePath).isDirectory()) {\n      // directory found, do recursion and get processed partials back\n      partials = partials.concat(\n        getPartials({\n          basePath,\n          directoryPath: [...directoryPath, file],\n          extension,\n          encoding,\n          getNameFunc\n        })\n      );\n    }\n\n    return false;\n  }\n\n  // for easier reading as function: process a partial template\n  function partial_processing(file) {\n    const partial = {};\n\n    partial.name = getNameFunc(directoryPath, file, extension);\n    partial.path = path.join(...basePath, ...directoryPath, file);\n    partial.source = fs.readFileSync(partial.path, encoding);\n\n    partials.push(partial);\n  }\n\n  // read directory tree, filter for '.template' files, sort them, process them\n  fs\n    .readdirSync(partialsDirectory)\n    .filter(filter_and_recursion_processing)\n    .sort()\n    .forEach(partial_processing);\n\n  return partials;\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/generator/getPartials.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 125,
+    "kind": "function",
+    "name": "getPartials",
+    "memberof": "src/generator/getPartials.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/getPartials.js~getPartials",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/getPartials.js",
+    "importStyle": "{getPartials}",
+    "description": "reads all available partials of a template directory",
+    "examples": [
+      " partials = [\n   {\n     \"name\": \"hello\",\n     \"path\": \"templates/default/hello.template\",\n     \"source\": \"console.log('Hello World')\"\n   }\n ]"
+    ],
+    "lineNumber": 31,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "configPartial",
+        "description": "configuration object"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "basePath",
+        "description": "base directory to start reading"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "directoryPath",
+        "description": "partials directory name parts"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "extension",
+        "description": "extension name for template files '.template'"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "encoding",
+        "description": "encoding of template files 'utf8'"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "getNameFunc",
+        "description": "optional, \notherwise getDefaultName function is used"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "array"
+      ],
+      "spread": false,
+      "description": "partials - repository with all partials"
+    }
+  },
+  {
+    "__docId__": 126,
+    "kind": "file",
+    "name": "src/generator/schema/enhanceSchemaForAuthorization.js",
+    "content": "import cloneDeep from 'lodash.clonedeep';\nimport includes from 'lodash.includes';\nimport { lcFirst } from '../util/capitalization';\nimport { adjustSchemaForAuthorization } from './adjustSchemaForAuthorization';\nimport { CREATE, READ, USER_LITERAL, USER_MODEL } from '../../constants';\nimport { isAuthorizeDirectiveDefined } from '../authorize/isAuthorizeDirectiveDefined';\n\nimport {\n  getBaseType,\n  buildTypeDefinition,\n  buildField,\n  buildValue,\n  buildArgument,\n  isScalarField,\n  buildTypeExtension,\n  addPaginationArguments,\n  applyCustomDirectives,\n  idArgument,\n  SCALAR_TYPE_NAMES\n} from '../util/graphql';\n\nimport {\n  DOCUMENT,\n  OBJECT_TYPE_DEFINITION,\n  INPUT_OBJECT_TYPE_DEFINITION,\n  ENUM_TYPE_DEFINITION,\n  TYPE_EXTENSION_DEFINITION,\n  LIST_TYPE,\n  FIELD_DEFINITION,\n  NAME\n} from 'graphql/language/kinds';\n\n/**\n * enhances the schema by additional fields, required for authorization\n * @public\n * @param {object} inputSchema - the input's schema with all fields\n * @return {object} outputSchema - the enhanced output Schema\n */\n\nexport function enhanceSchemaForAuthorization(inputSchema) {\n  const outputSchema = cloneDeep(inputSchema);\n  const type = outputSchema.definitions[0];\n  const TypeName = type.name.value;\n  const typeName = lcFirst(TypeName);\n\n  const authorize = isAuthorizeDirectiveDefined(inputSchema);\n  if (authorize) {\n    const createInputFields = [];\n    \n    // remove @authorize directive from header\n    type.directives = type.directives.filter(directive => \n      directive.name.value !== 'authorize'\n    );\n\n    // for type User: add field 'password' for 'create'\n    if(TypeName === USER_LITERAL){\n      // get the name of the create<Type>Input\n      const createInputTypeName = `Create${TypeName}Input`;\n\n      outputSchema\n        .definitions.filter(objType =>\n          objType.kind === INPUT_OBJECT_TYPE_DEFINITION &&\n          objType.name.value === createInputTypeName)\n        .forEach(inputType => inputType.fields.push(\n          buildField('password', [], 'String!')\n        ));\n    }\n\n    // for all typeNames with authorization: add 'createdBy'\n    type.fields.push(buildField('createdBy', [], USER_LITERAL));\n\n    // for all typeNames with authorization: add 'updatedBy'\n    type.fields.push(buildField('updatedBy', [], USER_LITERAL));\n  }\n  \n  return outputSchema;\n\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/generator/schema/enhanceSchemaForAuthorization.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 127,
+    "kind": "function",
+    "name": "enhanceSchemaForAuthorization",
+    "memberof": "src/generator/schema/enhanceSchemaForAuthorization.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/schema/enhanceSchemaForAuthorization.js~enhanceSchemaForAuthorization",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/schema/enhanceSchemaForAuthorization.js",
+    "importStyle": "{enhanceSchemaForAuthorization}",
+    "description": "enhances the schema by additional fields, required for authorization",
+    "lineNumber": 40,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "inputSchema",
+        "description": "the input's schema with all fields"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": "outputSchema - the enhanced output Schema"
+    }
+  },
+  {
+    "__docId__": 128,
+    "kind": "file",
+    "name": "src/generator/util/capitalization.js",
+    "content": "/**\n * changes a given string on the first character to lower case\n * @public\n * @param {string} str - string\n * @return {string} str - changed string\n */\n\nexport function lcFirst(str) {\n  return str[0].toLowerCase() + str.substring(1);\n}\n\n/**\n * changes a given string on the first character to upper case\n * @public\n * @param {string} str - string\n * @return {string} str - changed string\n */\n\nexport function ucFirst(str) {\n  return str[0].toUpperCase() + str.substring(1);\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/generator/util/capitalization.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 129,
+    "kind": "function",
+    "name": "lcFirst",
+    "memberof": "src/generator/util/capitalization.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/util/capitalization.js~lcFirst",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/util/capitalization.js",
+    "importStyle": "{lcFirst}",
+    "description": "changes a given string on the first character to lower case",
+    "lineNumber": 8,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "str",
+        "description": "string"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "str - changed string"
+    }
+  },
+  {
+    "__docId__": 130,
+    "kind": "function",
+    "name": "ucFirst",
+    "memberof": "src/generator/util/capitalization.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/util/capitalization.js~ucFirst",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/util/capitalization.js",
+    "importStyle": "{ucFirst}",
+    "description": "changes a given string on the first character to upper case",
+    "lineNumber": 19,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "str",
+        "description": "string"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "str - changed string"
+    }
+  },
+  {
+    "__docId__": 131,
+    "kind": "file",
+    "name": "src/generator/util/generatePerField.js",
+    "content": "import cloneDeep from 'lodash.clonedeep';\nimport { lcFirst } from './capitalization';\n\nimport {\n  getBaseType,\n  argumentsToObject,\n  isScalarField,\n  applyCustomDirectives\n} from './graphql';\n\n/**\n * changes a given string on the first character to lower case\n * @public\n * @public {object} type - schema type\n * @public {object} generators - object with generator methods\n * @return {object} generatorResults - field context for templates\n */\n\nexport default function generatePerField(type, generators) {\n  const TypeName = type.name.value;\n  const typeName = lcFirst(TypeName);\n\n  // XXX: this logic is shared in the schema generation code.\n  // We should probably find a way to use generatePerField for the schema too.\n  const ignoreField = field => {\n    const directivesByName = {};\n    field.directives.forEach(d => {\n      directivesByName[d.name.value] = d;\n    });\n    return !isScalarField(field) && !directivesByName.enum;\n  };\n\n  return type.fields.filter(ignoreField).map(originalField => {\n    const field = cloneDeep(originalField);\n    applyCustomDirectives(field);\n\n    // find the first directive on the field that has a generator\n    const directive = field.directives.find(d =>\n      Boolean(generators[d.name.value])\n    );\n    const fieldName = field.name.value;\n    const ReturnTypeName = getBaseType(field.type).name.value;\n\n    const argNames = field.arguments.map(a => a.name.value);\n    let argsStr = 'args';\n    if (argNames.length > 0) {\n      argsStr = `{ ${argNames.join(', ')} }`;\n    }\n\n    if (directive) {\n      const generator = generators[directive.name.value];\n      const options = argumentsToObject(directive.arguments);\n      return generator(\n        { TypeName, typeName, fieldName, argsStr, ReturnTypeName },\n        options\n      );\n    }\n\n    // XXX: chances are we'll want to change this but this works for now\n    const isArrayField = field.type.kind === 'ListType';\n    const generator = isArrayField\n      ? generators.belongsToMany\n      : generators.belongsTo;\n    return generator(\n      { TypeName, typeName, fieldName, argsStr, ReturnTypeName },\n      { as: fieldName }\n    );\n  });\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/generator/util/generatePerField.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 132,
+    "kind": "function",
+    "name": "generatePerField",
+    "memberof": "src/generator/util/generatePerField.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/util/generatePerField.js~generatePerField",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/util/generatePerField.js",
+    "importStyle": "generatePerField",
+    "description": "changes a given string on the first character to lower case",
+    "lineNumber": 19,
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": "generatorResults - field context for templates"
+    },
+    "params": [
+      {
+        "name": "type",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "generators",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 133,
+    "kind": "file",
+    "name": "src/generator/util/graphql.js",
+    "content": "import { Kind } from 'graphql';\nimport includes from 'lodash.includes';\n\nexport const SCALAR_TYPE_NAMES = ['Int', 'Float', 'String', 'Boolean', 'ID'];\n\n/**\n * helper methods to work with graphql ASTs\n */\n\nexport function getBaseType(type) {\n  if (type.kind === 'ListType' || type.kind === 'NonNullType') {\n    return getBaseType(type.type);\n  }\n  return type;\n}\n\nexport function argumentsToObject(argumentsAst) {\n  const result = {};\n  argumentsAst.forEach(argument => {\n    result[argument.name.value] = argument.value.value;\n  });\n  return result;\n}\n\nexport function isScalarField(field) {\n  return includes(SCALAR_TYPE_NAMES, getBaseType(field.type).name.value);\n}\n\nexport function buildName(name) {\n  return { kind: 'Name', value: name };\n}\n\nexport function buildTypeDefinition(name, fields, kind) {\n  return {\n    kind: kind || 'ObjectTypeDefinition',\n    name: buildName(name),\n    interfaces: [],\n    directives: [],\n    fields\n  };\n}\n\nexport function buildTypeExtension(type) {\n  return {\n    kind: Kind.TYPE_EXTENSION_DEFINITION,\n    definition: type\n  };\n}\n\nexport function buildTypeReference(name) {\n  if (name[name.length - 1] === '!') {\n    return {\n      kind: 'NonNullType',\n      type: buildTypeReference(name.substring(0, name.length - 1))\n    };\n  }\n\n  if (name[0] === '[' && name[name.length - 1] === ']') {\n    return {\n      kind: 'ListType',\n      type: buildTypeReference(name.substring(1, name.length - 1))\n    };\n  }\n\n  return {\n    kind: 'NamedType',\n    name: buildName(name)\n  };\n}\n\nexport function buildField(name, args, typeName) {\n  return {\n    kind: 'FieldDefinition',\n    name: buildName(name),\n    arguments: args,\n    type: buildTypeReference(typeName)\n  };\n}\n\nexport function buildArgument(name, type) {\n  return {\n    kind: 'InputValueDefinition',\n    name: buildName(name),\n    type: buildTypeReference(type),\n    defaultValue: null,\n    directives: []\n  };\n}\n\nexport function addPaginationArguments(field) {\n  field.arguments.push(buildArgument('lastCreatedAt', 'Float'));\n  field.arguments.push(buildArgument('limit', 'Int'));\n}\n\n// Apply all the directives that modify the field's schema. At this stage\n// this is simply the pagination directives, which add pagination arguments\n// to the field.\nexport function applyCustomDirectives(field) {\n  field.directives.forEach(directive => {\n    const directiveName = directive.name.value;\n    const isPaginated = includes(\n      ['hasMany', 'hasAndBelongsToMany', 'belongsToMany'],\n      directiveName\n    );\n    if (isPaginated) {\n      addPaginationArguments(field);\n    }\n  });\n}\n\nexport function idArgument() {\n  return buildArgument('id', 'ObjID!');\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/generator/util/graphql.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 134,
+    "kind": "variable",
+    "name": "SCALAR_TYPE_NAMES",
+    "memberof": "src/generator/util/graphql.js",
+    "static": true,
+    "longname": "src/generator/util/graphql.js~SCALAR_TYPE_NAMES",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/util/graphql.js",
+    "importStyle": "{SCALAR_TYPE_NAMES}",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 135,
+    "kind": "function",
+    "name": "getBaseType",
+    "memberof": "src/generator/util/graphql.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/util/graphql.js~getBaseType",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/util/graphql.js",
+    "importStyle": "{getBaseType}",
+    "description": "helper methods to work with graphql ASTs",
+    "lineNumber": 10,
+    "params": [
+      {
+        "name": "type",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 136,
+    "kind": "function",
+    "name": "argumentsToObject",
+    "memberof": "src/generator/util/graphql.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/util/graphql.js~argumentsToObject",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/util/graphql.js",
+    "importStyle": "{argumentsToObject}",
+    "description": "",
+    "lineNumber": 17,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "argumentsAst",
+        "description": ""
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 137,
+    "kind": "function",
+    "name": "isScalarField",
+    "memberof": "src/generator/util/graphql.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/util/graphql.js~isScalarField",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/util/graphql.js",
+    "importStyle": "{isScalarField}",
+    "description": "",
+    "lineNumber": 25,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "field",
+        "description": ""
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 138,
+    "kind": "function",
+    "name": "buildName",
+    "memberof": "src/generator/util/graphql.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/util/graphql.js~buildName",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/util/graphql.js",
+    "importStyle": "{buildName}",
+    "description": "",
+    "lineNumber": 29,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": ""
+      }
+    ],
+    "return": {
+      "types": [
+        "{\"kind\": string, \"value\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 139,
+    "kind": "function",
+    "name": "buildTypeDefinition",
+    "memberof": "src/generator/util/graphql.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/util/graphql.js~buildTypeDefinition",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/util/graphql.js",
+    "importStyle": "{buildTypeDefinition}",
+    "description": "",
+    "lineNumber": 33,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "fields",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "kind",
+        "description": ""
+      }
+    ],
+    "return": {
+      "types": [
+        "{\"kind\": *, \"name\": *, \"interfaces\": *, \"directives\": *, \"fields\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 140,
+    "kind": "function",
+    "name": "buildTypeExtension",
+    "memberof": "src/generator/util/graphql.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/util/graphql.js~buildTypeExtension",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/util/graphql.js",
+    "importStyle": "{buildTypeExtension}",
+    "description": "",
+    "lineNumber": 43,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "type",
+        "description": ""
+      }
+    ],
+    "return": {
+      "types": [
+        "{\"kind\": *, \"definition\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 141,
+    "kind": "function",
+    "name": "buildTypeReference",
+    "memberof": "src/generator/util/graphql.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/util/graphql.js~buildTypeReference",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/util/graphql.js",
+    "importStyle": "{buildTypeReference}",
+    "description": "",
+    "lineNumber": 50,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": ""
+      }
+    ],
+    "return": {
+      "types": [
+        "{\"kind\": string, \"name\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 142,
+    "kind": "function",
+    "name": "buildField",
+    "memberof": "src/generator/util/graphql.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/util/graphql.js~buildField",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/util/graphql.js",
+    "importStyle": "{buildField}",
+    "description": "",
+    "lineNumber": 71,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "args",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "typeName",
+        "description": ""
+      }
+    ],
+    "return": {
+      "types": [
+        "{\"kind\": string, \"name\": *, \"arguments\": *, \"type\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 143,
+    "kind": "function",
+    "name": "buildArgument",
+    "memberof": "src/generator/util/graphql.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/util/graphql.js~buildArgument",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/util/graphql.js",
+    "importStyle": "{buildArgument}",
+    "description": "",
+    "lineNumber": 80,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "type",
+        "description": ""
+      }
+    ],
+    "return": {
+      "types": [
+        "{\"kind\": string, \"name\": *, \"type\": *, \"defaultValue\": *, \"directives\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 144,
+    "kind": "function",
+    "name": "addPaginationArguments",
+    "memberof": "src/generator/util/graphql.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/util/graphql.js~addPaginationArguments",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/util/graphql.js",
+    "importStyle": "{addPaginationArguments}",
+    "description": "",
+    "lineNumber": 90,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "field",
+        "description": ""
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 145,
+    "kind": "function",
+    "name": "applyCustomDirectives",
+    "memberof": "src/generator/util/graphql.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/util/graphql.js~applyCustomDirectives",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/util/graphql.js",
+    "importStyle": "{applyCustomDirectives}",
+    "description": "",
+    "lineNumber": 98,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "field",
+        "description": ""
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 146,
+    "kind": "function",
+    "name": "idArgument",
+    "memberof": "src/generator/util/graphql.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/generator/util/graphql.js~idArgument",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/generator/util/graphql.js",
+    "importStyle": "{idArgument}",
+    "description": "",
+    "lineNumber": 111,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 147,
+    "kind": "file",
+    "name": "src/index.js",
+    "content": "/* eslint-disable max-len */\n\n/*\n * @desc create-graphql-server-authorization\n * @desc provides access to all public functions\n * @public\n * @param {function} dummyUserContext - get user.role\n * @param {function} authlog - how to log\n * @param {function} onAuthRegisterLoader - registers dataloader on successfull authorization\n * @param {function} checkAuthDoc - checks, if authorized for document\n * @param {function} fieldContainsUserId - checks, if field contains user id\n * @param {function} loggedIn - checks, if user logged in\n * @param {function} protectFields - protects fields for authorized users\n * @param {function} queryForRoles - creates authQuery for later data operations\n * @param {function} userRoleAuthorized - checks, if a user's role is authorized\n * @param {function} getCode - generates authorization code for models and resolvers during add-type\n * @param {function} getContext - required for getCode\n * @param {function} getName - required for getCode\n * @param {function} getPartials - required for getCode\n * @param {function} isAuthorizeDirectiveDefined - returns true, if authorization logic is defined\n * @param {function} enhanceSchemaForAuthorization - enhances the schema for authorization\n */\n\n/* to find this path from various places, return this modules absolute path: */\nexport const modulePath = __dirname;\n\n/* for the authorization logic */\nexport { dummyUserContext } from './lib/dummyUserContext.js';\nexport { authlog } from './lib/authlog.js';\nexport { onAuthRegisterLoader } from './lib/onAuthRegisterLoader.js';\nexport { checkAuthDoc } from './lib/checkAuthDoc.js';\nexport { fieldContainsUserId } from './lib/fieldContainsUserId.js';\nexport { loggedIn } from './lib/loggedIn.js';\nexport { protectFields } from './lib/protectFields.js';\nexport { queryForRoles } from './lib/queryForRoles.js';\nexport { userRoleAuthorized } from './lib/userRoleAuthorized.js';\n\n/* for the code generator */\nexport { getCode } from './generator/getCode.js';\nexport { getContext } from './generator/getContext.js';\nexport { getName } from './generator/getName.js';\nexport { getPartials } from './generator/getPartials.js';\n\nexport { getRoles } from './generator/authorize/getRoles';\n\nexport {\n  isAuthorizeDirectiveDefined\n} from './generator/authorize/isAuthorizeDirectiveDefined.js';\n\nexport {\n  enhanceSchemaForAuthorization\n} from './generator/schema/enhanceSchemaForAuthorization.js';\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 148,
+    "kind": "variable",
+    "name": "modulePath",
+    "memberof": "src/index.js",
+    "static": true,
+    "longname": "src/index.js~modulePath",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/index.js",
+    "importStyle": "{modulePath}",
+    "description": null,
+    "lineNumber": 25,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 149,
+    "kind": "file",
+    "name": "src/lib/authlog.js",
+    "content": "// @flow\n\nimport { NO_USER } from '../constants';\nimport { logger } from 'create-graphql-server-logging';\nimport { getLogFilename } from 'create-graphql-server-logging';\n\n/**\n * Central logger for authorization checks\n * @public\n * @param {string} resolver - log name of a resolver\n * @param {string} mode - crud operation name\n * @param {object} me - current user\n * @return {Object} return - Object with two functions\n * @property {function} debug - debug() function\n * @property {function} error - error() function\n * @throws {Error} - throws Error message in the error() function\n * }\n */\n\nexport function authlog(\n  resolver: string = '',\n  mode: string = '',\n  me?: any = {}\n): { debug: any, error: any } {\n  const logFilename = getLogFilename();\n  const log = logger(logFilename);\n\n  const makeMessage = message =>\n    `Authorize ${mode} '${resolver}' with user '${me.username\n      ? me.username\n      : NO_USER}' ${message}`;\n\n  return {\n    debug: message => {\n      const resultMessage = makeMessage(message);\n      log.debug(resultMessage);\n      return resultMessage;\n    },\n    error: message => {\n      const resultMessage = makeMessage(message);\n      log.error(resultMessage);\n      throw new Error(makeMessage(message));\n    }\n  };\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/authlog.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 150,
+    "kind": "function",
+    "name": "authlog",
+    "memberof": "src/lib/authlog.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/authlog.js~authlog",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/authlog.js",
+    "importStyle": "{authlog}",
+    "description": "Central logger for authorization checks",
+    "lineNumber": 20,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "resolver",
+        "description": "log name of a resolver"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "mode",
+        "description": "crud operation name"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "me",
+        "description": "current user"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "debug",
+        "description": "debug() function"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "error",
+        "description": "error() function"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "return - Object with two functions"
+    },
+    "throws": [
+      {
+        "types": [
+          "Error"
+        ],
+        "description": "throws Error message in the error() function\n}"
+      }
+    ]
+  },
+  {
+    "__docId__": 151,
+    "kind": "file",
+    "name": "src/lib/checkAuthDoc.js",
+    "content": "// @flow\n\nimport { userRoleAuthorized } from './userRoleAuthorized';\nimport { fieldContainsUserId } from './fieldContainsUserId';\nimport { authlog } from './authlog';\n\n// default logger, if there is none given\nconst defaultLogger = authlog();\n\n/**\n * Returns an authorized document\n * @public\n * @param {object} doc - any document to be checked\n * @param {object} me - current user\n * @param {array} userRoles - list of userRoles\n * @param {array} docRoles - list of docRoles\n * @param {object} User - model context of type User\n * @param {function} logger - the logger function\n * @return {object} doc - returns the authorized document\n * @throws {Error} - throws on a missing authorization\n */\n\nexport function checkAuthDoc(\n  doc: any = {},\n  me: any = {},\n  userRoles: Array<string> = [],\n  docRoles: Array<string> = [],\n  { User },\n  logger: any = defaultLogger\n): any {\n  const resultDoc = Object.assign({}, doc);\n\n  // get the User's role\n  const role = User.authRole(me);\n\n  // check if userRole entitles current user for this action\n  if (userRoleAuthorized(me, userRoles, { User }, logger)) {\n    logger.debug(`and role: '${role}' is authorized by userRole.`);\n    return resultDoc;\n  }\n\n  // check if docRole entitles current user for this document and action\n  let authorized = false;\n  docRoles.every(field => {\n    if (\n      resultDoc[field] &&\n      me._id &&\n      fieldContainsUserId(resultDoc[field], me._id)\n    ) {\n      authorized = true;\n    }\n  });\n  if (authorized) {\n    logger.debug(`and role: '${role}' is authorized by docRole.`);\n    return resultDoc;\n  }\n\n  // Not Authorized, throw exception in logger.error\n  logger.error(`and role: '${role}' is not authorized.`);\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/checkAuthDoc.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 152,
+    "kind": "variable",
+    "name": "defaultLogger",
+    "memberof": "src/lib/checkAuthDoc.js",
+    "static": true,
+    "longname": "src/lib/checkAuthDoc.js~defaultLogger",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/lib/checkAuthDoc.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 153,
+    "kind": "function",
+    "name": "checkAuthDoc",
+    "memberof": "src/lib/checkAuthDoc.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/checkAuthDoc.js~checkAuthDoc",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/checkAuthDoc.js",
+    "importStyle": "{checkAuthDoc}",
+    "description": "Returns an authorized document",
+    "lineNumber": 23,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "doc",
+        "description": "any document to be checked"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "me",
+        "description": "current user"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "userRoles",
+        "description": "list of userRoles"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "docRoles",
+        "description": "list of docRoles"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "User",
+        "description": "model context of type User"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "logger",
+        "description": "the logger function"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": "doc - returns the authorized document"
+    },
+    "throws": [
+      {
+        "types": [
+          "Error"
+        ],
+        "description": "throws on a missing authorization"
+      }
+    ]
+  },
+  {
+    "__docId__": 154,
+    "kind": "file",
+    "name": "src/lib/dummyUserContext.js",
+    "content": "// @flow\n\n/**\n * Returns a dummyUserContext\n * mocking User authRole, as it is not existing in this library\n * for usage in the test cases, where we don't have an original \n * User model context\n * @public\n * @return {object} dummyUserContext - returns user.role || null\n */\n\nexport const dummyUserContext = {\n  authRole(user) {\n    return user && user.role ? user.role : null;\n  }\n};\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/dummyUserContext.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 155,
+    "kind": "variable",
+    "name": "dummyUserContext",
+    "memberof": "src/lib/dummyUserContext.js",
+    "static": true,
+    "longname": "src/lib/dummyUserContext.js~dummyUserContext",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/dummyUserContext.js",
+    "importStyle": "{dummyUserContext}",
+    "description": "Returns a dummyUserContext\nmocking User authRole, as it is not existing in this library\nfor usage in the test cases, where we don't have an original \nUser model context",
+    "lineNumber": 12,
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": "dummyUserContext - returns user.role || null"
+    },
+    "type": {
+      "types": [
+        "{\"authRole\": function}"
+      ]
+    }
+  },
+  {
+    "__docId__": 156,
+    "kind": "file",
+    "name": "src/lib/fieldContainsUserId.js",
+    "content": "// @flow\n/* eslint-disable max-len */\n\nimport _ from 'lodash';\n\n/**\n * extracts a UserId from an _id object\n * @private\n * @param {object} userIdObject - user object\n * @return {string} newUserId - id of the user\n */\n\nfunction extractUserId(userIdObject: any): any {\n  let newUserId = '';\n  if (_.isObject(userIdObject)) {\n    Object.keys(userIdObject).forEach(field => {\n      newUserId = userIdObject[field];\n    });\n  } else {\n    newUserId = userIdObject;\n  }\n  return newUserId;\n}\n\n/**\n * checks, if a field contains a user's id\n * returns true, if a field of type array/object/string contains the userId\n * @public\n * @param {object} docRoleField - the field to be checked\n * @param {object} compressedUserId - the user id to test\n * @return {boolean} found - true if it contains the user id\n */\n\nexport function fieldContainsUserId(\n  docRoleField: any,\n  compressedUserId: any\n): boolean {\n  let found = false;\n\n  // empty docRoleField is not a valid docRoleField\n  if (!docRoleField || docRoleField === '' || docRoleField.length === 0) {\n    return false;\n  }\n\n  // empty (compressed) userId is not a valid userId\n  if (\n    !compressedUserId ||\n    compressedUserId === '' ||\n    compressedUserId.toString() === ''\n  ) {\n    return false;\n  }\n\n  // extract userId, if it is a mongoID field\n  const userId = extractUserId(compressedUserId);\n\n  // empty (uncompressed) userId is not a valid userId\n  if (!userId || userId === '') {\n    return false;\n  }\n\n  // docRoleField of type Array\n  if (_.isArray(docRoleField)) {\n    docRoleField.forEach(field => {\n      if (fieldContainsUserId(field, userId)) {\n        found = true;\n      }\n    });\n    if (found) {\n      return true;\n    }\n    return false;\n  }\n\n  // docRoleField of type Object\n  if (_.isObject(docRoleField)) {\n    // For each field in the object\n    Object.keys(docRoleField).forEach(field => {\n      if (\n        fieldContainsUserId(docRoleField[field], userId) ||\n        fieldContainsUserId(field, userId)\n      ) {\n        found = true;\n      }\n    });\n    if (found) {\n      return true;\n    }\n    return false;\n  }\n\n  // docRoleField of type field\n  if (docRoleField.toString() === userId.toString()) {\n    return true;\n  }\n\n  return false;\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/fieldContainsUserId.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 157,
+    "kind": "function",
+    "name": "extractUserId",
+    "memberof": "src/lib/fieldContainsUserId.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/fieldContainsUserId.js~extractUserId",
+    "access": "private",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/lib/fieldContainsUserId.js",
+    "importStyle": null,
+    "description": "extracts a UserId from an _id object  ",
+    "lineNumber": 13,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "userIdObject",
+        "description": "user object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "any"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 158,
+    "kind": "function",
+    "name": "fieldContainsUserId",
+    "memberof": "src/lib/fieldContainsUserId.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/fieldContainsUserId.js~fieldContainsUserId",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/fieldContainsUserId.js",
+    "importStyle": "{fieldContainsUserId}",
+    "description": "checks, if a field contains a user's id\nreturns true, if a field of type array/object/string contains the userId",
+    "lineNumber": 34,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "docRoleField",
+        "description": "the field to be checked"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "compressedUserId",
+        "description": "the user id to test"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": "found - true if it contains the user id"
+    }
+  },
+  {
+    "__docId__": 159,
+    "kind": "file",
+    "name": "src/lib/loggedIn.js",
+    "content": "// @flow\n\n/**\n * Checks, if an user is logged in\n * @param {object} me - current user\n * @return {boolean} loggedIn - true, if user is logged in\n */\n\nexport function loggedIn(me: any): boolean {\n  if (me && me._id && me._id.toString() !== '') {\n    return true;\n  }\n  return false;\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/loggedIn.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 160,
+    "kind": "function",
+    "name": "loggedIn",
+    "memberof": "src/lib/loggedIn.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/loggedIn.js~loggedIn",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/loggedIn.js",
+    "importStyle": "{loggedIn}",
+    "description": "Checks, if an user is logged in",
+    "lineNumber": 9,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "me",
+        "description": "current user"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": "loggedIn - true, if user is logged in"
+    }
+  },
+  {
+    "__docId__": 161,
+    "kind": "file",
+    "name": "src/lib/onAuthRegisterLoader.js",
+    "content": "// @flow\n\nimport DataLoader from 'dataloader';\nimport { findByIds } from 'create-graphql-server-find-by-ids';\nimport { logger } from 'create-graphql-server-logging';\nimport { getLogFilename } from 'create-graphql-server-logging';\n\nimport { NO_USER } from '../constants';\n\n/**\n * similiar to authLog, registers dataloader on successfull authorization\n * and doesn't throw exception in error case  \n * @public\n * @param {string} resolver - log name of a resolver\n * @param {string} mode - crud operation name\n * @param {object} me - current user\n * @param {object} that - it is the 'this' context from a model's constructor\n * @return {Object} return - Object with two functions\n * @property {function} registerLoader - registers the dataloader in the model\n * @property {function} debug - debug() function\n * @property {function} error - error() function\n * }\n */\n\nexport function onAuthRegisterLoader(\n  resolver: string = '',\n  mode: string = '',\n  me?: any = {},\n  that?: any = {}\n): {\n  registerLoader: any,\n  debug: any,\n  error: any\n} {\n  // store the 'this' context of a model's constructor\n  const model = that;\n\n  // procedure like in authLog\n  const logFilename = getLogFilename();\n  const log = logger(logFilename);\n\n  const makeMessage = message =>\n    `Authorize ${mode} '${resolver}' with user '${me.username\n      ? me.username\n      : NO_USER}' ${message}`;\n\n  return {\n    registerLoader: authQuery => {\n      model.authorizedLoader = new DataLoader(ids =>\n        findByIds(model.collection, ids, authQuery)\n      );\n      const resultMessage = `registered authorizedLoader successfully`;\n      log.debug(resultMessage);\n      return resultMessage;\n    },\n\n    debug: message => {\n      const resultMessage = makeMessage(message);\n      log.debug(resultMessage);\n      return resultMessage;\n    },\n\n    error: message => {\n      const resultMessage = makeMessage(message);\n      log.error(resultMessage);\n      return resultMessage;\n    }\n  };\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/onAuthRegisterLoader.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 162,
+    "kind": "function",
+    "name": "onAuthRegisterLoader",
+    "memberof": "src/lib/onAuthRegisterLoader.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/onAuthRegisterLoader.js~onAuthRegisterLoader",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/onAuthRegisterLoader.js",
+    "importStyle": "{onAuthRegisterLoader}",
+    "description": "similiar to authLog, registers dataloader on successfull authorization\nand doesn't throw exception in error case  ",
+    "lineNumber": 25,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "resolver",
+        "description": "log name of a resolver"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "mode",
+        "description": "crud operation name"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "me",
+        "description": "current user"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "that",
+        "description": "it is the 'this' context from a model's constructor"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "registerLoader",
+        "description": "registers the dataloader in the model"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "debug",
+        "description": "debug() function"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "error",
+        "description": "error() function\n}"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "return - Object with two functions"
+    }
+  },
+  {
+    "__docId__": 163,
+    "kind": "file",
+    "name": "src/lib/protectFields.js",
+    "content": "// @flow\n\nimport { dummyUserContext } from './dummyUserContext';\n\n/**\n * Protects a field based on authorizations\n * @public\n * @param {object} me - current user\n * @param {array} authorizedUserRoles - userRoles with authorization\n * @param {array} protectedFields - list of fields only for these userRoles\n * @param {object} inputObject - document with might contain those fields\n * @param {object} User - model context for type User\n * @return {object} result - document with or without the protected fields\n */\n\nexport function protectFields(\n  me: any = {},\n  authorizedUserRoles: Array<string> = [],\n  protectedFields: Array<string> = [],\n  inputObject: any = {},\n  { User } = { User: dummyUserContext }\n): any {\n  // pure function\n  const result = Object.assign({}, inputObject);\n\n  // getting role of current User\n  const role = User.authRole(me);\n\n  // if user is not allowed to access specific fields,\n  // remove field from object...\n  if (!authorizedUserRoles.includes(role)) {\n    protectedFields.forEach(protectedField => {\n      if (result[protectedField]) {\n        delete result[protectedField];\n      }\n    });\n  }\n\n  return result;\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/protectFields.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 164,
+    "kind": "function",
+    "name": "protectFields",
+    "memberof": "src/lib/protectFields.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/protectFields.js~protectFields",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/protectFields.js",
+    "importStyle": "{protectFields}",
+    "description": "Protects a field based on authorizations",
+    "lineNumber": 16,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "me",
+        "description": "current user"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "authorizedUserRoles",
+        "description": "userRoles with authorization"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "protectedFields",
+        "description": "list of fields only for these userRoles"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "inputObject",
+        "description": "document with might contain those fields"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "User",
+        "description": "model context for type User"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": "result - document with or without the protected fields"
+    }
+  },
+  {
+    "__docId__": 165,
+    "kind": "file",
+    "name": "src/lib/queryForRoles.js",
+    "content": "/* eslint-disable max-len */\n// @flow\n\nimport { NO_ROLE } from '../constants';\nimport { userRoleAuthorized } from './userRoleAuthorized';\nimport { dummyUserContext } from './dummyUserContext';\nimport { loggedIn } from './loggedIn';\nimport { authlog } from './authlog';\n\nconst defaultLogger = authlog();\n\n/**\n * Prepare a query object for mongodb operations with authorization queries\n * creates an authQuery object with additional \n * query arguments, to implement authorization restrictions for mongodb access\n * @public\n * @param {object} me - current user\n * @param {array} userRoles - list of userRoles\n * @param {array} docRoles - list of docRoles\n * @param {object} User - model context for type User\n * @param {object} logger - logger function\n * @return {object} authQuery - authQuery for data operations\n * @example \n *   const authQuery = \n *     queryForRoles(me, userRoles, docRoles, { User }, authlog(resolver, mode, me ) );\n */\n\nexport function queryForRoles(\n  me: any = {},\n  userRoles: Array<string> = [],\n  docRoles: Array<string> = [],\n  { User } = { User: dummyUserContext },\n  logger: any = defaultLogger\n): any {\n  // get current User's role\n  const role = User.authRole(me);\n\n  // Build query for the case: The logged in user's role is authorized\n  if (userRoleAuthorized(me, userRoles, { User }, logger)) {\n    // empty authQuery means, do operation with no access restrictions\n    const authQuery = {};\n    if (logger.registerLoader) {\n      // on authorization, register authorizedLoader (dataloader) method\n      // in the model's context, is only used in constructors\n      // with the alternative logging function 'onAuthRegisterLoader'\n      logger.registerLoader(authQuery);\n    }\n    return authQuery;\n  }\n\n  // Build query for the case: The user is listed in any document field\n  const query = { $or: [] };\n  // makes only sense, if user is logged in - otherwise no userId\n  if (loggedIn(me)) {\n    // prepare selection criterias as 'authQuery' object\n    // for later mongodb 'find(...baseQuery,  ...authQuery)'\n    //                               ...  AND ...{ field1 OR field2}\n    // which will be also considered during the database access\n    // as an '$or: [ { field1: userId}, { field2: userId} ]'\n    // with all document roles as fields for the later selection.\n    // At least one of those fields must match the userId,\n    // otherwise, whether no data found or not authorized to access data\n    docRoles.forEach(docRole => query.$or.push({ [docRole]: me._id }));\n    // return this authQuery only, if there was at least 1 field added\n    // otherwise it will result in an unlimited access\n    if (query.$or.length > 0) {\n      if (logger.registerLoader) {\n        // on authorization, register authorizedLoader (dataloader) method\n        // in the model's context, is only used in constructors\n        // with the alternative logging function 'onAuthRegisterLoader'\n        logger.registerLoader(query);\n      }\n      // for easier debugging write into the authorzation logs\n      logger.debug(\n        `and role: '${role ? role : NO_ROLE}' with \n        authQuery: ${JSON.stringify(query, null, 2)}`\n      );\n      // return the query as authQuery for later selection\n      return query;\n    }\n  }\n\n  // Whether...\n  // if the logger = authLog as the transferred logger, then:\n  // Not Authorized - throw exception in logger.error\n\n  // ...or...\n\n  // if the logger = onAuthRegisterLoader as the transferred logger, then:\n  // Not Authorized - write only message in logger.error\n  // This one is only used in constructors,\n  // avoiding errors during initial graphql setup\n  const message = `and role: '${role}' is not authorized.`;\n  logger.error(message);\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/queryForRoles.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 166,
+    "kind": "variable",
+    "name": "defaultLogger",
+    "memberof": "src/lib/queryForRoles.js",
+    "static": true,
+    "longname": "src/lib/queryForRoles.js~defaultLogger",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/lib/queryForRoles.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 167,
+    "kind": "function",
+    "name": "queryForRoles",
+    "memberof": "src/lib/queryForRoles.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/queryForRoles.js~queryForRoles",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/queryForRoles.js",
+    "importStyle": "{queryForRoles}",
+    "description": "Prepare a query object for mongodb operations with authorization queries\ncreates an authQuery object with additional \nquery arguments, to implement authorization restrictions for mongodb access",
+    "examples": [
+      "  const authQuery = \n    queryForRoles(me, userRoles, docRoles, { User }, authlog(resolver, mode, me ) );"
+    ],
+    "lineNumber": 28,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "me",
+        "description": "current user"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "userRoles",
+        "description": "list of userRoles"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "docRoles",
+        "description": "list of docRoles"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "User",
+        "description": "model context for type User"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "logger",
+        "description": "logger function"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": "authQuery - authQuery for data operations"
+    }
+  },
+  {
+    "__docId__": 168,
+    "kind": "file",
+    "name": "src/lib/userRoleAuthorized.js",
+    "content": "// @flow\n\nimport { WORLD, NO_ROLE } from '../constants';\nimport { dummyUserContext } from './dummyUserContext';\nimport { authlog } from './authlog';\n\nconst defaultLogger = authlog();\n\n/**\n * Is a user's role authorized for a document\n * You can use also the role 'world', to authorize everyone\n * @public\n * @param {object} me - current user\n * @param {array} userRoles - list of userRoles\n * @param {object} User - model context for type User\n * @param {object} logger - logger function\n * @return {boolean} authorized - true, if userRole is authorized\n */\n\nexport function userRoleAuthorized(\n  me: any = {},\n  userRoles: Array<string> = [],\n  { User } = { User: dummyUserContext },\n  logger: any = defaultLogger\n): boolean {\n  // get current User's role\n  const role = User.authRole(me);\n\n  // determine, if the given userRoles authorize the current User by its role\n  if (\n    // userRole: 'world' should authorize everyone - known and unknown users\n    userRoles.includes(WORLD) ||\n    // or there must be a userRole given, and current user must have a role\n    // and the current user's role must be in the given userRoles\n    (role && role !== '' && userRoles.length > 0 && userRoles.includes(role))\n  ) {\n    // => authorized\n    logger.debug(`and role '${role ? role : NO_ROLE}' is authorized`);\n    return true;\n  }\n\n  // => not authorized\n  return false;\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/lib/userRoleAuthorized.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 169,
+    "kind": "variable",
+    "name": "defaultLogger",
+    "memberof": "src/lib/userRoleAuthorized.js",
+    "static": true,
+    "longname": "src/lib/userRoleAuthorized.js~defaultLogger",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/lib/userRoleAuthorized.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 170,
+    "kind": "function",
+    "name": "userRoleAuthorized",
+    "memberof": "src/lib/userRoleAuthorized.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/userRoleAuthorized.js~userRoleAuthorized",
+    "access": "public",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/lib/userRoleAuthorized.js",
+    "importStyle": "{userRoleAuthorized}",
+    "description": "Is a user's role authorized for a document\nYou can use also the role 'world', to authorize everyone",
+    "lineNumber": 20,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "me",
+        "description": "current user"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "userRoles",
+        "description": "list of userRoles"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "User",
+        "description": "model context for type User"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "logger",
+        "description": "logger function"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": "authorized - true, if userRole is authorized"
+    }
+  },
+  {
+    "__docId__": 171,
+    "kind": "file",
+    "name": "src/utilities.js",
+    "content": "// @flow\n\nimport { parse as recastParse } from 'recast';\nimport * as babylon from 'babylon';\n\nconst babylonParser = {\n  parse(code) {\n    return babylon.parse(code, {\n      sourceType: 'module',\n      plugins: ['objectRestSpread']\n    });\n  }\n};\n\n/**\n * parses a Code into an abstract syntax tree (AST)\n * @private\n * @param {string} source - source code\n * @return {Object} AST - abstract syntax tree converted source code\n */\n\nexport function parseCode(source: string) {\n  return recastParse(source, { parser: babylonParser });\n}\n\n/**\n * prepare roles for code generator\n * convert array to String value\n * replace \" by '\n * @private\n * @param {array} role - name of role\n * @return {string} roleString - role string\n */\n\nexport function prep(role: any): string {\n  return JSON.stringify(role).replace(/\"/g, \"'\").replace(/,/g, ', ');\n}\n\n/**\n * converts first character of string to lower case\n * @private\n * @param {string} str - string\n * @return {string} converted_string - first character is lower case\n */\n\nexport function lcFirst(str: string): string {\n  return str[0].toLowerCase() + str.substring(1);\n}\n\n/**\n * converts first character of string to upper case\n * @private\n * @param {string} str - string\n * @return {string} converted_string - first character is upper case\n */\n\nexport function ucFirst(str: string): string {\n  return str[0].toUpperCase() + str.substring(1);\n}\n",
+    "static": true,
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/src/utilities.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 172,
+    "kind": "variable",
+    "name": "babylonParser",
+    "memberof": "src/utilities.js",
+    "static": true,
+    "longname": "src/utilities.js~babylonParser",
+    "access": "public",
+    "export": false,
+    "importPath": "create-graphql-server-authorization/src/utilities.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"parse\": function}"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 173,
+    "kind": "function",
+    "name": "parseCode",
+    "memberof": "src/utilities.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utilities.js~parseCode",
+    "access": "private",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/utilities.js",
+    "importStyle": "{parseCode}",
+    "description": "parses a Code into an abstract syntax tree (AST)",
+    "lineNumber": 22,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "source",
+        "description": "source code"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "AST - abstract syntax tree converted source code"
+    }
+  },
+  {
+    "__docId__": 174,
+    "kind": "function",
+    "name": "prep",
+    "memberof": "src/utilities.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utilities.js~prep",
+    "access": "private",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/utilities.js",
+    "importStyle": "{prep}",
+    "description": "prepare roles for code generator\nconvert array to String value\nreplace \" by '",
+    "lineNumber": 35,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "role",
+        "description": "name of role"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "roleString - role string"
+    }
+  },
+  {
+    "__docId__": 175,
+    "kind": "function",
+    "name": "lcFirst",
+    "memberof": "src/utilities.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utilities.js~lcFirst",
+    "access": "private",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/utilities.js",
+    "importStyle": "{lcFirst}",
+    "description": "converts first character of string to lower case",
+    "lineNumber": 46,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "str",
+        "description": "string"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "converted_string - first character is lower case"
+    }
+  },
+  {
+    "__docId__": 176,
+    "kind": "function",
+    "name": "ucFirst",
+    "memberof": "src/utilities.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utilities.js~ucFirst",
+    "access": "private",
+    "export": true,
+    "importPath": "create-graphql-server-authorization/src/utilities.js",
+    "importStyle": "{ucFirst}",
+    "description": "converts first character of string to upper case",
+    "lineNumber": 57,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "str",
+        "description": "string"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "converted_string - first character is upper case"
+    }
+  },
+  {
+    "kind": "index",
+    "content": "[![npm version](https://badge.fury.io/js/create-graphql-server-authorization.svg)](http://badge.fury.io/js/create-graphql-server-authorization) [![Build Status](https://travis-ci.org/tobkle/create-graphql-server-authorization.svg?branch=master)](https://travis-ci.org/tobkle/create-graphql-server-authorization) [![Coverage Status](https://coveralls.io/repos/github/tobkle/create-graphql-server-authorization/badge.svg?branch=master)](https://coveralls.io/github/tobkle/create-graphql-server-authorization?branch=master)\n\n# create-graphql-server-authorization\n\nAdds Authorization Logic to the GraphQL-Server-Generator: **create-graphql-server**.\n\nIf you are using create-grapqhl-server, you come to a point, when you need some kind of authorization on your GraphQL server. This package provides a possible way to do authorization checks.\n\nTherefore it enhances the type schema with two additional GraphQL directives:\n* @authorize\n* @authRole\n\nUse these two directives in your GraphQL type definitions. Then use the ```create-graphql-server add-type <your-type>``` command to generate the according GraphQL server code with already injected generated authorization logic code.\n\n## Usage\nIt provides Authorization checks for type authorization.\n\nIt adds the two GraphQL directives @authorize and @authRole to the create-graphql-server type system e.g.:\n```javascript\ntype User\n@authorize(\n  admin: [\"create\", \"read\", \"update\", \"delete\"],\n  this: [\"readOne\", \"update\", \"delete\"]\n)\n{\n  username: String!\n  role: String! @authRole(for: [\"admin\"]) \n  bio: String!\n}\n```\n\nThe type \"User\" is treated as a special type. It adds automatically the input field \"password\" and \"createdBy\" and \"updatedBy\" fields.\n\n## Installation\n```bash\ngit clone git@github.com:tmeasday/create-graphql-server.git\ncd create-graphql-server\nyarn add create-graphql-server-authorization\n```\n\nAdd it to the generator files here:\n* generate/index.js\n* generate/model/index.js\n* generate/resolver/index.js\n\nIn \"generate/index.js\"\n```javascript\n// We are in an intermediate step where we aren't actually generating files\n// but we are generating code.\nimport { parse, print } from 'graphql';\nimport { lcFirst } from './util/capitalization';\nimport generateModel from './model';\nimport generateResolver from './resolvers';\nimport generateSchema from './schema';\nimport { \n  enhanceSchemaForAuthorization\n} from 'create-graphql-server-authorization';                                    // <=== here\n\nexport default function generate(inputSchemaStr) {\n  const inputSchema = parse(inputSchemaStr);\n  const type = inputSchema.definitions[0];\n  const TypeName = type.name.value;\n  const typeName = lcFirst(TypeName);\n  const outputSchema = generateSchema(inputSchema);\n  const outputSchemaWithAuth = enhanceSchemaForAuthorization(outputSchema);       // <=== here\n  const outputSchemaStr = print(outputSchemaWithAuth);                            // <=== here\n  const resolversStr = generateResolver(inputSchema);\n  const modelStr = generateModel(inputSchema);\n  \n  return {\n    typeName,\n    TypeName,\n    outputSchemaStr,\n    resolversStr,\n    modelStr,\n  };\n}\n```\n\nIn \"generate/model/index.js\"\n```javascript\nimport { print } from 'recast';\nimport { templateToAst } from '../util/read';\nimport getCode from '../util/getCode';\nimport { MODEL } from '../util/constants';\nimport { modulePath } from 'create-graphql-server-authorization';         // <=== here\n\nexport default function generateModel(inputSchema) {\n\n  const templateCode = getCode(MODEL, {\n    inputSchema,\n    basePath: [__dirname, 'templates'],\n    authPath: [modulePath, 'templates', 'model', 'auth']                  // <=== here\n  });\n\n  // validate syntax of generated template code\n  const replacements = {};\n  const ast = templateToAst(templateCode, replacements);\n  return print(ast, { trailingComma: true }).code;\n}\n\n```\n\nIn \"generate/resolver/index.js\"\n```javascript\n import { print } from 'recast';\n import getCode from '../util/getCode';\n import { templateToAst } from '../util/read';\n import { RESOLVER } from '../util/constants';\n import { modulePath } from 'create-graphql-server-authorization';       // <=== here\n\nexport default function generateResolver(inputSchema) {\n\n  const templateCode = getCode(RESOLVER, {\n    inputSchema,\n    basePath: [__dirname, 'templates'],\n    authPath: [modulePath, 'templates','resolver', 'auth']               // <=== here\n  });\n\n  // validate syntax of generated template code\n  const replacements = {};\n  const ast = templateToAst(templateCode, replacements);\n  return print(ast, { trailingComma: true }).code;\n}\n\n```\n\n## Documentation\n[API Documentation](https://tobkle.github.io/create-graphql-server-authorization/)\n\n## Tests\n```bash\nyarn test\n```\n\n## Contributing\nIn lieu of a formal style guide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code.\n\n",
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/README.md",
+    "name": "./README.md",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "packageJSON",
+    "content": "{\n  \"name\": \"create-graphql-server-authorization\",\n  \"version\": \"0.0.44\",\n  \"description\": \"Authorization package for create-graphql-server\",\n  \"contributors\": [\n    \"Tobias Klemmer <tobias@klemmer.info> (https://www.klemmer.info)\"\n  ],\n  \"main\": \"index.js\",\n  \"author\": \"Tobias Klemmer <tobias@klemmer.info> (https://www.klemmer.info)\",\n  \"license\": \"MIT\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/tobkle/create-graphql-server-authorization.git\"\n  },\n  \"keywords\": [\n    \"create-graphql-server\",\n    \"authorization\"\n  ],\n  \"bugs\": {\n    \"url\": \"https://github.com/tobkle/create-graphql-server-authorization/issues\"\n  },\n  \"config\": {\n    \"logfile\": \"log/all-logs-readable.log\",\n    \"loglevel\": \"debug\",\n    \"maxsize\": 5,\n    \"maxfiles\": 5\n  },\n  \"options\": {\n    \"mocha\": \"--require ./resources/mocha-bootload --check-leaks --full-trace src/**/__tests__/**/*-test.js\"\n  },\n  \"scripts\": {\n    \"test\": \"npm run lint && npm run check && npm run testonly\",\n    \"testonly\": \"babel-node ./node_modules/.bin/_mocha $npm_package_options_mocha\",\n    \"t\": \"babel-node ./node_modules/.bin/_mocha --require ./resources/mocha-bootload\",\n    \"lint\": \"eslint --fix src || (printf '\\\\033[33mTry: \\\\033[7m npm run lint -- --fix \\\\033[0m\\\\n' && exit 1)\",\n    \"check\": \"flow check\",\n    \"check-cover\": \"for file in {src/*.js,src/**/*.js}; do echo $file; flow coverage $file; done\",\n    \"build\": \"babel src --optional runtime --ignore __tests__ --out-dir dist/ && cp package.json dist/ && npm run build-dot-flow\",\n    \"build-dot-flow\": \"find ./src -name '*.js' -not -path '*/__tests__*' | while read filepath; do cp $filepath `echo $filepath | sed 's/\\\\/src\\\\//\\\\/dist\\\\//g'`.flow; done\",\n    \"watch\": \"babel-node ./resources/watch.js\",\n    \"cover\": \"babel-node ./node_modules/.bin/isparta cover --root src --report html _mocha -- $npm_package_options_mocha\",\n    \"cover:lcov\": \"babel-node ./node_modules/.bin/isparta cover --root src --report lcovonly _mocha -- $npm_package_options_mocha\",\n    \"preversion\": \". ./resources/checkgit.sh && npm test\",\n    \"prepublish\": \". ./resources/prepublish.sh\",\n    \"gitpublish\": \". ./resources/gitpublish.sh\",\n    \"prettier\": \"node_modules/.bin/prettier src/**/**/*.js --write\",\n    \"esdoc\": \"node_modules/.bin/esdoc -c .esdoc.json\",\n    \"debug-model\": \"babel-node --inspect src/__tests__/debug/getModelCode-debug.js\",\n    \"debug-resolver\": \"babel-node --inspect src/__tests__/debug/getResolverCode-debug.js\",\n    \"nodemon\": \"nodemon -L --watch src --watch templates src/__tests__/debug/getModelCode-debug.js --exec babel-node\"\n  },\n  \"homepage\": \"https://github.com/tobkle/create-graphql-server-authorization#readme\",\n  \"devDependencies\": {\n    \"babel-cli\": \"6.24.1\",\n    \"babel-eslint\": \"7.2.3\",\n    \"babel-plugin-syntax-async-functions\": \"6.13.0\",\n    \"babel-plugin-syntax-async-generators\": \"6.13.0\",\n    \"babel-plugin-transform-class-properties\": \"6.24.1\",\n    \"babel-plugin-transform-flow-strip-types\": \"6.22.0\",\n    \"babel-plugin-transform-object-rest-spread\": \"6.23.0\",\n    \"babel-preset-env\": \"^1.5.2\",\n    \"bson-objectid\": \"^1.1.5\",\n    \"chai\": \"4.1.1\",\n    \"chai-fs\": \"^1.0.0\",\n    \"chai-json-equal\": \"0.0.1\",\n    \"chai-spies-next\": \"^0.8.0\",\n    \"chai-subset\": \"1.5.0\",\n    \"coveralls\": \"^2.13.1\",\n    \"cross-env\": \"^5.0.5\",\n    \"dataloader\": \"^1.3.0\",\n    \"esdoc\": \"^1.0.1\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-flow-type-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^4.5.0\",\n    \"eslint-config-prettier\": \"^2.3.0\",\n    \"eslint-config-react-app\": \"^2.0.0\",\n    \"eslint-plugin-babel\": \"4.1.2\",\n    \"eslint-plugin-flowtype\": \"2.35.0\",\n    \"eslint-plugin-import\": \"^2.7.0\",\n    \"eslint-plugin-prettier\": \"^2.1.2\",\n    \"eslint-plugin-react\": \"^7.3.0\",\n    \"flow-bin\": \"0.52.0\",\n    \"isparta\": \"4.0.0\",\n    \"mocha\": \"3.5.0\",\n    \"mocha-lcov-reporter\": \"^1.3.0\",\n    \"mongo-mock\": \"^2.4.1\",\n    \"prettier\": \"^1.5.3\",\n    \"sane\": \"2.0.0\"\n  },\n  \"dependencies\": {\n    \"assert\": \"^1.4.1\",\n    \"babylon\": \"^6.18.0\",\n    \"chai-string\": \"^1.4.0\",\n    \"create-graphql-server-find-by-ids\": \"^0.0.4\",\n    \"create-graphql-server-logging\": \"^0.0.3\",\n    \"global\": \"^4.3.2\",\n    \"graphql\": \"^0.11.1\",\n    \"handlebars\": \"^4.0.10\",\n    \"iterall\": \"^1.1.0\",\n    \"lodash\": \"4.16.4\",\n    \"lodash.clonedeep\": \"^4.5.0\",\n    \"lodash.includes\": \"^4.3.0\",\n    \"lodash.merge\": \"^4.6.0\",\n    \"mongodb\": \"^2.2.31\",\n    \"recast\": \"^0.12.6\",\n    \"winston\": \"^2.3.1\"\n  }\n}\n",
+    "longname": "/Users/Toby/MICRO/create-graphql-server-authorization/package.json",
+    "name": "package.json",
+    "static": true,
+    "access": "public"
+  }
+]
